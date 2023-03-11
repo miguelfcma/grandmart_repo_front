@@ -1,0 +1,103 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3 {
+    margin: 0;
+  }
+  
+  main {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  section {
+    margin: 3em 0;
+  }
+  
+  .destacados-grid, .ofertas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2em;
+  }
+  
+  article {
+    border: 1px solid #ccc;
+    padding: 1em;
+  }
+  
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  button {
+    background-color: #1c6bc3;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+  }
+  
+  /* Estilos específicos */
+  #hero {
+    background-color: #1c6bc3;
+    color: white;
+    text-align: center;
+    padding: 5em 0;
+  }
+  
+  #hero h1 {
+    font-size: 3em;
+  }
+  
+  #hero p {
+    font-size: 1.5em;
+    margin: 1em 0 2em;
+  }
+  
+  #hero button {
+    font-size: 1.2em;
+    padding: 0.7em 1.5em;
+    border-radius: 20px;
+  }
+  
+  #destacados h2, #ofertas h2 {
+    text-align: center;
+  }
+  
+  #destacados article h3, #ofertas article h3 {
+    font-size: 1.5em;
+    margin: 0.5em 0;
+  }
+  
+  #destacados article p, #ofertas article p {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+  }
+  
+  #ofertas article p {
+    color: #1c6bc3;
+  }
+  
+  #destacados article button, #ofertas article button {
+    font-size: 1.2em;
+    padding: 0.7em 1.5em;
+    border-radius: 20px;
+    background-color: #1c6bc3;
+  }
+  
+  #ofertas article button {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  footer {
+    background-color: #f7f7f7;
+    padding: 1em 0;
+    text-align: center;
+  }
+  

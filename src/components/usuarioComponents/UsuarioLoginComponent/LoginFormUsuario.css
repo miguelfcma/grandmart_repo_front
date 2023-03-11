@@ -1,0 +1,122 @@
+.navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    height: 60px;
+    padding: 0 20px;
+  }
+  
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+  }
+  
+  
+  .login-form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 89vh;
+      background-color: #f4f4f4;
+      font-weight: bold;
+      }
+    
+    .login-form {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(28, 107, 195);
+      padding: 30px;
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .login-form h1 {
+      margin-top: 0;
+      margin-bottom: 30px;
+      font-size: 30px;
+      color: #1c6bc3;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    
+    .btn-login {
+      background-color: #1c6bc3;
+      color: #fff;
+      padding: 10px 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .login-form-links {
+      margin-top: 20px;
+      color: #555555;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .login-links a {
+      
+      color: #1c6bc3;
+      transition: color 0.3s ease;
+      margin-right: 10px;
+      text-decoration: none;
+    }
+    
+    .login-links a:hover {
+      color: #13579c;
+    }
+    
+    .login-links span {
+      margin: 0 10px;
+    }
+    
+    .back-button {
+      text-decoration: none;
+      background-color: white; 
+      color: black !important;
+      border: 2px solid #1c6bc3;
+      padding: 6px 8px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      }    
+      
+      .back-button:hover {
+      text-decoration: none;
+      background-color: #1c6bc3;
+      color: white !important; 
+      padding: 6px 8px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      }
