@@ -16,6 +16,8 @@ const firebaseConfig = {
 //ESTE ES UN CAMBIO DE RAMITA
 //brayan es puto
 //ESTE ES EL NUEVO SECSO EN EL OXXO
+
+//MIGUE LE GUSTA LA VERGA
 const app = initializeApp(firebaseConfig);
 
 export default app;
