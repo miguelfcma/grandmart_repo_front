@@ -1,9 +1,14 @@
 import { useContext, useState, useEffect } from "react";
 
-import { getCategoriasRequest,deleteCategoriaRequest,updateCategoriaRequest,createCategoriaRequest } from "../../../API/categorias.api";
+import {
+  getCategoriasRequest,
+  deleteCategoriaRequest,
+  updateCategoriaRequest,
+  createCategoriaRequest,
+  getCategoriaRequest,
+} from "../../../API/categorias.api";
 
 import { CategoriaContext } from "./CategoriaContext";
-
 
 export const useCategorias = () => {
   const context = useContext(CategoriaContext);
@@ -30,10 +35,22 @@ export const CategoriaContextProvider = ({ children }) => {
     }
   }
 
+  const getCategoria = async(id) =>{
+    try {
+      const response = await getCategoriaRequest(id);
+      console.log(response)
+      return response
+    } catch (error) {
+      console.error(error);
+      return "";
+    }
+  }
   const deleteCategoria = async (id) => {
     try {
       const response = await deleteCategoriaRequest(id);
-      setCategorias(categorias.filter((categoria) => categoria.id !== id));
+      if (response.status == 204) {
+        setCategorias(categorias.filter((categoria) => categoria.id !== id));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -90,6 +107,7 @@ export const CategoriaContextProvider = ({ children }) => {
         deleteCategoria,
         createCategoria,
         updateCategoria,
+        getCategoria
       }}
     >
       {children}

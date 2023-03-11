@@ -1,55 +1,40 @@
+import { useState, useEffect } from "react";
+import { useCategorias } from "./CategoriasContext/CategoriaProvider";
 
-export function FormCategoria() {
-    const {createUsuario, updateUsuario} = useUsuarios();
+export const FormCategoria = ({ idCategoria, onSubmit }) => {
+  const { getCategoria } = useCategorias();
 
-    const [nombre, setNombre] = useState("");
+  const [categoria, setCategoria] = useState({ id: idCategoria, nombre: "", idParent: "" });
 
-
-  
-
-  
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-  
-      const formData = {
-        nombre: nombre,
-      };
-  
-      try {
-        let status;
-  
-       
-        status = await createUsuario(formData);
-     
-        console.log(status)
-        if (status == true) {
-          setNombre("");
-          onSubmit();
-        } else {
-          window.alert("Ha ocurrido un error al procesar la solicitud. Inténtelo de nuevo más tarde.");
-        }
-      } catch (error) {
-        console.error(error);
-      }
+  useEffect(() => {
+    const obtenerCategoria = async () => {
+      const data = await getCategoria(idCategoria);
+      setCategoria(data);
     };
-  
-    return (
-      <>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="nombre">
-            Nombre:
-            <input
-              type="text"
-              id="nombre"
-              value={nombre}
-              onChange={(event) => setNombre(event.target.value)}
-              required
-            />
-          </label>
- 
-          <br />
-          <button type="submit">Enviar</button>
-        </form>
-      </>
-    );
+    obtenerCategoria();
+  }, [getCategoria, idCategoria]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await onSubmit(categoria);
+    console.log(response);
   };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        ID:
+        <input type="text" value={categoria.id} readOnly />
+      </label>
+      <label>
+        Nombre:
+        <input type="text" value={categoria.nombre} onChange={(e) => setCategoria({ ...categoria, nombre: e.target.value })} />
+      </label>
+      <label>
+        ID del padre:
+        <input type="text" value={categoria.idParent} onChange={(e) => setCategoria({ ...categoria, idParent: e.target.value })} />
+      </label>
+      <button type="submit">Guardar</button>
+    </form>
+  );
+};
