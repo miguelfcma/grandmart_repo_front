@@ -14,7 +14,7 @@ const firebaseConfig = {
   appId: "1:589248633150:web:170209812c5aaffc2ef46f",
 };
 
-
+//brayan es puto
 //ESTE ES EL NUEVO SECSO EN EL OXXO
 const app = initializeApp(firebaseConfig);
 
