@@ -15,7 +15,7 @@ const firebaseConfig = {
 };
 
 
-//SECSOOOOOOOOOO
+//ESTE ES EL NUEVO SECSO EN EL OXXO
 const app = initializeApp(firebaseConfig);
 
 export default app;
