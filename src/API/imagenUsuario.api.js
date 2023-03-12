@@ -6,7 +6,13 @@ export const getImagenesRequest = async () => {
     const response = await axios.get(API_BASE_URL);
     return response.data;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
+    console.error(error.response.data.mensaje); // Aquí se imprime el mensaje de error
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
   }
 };
 
@@ -23,11 +29,16 @@ export const createImagenRequest = async (imagen) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    
+
     return response;
   } catch (error) {
-    console.error(error);
-    return error;
+    //console.error(error);
+    console.error(error.response.data.mensaje); // Aquí se imprime el mensaje de error
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
   }
 };
 
@@ -44,7 +55,13 @@ export const updateImagenRequest = async (id, imagen) => {
     });
     return response;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
+    console.error(error.response.data.mensaje); // Aquí se imprime el mensaje de error
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
   }
 };
 
@@ -53,6 +70,12 @@ export const deleteImagenRequest = async (id) => {
     const response = await axios.delete(`${API_BASE_URL}/${id}`);
     return response.data;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
+    console.error(error.response.data.mensaje); // Aquí se imprime el mensaje de error
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
   }
 };
