@@ -55,7 +55,7 @@
 }
 
 .navbar-links a:hover {
-  color: #1c6bc3;
+  color: #ffffff;
   font-size: 17px;
   overflow: hidden; /* evita que el texto desborde del contenedor */
 }
@@ -78,7 +78,8 @@
 }
 
 .dropdown-content a:hover {
-  background-color: #ccc;
+  background-color: #c0c0c0;
+  color: #1256a3;
 }
 
 .dropdown:hover .dropdown-content {

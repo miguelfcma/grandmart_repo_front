@@ -1,4 +1,5 @@
 
+
 export function Content() {
   return (
     <div className="content-container">
@@ -7,4 +8,3 @@ export function Content() {
     </div>
   );
 }
-

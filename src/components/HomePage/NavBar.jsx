@@ -39,7 +39,7 @@ export function Navbar() {
             <li>
               <a href="/login">
                 <div className="iconuser">
-                  <box-icon name="user" color="#1c6bc3"></box-icon>
+                  <box-icon name="user"></box-icon>
                 </div>
                 Sesión
               </a>

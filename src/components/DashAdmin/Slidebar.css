@@ -1,33 +1,32 @@
 .sidebar-container {
-    background-color: #f4f4f4;
-    height: 100%;
-    padding: 10px;
-    width: 200px;
-  }
-  
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  li a {
-    color: black;
-    display: block;
-    padding: 8px 16px;
-    text-decoration: none;
-  }
-  
-  li a:hover {
-    background-color: #ddd;
-  }
-  
-  .user-options {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  .user-options p {
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #1c6bc3;
+  padding: 10px;
+  width: 150px; /* Reducimos el ancho a 180px */
+}
+
+li a {
+  color: white; /* Cambiamos el color de texto a blanco */
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #154b85; /* Cambiamos el color de fondo al hacer hover */
+}
+
+.user-options {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.user-options p {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: white; /* Cambiamos el color de texto a blanco */
+  text-align: center;
+}
