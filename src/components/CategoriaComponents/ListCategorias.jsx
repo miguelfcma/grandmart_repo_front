@@ -1,56 +1,84 @@
 import { useCategorias } from "./CategoriasContext/CategoriaProvider";
 import { useEffect, useState } from "react";
-import "./ListCategorias.css"; //Importar archivo CSS
+import { Modal } from "../Modal/Modal";
+import { FormCategoria } from "./FormCategoria";
+import "./ListCategorias.css";
 
 export function ListCategorias() {
-  const { loadCategorias, categorias } = useCategorias();
-  const [categoriasArbol, setCategoriasArbol] = useState([]);
+  const { loadCategorias, categorias, deleteCategoria } = useCategorias();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formularioEnviado, setFormularioEnviado] = useState(false);
+  const [categoriaEditando, setCategoriaEditando] = useState(null);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null); // Nuevo estado para la categoría seleccionada
 
-  //Apenas entre a esta pagina se ejecutara esta función
   useEffect(() => {
     loadCategorias();
   }, []);
 
-  //Crear un objeto que represente el árbol de categorías
-  useEffect(() => {
-    const categoriasMap = new Map();
-    categorias.forEach((categoria) => {
-      if (!categoria.id_parent) {
-        // La categoría no tiene padre, es una raíz
-        categoriasMap.set(categoria.id, { ...categoria, hijos: [] });
-      } else {
-        // La categoría tiene un padre
-        if (!categoriasMap.has(categoria.id_parent)) {
-          // Si el padre no ha sido agregado al mapa aún, crearlo
-          categoriasMap.set(categoria.id_parent, { hijos: [] });
-        }
-        categoriasMap.get(categoria.id_parent).hijos.push(categoria);
-      }
-    });
-    setCategoriasArbol(Array.from(categoriasMap.values()));
-  }, [categorias]);
-
-  function renderCategoria(categoria) {
-    return (
-      <li key={categoria.id}>
-        {categoria.nombre}
-        {categoria.hijos && categoria.hijos.length > 0 && (
-          <ul>{categoria.hijos.map(renderCategoria)}</ul>
-        )}
-      </li>
-    );
+  function handleOpenModal(categoria) {
+    setIsModalOpen(true);
+    setCategoriaSeleccionada(categoria); // Actualiza la categoría seleccionada
   }
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+    setFormularioEnviado(false);
+    setCategoriaSeleccionada(null); // Resetea la categoría seleccionada al cerrar la ventana modal
+  }
+
+  function handleSubmit() {
+    setFormularioEnviado(true);
+  }
+
+  useEffect(() => {
+    if (formularioEnviado) {
+      handleCloseModal();
+    }
+  }, [formularioEnviado]);
 
   return (
     <>
+      
       <h1 className="titulo">Lista de categorias</h1>
-      {categoriasArbol.length === 0 ? (
-        <h2 className="subtitulo">No hay categorías registradas</h2>
-      ) : (
-        <ul className="lista-categorias">
-          {categoriasArbol.map(renderCategoria)}
-        </ul>
-      )}
+      <table className="tabla-categorias">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoría Padre</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {categorias.map((categoria) => (
+            <tr key={categoria.id}>
+              <td>{categoria.id}</td>
+              <td>{categoria.nombre}</td>
+              <td>{categoria.id_parent || "-"}</td>
+              <td>
+                <button onClick={() => handleOpenModal(categoria)}>
+                  Editar
+                </button>
+              </td>
+              <td>
+                <button onClick={() => deleteCategoria(categoria.id)}>
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        {categoriaSeleccionada && ( // Renderiza el formulario sólo si hay una categoría seleccionada
+          <FormCategoria
+            onSubmit={handleSubmit}
+            categoria={categoriaSeleccionada} // Pasa la categoría seleccionada como propiedad al formulario
+          />
+        )}
+        <button onClick={handleCloseModal}>Cerrar ventana</button>
+      </Modal>
     </>
   );
 }

@@ -24,10 +24,12 @@ export const UsuarioContextProvider = ({ children }) => {
   async function loadUsuarios() {
     try {
       const response = await getUsuariosRequest();
-      if (response === undefined) {
+
+      if (response.status === 200) {
+        setUsuarios(response.data);
+      } else {
         throw new Error("No se pudo obtener la lista de usuarios");
       }
-      setUsuarios(response);
     } catch (error) {
       console.error(error);
     }
@@ -36,7 +38,9 @@ export const UsuarioContextProvider = ({ children }) => {
   const deleteUsuario = async (id) => {
     try {
       const response = await deleteUsuarioRequest(id);
-      setUsuarios(usuarios.filter((usuario) => usuario.id !== id));
+      if (response.status == 204) {
+        setUsuarios(usuarios.filter((usuario) => usuario.id !== id));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -76,7 +80,9 @@ export const UsuarioContextProvider = ({ children }) => {
     // Agrega la función refreshUsuarios.
     try {
       const response = await getUsuariosRequest();
-      if (response === undefined) {
+      if (response.status === 200) {
+        setUsuarios(response.data);
+      } else {
         throw new Error("No se pudo obtener la lista de usuarios");
       }
       setUsuarios(response);
@@ -92,7 +98,6 @@ export const UsuarioContextProvider = ({ children }) => {
       if (response.status == 200) {
         return response.data;
       } else {
-        
         return null;
       }
       return response;

@@ -1,9 +1,14 @@
 import { useContext, useState, useEffect } from "react";
 
-import { getCategoriasRequest,deleteCategoriaRequest,updateCategoriaRequest,createCategoriaRequest } from "../../../API/categorias.api";
+import {
+  getCategoriasRequest,
+  deleteCategoriaRequest,
+  updateCategoriaRequest,
+  createCategoriaRequest,
+
+} from "../../../API/categorias.api";
 
 import { CategoriaContext } from "./CategoriaContext";
-
 
 export const useCategorias = () => {
   const context = useContext(CategoriaContext);
@@ -21,19 +26,25 @@ export const CategoriaContextProvider = ({ children }) => {
   async function loadCategorias() {
     try {
       const response = await getCategoriasRequest();
-      if (response === undefined) {
+      
+      if (response.status === 200) {
+        setCategorias(response.data);
+      }else{
         throw new Error("No se pudo obtener la lista de categorias");
       }
-      setCategorias(response);
+      
     } catch (error) {
       console.error(error);
     }
   }
 
+
   const deleteCategoria = async (id) => {
     try {
       const response = await deleteCategoriaRequest(id);
-      setCategorias(categorias.filter((categoria) => categoria.id !== id));
+      if (response.status == 204) {
+        setCategorias(categorias.filter((categoria) => categoria.id !== id));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -57,7 +68,7 @@ export const CategoriaContextProvider = ({ children }) => {
   const updateCategoria = async (id, categoria) => {
     try {
       const response = await updateCategoriaRequest(id, categoria);
-      console.log(response);
+    
       if (response.status == 200) {
         await refreshCategorias(); // Llama a la función refreshCategorias después de actualizar el categoria.
         return true;
@@ -73,10 +84,11 @@ export const CategoriaContextProvider = ({ children }) => {
     // Agrega la función refreshCategorias.
     try {
       const response = await getCategoriasRequest();
-      if (response === undefined) {
+      if (response.status === 200) {
+        setCategorias(response.data);
+      }else{
         throw new Error("No se pudo obtener la lista de categorias");
       }
-      setCategorias(response);
     } catch (error) {
       console.error(error);
     }
@@ -90,6 +102,7 @@ export const CategoriaContextProvider = ({ children }) => {
         deleteCategoria,
         createCategoria,
         updateCategoria,
+
       }}
     >
       {children}

@@ -19,3 +19,26 @@
     margin-bottom: 8px;
   }
   
+
+
+  .tabla-categorias {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .tabla-categorias th,
+  .tabla-categorias td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .tabla-categorias th {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .tabla-categorias tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  

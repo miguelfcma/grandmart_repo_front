@@ -4,11 +4,20 @@ const API_BASE_URL = "http://localhost:4000/imagenes";
 export const getImagenesRequest = async () => {
   try {
     const response = await axios.get(API_BASE_URL);
-    return response.data;
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
   } catch (error) {
-    console.error(error);
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
   }
 };
+
 
 export const createImagenRequest = async (imagen) => {
   try {
@@ -23,13 +32,21 @@ export const createImagenRequest = async (imagen) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    
+
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
     return response;
   } catch (error) {
-    console.error(error);
-    return error;
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
   }
 };
+
 
 export const updateImagenRequest = async (id, imagen) => {
   try {
@@ -42,17 +59,35 @@ export const updateImagenRequest = async (id, imagen) => {
         "Content-Type": "multipart/form-data",
       },
     });
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
     return response;
   } catch (error) {
-    console.error(error);
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
   }
 };
+
 
 export const deleteImagenRequest = async (id) => {
   try {
     const response = await axios.delete(`${API_BASE_URL}/${id}`);
-    return response.data;
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
   } catch (error) {
-    console.error(error);
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
   }
 };
+
