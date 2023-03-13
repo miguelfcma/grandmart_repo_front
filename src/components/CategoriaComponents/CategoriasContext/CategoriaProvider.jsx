@@ -54,7 +54,7 @@ export const CategoriaContextProvider = ({ children }) => {
     try {
       const response = await createCategoriaRequest(categoria);
 
-      if (response.status == 200) {
+      if (response.status == 201) {
         await refreshCategorias(); // Llama a la función refreshCategorias después de actualizar el categoria.
         return true;
       } else {

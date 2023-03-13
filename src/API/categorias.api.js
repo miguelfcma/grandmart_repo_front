@@ -5,10 +5,12 @@ const API_BASE_URL = "http://localhost:4000/categorias";
 export const getCategoriasRequest = async () => {
   try {
     const response = await axios.get(API_BASE_URL);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
     return response;
   } catch (error) {
-    //console.error(error);
-    console.error(error.response.data.mensaje); // Aquí se imprime el mensaje de error
     console.log({
       status: error.response.status,
       message: error.response.data.message,
@@ -21,11 +23,12 @@ export const getCategoriasRequest = async () => {
 export const createCategoriaRequest = async (categoria) => {
   try {
     const response = await axios.post(API_BASE_URL, categoria);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
     return response;
   } catch (error) {
-    console.error(error);
-    //console.error(error);
-    console.error(error.response.data.mensaje); // Aquí se imprime el mensaje de error
     console.log({
       status: error.response.status,
       message: error.response.data.message,
@@ -37,10 +40,12 @@ export const createCategoriaRequest = async (categoria) => {
 export const updateCategoriaRequest = async (id, categoria) => {
   try {
     const response = await axios.put(`${API_BASE_URL}/${id}`, categoria);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
     return response;
   } catch (error) {
-    //console.error(error);
-    console.error(error.response.data.mensaje); // Aquí se imprime el mensaje de error
     console.log({
       status: error.response.status,
       message: error.response.data.message,
@@ -52,12 +57,12 @@ export const updateCategoriaRequest = async (id, categoria) => {
 export const deleteCategoriaRequest = async (id) => {
   try {
     const response = await axios.delete(`${API_BASE_URL}/${id}`);
-    console.log(response.status);
-    console.log({ status: response.status });
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
     return response;
   } catch (error) {
-    //console.error(error);
-    console.error(error.response.data.mensaje); // Aquí se imprime el mensaje de error
     console.log({
       status: error.response.status,
       message: error.response.data.message,

@@ -11,7 +11,6 @@ export function LoginFormUsuario() {
   
     const handleSubmit = async (event) => {
       event.preventDefault();
-  
       console.log(usuarioLogin);
       try {
         const response = await loginUsuario(usuarioLogin);
@@ -24,11 +23,13 @@ export function LoginFormUsuario() {
           } else {
             navigate("/");
           }
+          localStorage.setItem("token", response.token); // Guardar token en el Local Storage
         }
       } catch (error) {
         console.log(error);
       }
     };
+    
   
     return (
       <div>
