@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Slidebar.css";
+import "./Sidebar.css";
 
-export function Sidebar() {
+export function Sidebar({ children }) {
   const token = localStorage.getItem("token");
 
   const handleLogout = () => {
@@ -35,6 +35,7 @@ export function Sidebar() {
           Cerrar sesión
         </Link>
       </div>
+      {children}
     </div>
   );
 }

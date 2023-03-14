@@ -27,9 +27,9 @@ export function CategoriasPage() {
     }
   }, [formularioEnviado]);
   return (
-    <div>
+    <div className="content-container">
         <DashAdmin />
-      <h1>Hoal estas en la pagina de catgeorias</h1>
+      <h1>Página de categorías</h1>
       <button type="submit" onClick={handleOpenModal}>
         Nuevo registro
       </button>

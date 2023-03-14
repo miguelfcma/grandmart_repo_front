@@ -1,9 +1,9 @@
 import { DashAdmin } from "../DashAdmin";
 export function ProductosPage() {
   return (
-    <div>
+    <div className="content-container">
         <DashAdmin />
-        <h1>Hoal estas en la pagina de productos</h1>
+        <h1>Página de productos</h1>
     </div>
   )
 }

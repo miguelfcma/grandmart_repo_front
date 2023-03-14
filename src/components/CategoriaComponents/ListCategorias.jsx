@@ -39,7 +39,7 @@ export function ListCategorias() {
   return (
     <>
       
-      <h1 className="titulo">Lista de categorias</h1>
+      <h2 className="titulo">Lista de categorias:</h2>
       <table className="tabla-categorias">
         <thead>
           <tr>

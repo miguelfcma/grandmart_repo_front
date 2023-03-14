@@ -16,14 +16,12 @@ export function DashAdmin() {
   }, [history]);
 
   return (
-    <div className="dashboard-container">
+    
+    <div>
+      <Header />
       <div className="sidebar-container">
-        <Sidebar>
-          <div className="content-container">
-            <Header />
-            <Content />
-          </div>
-        </Sidebar>
+        <Sidebar />
+        <Content />
       </div>
     </div>
   );

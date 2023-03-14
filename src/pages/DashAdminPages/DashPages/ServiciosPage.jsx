@@ -1,9 +1,12 @@
 import { DashAdmin } from "../DashAdmin";
+
+import "../../../components/DashAdmin/Sidebar.css";
+
 export function ServiciosPage() {
   return (
-    <div>
+    <div className="content-container">
         <DashAdmin />
-      <h1>Hoal estas en la pagina de servicios</h1>
+      <h1>Página de servicios</h1>
     </div>
   )
 }

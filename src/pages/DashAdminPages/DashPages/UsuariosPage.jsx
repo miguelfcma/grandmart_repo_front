@@ -31,8 +31,10 @@ export function UsuariosPage() {
   }, [formularioEnviado]);
 
   return (
-    <>
+    <div className="content-container">
+
       <DashAdmin />
+      <h1>Página de usuarios</h1>
       <button type="submit" onClick={handleOpenModal}>
         Nuevo registro
       </button>
@@ -42,6 +44,6 @@ export function UsuariosPage() {
         <FormUsuario onSubmit={handleSubmit} />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
-    </>
+    </div>
   );
 }

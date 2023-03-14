@@ -20,6 +20,7 @@ export function ListUsuarios() {
   
   return (
     <>
+    <h2 className="titulo">Lista de usuarios:</h2>
       <div className="list-usuarios">{renderMain()}</div>
     </>
   );
