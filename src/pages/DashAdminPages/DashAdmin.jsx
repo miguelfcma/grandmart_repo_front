@@ -20,7 +20,7 @@ export function DashAdmin() {
       }, 1000);
     }
   }, [navigate]);
-
+//*setIsLoading(false);
   return (
     <>
       {isLoading ? (

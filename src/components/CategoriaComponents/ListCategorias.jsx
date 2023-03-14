@@ -8,7 +8,7 @@ export function ListCategorias() {
   const { loadCategorias, categorias, deleteCategoria } = useCategorias();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
-  const [categoriaEditando, setCategoriaEditando] = useState(null);
+
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null); // Nuevo estado para la categoría seleccionada
 
   useEffect(() => {

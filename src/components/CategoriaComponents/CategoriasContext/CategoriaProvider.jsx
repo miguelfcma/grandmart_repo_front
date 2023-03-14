@@ -55,7 +55,7 @@ export const CategoriaContextProvider = ({ children }) => {
       const response = await createCategoriaRequest(categoria);
 
       if (response.status == 201) {
-        await refreshCategorias(); // Llama a la función refreshCategorias después de actualizar el categoria.
+        loadCategorias() // Llama a la función refreshCategorias después de actualizar el categoria.
         return true;
       } else {
         return false;
@@ -70,7 +70,7 @@ export const CategoriaContextProvider = ({ children }) => {
       const response = await updateCategoriaRequest(id, categoria);
     
       if (response.status == 200) {
-        await refreshCategorias(); // Llama a la función refreshCategorias después de actualizar el categoria.
+        loadCategorias() // Llama a la función refreshCategorias después de actualizar el categoria.
         return true;
       } else {
         return false;
@@ -80,19 +80,7 @@ export const CategoriaContextProvider = ({ children }) => {
     }
   };
 
-  const refreshCategorias = async () => {
-    // Agrega la función refreshCategorias.
-    try {
-      const response = await getCategoriasRequest();
-      if (response.status === 200) {
-        setCategorias(response.data);
-      }else{
-        throw new Error("No se pudo obtener la lista de categorias");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+ 
 
   return (
     <CategoriaContext.Provider

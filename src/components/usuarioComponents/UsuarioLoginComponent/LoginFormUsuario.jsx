@@ -27,7 +27,7 @@ export function LoginFormUsuario() {
     } catch (error) {
       console.log(error);
     }
-    localStorage.setItem("token", response.token); // Guardar token en el Local Storage
+
   };
 
   return (

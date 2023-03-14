@@ -9,7 +9,7 @@ export function ListUsuarios() {
     loadUsuarios();
   }, []);
   function renderMain() {
-    if (usuarios.length === 0) {
+    if (usuarios.length == 0) {
       return <h1>No hay usuarios registrados</h1>;
     } else {
       return usuarios.map((usuario) => (
