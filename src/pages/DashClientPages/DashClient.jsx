@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import './DashAdmin.css';
-import {Sidebar} from '../../components/DashAdmin/Sidebar';
-import {Header} from '../../components/DashAdmin/Header';
-import {Content} from '../../components/DashAdmin/Content';
+import './DashClient.css';
+import {Sidebar} from '../../components/DashClient/Sidebar';
+import {Header} from '../../components/DashClient/Header';
+import {Content} from '../../components/DashClient/Content';
 import { useNavigate } from "react-router-dom";
 
-export function DashAdmin() {
+export function DashClient() {
   const navigate = useNavigate();
 
   useEffect(() => {

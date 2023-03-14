@@ -21,7 +21,7 @@ export function LoginFormUsuario() {
           if (response.usuario.tipoUsuario == true) {
             navigate("/dashAdmin");
           } else {
-            navigate("/");
+            navigate("/dashClient");
           }
           localStorage.setItem("token", response.token); // Guardar token en el Local Storage
         }
