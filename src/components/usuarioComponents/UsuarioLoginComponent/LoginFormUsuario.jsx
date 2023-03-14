@@ -10,6 +10,7 @@ export function LoginFormUsuario() {
     const [usuarioLogin, setUsuarioLogin] = useState({ email: "", password: "" });
   
     const handleSubmit = async (event) => {
+<<<<<<< Updated upstream
       event.preventDefault();
       console.log(usuarioLogin);
       try {
@@ -27,9 +28,28 @@ export function LoginFormUsuario() {
         }
       } catch (error) {
         console.log(error);
+=======
+  event.preventDefault();
+  console.log(usuarioLogin);
+  try {
+    const response = await loginUsuario(usuarioLogin);
+    if (!response) {
+      alert("Acceso denegado");
+      console.log("Acceso denegado");
+    } else {
+      if (response.usuario.tipoUsuario == true) {
+        navigate("/dashAdmin");
+      } else {
+        navigate("/");
+>>>>>>> Stashed changes
       }
-    };
-    
+      localStorage.setItem("token", response.token); // Guardar token en el Local Storage
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   
     return (
       <div>
