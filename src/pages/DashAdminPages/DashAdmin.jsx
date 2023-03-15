@@ -13,12 +13,8 @@ export function DashAdmin() {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
-    } else {
-      // Simular la validación del token con un timeout de 1 segundo
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
     }
+      setIsLoading(false);
   }, [navigate]);
 //*setIsLoading(false);
   return (
