@@ -2,9 +2,9 @@ import { useContext, useState, useEffect } from "react";
 
 import {
   getProductosRequest,
-  createProductoRequest,
   deleteProductoRequest,
   updateProductoRequest,
+  createProductoRequest,
 } from "../../../API/productos.api";
 
 import { ProductoContext } from "./ProductoContext";
@@ -25,10 +25,12 @@ export const ProductoContextProvider = ({ children }) => {
   async function loadProductos() {
     try {
       const response = await getProductosRequest();
-      if (response === undefined) {
+
+      if (response.status === 200) {
+        setProductos(response.data);
+      } else {
         throw new Error("No se pudo obtener la lista de productos");
       }
-      setProductos(response);
     } catch (error) {
       console.error(error);
     }
@@ -37,7 +39,9 @@ export const ProductoContextProvider = ({ children }) => {
   const deleteProducto = async (id) => {
     try {
       const response = await deleteProductoRequest(id);
-      setProductos(productos.filter((producto) => producto.id !== id));
+      if (response.status == 204) {
+        setProductos(productos.filter((producto) => producto.id !== id));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +52,7 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await createProductoRequest(producto);
 
       if (response.status == 201) {
-        await refreshProductos(); // Llama a la función refreshProductos después de actualizar el producto.
+        loadProductos(); 
         return true;
       } else {
         return false;
@@ -61,26 +65,13 @@ export const ProductoContextProvider = ({ children }) => {
   const updateProducto = async (id, producto) => {
     try {
       const response = await updateProductoRequest(id, producto);
-      console.log(response);
+
       if (response.status == 200) {
-        await refreshProductos(); // Llama a la función refreshProductos después de actualizar el producto.
+        loadProductos();
         return true;
       } else {
         return false;
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const refreshProductos = async () => {
-    // Agrega la función refreshProductos.
-    try {
-      const response = await getProductosRequest();
-      if (response === undefined) {
-        throw new Error("No se pudo obtener la lista de productos");
-      }
-      setProductos(response);
     } catch (error) {
       console.error(error);
     }

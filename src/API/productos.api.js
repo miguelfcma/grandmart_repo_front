@@ -19,7 +19,6 @@ export const getProductosRequest = async () => {
   }
 };
 
-
 export const createProductoRequest = async (producto) => {
   try {
     const response = await axios.post(API_BASE_URL, producto);
@@ -53,7 +52,6 @@ export const updateProductoRequest = async (id, producto) => {
     return error.response;
   }
 };
-
 
 export const deleteProductoRequest = async (id) => {
   try {

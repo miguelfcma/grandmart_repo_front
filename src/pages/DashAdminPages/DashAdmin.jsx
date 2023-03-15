@@ -20,7 +20,11 @@ export function DashAdmin() {
       }, 1000);
     }
   }, [navigate]);
+<<<<<<< Updated upstream
 //*setIsLoading(false);
+=======
+
+>>>>>>> Stashed changes
   return (
     <>
       {isLoading ? (
