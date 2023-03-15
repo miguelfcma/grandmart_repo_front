@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 
 export function LoginFormUsuario() {
-<<<<<<< Updated upstream
   const navigate = useNavigate();
   const { loginUsuario } = useUsuarios();
   const [usuarioLogin, setUsuarioLogin] = useState({ email: "", password: "" });
@@ -48,67 +47,6 @@ export function LoginFormUsuario() {
           <div className="form-group">
             <label htmlFor="email">
               Correo electrónico:
-=======
-    const navigate = useNavigate();
-    const { loginUsuario } = useUsuarios();
-    const [usuarioLogin, setUsuarioLogin] = useState({ email: "", password: "" });
-  
-    const handleSubmit = async (event) => {
-  event.preventDefault();
-  console.log(usuarioLogin);
-  try {
-    const response = await loginUsuario(usuarioLogin);
-    if (!response) {
-      alert("Acceso denegado");
-      console.log("Acceso denegado");
-    } else {
-      if (response.usuario.tipoUsuario == true) {
-        navigate("/dashAdmin");
-      } else {
-        navigate("/");
-      }
-      localStorage.setItem("token", response.token); // Guardar token en el Local Storage
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-  
-    return (
-      <div>
-        <nav className="navbar">
-          <div className="navbar-container">
-            <a href="/">
-              <img alt="e-commerce" src="../src/components/HomePage/logo.png" />
-            </a>
-          </div>
-        </nav>
-        <div className="login-form-container">
-          <form onSubmit={handleSubmit} className="login-form">
-            <h2>Iniciar sesión</h2>
-            <br></br>
-            <br></br>
-            <div className="form-group">
-              <label htmlFor="email">
-                Correo electrónico:
-                <input
-                  type="email"
-                  id="email"
-                  value={usuarioLogin.email}
-                  onChange={(event) =>
-                    setUsuarioLogin({
-                      ...usuarioLogin,
-                      email: event.target.value,
-                    })
-                  }
-                  required
-                />
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Contraseña:</label>
->>>>>>> Stashed changes
               <input
                 type="email"
                 id="email"
