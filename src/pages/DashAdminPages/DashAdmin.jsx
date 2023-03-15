@@ -11,6 +11,7 @@ export function DashAdmin() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (!token) {
       navigate("/login");
     } else {

@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useCategorias } from "./CategoriasContext/CategoriaProvider";
+
 export const FormCategoria = ({ categoria = null, onSubmit }) => {
-  const { updateCategoria, createCategoria } = useCategorias();
-  const [categoriaEditada, setCategoriaEditada] = useState(categoria || {
-    nombre: '',
-    id_parent: null,
-  });
-  const editando =(categoriaEditada.id != null);
+  const { categorias, createCategoria, updateCategoria } = useCategorias();
+  const [categoriaEditada, setCategoriaEditada] = useState(
+    categoria || {
+      nombre: "",
+      id_parent: null,
+    }
+  ); /*  */
+  const editando = categoriaEditada.id != null;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(categoriaEditada)
     if (editando) {
       await updateCategoria(categoriaEditada.id, categoriaEditada);
     } else {
@@ -24,6 +26,17 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
     setCategoriaEditada({
       ...categoriaEditada,
       id_parent,
+    });
+  };
+
+  const buildOptions = (categorias, indent = 0) => {
+    return categorias.map((categoria) => {
+      const prefix = new Array(indent + 1).join("-");
+      return (
+        <option key={categoria.id} value={categoria.id}>
+          {prefix} {categoria.nombre}
+        </option>
+      );
     });
   };
 
@@ -59,13 +72,15 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
         />
       </label>
       <label>
-        ID del padre:
-        <input
-          type="text"
-          pattern="[0-9]*"
-          value={categoriaEditada.id_parent || ''}
+        Categoría Padre:
+        <select
+          name="id_parent"
+          value={categoriaEditada.id_parent || ""}
           onChange={handleIdParentChange}
-        />
+        >
+          <option value="">-- Sin Categoría Padre --</option>
+          {buildOptions(categorias)}
+        </select>
       </label>
       <button type="submit">Guardar</button>
     </form>

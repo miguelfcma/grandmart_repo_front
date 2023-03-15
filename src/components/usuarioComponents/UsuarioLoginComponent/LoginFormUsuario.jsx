@@ -23,6 +23,8 @@ export function LoginFormUsuario() {
           navigate("/dashClient");
         }
         localStorage.setItem("token", response.token); // Guardar token en el Local Storage
+        localStorage.setItem("iduser", response.usuario.id);
+        console.log(response)
       }
     } catch (error) {
       console.log(error);

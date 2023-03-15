@@ -1,133 +1,158 @@
-
 import { useCategorias } from "../CategoriaComponents/CategoriasContext/CategoriaProvider";
-import { useState,useEffect } from "react";
-export function FormProducto(){
-    const [producto, setProducto] = useState({
-      nombre: "",
-      precio: "",
-      stock: "",
-      descripcion: "",
-      marca: "",
-      modelo: "",
-      color: "",
-      estado: "",
-      categoriaId: "",
-      usuarioId: "",
-    });
-  
-    const { categorias } = useCategorias();
-  
-    const handleChange = (event) => {
-      const { name, value } = event.target;
-      setProducto((prevProducto) => ({
-        ...prevProducto,
-        [name]: value,
-      }));
-    };
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      // Lógica para enviar el formulario
-    };
-  
-    return (
-      <form onSubmit={handleSubmit}>
-        <label>
-          Nombre del producto:
-          <input
-            type="text"
-            name="nombre"
-            value={producto.nombre}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Precio del producto:
-          <input
-            type="number"
-            name="precio"
-            value={producto.precio}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Stock del producto:
-          <input
-            type="number"
-            name="stock"
-            value={producto.stock}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Descripción del producto:
-          <textarea
-            name="descripcion"
-            value={producto.descripcion}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Marca del producto:
-          <input
-            type="text"
-            name="marca"
-            value={producto.marca}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Modelo del producto:
-          <input
-            type="text"
-            name="modelo"
-            value={producto.modelo}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Color del producto:
-          <input
-            type="text"
-            name="color"
-            value={producto.color}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Estado del producto:
-          <input
-            type="text"
-            name="estado"
-            value={producto.estado}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Categoría del producto:
-          <select
-            name="categoriaId"
-            value={producto.categoriaId}
-            onChange={handleChange}
-          >
-            <option value="">Seleccione una categoría</option>
-            {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.id}>
-                {categoria.nombre}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          ID del usuario:
-          <input
-            type="number"
-            name="usuarioId"
-            value={producto.usuarioId}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">Agregar</button>
-      </form>
-    );
+import { useState, useEffect } from "react";
+import { useProductos } from "./ProductosContext/ProductoProvider";
+export function FormProducto() {
+  const iduser = localStorage.getItem("iduser");
+  const { createProducto } = useProductos();
+  const [producto, setProducto] = useState({
+    nombre: "",
+    precio: "",
+    stock: "",
+    descripcion: "",
+    marca: "",
+    modelo: "",
+    color: "",
+    estado: "",
+    id_categoria: "",
+    id_usuario: iduser,
+  });
+
+  const { categorias, loadCategorias } = useCategorias();
+  useEffect(() => {
+    loadCategorias();
+  }, []);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setProducto((prevProducto) => ({
+      ...prevProducto,
+      [name]: value,
+    }));
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(producto)
+    try {
+      await createProducto(producto);
+      console.log("Producto creado exitosamente");
+    } catch (error) {
+      console.log("Error al crear producto:", error);
+    }
+  };
+
+  const handleIdParentChange = (event) => {
+    const { value } = event.target;
+    setProducto((prevProducto) => ({
+      ...prevProducto,
+      id_categoria: value,
+    }));
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Nombre del producto:
+        <input
+          type="text"
+          name="nombre"
+          value={producto.nombre}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Precio del producto:
+        <input
+          type="number"
+          name="precio"
+          value={producto.precio}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Stock del producto:
+        <input
+          type="number"
+          name="stock"
+          value={producto.stock}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Descripción del producto:
+        <textarea
+          name="descripcion"
+          value={producto.descripcion}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Marca del producto:
+        <input
+          type="text"
+          name="marca"
+          value={producto.marca}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Modelo del producto:
+        <input
+          type="text"
+          name="modelo"
+          value={producto.modelo}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Color del producto:
+        <input
+          type="text"
+          name="color"
+          value={producto.color}
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Estado del producto:
+        <select name="estado" value={producto.estado} onChange={handleChange}>
+          <option value="nuevo">Nuevo</option>
+          <option value="usado">Usado</option>
+        </select>
+      </label>
+
+      <label>
+        Categoría del producto:
+        <select
+          name="id_categoria"
+          value={producto.id_categoria}
+          onChange={handleIdParentChange}
+        >
+          <option value="">Seleccionar categoría padre</option>
+          {categorias
+            .filter((categoria) => categoria.id_parent === null)
+            .map((categoriaPadre) => (
+              <optgroup
+                className="categoria-padre" // Agregamos una clase a las opciones de las categorías padres
+                label={categoriaPadre.nombre}
+                key={categoriaPadre.id}
+              >
+                {categorias
+                  .filter(
+                    (categoria) =>
+                      categoria.id_parent === categoriaPadre.id &&
+                      categoria.id !== producto.id_categoria // para evitar que se pueda seleccionar como categoría padre a sí mismo
+                  )
+                  .map((categoriaHija) => (
+                    <option key={categoriaHija.id} value={categoriaHija.id}>
+                      {categoriaHija.nombre}
+                    </option>
+                  ))}
+              </optgroup>
+            ))}
+        </select>
+      </label>
+      <button type="submit">Agregar</button>
+    </form>
+  );
+}
