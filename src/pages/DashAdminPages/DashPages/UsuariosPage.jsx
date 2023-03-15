@@ -32,7 +32,6 @@ export function UsuariosPage() {
 
   return (
     <div className="content-container">
-
       <DashAdmin />
       <h1>Página de usuarios</h1>
       <button type="submit" onClick={handleOpenModal}>

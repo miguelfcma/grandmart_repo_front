@@ -19,10 +19,15 @@ export function DashAdmin() {
         setIsLoading(false);
       }, 1000);
     }
+<<<<<<< Updated upstream
+      setIsLoading(false);
   }, [navigate]);
 <<<<<<< Updated upstream
 //*setIsLoading(false);
 =======
+=======
+  }, [navigate]);
+>>>>>>> Stashed changes
 
 >>>>>>> Stashed changes
   return (
