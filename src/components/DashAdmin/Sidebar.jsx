@@ -4,7 +4,8 @@ import "./Sidebar.css";
 
 export function Sidebar({ children }) {
   const token = localStorage.getItem("token");
-
+  const nombre = localStorage.getItem("nombreuser");
+  console.log(nombre)
   const handleLogout = () => {
     localStorage.removeItem("token");
     // redirigir a la página de inicio de sesión o a la página principal
@@ -30,7 +31,7 @@ export function Sidebar({ children }) {
         </li>
       </ul>
       <div className="user-options">
-        <p>Nombre del usuario</p>
+        <p>Bienvenido: {nombre}</p>
         <Link to="/" onClick={handleLogout}>
           Cerrar sesión
         </Link>

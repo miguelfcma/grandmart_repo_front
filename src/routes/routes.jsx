@@ -15,6 +15,8 @@ import { ProductosClient } from "../pages/DashClientPages/DashPages/ProductosCli
 import { ServiciosClient } from "../pages/DashClientPages/DashPages/ServiciosClient";
 import { PedidosClient } from "../pages/DashClientPages/DashPages/PedidosClient";
 import { NuevoProductoPage } from "../pages/DashAdminPages/DashPages/ProductosPage/NuevoProductoPage";
+import { ImagenesProducto } from "../pages/DashAdminPages/DashPages/ProductosPage/ImagenesProducto";
+ImagenesProducto
 export function MyRoutes() {
   return (
     <Router>
@@ -34,8 +36,13 @@ export function MyRoutes() {
         <Route exact path="/dashAdmin/productos" element={<ProductosPage />} />
         <Route
           exact
-          path="/dashAdmin/productos/registro"
+          path="/dashAdmin/productos/registro-1"
           element={<NuevoProductoPage />}
+        />
+        <Route
+          exact
+          path="/dashAdmin/productos/registro-2"
+          element={<ImagenesProducto />}
         />
         <Route exact path="/dashAdmin/servicios" element={<ServiciosPage />} />
 

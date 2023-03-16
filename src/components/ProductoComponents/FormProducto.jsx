@@ -1,7 +1,10 @@
 import { useCategorias } from "../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useState, useEffect } from "react";
 import { useProductos } from "./ProductosContext/ProductoProvider";
+import { useNavigate } from "react-router-dom";
+
 export function FormProducto() {
+  const navigate = useNavigate();
   const iduser = localStorage.getItem("iduser");
   const { createProducto } = useProductos();
   const [producto, setProducto] = useState({
@@ -32,13 +35,26 @@ export function FormProducto() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(producto)
-    try {
-      await createProducto(producto);
-      console.log("Producto creado exitosamente");
-    } catch (error) {
-      console.log("Error al crear producto:", error);
+    console.log(producto);
+
+    if (
+      producto.nombre === "" ||
+      producto.precio === "" ||
+      producto.stock === "" ||
+      producto.id_categoria === ""
+    ) {
+      console.log("Por favor complete los campos obligatorios");
+      return;
     }
+
+   
+      const response = await createProducto(producto);
+      if (response) {
+        localStorage.setItem("productoId", response.producto.id.toString());
+        
+        navigate("/dashAdmin/productos/registro-2");
+      }
+
   };
 
   const handleIdParentChange = (event) => {
@@ -58,6 +74,7 @@ export function FormProducto() {
           name="nombre"
           value={producto.nombre}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -67,6 +84,7 @@ export function FormProducto() {
           name="precio"
           value={producto.precio}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -76,6 +94,7 @@ export function FormProducto() {
           name="stock"
           value={producto.stock}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -127,6 +146,7 @@ export function FormProducto() {
           name="id_categoria"
           value={producto.id_categoria}
           onChange={handleIdParentChange}
+          required
         >
           <option value="">Seleccionar categoría padre</option>
           {categorias

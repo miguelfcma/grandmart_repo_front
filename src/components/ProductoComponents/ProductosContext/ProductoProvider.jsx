@@ -7,6 +7,8 @@ import {
   createProductoRequest,
 } from "../../../API/productos.api";
 
+import { createProductImageRequest,getProductImageRequest} from "../../../API/imagenProductos.api";
+
 import { ProductoContext } from "./ProductoContext";
 
 export const useProductos = () => {
@@ -39,7 +41,7 @@ export const ProductoContextProvider = ({ children }) => {
   const deleteProducto = async (id) => {
     try {
       const response = await deleteProductoRequest(id);
-      if (response.status == 204) {
+      if (response.status == 200) {
         setProductos(productos.filter((producto) => producto.id !== id));
       }
     } catch (error) {
@@ -50,12 +52,12 @@ export const ProductoContextProvider = ({ children }) => {
   const createProducto = async (producto) => {
     try {
       const response = await createProductoRequest(producto);
-
+      console.log(response.data)
       if (response.status == 201) {
         loadProductos(); 
-        return true;
+        return response.data
       } else {
-        return false;
+        return null
       }
     } catch (error) {
       console.error(error);
@@ -77,6 +79,29 @@ export const ProductoContextProvider = ({ children }) => {
     }
   };
 
+
+  const createProductImage = async (imgProducto) => {
+    try {
+      const response = await createProductImageRequest(imgProducto);
+      console.log(response.data)
+      if (response.status == 201) {
+        return response.data
+      } else {
+        return null
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getImgProducto = async (id_producto)=>{
+    const response = await getProductImageRequest(id_producto)
+    if(response.status == 200){
+      console.log(response.data.url)
+      return response.data.url;
+    }else{
+      return null;
+    }
+  }
   return (
     <ProductoContext.Provider
       value={{
@@ -85,6 +110,8 @@ export const ProductoContextProvider = ({ children }) => {
         deleteProducto,
         createProducto,
         updateProducto,
+        createProductImage,
+        getImgProducto
       }}
     >
       {children}
