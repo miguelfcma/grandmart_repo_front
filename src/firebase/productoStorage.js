@@ -10,7 +10,8 @@ export async function uploadImageProducto(file) {
   if (file.size > MAX_SIZE_BYTES) {
     throw new Error('El tamaño máximo de la imagen es de 5 MB');
   }
-  const uniqueSuffix = 'productos/' + uuidv4(); // Generación de un ID único para el nombre de la imagen
+  const uniquePrefix = 'productos/' + uuidv4(); // Generación de un ID único para el prefijo de los nombres de las imágenes
+  const uniqueSuffix = uniquePrefix + '_' + uuidv4(); // Generación de un ID único para el nombre de la imagen
   const storageRef = ref(storage, uniqueSuffix);
   await uploadBytes(storageRef, file);
   const url = await getDownloadURL(storageRef);
@@ -20,4 +21,22 @@ export async function uploadImageProducto(file) {
 export async function deleteImageProducto(url) {
   const storageRef = ref(storage, url);
   await deleteObject(storageRef);
+}
+export async function uploadImagesProducto(files) {
+  const MAX_SIZE_BYTES = 5 * 1024 * 1024; // Tamaño máximo de 5 MB en bytes
+  const uniquePrefix = 'productos/' + uuidv4(); // Generación de un ID único para el prefijo de los nombres de las imágenes
+  const urls = [];
+
+  for (const file of files) {
+    if (file.size > MAX_SIZE_BYTES) {
+      throw new Error('El tamaño máximo de la imagen es de 5 MB');
+    }
+    const uniqueSuffix = uniquePrefix + '_' + uuidv4(); // Generación de un ID único para el nombre de la imagen
+    const storageRef = ref(storage, uniqueSuffix);
+    await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(storageRef);
+    urls.push(url);
+  }
+
+  return urls;
 }

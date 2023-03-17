@@ -5,6 +5,7 @@ export  function ImagenesProducto() {
   return (
     <div>
       <FormImgProducto/>
+      
     </div>
   )
 }
