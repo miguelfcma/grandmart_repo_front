@@ -9,7 +9,10 @@ export function ProductosPage() {
     <div className="content-container">
       <DashAdmin />
       <h1>Página de productos</h1>
-      <Link to="/dashAdmin/productos/registro-1">Nuevo registro</Link>
+
+      <Link to="/dashAdmin/productos/registro-1" style={{ textDecoration: "none" }}>
+        < button type="submit"> Nuevo registro </button>
+      </Link>
 
       <ListProductos />
 
