@@ -36,7 +36,7 @@ export function CardProducto({ producto }) {
       />
       <div>Precio: ${producto.precio}</div>
       
-      <Link to={`/dashAdmin/productos/ver/:${producto.id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/dashAdmin/productos/ver/${producto.id}`} style={{ textDecoration: "none" }}>
         <button className="card-producto">
           <span>Ver producto</span>
           </button>

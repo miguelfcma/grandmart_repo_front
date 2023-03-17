@@ -1,3 +1,5 @@
+/* proveedor de contexto que proporciona acceso a las funciones para cargar, crear, actualizar y eliminar productos, así como para obtener y cargar imágenes de productos. */
+
 import { useContext, useState, useEffect } from "react";
 
 import {
@@ -7,7 +9,7 @@ import {
   createProductoRequest,
 } from "../../../API/productos.api";
 
-import { createProductImageRequest,getProductImageRequest} from "../../../API/imagenProductos.api";
+import { createProductImageRequest, getProductImageRequest } from "../../../API/imagenProductos.api";
 
 import { ProductoContext } from "./ProductoContext";
 
@@ -93,6 +95,7 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+  
   const getImgProducto = async (id_producto)=>{
     const response = await getProductImageRequest(id_producto)
     if(response.status == 200){
@@ -102,6 +105,7 @@ export const ProductoContextProvider = ({ children }) => {
       return null;
     }
   }
+  
   return (
     <ProductoContext.Provider
       value={{
