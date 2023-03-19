@@ -9,7 +9,7 @@ import {
   createProductoRequest,
 } from "../../../API/productos.api";
 
-import { createProductImageRequest, getProductImageRequest } from "../../../API/imagenProductos.api";
+import { createProductImageRequest, getProductImageRequest,getProductImagePortadaRequest,getProductImagesRequest,getAllImagesProductRequest} from "../../../API/imagenProductos.api";
 
 import { ProductoContext } from "./ProductoContext";
 
@@ -105,7 +105,35 @@ export const ProductoContextProvider = ({ children }) => {
       return null;
     }
   }
+  const getImgPortadaProducto = async (id_producto)=>{
+    const response = await getProductImagePortadaRequest(id_producto)
+    if(response.status == 200){
   
+      return response.data.url;
+    }else{
+      return null;
+    }
+  }
+
+  const getProductImages = async (id_producto)=>{
+    const response = await getProductImagesRequest(id_producto)
+    if(response.status == 200){
+      console.log(response.data)
+      return response.data;
+    }else{
+      return null;
+    }
+  }
+  
+  const getAllImagesProduct = async (id_producto)=>{
+    const response = await getAllImagesProductRequest(id_producto)
+    if(response.status == 200){
+      console.log(response.data)
+      return response.data;
+    }else{
+      return null;
+    }
+  }
   return (
     <ProductoContext.Provider
       value={{
@@ -115,7 +143,10 @@ export const ProductoContextProvider = ({ children }) => {
         createProducto,
         updateProducto,
         createProductImage,
-        getImgProducto
+        getImgProducto,
+        getImgPortadaProducto,
+        getProductImages,
+        getAllImagesProduct,
       }}
     >
       {children}

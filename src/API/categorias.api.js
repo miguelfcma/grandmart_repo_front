@@ -1,10 +1,10 @@
 import axios from "axios";
-
-const API_BASE_URL = "http://localhost:4000/categorias";
+import { API_BASE_URL} from "./config.api";
+//const API_BASE_URL = "http://localhost:4000/categorias";
 
 export const getCategoriasRequest = async () => {
   try {
-    const response = await axios.get(API_BASE_URL);
+    const response = await axios.get(API_BASE_URL+"categorias");
     console.log({
       status: response.status,
       message: response.data.message,
@@ -22,7 +22,7 @@ export const getCategoriasRequest = async () => {
 
 export const createCategoriaRequest = async (categoria) => {
   try {
-    const response = await axios.post(API_BASE_URL, categoria);
+    const response = await axios.post(API_BASE_URL+"categorias", categoria);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -39,7 +39,7 @@ export const createCategoriaRequest = async (categoria) => {
 
 export const updateCategoriaRequest = async (id, categoria) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/${id}`, categoria);
+    const response = await axios.put(`${API_BASE_URL+"categorias"}/${id}`, categoria);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -56,7 +56,7 @@ export const updateCategoriaRequest = async (id, categoria) => {
 
 export const deleteCategoriaRequest = async (id) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/${id}`);
+    const response = await axios.delete(`${API_BASE_URL+"categorias"}/${id}`);
     console.log({
       status: response.status,
       message: response.data.message,

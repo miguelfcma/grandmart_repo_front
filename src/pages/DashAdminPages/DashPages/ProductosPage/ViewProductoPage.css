@@ -1,67 +1,49 @@
 .contenedor-producto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
-    width: 80%;
-    max-width: 1200px;
-    background-color: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .info-producto {
-    flex: 1;
-    padding: 20px;
-  }
-  
-  .info-producto > div {
-    margin-bottom: 10px;
-  }
-  
-  .info-producto > div:last-child {
-    margin-bottom: 0;
-  }
-  
-  .info-producto-img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-  }
-  
-  @media (max-width: 768px) {
-    .contenedor-producto {
-      flex-direction: column;
-    }
-  
-    .info-producto-img {
-      max-width: 100%;
-    }
-  }
-  
-  .back-button {
-    position: absolute;
-    bottom: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-decoration: none;
-    background-color: white;
-    color: black !important;
-    border: 2px solid #1c6bc3;
-    padding: 6px 8px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .back-button:hover {
-    text-decoration: none;
-    background-color: #1c6bc3;
-    color: white !important;
-    padding: 6px 8px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-producto {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.info-producto > div {
+  margin-bottom: 10px;
+}
+
+.info-producto-img {
+  max-width: 100%;
+  margin: 20px;
+}
+
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.galeria img {
+  max-width: 100%;
+  margin: 10px;
+}
+
+.back-button {
+  margin-top: 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #2980b9;
+}

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { HomePage } from "../pages/HomePage";
 import { UsuariosPage } from "../pages/DashAdminPages/DashPages/UsuariosPage";
-import { ImagenesPage } from "../pages/ImagenesPage";
+
 import { LoginPage } from "../pages/LoginPage";
 
 import { DashAdmin } from "../pages/DashAdminPages/DashAdmin";
@@ -16,16 +16,16 @@ import { DashClient } from "../pages/DashClientPages/DashClient";
 import { ProductosClient } from "../pages/DashClientPages/DashPages/ProductosClient";
 import { ServiciosClient } from "../pages/DashClientPages/DashPages/ServiciosClient";
 import { PedidosClient } from "../pages/DashClientPages/DashPages/PedidosClient";
-import { NuevoProductoPage } from "../pages/DashAdminPages/DashPages/ProductosPage/NuevoProductoPage";
-import { ImagenesProducto } from "../pages/DashAdminPages/DashPages/ProductosPage/ImagenesProducto";
-ImagenesProducto
+
+import { RegistroProductoPage1 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage1";
+import { RegistroProductoPage2 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage2";
+
 export function MyRoutes() {
   return (
     <Router>
       <Routes>
         <Route exact path="/" element={<HomePage />} />
 
-        <Route exact path="/imagenes" element={<ImagenesPage />} />
         <Route exact path="/login" element={<LoginPage />} />
 
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
@@ -38,18 +38,20 @@ export function MyRoutes() {
         <Route exact path="/dashAdmin/productos" element={<ProductosPage />} />
         <Route
           exact
-          path="/dashAdmin/productos/registro-1"
-          element={<NuevoProductoPage />}
+          path="/dashAdmin/productos/registro-producto"
+          element={<RegistroProductoPage1 />}
         />
         <Route
           exact
-          path="/dashAdmin/productos/registro-2"
-          element={<ImagenesProducto />}
+          path="/dashAdmin/productos/registro-producto/:idProducto"
+          element={<RegistroProductoPage2 />}
         />
 
-<Route exact path="/dashAdmin/productos/ver/:id" element={<ViewProductoPage />} />
-
-
+        <Route
+          exact
+          path="/dashAdmin/productos/ver/:id"
+          element={<ViewProductoPage />}
+        />
 
         <Route exact path="/dashAdmin/servicios" element={<ServiciosPage />} />
 
@@ -59,7 +61,7 @@ export function MyRoutes() {
           path="/dashClient/productos"
           element={<ProductosClient />}
         />
-        
+
         <Route
           exact
           path="/dashClient/servicios"

@@ -1,9 +1,10 @@
 import axios from "axios";
-const API_BASE_URL = "http://localhost:4000/imagenes";
+import { API_BASE_URL} from "./config.api";
+//const API_BASE_URL = "http://localhost:4000/imagenes";
 
 export const getImagenesRequest = async () => {
   try {
-    const response = await axios.get(API_BASE_URL);
+    const response = await axios.get(API_BASE_URL+"imagenes");
     console.log({
       status: response.status,
       message: response.data.message,
@@ -27,7 +28,7 @@ export const createImagenRequest = async (imagen) => {
     //formData.append("descripcion", imagen.descripcion);
     formData.append("imagen", imagen.archivo);
 
-    const response = await axios.post(API_BASE_URL, formData, {
+    const response = await axios.post(API_BASE_URL+"imagenes", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -54,7 +55,7 @@ export const updateImagenRequest = async (id, imagen) => {
     //formData.append("nombre", imagen.nombre);
     //formData.append("descripcion", imagen.descripcion);
     formData.append("archivo", imagen.archivo);
-    const response = await axios.put(`${API_BASE_URL}/${id}`, formData, {
+    const response = await axios.put(`${API_BASE_URL+"imagenes"}/${id}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -76,7 +77,7 @@ export const updateImagenRequest = async (id, imagen) => {
 
 export const deleteImagenRequest = async (id) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/${id}`);
+    const response = await axios.delete(`${API_BASE_URL+"imagenes"}/${id}`);
     console.log({
       status: response.status,
       message: response.data.message,

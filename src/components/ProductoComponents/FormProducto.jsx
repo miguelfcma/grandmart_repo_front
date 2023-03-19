@@ -50,9 +50,10 @@ export function FormProducto() {
    
       const response = await createProducto(producto);
       if (response) {
-        localStorage.setItem("productoId", response.producto.id.toString());
+        const idProducto=response.producto.id
         
-        navigate("/dashAdmin/productos/registro-2");
+        navigate(`/dashAdmin/productos/registro-producto/${idProducto}`);
+
       }
 
   };

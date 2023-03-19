@@ -7,23 +7,27 @@ import { Link } from "react-router-dom";
 import "./ViewProductoPage.css";
 
 export function ViewProductoPage() {
-  const { productos, getImgProducto } = useProductos();
+  const { productos, getImgPortadaProducto, getProductImages } = useProductos();
   const { id } = useParams();
 
   const [producto, setProducto] = useState(null);
   const [imagen, setImagen] = useState(null);
-
+  const [imagenes, setImagenes] = useState(null);
   useEffect(() => {
-    const productoEncontrado = productos.find((prod) => prod.id === parseInt(id));
+    const productoEncontrado = productos.find(
+      (prod) => prod.id === parseInt(id)
+    );
     setProducto(productoEncontrado);
 
     async function cargarImagen() {
-      const urlImagen = await getImgProducto(parseInt(id));
+      const urlImagen = await getImgPortadaProducto(parseInt(id));
+      const imagenesArray = await getProductImages(parseInt(id));
+      setImagenes(imagenesArray);
       setImagen(urlImagen);
     }
 
     cargarImagen();
-  }, [productos, id, getImgProducto]);
+  }, [productos, id, getImgPortadaProducto]);
 
   return (
     <div className="contenedor-producto">
@@ -41,19 +45,30 @@ export function ViewProductoPage() {
             <div>Estado: {producto.estado}</div>
             <div>Categoría: {producto.id_categoria}</div>
           </div>
-          
-          {imagen && <img className="info-producto-img" src={imagen} alt={producto.nombre} />}
-          
+
+          {imagen && (
+            <img
+              className="info-producto-img"
+              src={imagen}
+              alt={producto.nombre}
+            />
+          )}
+          <div className="galeria">
+            {imagenes &&
+              imagenes.map((imagen) => (
+                <img key={imagen.id} src={imagen.url} alt={imagen.id} />
+              ))}
+          </div>
         </>
       ) : (
         <div>No se encontró el producto</div>
       )}
 
-        <Link to="/dashAdmin/productos" style={{ textDecoration: "none" }}>
-            <button className="back-button" type="button">
-              <span>Atrás</span>
-            </button>
-        </Link>
+      <Link to="/dashAdmin/productos" style={{ textDecoration: "none" }}>
+        <button className="back-button" type="button">
+          <span>Atrás</span>
+        </button>
+      </Link>
     </div>
   );
 }
