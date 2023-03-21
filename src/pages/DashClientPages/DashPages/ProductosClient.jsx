@@ -1,6 +1,6 @@
 import { DashClient } from "../DashClient";
 
-import "../../../components/DashClient/Sidebar.css";
+import "../../../components/DashClientComponents/Sidebar.css";
 
 export function ProductosClient() {
   return (

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { CardProducto } from "./CardProducto";
 import "./ListProductos.css";
-import { useProductos } from "./ProductosContext/ProductoProvider";
+import { useProductos } from "../ProductosContext/ProductoProvider";
 
 export function ListProductos() {
   const { productos, loadProductos } = useProductos();

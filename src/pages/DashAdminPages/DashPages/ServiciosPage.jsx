@@ -1,6 +1,6 @@
 import { DashAdmin } from "../DashAdmin";
 
-import "../../../components/DashAdmin/Sidebar.css";
+import "../../../components/DashAdminComponents/Sidebar.css";
 
 export function ServiciosPage() {
   return (

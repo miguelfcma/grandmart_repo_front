@@ -1,11 +1,11 @@
 import "./CardProducto.css";
-import { useProductos } from "./ProductosContext/ProductoProvider";
+import { useProductos } from "../ProductosContext/ProductoProvider";
 
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import { deleteImagesProducto } from "../../firebase/productoStorage";
+import { deleteImagesProducto } from "../../../firebase/productoStorage";
 
 export function CardProducto({ producto }) {
   const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =

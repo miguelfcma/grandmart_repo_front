@@ -1,6 +1,6 @@
 import { useCategorias } from "./CategoriasContext/CategoriaProvider";
 import { useEffect, useState } from "react";
-import { Modal } from "../Modal/Modal";
+import { Modal } from "../ModalComponents/Modal";
 import { FormCategoria } from "./FormCategoria";
 import "./ListCategorias.css";
 

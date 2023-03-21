@@ -1,5 +1,5 @@
-import { Navbar } from "../components/HomePage/NavBar"
-import { Content } from "../components/HomePage/Content"
+import { Navbar } from "../components/HomePageComponents/NavBar"
+import { Content } from "../components/HomePageComponents/Content"
 
 
 export function HomePage(){

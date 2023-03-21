@@ -1,5 +1,5 @@
 import { DashAdmin } from "../DashAdmin";
-import { ListProductos } from "../../../components/ProductoComponents/ListProductos";
+import { ListProductos } from "../../../components/ProductoComponents/admin/ListProductos";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 

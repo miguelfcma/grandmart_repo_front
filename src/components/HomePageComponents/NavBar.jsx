@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import "boxicons";
+import { Favoritos } from "../FavoritosComponents/Favoritos";
 import "./NavBar.css";
-
+import { Carrito } from "../CarritoComponents/Carrito";
 export function Navbar() {
   return (
     <nav className="navbar">
@@ -32,6 +32,12 @@ export function Navbar() {
             </li>
             <li>
               <a href="/">Ofertas</a>
+            </li>
+            <li>
+              <Favoritos/>
+            </li>
+            <li>
+              <Carrito/>
             </li>
             <li>
               <a href="/">Vender</a>

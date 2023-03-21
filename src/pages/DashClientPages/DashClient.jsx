@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import './DashClient.css';
-import {Sidebar} from '../../components/DashClient/Sidebar';
-import {Header} from '../../components/DashClient/Header';
-import {Content} from '../../components/DashClient/Content';
+import {Sidebar} from '../../components/DashClientComponents/Sidebar';
+import {Header} from '../../components/DashClientComponents/Header';
+import {Content} from '../../components/DashClientComponents/Content';
 import { useNavigate } from "react-router-dom";
 
 export function DashClient() {

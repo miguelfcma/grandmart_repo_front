@@ -1,6 +1,6 @@
-import { useCategorias } from "../CategoriaComponents/CategoriasContext/CategoriaProvider";
+import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useState, useEffect } from "react";
-import { useProductos } from "./ProductosContext/ProductoProvider";
+import { useProductos } from "../ProductosContext/ProductoProvider";
 import { useNavigate } from "react-router-dom";
 
 export function FormProducto() {

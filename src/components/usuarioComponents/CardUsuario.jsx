@@ -1,6 +1,6 @@
 import "./CardUsuario.css";
 import { useUsuarios } from "./UsuariosContext/UsuarioProvider";
-import {Modal} from "../Modal/Modal";
+import {Modal} from "../ModalComponents/Modal";
 import { FormUsuario } from "./FormUsuario";
 import { useEffect,useState } from "react";
 

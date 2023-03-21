@@ -1,6 +1,6 @@
 import { DashAdmin } from "../DashAdmin";
 import { ListCategorias } from "../../../components/CategoriaComponents/ListCategorias";
-import { Modal } from "../../../components/Modal/Modal";
+import { Modal } from "../../../components/ModalComponents/Modal";
 import { FormCategoria } from "../../../components/CategoriaComponents/FormCategoria";
 import { useState,useEffect} from "react";
 export function CategoriasPage() {

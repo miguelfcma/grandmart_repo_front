@@ -1,7 +1,7 @@
 import { FormUsuario } from "../../../components/usuarioComponents/FormUsuario";
 
 import { ListUsuarios } from "../../../components/usuarioComponents/ListUsuarios";
-import { Modal } from "../../../components/Modal/Modal";
+import { Modal } from "../../../components/ModalComponents/Modal";
 import { DashAdmin } from "../DashAdmin";
 import { useEffect, useState } from "react";
 import "./UsuariosPage.css";
