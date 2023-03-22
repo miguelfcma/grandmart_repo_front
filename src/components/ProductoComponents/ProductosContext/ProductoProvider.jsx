@@ -60,20 +60,23 @@ export const ProductoContextProvider = ({ children }) => {
     setCarrito([]);
   }
 
-  // Incrementar la cantidad de un producto en el carrito
   function incrementarCantidadItemCarrito(producto) {
     setCarrito((prevCarrito) =>
       prevCarrito.map((p) =>
-        p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
+        p.id === producto.id && p.cantidad < p.stock
+          ? { ...p, cantidad: p.cantidad + 1 }
+          : p
       )
     );
   }
-
+  
   // Decrementar la cantidad de un producto en el carrito
   function decrementarCantidadItemCarrito(producto) {
     setCarrito((prevCarrito) =>
       prevCarrito.map((p) =>
-        p.id === producto.id ? { ...p, cantidad: p.cantidad - 1 } : p
+        p.id === producto.id && p.cantidad > 1
+          ? { ...p, cantidad: p.cantidad - 1 }
+          : p
       )
     );
   }

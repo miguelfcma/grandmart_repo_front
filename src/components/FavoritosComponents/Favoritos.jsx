@@ -2,8 +2,10 @@ import { useProductos } from "../ProductoComponents/ProductosContext/ProductoPro
 import "../HomePageComponents/NavBar.css";
 
 export function Favoritos() {
-  const { favoritos } = useProductos();
-
+  const { favoritos, eliminarFavorito } = useProductos();
+  const handleEliminar = (producto) => {
+    eliminarFavorito(producto);
+  };
   return (
     <div className="navbar-links">
       <ul>
@@ -13,9 +15,12 @@ export function Favoritos() {
           </a>
           <div className="dropdown-content">
             {favoritos.map((producto) => (
-              <a key={producto.id} href={`/productos/${producto.id}`}>
-                {producto.nombre}
-              </a>
+              <div key={producto.id}>
+                <a href={`/productos/${producto.id}`}>{producto.nombre}</a>
+                <button onClick={() => handleEliminar(producto)}>
+                  Eliminar
+                </button>
+              </div>
             ))}
           </div>
         </li>

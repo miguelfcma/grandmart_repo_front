@@ -1,6 +1,7 @@
 import "./Content.css";
 import { ListProductos } from "../ProductoComponents/client/ListProductos";
-export function Content(){
+export function Content({ searchTerm }){
+    console.log(searchTerm)
     return(
         <>
             <main>
@@ -10,7 +11,7 @@ export function Content(){
                     <button>Explora Ahora</button>
                 </section>
 
-                <ListProductos></ListProductos>
+                <ListProductos searchTerm={searchTerm} />
             </main>
             <footer>
                 <p>Derechos Reservados © 2023 Mi Tienda</p>

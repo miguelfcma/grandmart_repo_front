@@ -4,7 +4,12 @@ import { Favoritos } from "../FavoritosComponents/Favoritos";
 import "./NavBar.css";
 import { Carrito } from "../CarritoComponents/Carrito";
 
-export function Navbar() {
+export function Navbar({ setSearchTerm }) {
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+   
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -13,7 +18,12 @@ export function Navbar() {
         </a>
 
         <div className="navbar-search">
-          <input type="text" placeholder="Buscar" name="search" />
+          <input
+            type="text"
+            placeholder="Buscar"
+            name="search"
+            onChange={handleSearchChange}
+          />
           <button type="submit">
             <box-icon name="search-alt" color="#ffffff"></box-icon>
           </button>
