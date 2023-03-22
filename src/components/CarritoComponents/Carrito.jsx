@@ -1,4 +1,5 @@
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
+import "../HomePageComponents/NavBar.css";
 
 export function Carrito() {
   const {
@@ -14,26 +15,39 @@ export function Carrito() {
   }
 
   return (
-    <div>
-      <h2>Carrito de compras</h2>
-      {carrito.length === 0 ? (
-        <p>No hay items en el carrito</p>
-      ) : (
-        <>
-          {carrito.map((item) => (
-            <div key={item.id}>
-              <h3>{item.nombre}</h3>
-              <p>Precio: ${item.precio}</p>
-              <p>Cantidad: {item.cantidad}</p>
-              <button onClick={() => incrementarCantidadItemCarrito(item)}>+</button>
-              <button onClick={() => decrementarCantidadItemCarrito(item)}>-</button>
-              <button onClick={() => eliminarItemCarrito(item)}>Eliminar</button>
+<div className="cart-icon-container">
+  <box-icon type='solid' name='cart' class="cart-icon"></box-icon>
+  <div class="cart-count">{carrito.length}</div>
+
+
+      <div className="cart-dropdown">
+        {carrito.length === 0 ? (
+          <p>Tu carrito está vacío.</p>
+        ) : (
+          <>
+            {carrito.map((item) => (
+              <div key={item.id} className="cart-item">
+                <div className="cart-item-info">
+                  <h3>{item.nombre}</h3>
+                  <p>Precio: ${item.precio}</p>
+                </div>
+                <div className="cart-item-controls">
+                  <button onClick={() => incrementarCantidadItemCarrito(item)}>+</button>
+                  <span>{item.cantidad}</span>
+                  <button onClick={() => decrementarCantidadItemCarrito(item)}>-</button>
+                  <button onClick={() => eliminarItemCarrito(item)}>Eliminar</button>
+                </div>
+              </div>
+            ))}
+            <p>Total: ${getTotal()}</p>
+            <div className="cart-actions">
+              <button onClick={vaciarCarrito}>Vaciar carrito</button>
+              &nbsp;
+              <button>Pagar</button>
             </div>
-          ))}
-          <p>Total: ${getTotal()}</p>
-          <button onClick={vaciarCarrito}>Vaciar carrito</button>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

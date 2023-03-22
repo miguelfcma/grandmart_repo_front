@@ -1,17 +1,24 @@
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
+import "../HomePageComponents/NavBar.css";
 
 export function Favoritos() {
   const { favoritos } = useProductos();
 
   return (
-    <div>
-      <h1>Productos favoritos</h1>
+    <div className="navbar-links">
       <ul>
-        {favoritos.map((producto) => (
-          <li key={producto.id}>
-            <a href={`/productos/${producto.id}`}>{producto.nombre}</a>
-          </li>
-        ))}
+        <li className="dropdown">
+          <a href="#" className="dropbtn">
+            Favoritos
+          </a>
+          <div className="dropdown-content">
+            {favoritos.map((producto) => (
+              <a key={producto.id} href={`/productos/${producto.id}`}>
+                {producto.nombre}
+              </a>
+            ))}
+          </div>
+        </li>
       </ul>
     </div>
   );
