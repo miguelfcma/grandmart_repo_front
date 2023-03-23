@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export function FormProducto() {
   const navigate = useNavigate();
-  const iduser = localStorage.getItem("iduser");
+  const iduser = localStorage.getItem("idUser");
   const { createProducto } = useProductos();
   const [producto, setProducto] = useState({
     nombre: "",

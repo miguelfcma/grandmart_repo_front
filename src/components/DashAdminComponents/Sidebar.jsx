@@ -3,11 +3,18 @@ import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
 export function Sidebar({ children }) {
-  const token = localStorage.getItem("token");
-  const nombre = localStorage.getItem("nombreuser");
+
+  const nombre = localStorage.getItem("nombreUser");
   console.log(nombre)
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("idUser");
+    localStorage.removeItem("nombreUser");
+    localStorage.removeItem("apellidoPaternoUser");
+    localStorage.removeItem("apellidoMaternoUser");
+    localStorage.removeItem("emailUser");
+    localStorage.removeItem("tipoUsuarioUser");
+
     // redirigir a la página de inicio de sesión o a la página principal
   };
 
