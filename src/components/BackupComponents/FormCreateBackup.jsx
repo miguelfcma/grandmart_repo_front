@@ -2,13 +2,14 @@ import { useState } from "react";
 import { getBackupRequest } from "../../API/bdBackup.api";
 
 export function FormCreateBackup() {
-  const email = localStorage.getItem("emailUser")
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
     const token = localStorage.getItem("token");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (event) => {
-    console.log(email)
+    
     event.preventDefault();
+    const email = usuario.email;
     const credentials = {
         password,
         email,
