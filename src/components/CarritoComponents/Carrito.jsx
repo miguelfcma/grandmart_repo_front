@@ -18,8 +18,6 @@ export function Carrito() {
 <div className="cart-icon-container">
   <box-icon type='solid' name='cart' class="cart-icon"></box-icon>
   <div class="cart-count">{carrito.length}</div>
-
-
       <div className="cart-dropdown">
         {carrito.length === 0 ? (
           <p>Tu carrito está vacío.</p>

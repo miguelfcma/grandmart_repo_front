@@ -17,16 +17,22 @@ export function Favoritos() {
           </a>
           <div className="dropdown-content">
             <div className="favoritos-dropdown">
-              {favoritos.map((producto) => (
-                <div key={producto.id} className="favoritos-item">
-                  <a href={`/productos/ver/${producto.id}`}>{producto.nombre}</a>
-                  <div className="eliminar-btn-container">
-                    <button className="eliminar-btn" onClick={() => handleEliminar(producto)}>
-                      Eliminar
-                    </button>
-                  </div>
-                </div>
-              ))}
+              {favoritos.length === 0 ? (
+                <p>No has agregado favoritos.</p>
+              ) : (
+                <>
+                  {favoritos.map((producto) => (
+                    <div key={producto.id} className="favoritos-item">
+                      <a href={`/productos/ver/${producto.id}`}>{producto.nombre}</a>
+                      <div className="eliminar-btn-container">
+                        <button className="eliminar-btn" onClick={() => handleEliminar(producto)}>
+                          Eliminar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </li>
