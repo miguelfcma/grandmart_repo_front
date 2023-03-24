@@ -36,7 +36,6 @@ export function DashAdmin() {
           </div>
         </div>
       )}
-      <FormCreateBackup/>
     </>
   );
 }

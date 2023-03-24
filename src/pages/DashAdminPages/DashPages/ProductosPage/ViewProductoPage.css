@@ -38,17 +38,25 @@
   max-height: 200px;
   object-fit: contain;
 }
-.back-button {
-  background-color: #2ecc71;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
 
-.back-button:hover {
-  background-color: #27ae60;
-}
+.back-button {
+  text-decoration: none;
+  background-color: white; 
+  color: black !important;
+  border: 2px solid #1c6bc3;
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  }    
+  
+  .back-button:hover {
+  text-decoration: none;
+  background-color: #1c6bc3;
+  color: white !important; 
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  }

@@ -50,7 +50,7 @@ export function CardProducto({ producto }) {
         <box-icon
           type="solid"
           name="heart"
-          color={esFavorito ? "red" : "black"}
+          color={esFavorito ? "red" : "white"}
         ></box-icon>
       </button>
       <button

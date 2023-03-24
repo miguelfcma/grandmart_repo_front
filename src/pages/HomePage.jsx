@@ -11,7 +11,6 @@ export function HomePage() {
         <Navbar setSearchTerm={setSearchTerm} />
         
         <Content searchTerm={searchTerm} />
-        <FormCreateBackup/>
       </>
     );
   }

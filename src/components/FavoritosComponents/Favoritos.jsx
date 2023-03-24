@@ -3,9 +3,11 @@ import "../HomePageComponents/NavBar.css";
 
 export function Favoritos() {
   const { favoritos, eliminarFavorito } = useProductos();
+
   const handleEliminar = (producto) => {
     eliminarFavorito(producto);
   };
+
   return (
     <div className="navbar-links">
       <ul>
@@ -14,14 +16,18 @@ export function Favoritos() {
             Favoritos
           </a>
           <div className="dropdown-content">
-            {favoritos.map((producto) => (
-              <div key={producto.id}>
-                <a href={`/productos/${producto.id}`}>{producto.nombre}</a>
-                <button onClick={() => handleEliminar(producto)}>
-                  Eliminar
-                </button>
-              </div>
-            ))}
+            <div className="favoritos-dropdown">
+              {favoritos.map((producto) => (
+                <div key={producto.id} className="favoritos-item">
+                  <a href={`/productos/ver/${producto.id}`}>{producto.nombre}</a>
+                  <div className="eliminar-btn-container">
+                    <button className="eliminar-btn" onClick={() => handleEliminar(producto)}>
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </li>
       </ul>
