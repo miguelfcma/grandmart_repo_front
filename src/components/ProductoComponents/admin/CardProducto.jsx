@@ -8,9 +8,10 @@ import { Link } from "react-router-dom";
 import { deleteImagesProducto } from "../../../firebase/productoStorage";
 
 export function CardProducto({ producto }) {
+  
   const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =
     useProductos();
-  const [imagenes, setImagenes] = useState(null);
+
   const [urlImagen, setUrlImagen] = useState("");
 
   async function obtenerUrlImagenAsync(idProducto) {

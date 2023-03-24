@@ -9,13 +9,20 @@ export function Navbar({ setSearchTerm }) {
     setSearchTerm(e.target.value);
    
   };
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    // redirigir a la página de inicio de sesión o a la página principal
+  };
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <a href="/">
+        <Link to="/">
           <img alt="e-commerce" src="./logo.png" />
-        </a>
+        </Link>
 
         <div className="navbar-search">
           <input
@@ -32,41 +39,52 @@ export function Navbar({ setSearchTerm }) {
         <div className="navbar-links">
           <ul>
             <li className="dropdown">
-              <a href="#" className="dropbtn">
+              <Link to="#" className="dropbtn">
                 Categorías
-              </a>
+              </Link>
               <div className="dropdown-content">
-                <a href="#">Salud</a>
-                <a href="#">Hogar</a>
-                <a href="#">Entretenimiento</a>
+                <Link to="#">Salud</Link>
+                <Link to="#">Hogar</Link>
+                <Link to="#">Entretenimiento</Link>
               </div>
             </li>
             <li>
-              <a href="/">Ofertas</a>
+              <Link to="/">Ofertas</Link>
             </li>
             <li>
-              <a href="/">Vender</a>
+              <Link to="/">Vender</Link>
             </li>
             <li>
-            <div className="navbar-links">
+              <div className="navbar-links">
                 <Favoritos />
-            </div>
+              </div>
             </li>
 
             <li>
-            <div className="navbar-links navbar-carrito">
+              <div className="navbar-links navbar-carrito">
                 <Carrito />
-            </div>
+              </div>
             </li>
 
             <li>
-              <a href="/login">
-                <div className="iconuser">
-                  <box-icon name="user"></box-icon>
-                </div>
-                Sesión
-              </a>
+              {usuario ? (
+                <Link to="/login" onClick={handleLogout}>
+                  <div className="iconuser">
+                    <box-icon name="log-out"></box-icon>
+                  </div>
+                  Cerrar Sesión
+                </Link>
+                
+              ) : (
+                <Link to="/login">
+                  <div className="iconuser">
+                    <box-icon name="user"></box-icon>
+                  </div>
+                  Iniciar Sesión
+                </Link>
+              )}
             </li>
+            {usuario ? (usuario.nombre ) : (<di></di>)}
           </ul>
         </div>
       </div>

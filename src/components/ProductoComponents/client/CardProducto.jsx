@@ -1,8 +1,10 @@
 import "./CardProducto.css";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
-
+import { Link, useNavigate } from "react-router-dom";
 export function CardProducto({ producto }) {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const navigate = useNavigate();
   const {
     getImgPortadaProducto,
     agregarFavorito,
@@ -27,11 +29,19 @@ export function CardProducto({ producto }) {
     if (esFavorito) {
       eliminarFavorito(producto);
     } else {
-      agregarFavorito(producto);
+      if (usuario) {
+        agregarFavorito(producto);
+      } else {
+        navigate("/login");
+      }
     }
   }
   function agregarAlCarrito() {
-    agregarItemCarrito(producto);
+    if (usuario) {
+      agregarItemCarrito(producto);
+    } else {
+      navigate("/login");
+    }
   }
 
   return (
@@ -56,7 +66,9 @@ export function CardProducto({ producto }) {
       <button
         onClick={agregarAlCarrito}
         disabled={esProductoEnCarrito}
-        title={esProductoEnCarrito ? "Ya está en el carrito" : "Agregar al carrito"}
+        title={
+          esProductoEnCarrito ? "Ya está en el carrito" : "Agregar al carrito"
+        }
       >
         {esProductoEnCarrito ? "Agregado al carrito" : "Agregar al carrito"}
       </button>

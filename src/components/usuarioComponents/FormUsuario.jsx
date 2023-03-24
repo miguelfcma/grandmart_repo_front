@@ -160,7 +160,7 @@ export function FormUsuario  ({ onSubmit, initialUsuario =null })  {
           />
         </label>
         <br />
-        <label htmlFor="password">
+        {initialUsuario ? <div></div> :  <label htmlFor="password">
           Contraseña:
           <input
             type="password"
@@ -169,7 +169,9 @@ export function FormUsuario  ({ onSubmit, initialUsuario =null })  {
             onChange={(event) => setPassword(event.target.value)}
             required
           />
-        </label>
+        </label>}
+       
+
         <br />
         <label htmlFor="tipoUsuario">
           Tipo de usuario:

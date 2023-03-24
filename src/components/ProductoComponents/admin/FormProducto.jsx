@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export function FormProducto() {
   const navigate = useNavigate();
-  const iduser = localStorage.getItem("idUser");
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { createProducto } = useProductos();
   const [producto, setProducto] = useState({
     nombre: "",
@@ -17,7 +17,7 @@ export function FormProducto() {
     color: "",
     estado: "",
     id_categoria: "",
-    id_usuario: iduser,
+    id_usuario: usuario.id,
   });
 
   const { categorias, loadCategorias } = useCategorias();

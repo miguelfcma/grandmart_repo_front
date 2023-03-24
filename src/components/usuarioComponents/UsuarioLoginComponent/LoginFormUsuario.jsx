@@ -21,21 +21,11 @@ export function LoginFormUsuario() {
         if (response.usuario.tipoUsuario == true) {
           navigate("/dashAdmin");
         } else {
-          navigate("/dashClient");
+          navigate("/");
         }
         localStorage.setItem("token", response.token);
-        localStorage.setItem("idUser", response.usuario.id);
-        localStorage.setItem("nombreUser", response.usuario.nombre);
-        localStorage.setItem(
-          "apellidoPaternoUser",
-          response.usuario.apellidoPaterno
-        );
-        localStorage.setItem(
-          "apellidoMaternoUser",
-          response.usuario.apellidoMaterno
-        );
-        localStorage.setItem("emailUser", response.usuario.email);
-        localStorage.setItem("tipoUsuarioUser", response.usuario.tipoUsuario);
+        localStorage.setItem("usuario", JSON.stringify(response.usuario));
+        
       }
     } catch (error) {
       console.log(error);

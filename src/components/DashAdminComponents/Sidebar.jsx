@@ -4,17 +4,11 @@ import "./Sidebar.css";
 
 export function Sidebar({ children }) {
 
-  const nombre = localStorage.getItem("nombreUser");
-  console.log(nombre)
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("idUser");
-    localStorage.removeItem("nombreUser");
-    localStorage.removeItem("apellidoPaternoUser");
-    localStorage.removeItem("apellidoMaternoUser");
-    localStorage.removeItem("emailUser");
-    localStorage.removeItem("tipoUsuarioUser");
-
+    localStorage.removeItem("usuario");
     // redirigir a la página de inicio de sesión o a la página principal
   };
 
@@ -38,7 +32,7 @@ export function Sidebar({ children }) {
         </li>
       </ul>
       <div className="user-options">
-        <p>Bienvenido: {nombre}</p>
+        <p>Bienvenido: {usuario.nombre+" "+usuario.apellidoPaterno+" "+usuario.apellidoMaterno}</p>
         <Link to="/" onClick={handleLogout}>
           Cerrar sesión
         </Link>
