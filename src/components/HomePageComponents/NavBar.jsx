@@ -7,8 +7,8 @@ import { Carrito } from "../CarritoComponents/Carrito";
 export function Navbar({ setSearchTerm }) {
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-   
   };
+  
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   const handleLogout = () => {
@@ -17,6 +17,19 @@ export function Navbar({ setSearchTerm }) {
     // redirigir a la página de inicio de sesión o a la página principal
   };
 
+  if (usuario && usuario.tipoUsuario === 1) {
+    usuario = "/dashAdmin";
+  } else if (usuario && usuario.tipoUsuario === 0) {
+    usuario = "/dashClient";
+  }
+
+  const categorias = [
+    { nombre: "Salud", link: "/productos?categoria=salud" },
+    { nombre: "Hogar", link: "/productos?categoria=hogar" },
+    { nombre: "Entretenimiento", link: "/productos?categoria=entretenimiento" },
+  ];
+
+  
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -38,14 +51,16 @@ export function Navbar({ setSearchTerm }) {
 
         <div className="navbar-links">
           <ul>
-            <li className="dropdown">
+          <li className="dropdown">
               <Link to="#" className="dropbtn">
                 Categorías
               </Link>
               <div className="dropdown-content">
-                <Link to="#">Salud</Link>
-                <Link to="#">Hogar</Link>
-                <Link to="#">Entretenimiento</Link>
+                {categorias.map((categoria) => (
+                  <Link key={categoria.nombre} to={categoria.link}>
+                    {categoria.nombre}
+                  </Link>
+                ))}
               </div>
             </li>
             <li>
@@ -67,24 +82,40 @@ export function Navbar({ setSearchTerm }) {
             </li>
 
             <li>
-              {usuario ? (
-                <Link to="/login" onClick={handleLogout}>
-                  <div className="iconuser">
-                    <box-icon name="log-out"></box-icon>
-                  </div>
-                  Cerrar Sesión
-                </Link>
-                
-              ) : (
-                <Link to="/login">
-                  <div className="iconuser">
-                    <box-icon name="user"></box-icon>
-                  </div>
-                  Iniciar Sesión
-                </Link>
+                {usuario ? (
+                  <li className="dropdown">
+                    {usuario.tipoUsuario === 1 ? (
+                      <Link to="/dashAdmin" className="dropbtn">
+                        <div className="iconuser">
+                          <box-icon name="user"></box-icon>
+                        </div>
+                        {usuario.nombre}
+                      </Link>
+                    ) : (
+                      <Link to="/dashClient" className="dropbtn">
+                        <div className="iconuser">
+                          <box-icon name="user"></box-icon>
+                        </div>
+                        {usuario.nombre}
+                      </Link>
+                    )}
+                    <div className="dropdown-content">
+                      <Link to="/login" onClick={handleLogout}>
+                        <div className="iconuser">
+                          Salir
+                          <box-icon name="log-out"></box-icon>
+                        </div>
+                      </Link>
+                    </div>
+                  </li>
+                ) : (
+                <li>
+                  <Link to="/login">
+                    Ingresa
+                  </Link>
+                </li>
               )}
             </li>
-            {usuario ? (usuario.nombre ) : (<di></di>)}
           </ul>
         </div>
       </div>

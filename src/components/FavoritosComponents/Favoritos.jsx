@@ -8,6 +8,14 @@ export function Favoritos() {
     eliminarFavorito(producto);
   };
 
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    // redirigir a la página de inicio de sesión o a la página principal
+  };
+
   return (
     <div className="navbar-links">
       <ul>

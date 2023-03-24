@@ -51,8 +51,8 @@ export function CardProducto({ producto }) {
         src={urlImagen}
         alt={producto.nombre}
       />
-      <div>Nombre: {producto.nombre}</div>
-      <div>Precio: ${producto.precio}</div>
+      <div>{producto.nombre}</div>
+      <div>${producto.precio}</div>
       <button
         onClick={toggleFavorito}
         title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}

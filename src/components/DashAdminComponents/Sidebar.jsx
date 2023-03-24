@@ -36,11 +36,15 @@ export function Sidebar({ children }) {
       </ul>
       <div className="user-options">
         <p>Bienvenido: {usuario.nombre+" "+usuario.apellidoPaterno+" "+usuario.apellidoMaterno}</p>
-        <Link to="/" onClick={handleLogout}>
-          Cerrar sesión
-        </Link>
+
+        <br></br>
+        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Página principal</Link>
+        <br></br><br></br><br></br><br></br><br></br><br></br>
+
+        <Link to="/" onClick={handleLogout} style={{ textDecoration: 'none', color: 'white' }} className="iconuser"><box-icon name='log-out' color='#ffffff' ></box-icon>Cerrar sesión</Link>
       </div>
       {children}
+
     </div>
   );
 }
