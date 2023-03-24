@@ -30,6 +30,9 @@ export function Sidebar({ children }) {
         <li>
           <Link to="/dashAdmin/servicios">Servicios</Link>
         </li>
+        <li>
+          <Link to="/dashAdmin/database-backup">Database backup</Link>
+        </li>
       </ul>
       <div className="user-options">
         <p>Bienvenido: {usuario.nombre+" "+usuario.apellidoPaterno+" "+usuario.apellidoMaterno}</p>

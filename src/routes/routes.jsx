@@ -19,7 +19,7 @@ import { PedidosClient } from "../pages/DashClientPages/DashPages/PedidosClient"
 
 import { RegistroProductoPage1 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage1";
 import { RegistroProductoPage2 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage2";
-
+import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup";
 export function MyRoutes() {
   return (
     <Router>
@@ -54,6 +54,7 @@ export function MyRoutes() {
         />
 
         <Route exact path="/dashAdmin/servicios" element={<ServiciosPage />} />
+        <Route exact path="/dashAdmin/database-backup" element={<DatabaseBackup />} />
 
         <Route exact path="/dashClient" element={<DashClient />} />
         <Route
