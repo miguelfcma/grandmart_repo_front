@@ -17,17 +17,21 @@ export function Navbar({ setSearchTerm }) {
     // redirigir a la página de inicio de sesión o a la página principal
   };
 
+  /* 
   if (usuario && usuario.tipoUsuario === 1) {
     usuario = "/dashAdmin";
   } else if (usuario && usuario.tipoUsuario === 0) {
     usuario = "/dashClient";
   }
 
+  */ 
   const categorias = [
     { nombre: "Salud", link: "/productos?categoria=salud" },
     { nombre: "Hogar", link: "/productos?categoria=hogar" },
     { nombre: "Entretenimiento", link: "/productos?categoria=entretenimiento" },
   ];
+
+
 
   
   return (

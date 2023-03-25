@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { CardProducto } from "./CardProducto";
-import "./ListProductos.css";
-import { useProductos } from "../ProductosContext/ProductoProvider";
+import { CardProducto } from "./client/CardProducto";
+import "./ListProductsGeneral.css";
+import { useProductos } from "./ProductosContext/ProductoProvider";
 
-export function ListProductos({ searchTerm }) {
+export function ListProductsGeneral() {
   const { productos, loadProductos } = useProductos();
 
   useEffect(() => {
@@ -11,19 +11,14 @@ export function ListProductos({ searchTerm }) {
   }, []);
 
   function renderMain() {
-    const filteredProductos = productos.filter((producto) =>
-      producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    if (filteredProductos.length === 0) {
+    if (productos.length === 0) {
       return <h1>No hay productos registrados</h1>;
     } else {
-      return filteredProductos.map((producto) => (
+      return productos.map((producto) => (
         <CardProducto key={producto.id} producto={producto} />
       ));
     }
   }
-
 
   return (
     <>

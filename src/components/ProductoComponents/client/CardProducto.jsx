@@ -45,33 +45,38 @@ export function CardProducto({ producto }) {
   }
 
   return (
-    <div className="card-producto">
-      <img
-        className="card-producto-img"
-        src={urlImagen}
-        alt={producto.nombre}
-      />
-      <div>{producto.nombre}</div>
-      <div>${producto.precio}</div>
-      <button
-        onClick={toggleFavorito}
-        title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}
-      >
-        <box-icon
-          type="solid"
-          name="heart"
-          color={esFavorito ? "red" : "white"}
-        ></box-icon>
-      </button>
-      <button
-        onClick={agregarAlCarrito}
-        disabled={esProductoEnCarrito}
-        title={
-          esProductoEnCarrito ? "Ya está en el carrito" : "Agregar al carrito"
-        }
-      >
-        {esProductoEnCarrito ? "Agregado al carrito" : "Agregar al carrito"}
-      </button>
-    </div>
+
+      <div className="card-producto">
+
+        <Link to={`/productos/ver/${producto.id}`} style={{ textDecoration: "none" }}>
+        <img
+          className="card-producto-img"
+          src={urlImagen}
+          alt={producto.nombre}
+        />
+        <div>{producto.nombre}</div>
+        <div>${producto.precio}</div>
+        </Link>
+
+        <button
+          onClick={toggleFavorito}
+          title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}
+        >
+          <box-icon
+            type="solid"
+            name="heart"
+            color={esFavorito ? "red" : "white"}
+          ></box-icon>
+        </button>
+        <button
+          onClick={agregarAlCarrito}
+          disabled={esProductoEnCarrito}
+          title={
+            esProductoEnCarrito ? "Ya está en el carrito" : "Agregar al carrito"
+          }
+        >
+          {esProductoEnCarrito ? "Agregado al carrito" : "Agregar al carrito"}
+        </button>
+      </div>
   );
 }

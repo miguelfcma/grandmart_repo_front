@@ -20,6 +20,9 @@ import { PedidosClient } from "../pages/DashClientPages/DashPages/PedidosClient"
 import { RegistroProductoPage1 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage1";
 import { RegistroProductoPage2 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage2";
 import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup";
+
+import { ViewProducts } from "../pages/DashClientPages/DashPages/ViewProducts";
+
 export function MyRoutes() {
   return (
     <Router>
@@ -69,6 +72,8 @@ export function MyRoutes() {
           element={<ServiciosClient />}
         />
         <Route exact path="/dashClient/pedidos" element={<PedidosClient />} />
+
+        <Route exact path="/productos/ver/:id" element={<ViewProducts />} />
 
         <Route exact path="*" element={<NotFoundPage />} />
       </Routes>

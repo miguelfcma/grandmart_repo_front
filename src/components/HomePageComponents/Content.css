@@ -18,7 +18,8 @@ section {
   margin: 3em 0;
 }
 
-.destacados-grid, .ofertas-grid {
+.destacados-grid,
+.ofertas-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 2em;
@@ -65,16 +66,19 @@ button {
   border-radius: 20px;
 }
 
-#destacados h2, #ofertas h2 {
+#destacados h2,
+#ofertas h2 {
   text-align: center;
 }
 
-#destacados article h3, #ofertas article h3 {
+#destacados article h3,
+#ofertas article h3 {
   font-size: 1.5em;
   margin: 0.5em 0;
 }
 
-#destacados article p, #ofertas article p {
+#destacados article p,
+#ofertas article p {
   font-size: 1.2em;
   margin: 0.5em 0;
 }
@@ -83,7 +87,8 @@ button {
   color: #1c6bc3;
 }
 
-#destacados article button, #ofertas article button {
+#destacados article button,
+#ofertas article button {
   font-size: 1.2em;
   padding: 0.7em 1.5em;
   border-radius: 20px;
