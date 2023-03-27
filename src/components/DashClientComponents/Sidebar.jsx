@@ -25,6 +25,9 @@ export function Sidebar({ children }) {
         <li>
           <Link to="/dashClient/pedidos">Pedidos</Link>
         </li>
+        <li>
+          <Link to="/dashClient/perfil">Mi perfil</Link>
+        </li>
       </ul>
       <div className="user-options">
         <p>Nombre del usuario</p>

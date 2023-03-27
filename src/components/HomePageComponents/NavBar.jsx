@@ -26,9 +26,20 @@ export function Navbar({ setSearchTerm }) {
 
   */ 
   const categorias = [
+    { nombre: "Tecnología", link: "/productos?categoria=Tecnología" },
+    { nombre: "Entretenimiento", link: "/productos?categoria=Entretenimiento" },
+    { nombre: "Consultoría", link: "/productos?categoria=Consultoría" },
     { nombre: "Salud", link: "/productos?categoria=salud" },
-    { nombre: "Hogar", link: "/productos?categoria=hogar" },
-    { nombre: "Entretenimiento", link: "/productos?categoria=entretenimiento" },
+    { nombre: "Movilidad", link: "/productos?categoria=Movilidad" },
+    { nombre: "Enseñanza Aprendizaje", link: "/productos?categoria=Enseñanza Aprendizaje" },
+    { nombre: "Mascotas", link: "/productos?categoria=Mascotas" },
+    { nombre: "Vivienda", link: "/productos?categoria=Vivienda" },
+    { nombre: "Emprendimientos", link: "/productos?categoria=Emprendimientos" },
+    { nombre: "Belleza", link: "/productos?categoria=Belleza" },
+    { nombre: "Caprichos y cariños", link: "/productos?categoria=Caprichos y cariños" },
+    { nombre: "Aparatos funcionales", link: "/productos?categoria=Aparatos funcionales" },
+    { nombre: "Moda", link: "/productos?categoria=Moda" },
+    
   ];
 
 
