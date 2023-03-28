@@ -20,6 +20,7 @@ export const getProductosRequest = async () => {
 };
 
 export const createProductoRequest = async (producto) => {
+  console.log(producto)
   try {
     const response = await axios.post(API_BASE_URL+"productos", producto);
     console.log({

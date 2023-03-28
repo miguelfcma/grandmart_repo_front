@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { NotFoundPage } from "../pages/NotFoundPage";
-import { HomePage } from "../pages/HomePage";
+import { HomePage } from "../pages/HomePages/HomePage";
 import { UsuariosPage } from "../pages/DashAdminPages/DashPages/UsuariosPage";
 
-import { LoginPage } from "../pages/LoginPage";
+import { LoginPage } from "../pages/HomePages/Login-Singup-Pages/LoginPage";
 
 import { DashAdmin } from "../pages/DashAdminPages/DashAdmin";
 import { CategoriasPage } from "../pages/DashAdminPages/DashPages/CategoriasPage";
@@ -21,10 +21,12 @@ import { RegistroProductoPage1 } from "../pages/DashAdminPages/DashPages/Product
 import { RegistroProductoPage2 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage2";
 import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup";
 
-import { ViewProducts } from "../pages/DashClientPages/DashPages/ViewProducts";
 
 import { ListProductos } from "../components/ProductoComponents/admin/ListProductos";
+import { ProductosDetallesPage } from "../pages/HomePages/Productos-Pages/ProductosDetallesPage";
+import { SingupPage } from "../pages/HomePages/Login-Singup-Pages/SingupPage";
 
+SingupPage
 export function MyRoutes() {
   return (
     <Router>
@@ -32,6 +34,7 @@ export function MyRoutes() {
         <Route exact path="/" element={<HomePage />} />
 
         <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/singup" element={<SingupPage />} />
 
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
         <Route exact path="/dashAdmin/usuarios" element={<UsuariosPage />} />
@@ -75,7 +78,7 @@ export function MyRoutes() {
         />
         <Route exact path="/dashClient/pedidos" element={<PedidosClient />} />
 
-        <Route exact path="/productos/ver/:id" element={<ViewProducts />} />
+        <Route exact path="/productos/detalles/:id" element={<ProductosDetallesPage />} />
 
         <Route exact path="/productos/" element={<ListProductos/>} />
 

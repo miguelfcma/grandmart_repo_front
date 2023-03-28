@@ -17,7 +17,7 @@ export function Content({ searchTerm }) {
         <ListProductsGeneral searchTerm={searchTerm} />
       </main>
       <footer>
-        <p>Derechos Reservados © 2023 Mi Tienda</p>
+        <p>Derechos Reservados © 2023 GrandMart</p>
       </footer>
     </>
   );

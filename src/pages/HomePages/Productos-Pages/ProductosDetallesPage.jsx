@@ -1,12 +1,11 @@
-import { useProductos } from "../../../../components/ProductoComponents/ProductosContext/ProductoProvider";
+import { useProductos } from "../../../components/ProductoComponents/ProductosContext/ProductoProvider";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./ViewProductoPage.css";
-import { useCategorias } from "../../../../components/CategoriaComponents/CategoriasContext/CategoriaProvider";
+import { useCategorias } from "../../../components/CategoriaComponents/CategoriasContext/CategoriaProvider";
 
-export function ViewProductoPage() {
+export function ProductosDetallesPage() {
   const { productos, getImgPortadaProducto, getProductImages, loadProductos } = useProductos();
   const { id } = useParams();
 
@@ -52,7 +51,7 @@ export function ViewProductoPage() {
             <div>Marca: {producto.marca}</div>
             <div>Modelo: {producto.modelo}</div>
             <div>Color: {producto.color}</div>
-            <div>Estado: {producto.estado}</div>
+            <div>Estado: {producto.estado ? "Nuevo" : "Usado"}</div>
             <div>
               Categoría:{" "}
               {categorias.find((categoria) => categoria.id === producto.id_categoria)?.nombre}
@@ -77,11 +76,9 @@ export function ViewProductoPage() {
         <div>No se encontró el producto</div>
       )}
 
-      <Link to="/dashAdmin/productos" style={{ textDecoration: "none" }}>
-        <button className="back-button" type="button">
-          <span>Atrás</span>
-        </button>
-      </Link>
+<button onClick={() => window.history.back()}>
+      Regresar
+    </button>
     </div>
   );
 }

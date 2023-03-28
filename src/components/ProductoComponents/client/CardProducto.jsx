@@ -48,7 +48,7 @@ export function CardProducto({ producto }) {
 
       <div className="card-producto">
 
-        <Link to={`/productos/ver/${producto.id}`} style={{ textDecoration: "none" }}>
+        <Link to={`/productos/detalles/${producto.id}`} style={{ textDecoration: "none" }}>
         <img
           className="card-producto-img"
           src={urlImagen}

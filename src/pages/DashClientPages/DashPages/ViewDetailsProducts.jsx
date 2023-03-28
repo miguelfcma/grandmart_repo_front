@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import "./ViewProducts.css";
 
-export function ViewProducts() {
+export function ViewDetailsProducts() {
   const { productos, getImgPortadaProducto, getProductImages } = useProductos();
   const { id } = useParams();
 
@@ -62,11 +62,9 @@ export function ViewProducts() {
         <div>No se encontró el producto</div>
       )}
 
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <button className="back-button" type="button">
-          <span>Atrás</span>
-        </button>
-      </Link>
+<button onClick={() => window.history.back()}>
+      Regresar
+    </button>
     </div>
   );
 }

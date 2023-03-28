@@ -31,7 +31,7 @@ export function Favoritos() {
                 <>
                   {favoritos.map((producto) => (
                     <div key={producto.id} className="favoritos-item">
-                      <a href={`/productos/ver/${producto.id}`}>{producto.nombre}</a>
+                      <a href={`/productos/detalles/${producto.id}`}>{producto.nombre}</a>
                       <div className="eliminar-btn-container">
                         <button className="eliminar-btn" onClick={() => handleEliminar(producto)}>
                           Eliminar

@@ -106,7 +106,8 @@ export function Navbar() {
             <li>
                 {usuario ? (
                   <li className="dropdown">
-                    {usuario.tipoUsuario === 1 ? (
+
+                    {usuario.tipoUsuario === true ? (
                       <Link to="/dashAdmin" className="dropbtn">
                         <div className="iconuser">
                           <box-icon name="user"></box-icon>
@@ -121,6 +122,7 @@ export function Navbar() {
                         {usuario.nombre}
                       </Link>
                     )}
+
                     <div className="dropdown-content">
                       <Link to="/login" onClick={handleLogout}>
                         <div className="iconuser">
@@ -130,6 +132,7 @@ export function Navbar() {
                       </Link>
                     </div>
                   </li>
+
                 ) : (
                 <li>
                   <Link to="/login">
