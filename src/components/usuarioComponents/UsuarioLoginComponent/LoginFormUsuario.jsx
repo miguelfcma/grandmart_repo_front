@@ -91,7 +91,7 @@ export function LoginFormUsuario() {
             </span>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span>
-              <Link to="/singup">Crear cuenta</Link>
+              <Link to="/signup">Crear cuenta</Link>
             </span>
           </p>
 

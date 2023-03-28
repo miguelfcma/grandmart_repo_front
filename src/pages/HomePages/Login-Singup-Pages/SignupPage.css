@@ -1,8 +1,0 @@
-import {SignupFormUsuario} from "../../../components/UsuarioComponents/UsuarioSingupComponets/SinupFormUsuario"
-export  function SingupPage() {
-  return (
-    <div>
-      <SignupFormUsuario/>
-    </div>
-  )
-}

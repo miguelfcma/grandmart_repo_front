@@ -3,7 +3,7 @@ import { NotFoundPage } from "../pages/NotFoundPage";
 import { HomePage } from "../pages/HomePages/HomePage";
 import { UsuariosPage } from "../pages/DashAdminPages/DashPages/UsuariosPage";
 
-import { LoginPage } from "../pages/HomePages/Login-Singup-Pages/LoginPage";
+import { LoginPage } from "../pages/HomePages/Login-Signup-Pages/LoginPage";
 
 import { DashAdmin } from "../pages/DashAdminPages/DashAdmin";
 import { CategoriasPage } from "../pages/DashAdminPages/DashPages/CategoriasPage";
@@ -24,9 +24,8 @@ import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup
 
 import { ListProductos } from "../components/ProductoComponents/admin/ListProductos";
 import { ProductosDetallesPage } from "../pages/HomePages/Productos-Pages/ProductosDetallesPage";
-import { SingupPage } from "../pages/HomePages/Login-Singup-Pages/SingupPage";
+import { SignupPage } from "../pages/HomePages/Login-Signup-Pages/SignupPage";
 
-SingupPage
 export function MyRoutes() {
   return (
     <Router>
@@ -34,7 +33,7 @@ export function MyRoutes() {
         <Route exact path="/" element={<HomePage />} />
 
         <Route exact path="/login" element={<LoginPage />} />
-        <Route exact path="/singup" element={<SingupPage />} />
+        <Route exact path="/signup" element={<SignupPage />} />
 
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
         <Route exact path="/dashAdmin/usuarios" element={<UsuariosPage />} />
