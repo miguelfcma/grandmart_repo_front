@@ -1,14 +1,13 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import React from "react";
 import { Favoritos } from "../FavoritosComponents/Favoritos";
 import "./NavBar.css";
 import { Carrito } from "../CarritoComponents/Carrito";
+import axios from "axios";
 
-export function Navbar({ setSearchTerm }) {
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-  
+export function Navbar() {
+  const [searchTerm, setSearchTerm] = useState("");
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   const handleLogout = () => {
@@ -25,6 +24,7 @@ export function Navbar({ setSearchTerm }) {
   }
 
   */ 
+
   const categorias = [
     { nombre: "Tecnología", link: "/productos?categoria=Tecnología" },
     { nombre: "Entretenimiento", link: "/productos?categoria=Entretenimiento" },
@@ -41,15 +41,21 @@ export function Navbar({ setSearchTerm }) {
     { nombre: "Moda", link: "/productos?categoria=Moda" },
     
   ];
-
-
-
   
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`/productos?search=${searchTerm}`);
+      setSearchResults(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/">
-          <img alt="e-commerce" src="./logo.png" />
+          <img alt="e-commerce" src="../src/components/HomePageComponents/logo.png" />
         </Link>
 
         <div className="navbar-search">
@@ -57,9 +63,10 @@ export function Navbar({ setSearchTerm }) {
             type="text"
             placeholder="Buscar"
             name="search"
-            onChange={handleSearchChange}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit">
+          <button type="button" onClick={handleSearch}>
             <box-icon name="search-alt" color="#ffffff"></box-icon>
           </button>
         </div>

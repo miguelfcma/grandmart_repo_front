@@ -23,6 +23,8 @@ import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup
 
 import { ViewProducts } from "../pages/DashClientPages/DashPages/ViewProducts";
 
+import { ListProductos } from "../components/ProductoComponents/admin/ListProductos";
+
 export function MyRoutes() {
   return (
     <Router>
@@ -74,6 +76,8 @@ export function MyRoutes() {
         <Route exact path="/dashClient/pedidos" element={<PedidosClient />} />
 
         <Route exact path="/productos/ver/:id" element={<ViewProducts />} />
+
+        <Route exact path="/productos/" element={<ListProductos/>} />
 
         <Route exact path="*" element={<NotFoundPage />} />
       </Routes>

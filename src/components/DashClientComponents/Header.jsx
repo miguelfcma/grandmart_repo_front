@@ -4,7 +4,7 @@ export function Header() {
   <div  className="header">
     <div className="header-container">
     <a href="/dashClient">
-      <img alt="e-commerce" src="../src/components/HomePage/logo.png" />
+      <img alt="e-commerce" src="../src/components/HomePageComponents/logo.png" />
     </a>
     </div>
   </div>
