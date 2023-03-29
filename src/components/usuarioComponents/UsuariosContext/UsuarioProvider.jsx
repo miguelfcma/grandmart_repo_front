@@ -7,7 +7,7 @@ import {
   updateUsuarioRequest,
   getUsuarioLoginRequest,
 } from "../../../API/usuarios.api";
-
+import { getDomicilioUsuarioByUserIdRequest, deleteDomicilioUsuarioByUserIdRequest, createDomicilioUsuarioRequest, updateDomicilioUsuarioByUserIdRequest } from "../../../API/domicilioUsuario.api";
 import { UsuarioContext } from "./UsuarioContext";
 
 export const useUsuarios = () => {
@@ -93,6 +93,58 @@ export const UsuarioContextProvider = ({ children }) => {
     }
   };
 
+  const getDomicilioUsuarioByUserId = async (id_usuario) => {
+    try {
+      const response = await getDomicilioUsuarioByUserIdRequest(id_usuario);
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error("No se pudo obtener la dirección del usuario");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteDomicilioUsuarioByUserId = async (id_usuario) => {
+    try {
+      const response = await deleteDomicilioUsuarioByUserIdRequest(id_usuario);
+      if (response.status === 200) {
+        return true;
+      } else {
+        throw new Error("No se pudo eliminar la dirección del usuario");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const createDomicilioUsuario = async (domicilio) => {
+    try {
+      const response = await createDomicilioUsuarioRequest(domicilio);
+
+      if (response.status == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateDomicilioUsuarioByUserId = async (id_usuario, domicilio) => {
+    try {
+      const response = await updateDomicilioUsuarioByUserIdRequest(id_usuario, domicilio);
+      if (response.status == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <UsuarioContext.Provider
       value={{
@@ -102,6 +154,10 @@ export const UsuarioContextProvider = ({ children }) => {
         createUsuario,
         updateUsuario,
         loginUsuario,
+        getDomicilioUsuarioByUserId,
+        deleteDomicilioUsuarioByUserId,
+        createDomicilioUsuario,
+        updateDomicilioUsuarioByUserId,
       }}
     >
       {children}

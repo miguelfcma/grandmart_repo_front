@@ -31,6 +31,9 @@ export function Sidebar({ children }) {
           <Link to="/dashAdmin/servicios">Servicios</Link>
         </li>
         <li>
+          <Link to="/dashAdmin/perfil">Perfil</Link>
+        </li>
+        <li>
           <Link to="/dashAdmin/database-backup">Database backup</Link>
         </li>
       </ul>

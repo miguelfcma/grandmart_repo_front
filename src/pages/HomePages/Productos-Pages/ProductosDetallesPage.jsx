@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useCategorias } from "../../../components/CategoriaComponents/CategoriasContext/CategoriaProvider";
-
+import { ComentariosProducto } from "../../../components/ProductoComponents/client/ComentariosProducto";
+import { ReviewsProducto } from "../../../components/ProductoComponents/client/ReviewsProducto";
 export function ProductosDetallesPage() {
   const { productos, getImgPortadaProducto, getProductImages, loadProductos } = useProductos();
   const { id } = useParams();
@@ -74,7 +75,8 @@ export function ProductosDetallesPage() {
       ) : (
         <div>No se encontró el producto</div>
       )}
-
+<ComentariosProducto/>
+<ReviewsProducto/>
 <button onClick={() => window.history.back()}>
       Regresar
     </button>

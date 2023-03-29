@@ -25,7 +25,7 @@ import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup
 import { FilterProducts } from "../pages/HomePages/Productos-Pages/FilterProducts";
 import { ProductosDetallesPage } from "../pages/HomePages/Productos-Pages/ProductosDetallesPage";
 import { SignupPage } from "../pages/HomePages/Login-Signup-Pages/SignupPage";
-
+import { PerfilPage } from "../pages/DashAdminPages/DashPages/PerfilPage";
 export function MyRoutes() {
   return (
     <Router>
@@ -43,6 +43,7 @@ export function MyRoutes() {
           element={<CategoriasPage />}
         />
         <Route exact path="/dashAdmin/productos" element={<ProductosPage />} />
+        <Route exact path="/dashAdmin/perfil" element={<PerfilPage />} />
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"

@@ -19,7 +19,7 @@ export function DashAdmin() {
       // Simular la validación del token con un timeout de 1 segundo
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000);
+      }, 1);
     }
   }, [navigate]);
 
