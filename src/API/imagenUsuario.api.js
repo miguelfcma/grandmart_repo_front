@@ -1,10 +1,12 @@
 import axios from "axios";
-import { API_BASE_URL} from "./config.api";
-//const API_BASE_URL = "http://localhost:4000/imagenes";
+import { API_BASE_URL } from "./config.api";
 
-export const getImagenesRequest = async () => {
+export const createImgUsuarioRequest = async (imgUsuario) => {
   try {
-    const response = await axios.get(API_BASE_URL+"imagenes");
+    const response = await axios.post(
+      API_BASE_URL + "usuario-images",
+      imgUsuario
+    );
     console.log({
       status: response.status,
       message: response.data.message,
@@ -19,24 +21,14 @@ export const getImagenesRequest = async () => {
   }
 };
 
-
-export const createImagenRequest = async (imagen) => {
+export const getImgUsuarioByUserIdRequest = async (id_usuario) => {
   try {
-    const formData = new FormData();
-
-    //formData.append("nombre", imagen.nombre);
-    //formData.append("descripcion", imagen.descripcion);
-    formData.append("imagen", imagen.archivo);
-
-    const response = await axios.post(API_BASE_URL+"imagenes", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-
+    const response = await axios.get(
+      `${API_BASE_URL + "usuario-images-by-user"}/${id_usuario}`
+    );
     console.log({
       status: response.status,
-      message: response.data.message,
+      message: "Imagen de usuario recuperada correctamente",
     });
     return response;
   } catch (error) {
@@ -48,21 +40,14 @@ export const createImagenRequest = async (imagen) => {
   }
 };
 
-
-export const updateImagenRequest = async (id, imagen) => {
+export const deleteImgUsuarioByUserIdRequest = async (id_usuario) => {
   try {
-    const formData = new FormData();
-    //formData.append("nombre", imagen.nombre);
-    //formData.append("descripcion", imagen.descripcion);
-    formData.append("archivo", imagen.archivo);
-    const response = await axios.put(`${API_BASE_URL+"imagenes"}/${id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axios.delete(
+      `${API_BASE_URL + "usuario-images-by-user"}/${id_usuario}`
+    );
     console.log({
       status: response.status,
-      message: response.data.message,
+      message: "Imagen de usuario eliminada correctamente",
     });
     return response;
   } catch (error) {
@@ -74,13 +59,15 @@ export const updateImagenRequest = async (id, imagen) => {
   }
 };
 
-
-export const deleteImagenRequest = async (id) => {
+export const updateImgUsuarioByUserIdRequest = async (id_usuario, imgUsuario) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL+"imagenes"}/${id}`);
+    const response = await axios.put(
+      `${API_BASE_URL + "usuario-images-by-user"}/${id_usuario}`,
+      imgUsuario
+    );
     console.log({
       status: response.status,
-      message: response.data.message,
+      message: "Imagen de usuario actualizada correctamente",
     });
     return response;
   } catch (error) {
@@ -91,4 +78,3 @@ export const deleteImagenRequest = async (id) => {
     return error.response;
   }
 };
-

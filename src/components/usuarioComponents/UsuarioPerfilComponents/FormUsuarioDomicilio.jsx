@@ -1,8 +1,11 @@
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
-import { useState } from "react";
-export function FormUsuarioDomicilio() {
+import { useState, useEffect } from "react";
+
+export function FormUsuarioDomicilio({ onSubmit, initialDomicilio = {} }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { createDomicilioUsuario } = useUsuarios();
+  const { createDomicilioUsuario, updateDomicilioUsuario } = useUsuarios();
+
+  const isUpdating = initialDomicilio !== null && initialDomicilio !== undefined;
 
   const [formData, setFormData] = useState({
     nombre_ine: "",
@@ -17,7 +20,14 @@ export function FormUsuarioDomicilio() {
     calle2: "",
     descripcion: "",
     id_usuario: usuario.id,
+    ...initialDomicilio,
   });
+
+  useEffect(() => {
+    if (initialDomicilio) {
+      setFormData(initialDomicilio);
+    }
+  }, [initialDomicilio]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,21 +36,26 @@ export function FormUsuarioDomicilio() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createDomicilioUsuario(formData);
-      setFormData({
-        nombre_ine: "",
-        postal: "",
-        estado: "",
-        municipio_alcaldia: "",
-        colonia: "",
-        calle: "",
-        numeroExterior: "",
-        numeroInterior: "",
-        calle1: "",
-        calle2: "",
-        descripcion: "",
-        id_usuario: "",
-      });
+      if (isUpdating) {
+        await updateDomicilioUsuario(formData);
+        onSubmit();
+      } else {
+        await createDomicilioUsuario(formData);
+        setFormData({
+          nombre_ine: "",
+          postal: "",
+          estado: "",
+          municipio_alcaldia: "",
+          colonia: "",
+          calle: "",
+          numeroExterior: "",
+          numeroInterior: "",
+          calle1: "",
+          calle2: "",
+          descripcion: "",
+          id_usuario: "",
+        });
+      }
     } catch (error) {
       console.error(error);
     }

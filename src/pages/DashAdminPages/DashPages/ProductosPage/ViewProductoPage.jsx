@@ -7,7 +7,7 @@ import "./ViewProductoPage.css";
 import { useCategorias } from "../../../../components/CategoriaComponents/CategoriasContext/CategoriaProvider";
 
 export function ViewProductoPage() {
-  const { productos, getImgPortadaProducto, getProductImages, loadProductos } = useProductos();
+  const { productos, getImgPortadaProducto, getProductImagesGaleria, loadProductos } = useProductos();
   const { id } = useParams();
 
   const [producto, setProducto] = useState(null);
@@ -30,14 +30,14 @@ export function ViewProductoPage() {
 
       async function cargarImagen() {
         const urlImagen = await getImgPortadaProducto(parseInt(id));
-        const imagenesArray = await getProductImages(parseInt(id));
+        const imagenesArray = await getProductImagesGaleria(parseInt(id));
         setImagenes(imagenesArray);
         setImagen(urlImagen);
       }
 
       cargarImagen();
     }
-  }, [productos, id, getImgPortadaProducto, getProductImages]);
+  }, [productos, id, getImgPortadaProducto, getProductImagesGaleria]);
 
   return (
     <div className="contenedor-producto">

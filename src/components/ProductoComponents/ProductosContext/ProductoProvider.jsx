@@ -11,9 +11,8 @@ import {
 
 import {
   createProductImageRequest,
-  getProductImageRequest,
   getProductImagePortadaRequest,
-  getProductImagesRequest,
+  getProductImagesGaleriaRequest,
   getAllImagesProductRequest,
 } from "../../../API/imagenProductos.api";
 
@@ -159,15 +158,7 @@ export const ProductoContextProvider = ({ children }) => {
     }
   };
 
-  const getImgProducto = async (id_producto) => {
-    const response = await getProductImageRequest(id_producto);
-    if (response.status == 200) {
-      console.log(response.data.url);
-      return response.data.url;
-    } else {
-      return null;
-    }
-  };
+  
   const getImgPortadaProducto = async (id_producto) => {
     const response = await getProductImagePortadaRequest(id_producto);
     if (response.status == 200) {
@@ -177,8 +168,8 @@ export const ProductoContextProvider = ({ children }) => {
     }
   };
 
-  const getProductImages = async (id_producto) => {
-    const response = await getProductImagesRequest(id_producto);
+  const getProductImagesGaleria = async (id_producto) => {
+    const response = await getProductImagesGaleriaRequest(id_producto);
     if (response.status == 200) {
       console.log(response.data);
       return response.data;
@@ -205,9 +196,8 @@ export const ProductoContextProvider = ({ children }) => {
         createProducto,
         updateProducto,
         createProductImage,
-        getImgProducto,
         getImgPortadaProducto,
-        getProductImages,
+        getProductImagesGaleria,
         getAllImagesProduct,
         favoritos,
         agregarFavorito,
