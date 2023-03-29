@@ -55,6 +55,7 @@ export function CardProducto({ producto }) {
           alt={producto.nombre}
         />
         <div>{producto.nombre}</div>
+        <br></br>
         <div>${producto.precio}</div>
         </Link>
 

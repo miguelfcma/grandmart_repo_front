@@ -11,6 +11,11 @@
 
 .card-producto div {
   margin: 8px 0;
+  text-align: justify; /* Agregado para justificar el nombre del producto*/
+}
+
+.card-producto div:nth-of-type(2) {
+  text-align: center; /* Agregado para centrar el precio del producto */
 }
 
 .card-producto-img {

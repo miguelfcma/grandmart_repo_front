@@ -52,7 +52,7 @@ export function ViewProductoPage() {
             <div>Marca: {producto.marca}</div>
             <div>Modelo: {producto.modelo}</div>
             <div>Color: {producto.color}</div>
-            <div>Estado: {producto.estado}</div>
+            <div>Estado: {producto.estado ? "Nuevo" : "Usado"}</div>
             <div>
               Categoría:{" "}
               {categorias.find((categoria) => categoria.id === producto.id_categoria)?.nombre}

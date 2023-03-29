@@ -39,19 +39,24 @@
   flex-basis: 40%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  
 }
 
 .navbar-search input {
   flex: 1;
   border: none;
   font-size: 16px;
-  height: 24px;
+  height: 26px;
   padding: 10px;
+  margin-top: 21px;
+  margin-left: 9px;
 }
 
 .navbar-search button {
   background-color: #1c6bc3 !important;
-  margin-left: 10px;
+  margin-right: 8px;
+  margin-top: 3px;
 }
 
 .navbar-links ul {
@@ -228,7 +233,7 @@
 
 .eliminar-btn {
   position: absolute;
-  top: -10px;
+  top: -32px;
   right: -0px;
   background-color: #ff3d3d;
   color: #ffffff;

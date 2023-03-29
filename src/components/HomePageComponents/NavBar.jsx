@@ -16,20 +16,11 @@ export function Navbar() {
     // redirigir a la página de inicio de sesión o a la página principal
   };
 
-  /* 
-  if (usuario && usuario.tipoUsuario === 1) {
-    usuario = "/dashAdmin";
-  } else if (usuario && usuario.tipoUsuario === 0) {
-    usuario = "/dashClient";
-  }
-
-  */ 
-
   const categorias = [
-    { nombre: "Tecnología", link: "/productos?categoria=Tecnología" },
+    { id: 25, nombre: "Tecnología", link: "/productos/categoria/25" },
     { nombre: "Entretenimiento", link: "/productos?categoria=Entretenimiento" },
     { nombre: "Consultoría", link: "/productos?categoria=Consultoría" },
-    { nombre: "Salud", link: "/productos?categoria=salud" },
+    { id: 28, nombre: "Salud", link: "/productos/categoria/28" },
     { nombre: "Movilidad", link: "/productos?categoria=Movilidad" },
     { nombre: "Enseñanza Aprendizaje", link: "/productos?categoria=Enseñanza Aprendizaje" },
     { nombre: "Mascotas", link: "/productos?categoria=Mascotas" },
@@ -44,7 +35,7 @@ export function Navbar() {
   
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`/productos?search=${searchTerm}`);
+      const response = await axios.get(`/productos=${searchTerm}`);
       setSearchResults(response.data);
     } catch (error) {
       console.log(error);
@@ -78,11 +69,11 @@ export function Navbar() {
                 Categorías
               </Link>
               <div className="dropdown-content">
-                {categorias.map((categoria) => (
-                  <Link key={categoria.nombre} to={categoria.link}>
-                    {categoria.nombre}
-                  </Link>
-                ))}
+              {categorias.map((categoria) => (
+                <Link key={categoria.id} to={`/productos/categoria/${categoria.id}`}>
+                  {categoria.nombre}
+                </Link>
+              ))}
               </div>
             </li>
             <li>

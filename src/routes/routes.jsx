@@ -22,7 +22,7 @@ import { RegistroProductoPage2 } from "../pages/DashAdminPages/DashPages/Product
 import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup";
 
 
-import { ListProductos } from "../components/ProductoComponents/admin/ListProductos";
+import { FilterProducts } from "../pages/HomePages/Productos-Pages/FilterProducts";
 import { ProductosDetallesPage } from "../pages/HomePages/Productos-Pages/ProductosDetallesPage";
 import { SignupPage } from "../pages/HomePages/Login-Signup-Pages/SignupPage";
 
@@ -79,7 +79,7 @@ export function MyRoutes() {
 
         <Route exact path="/productos/detalles/:id" element={<ProductosDetallesPage />} />
 
-        <Route exact path="/productos/" element={<ListProductos/>} />
+        <Route exact path="/productos/categoria/:id_categoria" element={<FilterProducts/>} />
 
         <Route exact path="*" element={<NotFoundPage />} />
       </Routes>

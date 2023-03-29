@@ -37,7 +37,7 @@ export function LoginFormUsuario() {
       <nav className="navbar">
         <div className="navbar-container">
           <a href="/">
-            <img alt="e-commerce" src="../src/components/HomePage/logo.png" />
+            <img alt="e-commerce" src="../src/components/HomePageComponents/logo.png" />
           </a>
         </div>
       </nav>
@@ -47,8 +47,7 @@ export function LoginFormUsuario() {
           <br></br>
           <br></br>
           <div className="form-group">
-            <label htmlFor="email">
-              Correo electrónico:
+            <label htmlFor="email">Correo electrónico: </label>
               <input
                 type="email"
                 id="email"
@@ -61,22 +60,21 @@ export function LoginFormUsuario() {
                 }
                 required
               />
-            </label>
           </div>
           <div className="form-group">
-            <label htmlFor="password">Contraseña:</label>
-            <input
-              type="password"
-              id="password"
-              value={usuarioLogin.password}
-              onChange={(event) =>
-                setUsuarioLogin({
-                  ...usuarioLogin,
-                  password: event.target.value,
-                })
-              }
-              required
-            />
+            <label htmlFor="password">Contraseña: </label>
+              <input
+                type="password"
+                id="password"
+                value={usuarioLogin.password}
+                onChange={(event) =>
+                  setUsuarioLogin({
+                    ...usuarioLogin,
+                    password: event.target.value,
+                  })
+                }
+                required
+              />
           </div>
 
           <button type="submit" className="btn-login">

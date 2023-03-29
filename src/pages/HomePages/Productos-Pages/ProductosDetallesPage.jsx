@@ -43,10 +43,9 @@ export function ProductosDetallesPage() {
       {producto ? (
         <>
           <div className="info-producto">
-            <div>ID: {producto.id}</div>
             <div>Nombre: {producto.nombre}</div>
             <div>Precio: ${producto.precio}</div>
-            <div>Stock: {producto.stock}</div>
+            <div>Stock disponible: {producto.stock}</div>
             <div>Descripción: {producto.descripcion}</div>
             <div>Marca: {producto.marca}</div>
             <div>Modelo: {producto.modelo}</div>
