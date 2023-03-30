@@ -213,6 +213,7 @@ export const ProductoContextProvider = ({ children }) => {
         vaciarCarrito,
         incrementarCantidadItemCarrito,
         decrementarCantidadItemCarrito,
+        vaciarFavoritos
       }}
     >
       {children}
