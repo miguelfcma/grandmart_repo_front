@@ -58,6 +58,11 @@ export const ProductoContextProvider = ({ children }) => {
   function vaciarCarrito() {
     setCarrito([]);
   }
+  // Vaciar todo el carrito
+  function vaciarFavoritos() {
+    setFavoritos([]);
+  }
+
 
   function incrementarCantidadItemCarrito(producto) {
     setCarrito((prevCarrito) =>

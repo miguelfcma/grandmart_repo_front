@@ -5,14 +5,16 @@ import { Favoritos } from "../FavoritosComponents/Favoritos";
 import "./NavBar.css";
 import { Carrito } from "../CarritoComponents/Carrito";
 import axios from "axios";
-
+import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 export function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
+  const {vaciarFavoritos} = useProductos();
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
+    vaciarFavoritos();
     // redirigir a la página de inicio de sesión o a la página principal
   };
 

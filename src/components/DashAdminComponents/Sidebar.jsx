@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
-
+import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 export function Sidebar({ children }) {
 
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-
+const {vaciarFavoritos} = useProductos();
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
+    vaciarFavoritos();
     // redirigir a la página de inicio de sesión o a la página principal
   };
 

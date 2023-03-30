@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { deleteImagesProducto } from "../../../firebase/productoStorage";
-
+import { FormUpdateProducto } from "./FormUpdateProducto";
+import { Modal } from "../../ModalComponents/Modal";
+Modal;
 export function CardProducto({ producto }) {
   const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =
     useProductos();
@@ -34,6 +36,28 @@ export function CardProducto({ producto }) {
     }
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formularioEnviado, setFormularioEnviado] = useState(false);
+
+  function handleOpenModal() {
+    setIsModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+    setFormularioEnviado(false); // Reiniciar el estado del formulario enviado
+  }
+
+  function handleSubmit() {
+    // Lógica para enviar el formulario
+    setFormularioEnviado(true);
+  }
+
+  useEffect(() => {
+    if (formularioEnviado) {
+      handleCloseModal(); // Cerrar la ventana modal si el formulario se ha enviado correctamente
+    }
+  }, [formularioEnviado]);
   return (
     <div className="card-producto">
       <Link
@@ -49,15 +73,14 @@ export function CardProducto({ producto }) {
         />
         <div>Precio: ${producto.precio}</div>
       </Link>
-      <Link
-        to={`/dashAdmin/productos/detalles/${producto.id}`}
-        style={{ textDecoration: "none" }}
-      >
-        <button className="card-producto">
-          <span>Editar producto</span>
-        </button>
-      </Link>
 
+      <button className="card-producto" onClick={handleOpenModal}>
+        Editar producto
+      </button>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <FormUpdateProducto onSubmit={handleSubmit} producto={producto} />
+        <button onClick={handleCloseModal}>Cerrar ventana</button>
+      </Modal>
       <button className="card-producto" onClick={handleEliminarProducto}>
         Eliminar producto
       </button>
