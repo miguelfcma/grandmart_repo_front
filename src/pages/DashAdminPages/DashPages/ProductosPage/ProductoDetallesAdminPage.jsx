@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./ViewProductoPage.css";
+import "./ProductoDetallesAdminPage.css";
 import { useCategorias } from "../../../../components/CategoriaComponents/CategoriasContext/CategoriaProvider";
 
-export function ViewProductoPage() {
+export function ProductoDetallesAdminPage() {
   const { productos, getImgPortadaProducto, getProductImagesGaleria, loadProductos } = useProductos();
   const { id } = useParams();
 

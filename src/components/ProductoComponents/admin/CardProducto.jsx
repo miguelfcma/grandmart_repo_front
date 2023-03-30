@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { deleteImagesProducto } from "../../../firebase/productoStorage";
 
 export function CardProducto({ producto }) {
-  
   const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =
     useProductos();
 
@@ -37,21 +36,25 @@ export function CardProducto({ producto }) {
 
   return (
     <div className="card-producto">
-      <div>ID: {producto.id}</div>
-      <div>Nombre: {producto.nombre}</div>
-      <img
-        className="card-producto-img"
-        src={urlImagen}
-        alt={producto.nombre}
-      />
-      <div>Precio: ${producto.precio}</div>
-
       <Link
-        to={`/dashAdmin/productos/ver/${producto.id}`}
+        to={`/dashAdmin/productos/detalles/${producto.id}`}
+        style={{ textDecoration: "none" }}
+      >
+        <div>ID: {producto.id}</div>
+        <div>Nombre: {producto.nombre}</div>
+        <img
+          className="card-producto-img"
+          src={urlImagen}
+          alt={producto.nombre}
+        />
+        <div>Precio: ${producto.precio}</div>
+      </Link>
+      <Link
+        to={`/dashAdmin/productos/detalles/${producto.id}`}
         style={{ textDecoration: "none" }}
       >
         <button className="card-producto">
-          <span>Ver producto</span>
+          <span>Editar producto</span>
         </button>
       </Link>
 

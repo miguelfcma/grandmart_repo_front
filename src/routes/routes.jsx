@@ -10,7 +10,7 @@ import { CategoriasPage } from "../pages/DashAdminPages/DashPages/CategoriasPage
 import { ProductosPage } from "../pages/DashAdminPages/DashPages/ProductosPage";
 import { ServiciosPage } from "../pages/DashAdminPages/DashPages/ServiciosPage";
 
-import { ViewProductoPage } from "../pages/DashAdminPages/DashPages/ProductosPage/ViewProductoPage";
+import { ProductoDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ProductosPage/ProductoDetallesAdminPage"; ///GFFFFFFFFFFF
 
 import { DashClient } from "../pages/DashClientPages/DashClient";
 import { ProductosClient } from "../pages/DashClientPages/DashPages/ProductosClient";
@@ -57,8 +57,8 @@ export function MyRoutes() {
 
         <Route
           exact
-          path="/dashAdmin/productos/ver/:id"
-          element={<ViewProductoPage />}
+          path="/dashAdmin/productos/detalles/:id"
+          element={<ProductoDetallesAdminPage />}
         />
 
         <Route exact path="/dashAdmin/servicios" element={<ServiciosPage />} />

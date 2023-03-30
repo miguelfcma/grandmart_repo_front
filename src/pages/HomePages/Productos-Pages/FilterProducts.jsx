@@ -2,11 +2,15 @@ import { useEffect } from "react";
 import { CardProducto } from "../../../components/ProductoComponents/client/CardProducto";
 import { useProductos } from "../../../components/ProductoComponents/ProductosContext/ProductoProvider";
 import { useParams } from "react-router-dom";
+import { useCategorias } from "../../../components/CategoriaComponents/CategoriasContext/CategoriaProvider";
 
 export function FilterProducts() {
   const { id_categoria } = useParams();
   const { productos, loadProductos } = useProductos();
-
+  const { categorias, loadCategorias } = useCategorias();
+  useEffect(() => {
+    loadCategorias();
+  }, []);
   useEffect(() => {
     loadProductos();
   }, []);
@@ -15,8 +19,14 @@ export function FilterProducts() {
     let filteredProducts = productos;
 
     if (id_categoria) {
-      filteredProducts = productos.filter(
-        (producto) => producto.categoria?.id === parseInt(id_categoria)
+      const categoriasHijas = categorias.filter(
+        (categoria) => categoria.id_parent === parseInt(id_categoria)
+      );
+      const idsCategoriasHijas = categoriasHijas.map(
+        (categoria) => categoria.id
+      );
+      filteredProducts = productos.filter((producto) =>
+        idsCategoriasHijas.includes(producto.id_categoria)
       );
     }
 

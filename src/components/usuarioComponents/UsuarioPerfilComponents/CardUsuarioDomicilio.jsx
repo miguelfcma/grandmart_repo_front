@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 import { Modal } from "../../../components/ModalComponents/Modal";
 import { FormUpdateUsuarioDomicilio } from "./FormUpdateUsuarioDomicilio";
-
+import { FormCreateUsuarioDomicilio } from "./FormCreateUsuarioDomicilio";
 export function CardUsuarioDomicilio() {
   const { domicilio, loadDomicilio, deleteDomicilioUsuarioByUserId } = useUsuarios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -35,7 +35,10 @@ export function CardUsuarioDomicilio() {
     }
   }, [formularioEnviado]);
 
-
+  function handleDomicilioCreado() {
+    loadDomicilio(usuario.id);
+  }
+  
 
   return (
     <div>
@@ -65,7 +68,11 @@ export function CardUsuarioDomicilio() {
       </button>
         </div>
       ) : (
+        <div>
         <p>NO HAY DOMICILIO</p>
+        <FormCreateUsuarioDomicilio onSubmit={() => {handleDomicilioCreado();}} />
+
+        </div>
       )}
     </div>
   );

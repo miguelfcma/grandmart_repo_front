@@ -1,7 +1,7 @@
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 import { useState } from "react";
 
-export function FormCreateUsuarioDomicilio() {
+export function FormCreateUsuarioDomicilio({onSubmit}) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { createDomicilioUsuario } = useUsuarios();
 
@@ -42,6 +42,7 @@ export function FormCreateUsuarioDomicilio() {
         descripcion: "",
         id_usuario: "",
       });
+      onSubmit();
     } catch (error) {
       console.error(error);
     }
