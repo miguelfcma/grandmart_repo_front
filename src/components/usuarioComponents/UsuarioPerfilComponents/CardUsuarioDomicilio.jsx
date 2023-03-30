@@ -1,43 +1,19 @@
 import { useState, useEffect } from "react";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 import { Modal } from "../../../components/ModalComponents/Modal";
-import { FormUsuarioDomicilio } from "./FormUsuarioDomicilio";
+import { FormUpdateUsuarioDomicilio } from "./FormUpdateUsuarioDomicilio";
 
 export function CardUsuarioDomicilio() {
-  const { getDomicilioUsuarioByUserId, actualizarDomicilioUsuario, crearDomicilioUsuario } = useUsuarios();
+  const { domicilio, loadDomicilio, deleteDomicilioUsuarioByUserId } = useUsuarios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const [domicilio, setDomicilio] = useState(null);
-  const [isNewDomicilio, setIsNewDomicilio] = useState(false);
-
-  useEffect(() => {
-    const fetchDomicilio = async () => {
-      const domicilio = await getDomicilioUsuarioByUserId(usuario.id);
-
-      if (domicilio) {
-        setIsNewDomicilio(false);
-        setDomicilio(domicilio);
-      } else {
-        setIsNewDomicilio(true);
-        setDomicilio({
-          nombre_ine: "",
-          postal: "",
-          estado: "",
-          municipio_alcaldia: "",
-          colonia: "",
-          calle: "",
-          numeroExterior: "",
-          numeroInterior: "",
-          calle1: "",
-          calle2: "",
-          descripcion: "",
-        });
-      }
-    };
-    fetchDomicilio();
-  }, [getDomicilioUsuarioByUserId, usuario.id]);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
+
+
+  useEffect(() => {
+    loadDomicilio(usuario.id);
+  }, []);
+  
 
   function handleOpenModal() {
     setIsModalOpen(true);
@@ -48,12 +24,8 @@ export function CardUsuarioDomicilio() {
     setFormularioEnviado(false); // Reiniciar el estado del formulario enviado
   }
 
-  async function handleSubmit(domicilioData) {
-    if (isNewDomicilio) {
-      await crearDomicilioUsuario(usuario.id, domicilioData);
-    } else {
-      await actualizarDomicilioUsuario(domicilio.id, domicilioData);
-    }
+  function handleSubmit() {
+    // Lógica para enviar el formulario
     setFormularioEnviado(true);
   }
 
@@ -62,6 +34,8 @@ export function CardUsuarioDomicilio() {
       handleCloseModal(); // Cerrar la ventana modal si el formulario se ha enviado correctamente
     }
   }, [formularioEnviado]);
+
+
 
   return (
     <div>
@@ -79,12 +53,16 @@ export function CardUsuarioDomicilio() {
           <p>Calle 2: {domicilio.calle2}</p>
           <p>Descripción: {domicilio.descripcion}</p>
 
+        
           <button onClick={handleOpenModal}>Editar domicilio</button>
 
           <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-            <FormUsuarioDomicilio onSubmit={handleSubmit} initialDomicilio={domicilio} />
+            <FormUpdateUsuarioDomicilio onSubmit={handleSubmit} initialDomicilio={domicilio} />
             <button onClick={handleCloseModal}>Cerrar ventana</button>
           </Modal>
+          <button onClick={() => deleteDomicilioUsuarioByUserId(usuario.id)}>
+        Eliminar
+      </button>
         </div>
       ) : (
         <p>NO HAY DOMICILIO</p>

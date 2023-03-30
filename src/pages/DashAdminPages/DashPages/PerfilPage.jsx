@@ -1,12 +1,12 @@
 import { DashAdmin } from "../DashAdmin";
-import { FormUsuarioDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponents/FormUsuarioDomicilio";
+import { FormCreateUsuarioDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponents/FormCreateUsuarioDomicilio";
 import { CardUsuarioDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardUsuarioDomicilio";
-export  function PerfilPage() {
+export function PerfilPage() {
   return (
-    <div style={{ marginLeft: '200px' }}>
+    <div style={{ marginLeft: "200px" }}>
       <DashAdmin />
-        <FormUsuarioDomicilio/>
-      <CardUsuarioDomicilio/>
+      <FormCreateUsuarioDomicilio />
+      <CardUsuarioDomicilio />
     </div>
-  )
+  );
 }

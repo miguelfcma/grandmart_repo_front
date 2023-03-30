@@ -7,7 +7,12 @@ import {
   updateUsuarioRequest,
   getUsuarioLoginRequest,
 } from "../../../API/usuarios.api";
-import { getDomicilioUsuarioByUserIdRequest, deleteDomicilioUsuarioByUserIdRequest, createDomicilioUsuarioRequest, updateDomicilioUsuarioByUserIdRequest } from "../../../API/domicilioUsuario.api";
+import {
+  getDomicilioUsuarioByUserIdRequest,
+  deleteDomicilioUsuarioByUserIdRequest,
+  createDomicilioUsuarioRequest,
+  updateDomicilioUsuarioByUserIdRequest,
+} from "../../../API/domicilioUsuario.api";
 import { UsuarioContext } from "./UsuarioContext";
 
 export const useUsuarios = () => {
@@ -20,6 +25,7 @@ export const useUsuarios = () => {
 
 export const UsuarioContextProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
+  const [domicilio, setDomicilio] = useState(null);
 
   async function loadUsuarios() {
     try {
@@ -29,6 +35,19 @@ export const UsuarioContextProvider = ({ children }) => {
         setUsuarios(response.data);
       } else {
         throw new Error("No se pudo obtener la lista de usuarios");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function loadDomicilio(id_usuario) {
+    try {
+      const response = await getDomicilioUsuarioByUserIdRequest(id_usuario);
+      if (response.status === 200) {
+
+        setDomicilio(response.data.data);
+      } else {
+        throw new Error("No se pudo obtener la dirección del usuario");
       }
     } catch (error) {
       console.error(error);
@@ -76,8 +95,6 @@ export const UsuarioContextProvider = ({ children }) => {
     }
   };
 
-  
-
   const loginUsuario = async (usuario) => {
     try {
       const response = await getUsuarioLoginRequest(usuario);
@@ -93,24 +110,13 @@ export const UsuarioContextProvider = ({ children }) => {
     }
   };
 
-  const getDomicilioUsuarioByUserId = async (id_usuario) => {
-    try {
-      const response = await getDomicilioUsuarioByUserIdRequest(id_usuario);
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        throw new Error("No se pudo obtener la dirección del usuario");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const deleteDomicilioUsuarioByUserId = async (id_usuario) => {
     try {
       const response = await deleteDomicilioUsuarioByUserIdRequest(id_usuario);
-      if (response.status === 200) {
+      if (response.status === 204) {
+        loadDomicilio(id_usuario)
         return true;
+ 
       } else {
         throw new Error("No se pudo eliminar la dirección del usuario");
       }
@@ -122,8 +128,8 @@ export const UsuarioContextProvider = ({ children }) => {
   const createDomicilioUsuario = async (domicilio) => {
     try {
       const response = await createDomicilioUsuarioRequest(domicilio);
-
       if (response.status == 201) {
+       
         return true;
       } else {
         return false;
@@ -135,8 +141,12 @@ export const UsuarioContextProvider = ({ children }) => {
 
   const updateDomicilioUsuarioByUserId = async (id_usuario, domicilio) => {
     try {
-      const response = await updateDomicilioUsuarioByUserIdRequest(id_usuario, domicilio);
+      const response = await updateDomicilioUsuarioByUserIdRequest(
+        id_usuario,
+        domicilio
+      );
       if (response.status == 200) {
+        loadDomicilio(id_usuario)
         return true;
       } else {
         return false;
@@ -154,10 +164,12 @@ export const UsuarioContextProvider = ({ children }) => {
         createUsuario,
         updateUsuario,
         loginUsuario,
-        getDomicilioUsuarioByUserId,
+        
         deleteDomicilioUsuarioByUserId,
         createDomicilioUsuario,
         updateDomicilioUsuarioByUserId,
+        loadDomicilio,
+        domicilio,
       }}
     >
       {children}

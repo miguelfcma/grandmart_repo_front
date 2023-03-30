@@ -1,11 +1,9 @@
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export function FormUsuarioDomicilio({ onSubmit, initialDomicilio = {} }) {
+export function FormCreateUsuarioDomicilio() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { createDomicilioUsuario, updateDomicilioUsuario } = useUsuarios();
-
-  const isUpdating = initialDomicilio !== null && initialDomicilio !== undefined;
+  const { createDomicilioUsuario } = useUsuarios();
 
   const [formData, setFormData] = useState({
     nombre_ine: "",
@@ -20,14 +18,7 @@ export function FormUsuarioDomicilio({ onSubmit, initialDomicilio = {} }) {
     calle2: "",
     descripcion: "",
     id_usuario: usuario.id,
-    ...initialDomicilio,
   });
-
-  useEffect(() => {
-    if (initialDomicilio) {
-      setFormData(initialDomicilio);
-    }
-  }, [initialDomicilio]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,26 +27,21 @@ export function FormUsuarioDomicilio({ onSubmit, initialDomicilio = {} }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (isUpdating) {
-        await updateDomicilioUsuario(formData);
-        onSubmit();
-      } else {
-        await createDomicilioUsuario(formData);
-        setFormData({
-          nombre_ine: "",
-          postal: "",
-          estado: "",
-          municipio_alcaldia: "",
-          colonia: "",
-          calle: "",
-          numeroExterior: "",
-          numeroInterior: "",
-          calle1: "",
-          calle2: "",
-          descripcion: "",
-          id_usuario: "",
-        });
-      }
+      await createDomicilioUsuario(formData);
+      setFormData({
+        nombre_ine: "",
+        postal: "",
+        estado: "",
+        municipio_alcaldia: "",
+        colonia: "",
+        calle: "",
+        numeroExterior: "",
+        numeroInterior: "",
+        calle1: "",
+        calle2: "",
+        descripcion: "",
+        id_usuario: "",
+      });
     } catch (error) {
       console.error(error);
     }
