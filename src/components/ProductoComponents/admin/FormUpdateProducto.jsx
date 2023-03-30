@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
 export function FormUpdateProducto({ producto }) {
   const { updateProducto } = useProductos();
+  const { categorias, loadCategorias } = useCategorias();
+  useEffect(() => {
+    loadCategorias();
+  }, []);
   const [formValues, setFormValues] = useState({
     nombre: producto.nombre,
     precio: producto.precio,
@@ -23,6 +28,14 @@ export function FormUpdateProducto({ producto }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     updateProducto(producto.id, formValues);
+  };
+
+  const handleIdParentChange = (event) => {
+    const { value } = event.target;
+    setProducto((prevProducto) => ({
+      ...prevProducto,
+      id_categoria: value,
+    }));
   };
 
   return (
@@ -90,24 +103,49 @@ export function FormUpdateProducto({ producto }) {
       />
 
       <label htmlFor="estado">Estado:</label>
-      <select id="estado" name="estado" value={formValues.estado} onChange={handleInputChange}>
+      <select
+        id="estado"
+        name="estado"
+        value={formValues.estado}
+        onChange={handleInputChange}
+      >
         <option value="">Seleccione una opción</option>
         <option value="nuevo">Nuevo</option>
         <option value="usado">Usado</option>
       </select>
 
-      <label htmlFor="id_categoria">Categoría:</label>
-      <select
-        id="id_categoria"
-        name="id_categoria"
-        value={formValues.id_categoria}
-        onChange={handleInputChange}
-      >
-        <option value="">Seleccione una categoría</option>
-        <option value="1">Electrónica</option>
-        <option value="2">Ropa</option>
-        <option value="3">Hogar</option>
-      </select>
+      <label>
+        Categoría del producto:
+        <select
+          name="id_categoria"
+          value={producto.id_categoria}
+          onChange={handleIdParentChange}
+          required
+        >
+          <option value="">Seleccionar categoría padre</option>
+          {categorias
+            .filter((categoria) => categoria.id_parent === null)
+            .map((categoriaPadre) => (
+              <optgroup
+                className="categoria-padre" // Agregamos una clase a las opciones de las categorías padres
+                label={categoriaPadre.nombre}
+                key={categoriaPadre.id}
+              >
+                {categorias
+                  .filter(
+                    (categoria) =>
+                      categoria.id_parent === categoriaPadre.id &&
+                      categoria.id !== producto.id_categoria // para evitar que se pueda seleccionar como categoría padre a sí mismo
+                  )
+                  .map((categoriaHija) => (
+                    <option key={categoriaHija.id} value={categoriaHija.id}>
+                      {categoriaHija.nombre}
+                    </option>
+                  ))}
+              </optgroup>
+            ))}
+        </select>
+      </label>
 
       <button type="submit">Actualizar producto</button>
     </form>

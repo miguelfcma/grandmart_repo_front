@@ -41,7 +41,8 @@ export function FormProducto() {
       producto.nombre === "" ||
       producto.precio === "" ||
       producto.stock === "" ||
-      producto.id_categoria === ""
+      producto.id_categoria === ""||
+      producto.estado === ""
     ) {
       console.log("Por favor complete los campos obligatorios");
       return;
@@ -136,6 +137,7 @@ export function FormProducto() {
       <label>
         Estado del producto:
         <select name="estado" value={producto.estado} onChange={handleChange}>
+        <option value="">Seleccionar categoría padre</option>
           <option value="true">Nuevo</option>
           <option value="false">Usado</option>
         </select>
