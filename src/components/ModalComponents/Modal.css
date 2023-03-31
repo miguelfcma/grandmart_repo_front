@@ -17,7 +17,7 @@
   overflow-y: auto;
   padding: 1rem;
   border-radius: 0.5rem;
-  margin-left: 200px; /* Agrega esta propiedad para el margen izquierdo */
+  margin-left: 300px; /* Agrega esta propiedad para el margen izquierdo */
 }
 
 .modal-header {
