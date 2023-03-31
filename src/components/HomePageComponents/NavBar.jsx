@@ -6,6 +6,8 @@ import "./NavBar.css";
 import { Carrito } from "../CarritoComponents/Carrito";
 import axios from "axios";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
+import { useCategorias } from "../CategoriaComponents/CategoriasContext/CategoriaProvider";
+
 export function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -20,18 +22,18 @@ export function Navbar() {
 
   const categorias = [
     { id: 25, nombre: "Tecnología", link: "/productos/categoria/25" },
-    { nombre: "Entretenimiento", link: "/productos?categoria=Entretenimiento" },
-    { nombre: "Consultoría", link: "/productos?categoria=Consultoría" },
+    { id: 26, nombre: "Entretenimiento", link: "/productos/categoria/26" },
+    { id: 27, nombre: "Consultoría", link: "/productos/categoria/27" },
     { id: 28, nombre: "Salud", link: "/productos/categoria/28" },
-    { nombre: "Movilidad", link: "/productos?categoria=Movilidad" },
-    { nombre: "Enseñanza Aprendizaje", link: "/productos?categoria=Enseñanza Aprendizaje" },
-    { nombre: "Mascotas", link: "/productos?categoria=Mascotas" },
-    { nombre: "Vivienda", link: "/productos?categoria=Vivienda" },
-    { nombre: "Emprendimientos", link: "/productos?categoria=Emprendimientos" },
-    { nombre: "Belleza", link: "/productos?categoria=Belleza" },
-    { nombre: "Caprichos y cariños", link: "/productos?categoria=Caprichos y cariños" },
-    { nombre: "Aparatos funcionales", link: "/productos?categoria=Aparatos funcionales" },
-    { nombre: "Moda", link: "/productos?categoria=Moda" },
+    { id: 29, nombre: "Movilidad", link: "/productos/categoria/29" },
+    { id: 30, nombre: "Enseñanza Aprendizaje", link: "/productos/categoria/30" },
+    { id: 31, nombre: "Mascotas", link: "/productos/categoria/31" },
+    { id: 32, nombre: "Vivienda", link: "/productos/categoria/32" },
+    { id: 33, nombre: "Emprendimientos", link: "/productos/categoria/33" },
+    { id: 34, nombre: "Belleza", link: "/productos/categoria/34" },
+    { id: 35, nombre: "Caprichos y cariños", link: "/productos/categoria/35" },
+    { id: 36, nombre: "Aparatos funcionales", link: "/productos/categoria/36" },
+    { id: 37, nombre: "Moda", link: "/productos/categoria/37" },
     
   ];
   

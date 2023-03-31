@@ -136,6 +136,7 @@ export function FormProducto() {
       <label>
         Estado del producto:
         <select name="estado" value={producto.estado} onChange={handleChange}>
+          <option value="">Seleccionar el estado del producto</option>
           <option value="true">Nuevo</option>
           <option value="false">Usado</option>
         </select>

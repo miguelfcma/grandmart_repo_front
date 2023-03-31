@@ -16,6 +16,7 @@ import { DashClient } from "../pages/DashClientPages/DashClient";
 import { ProductosClient } from "../pages/DashClientPages/DashPages/ProductosClient";
 import { ServiciosClient } from "../pages/DashClientPages/DashPages/ServiciosClient";
 import { PedidosClient } from "../pages/DashClientPages/DashPages/PedidosClient";
+import { CarritoPay } from "../pages/DashClientPages/CarritoPay";
 
 import { RegistroProductoPage1 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage1";
 import { RegistroProductoPage2 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage2";
@@ -81,6 +82,8 @@ export function MyRoutes() {
         <Route exact path="/productos/detalles/:id" element={<ProductosDetallesPage />} />
 
         <Route exact path="/productos/categoria/:id_categoria" element={<ProductosByCategoriaPage/>} />
+
+        <Route exact path="/carrito/pay" element={<CarritoPay />} />
 
         <Route exact path="*" element={<NotFoundPage />} />
       </Routes>
