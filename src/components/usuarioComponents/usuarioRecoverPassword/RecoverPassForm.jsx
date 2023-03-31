@@ -10,18 +10,18 @@ export function RecoverPassForm() {
     const [usuarioLogin, setUsuarioLogin] = useState({ email: ""});
     const navigate = useNavigate();
 
-    /* Funcion que recibe email y busca la contraseña del usuario */
+    /* Funcion que recibe email y busca la contraseña */
     const enviarCorreo = async (destinatario, password) => {
         let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'cgbo192927@upemor.edu.mx',
-                pass: 'CGBO192927.'
+                user: 'tucorreo@gmail.com',
+                pass: 'tucontraseña'
             }
         });
         
         let info = await transporter.sendMail({
-            from: 'cgbo192927@upemor.edu.mx',
+            from: 'tucorreo@gmail.com',
             to: destinatario,
             subject: 'Recuperación de contraseña',
             text: `Tu contraseña es: ${password}`
