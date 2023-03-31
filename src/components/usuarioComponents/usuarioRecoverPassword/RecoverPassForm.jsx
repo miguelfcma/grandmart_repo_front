@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 import "./RecoverPassForm.css";
 import { Link, useNavigate } from "react-router-dom";
-import nodemailer from "nodemailer";
 
 export function RecoverPassForm() {
 
