@@ -11,8 +11,9 @@ import { useCategorias } from "../CategoriaComponents/CategoriasContext/Categori
 export function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const [searchResults, setSearchResults] = useState([]);
 
-  const {vaciarFavoritos} = useProductos();
+  const { vaciarFavoritos } = useProductos();
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
@@ -26,7 +27,11 @@ export function Navbar() {
     { id: 27, nombre: "Consultoría", link: "/productos/categoria/27" },
     { id: 28, nombre: "Salud", link: "/productos/categoria/28" },
     { id: 29, nombre: "Movilidad", link: "/productos/categoria/29" },
-    { id: 30, nombre: "Enseñanza Aprendizaje", link: "/productos/categoria/30" },
+    {
+      id: 30,
+      nombre: "Enseñanza Aprendizaje",
+      link: "/productos/categoria/30",
+    },
     { id: 31, nombre: "Mascotas", link: "/productos/categoria/31" },
     { id: 32, nombre: "Vivienda", link: "/productos/categoria/32" },
     { id: 33, nombre: "Emprendimientos", link: "/productos/categoria/33" },
@@ -34,9 +39,8 @@ export function Navbar() {
     { id: 35, nombre: "Caprichos y cariños", link: "/productos/categoria/35" },
     { id: 36, nombre: "Aparatos funcionales", link: "/productos/categoria/36" },
     { id: 37, nombre: "Moda", link: "/productos/categoria/37" },
-    
   ];
-  
+
   const handleSearch = async () => {
     try {
       const response = await axios.get(`/productos=${searchTerm}`);
@@ -50,7 +54,10 @@ export function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/">
-          <img alt="e-commerce" src="../src/components/HomePageComponents/logo.png" />
+          <img
+            alt="e-commerce"
+            src="../src/components/HomePageComponents/logo.png"
+          />
         </Link>
 
         <div className="navbar-search">
@@ -68,20 +75,23 @@ export function Navbar() {
 
         <div className="navbar-links">
           <ul>
-          <li className="dropdown">
+            <li className="dropdown">
               <Link to="#" className="dropbtn">
                 Categorías
               </Link>
               <div className="dropdown-content">
-              {categorias.map((categoria) => (
-                <Link key={categoria.id} to={`/productos/categoria/${categoria.id}`}>
-                  {categoria.nombre}
-                </Link>
-              ))}
+                {categorias.map((categoria) => (
+                  <Link
+                    key={categoria.id}
+                    to={`/productos/categoria/${categoria.id}`}
+                  >
+                    {categoria.nombre}
+                  </Link>
+                ))}
               </div>
             </li>
             <li>
-              <Link to="/">Ofertas</Link>
+              <Link to="/blog">Blog</Link>
             </li>
             <li>
               <Link to="/">Vender</Link>
@@ -91,51 +101,42 @@ export function Navbar() {
                 <Favoritos />
               </div>
             </li>
-
             <li>
               <div className="navbar-links navbar-carrito">
                 <Carrito />
               </div>
             </li>
-
-            <li>
-                {usuario ? (
-                  <li className="dropdown">
-
-                    {usuario.tipoUsuario === true ? (
-                      <Link to="/dashAdmin" className="dropbtn">
-                        <div className="iconuser">
-                          <box-icon name="user"></box-icon>
-                        </div>
-                        {usuario.nombre}
-                      </Link>
-                    ) : (
-                      <Link to="/dashClient" className="dropbtn">
-                        <div className="iconuser">
-                          <box-icon name="user"></box-icon>
-                        </div>
-                        {usuario.nombre}
-                      </Link>
-                    )}
-
-                    <div className="dropdown-content">
-                      <Link to="/login" onClick={handleLogout}>
-                        <div className="iconuser">
-                          Salir
-                          <box-icon name="log-out"></box-icon>
-                        </div>
-                      </Link>
+            {usuario ? (
+              <li className="dropdown">
+                {usuario.tipoUsuario === true ? (
+                  <Link to="/dashAdmin" className="dropbtn">
+                    <div className="iconuser">
+                      <box-icon name="user"></box-icon>
                     </div>
-                  </li>
-
-                ) : (
-                <li>
-                  <Link to="/login">
-                    Ingresa
+                    {usuario.nombre}
                   </Link>
-                </li>
-              )}
-            </li>
+                ) : (
+                  <Link to="/dashClient" className="dropbtn">
+                    <div className="iconuser">
+                      <box-icon name="user"></box-icon>
+                    </div>
+                    {usuario.nombre}
+                  </Link>
+                )}
+                <div className="dropdown-content">
+                  <Link to="/login" onClick={handleLogout}>
+                    <div className="iconuser">
+                      Salir
+                      <box-icon name="log-out"></box-icon>
+                    </div>
+                  </Link>
+                </div>
+              </li>
+            ) : (
+              <li>
+                <Link to="/login">Ingresa</Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

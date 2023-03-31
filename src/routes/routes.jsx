@@ -16,18 +16,19 @@ import { DashClient } from "../pages/DashClientPages/DashClient";
 import { ProductosClient } from "../pages/DashClientPages/DashPages/ProductosClient";
 import { ServiciosClient } from "../pages/DashClientPages/DashPages/ServiciosClient";
 import { PedidosClient } from "../pages/DashClientPages/DashPages/PedidosClient";
-import { CarritoPay } from "../pages/DashClientPages/CarritoPay";
+import { CompraCarrito } from "../pages/HomePages/CarritoPage/CompraCarrito";
 import { RecovPassPage } from "../pages/HomePages/Login-Signup-Pages/RecovPassPage";
 
 import { RegistroProductoPage1 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage1";
 import { RegistroProductoPage2 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage2";
 import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup";
 
-
 import { ProductosByCategoriaPage } from "../pages/HomePages/Productos-Pages/ProductosByCategoriaPage";
 import { ProductosDetallesPage } from "../pages/HomePages/Productos-Pages/ProductosDetallesPage";
 import { SignupPage } from "../pages/HomePages/Login-Signup-Pages/SignupPage";
 import { PerfilPage } from "../pages/DashAdminPages/DashPages/PerfilPage";
+import { BlogPage } from "../pages/HomePages/Blog-Pages/BlogPage";
+
 export function MyRoutes() {
   return (
     <Router>
@@ -36,7 +37,8 @@ export function MyRoutes() {
 
         <Route exact path="/login" element={<LoginPage />} />
         <Route exact path="/signup" element={<SignupPage />} />
-
+        <Route exact path="/blog" element={<BlogPage />} />
+        
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
         <Route exact path="/dashAdmin/usuarios" element={<UsuariosPage />} />
         <Route
@@ -64,7 +66,11 @@ export function MyRoutes() {
         />
 
         <Route exact path="/dashAdmin/servicios" element={<ServiciosPage />} />
-        <Route exact path="/dashAdmin/database-backup" element={<DatabaseBackup />} />
+        <Route
+          exact
+          path="/dashAdmin/database-backup"
+          element={<DatabaseBackup />}
+        />
 
         <Route exact path="/dashClient" element={<DashClient />} />
         <Route
@@ -80,11 +86,19 @@ export function MyRoutes() {
         />
         <Route exact path="/dashClient/pedidos" element={<PedidosClient />} />
 
-        <Route exact path="/productos/detalles/:id" element={<ProductosDetallesPage />} />
+        <Route
+          exact
+          path="/productos/detalles/:id"
+          element={<ProductosDetallesPage />}
+        />
 
-        <Route exact path="/productos/categoria/:id_categoria" element={<ProductosByCategoriaPage/>} />
+        <Route
+          exact
+          path="/productos/categoria/:id_categoria"
+          element={<ProductosByCategoriaPage />}
+        />
 
-        <Route exact path="/carrito/pay" element={<CarritoPay />} />
+        <Route exact path="/resumen-compras" element={<CompraCarrito />} />
 
         <Route exact path="/login/recoverpass" element={<RecovPassPage />} />
 

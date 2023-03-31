@@ -43,7 +43,7 @@ export function Carrito() {
                 <button onClick={vaciarCarrito}>Vaciar carrito</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <Link to="/carrito/pay">
+                <Link to="/resumen-compras">
                 <button>Pagar</button>
                 </Link>
               </div>

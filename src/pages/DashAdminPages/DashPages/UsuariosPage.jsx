@@ -2,7 +2,7 @@ import { FormUsuario } from "../../../components/usuarioComponents/FormUsuario";
 
 import { ListUsuarios } from "../../../components/usuarioComponents/ListUsuarios";
 import { Modal } from "../../../components/ModalComponents/Modal";
-import { DashAdmin } from "../DashAdmin";
+import { Sidebar } from "../../../components/DashAdminComponents/Sidebar";
 import { useEffect, useState } from "react";
 import "./UsuariosPage.css";
 
@@ -32,7 +32,7 @@ export function UsuariosPage() {
 
   return (
     <div className="content-container">
-      <DashAdmin />
+      <Sidebar />
       <h1>Página de usuarios</h1>
       <button type="submit" onClick={handleOpenModal}>
         Nuevo registro
