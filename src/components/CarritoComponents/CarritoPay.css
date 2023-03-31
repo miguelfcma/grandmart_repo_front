@@ -81,3 +81,30 @@
 .cart-actions2 button:hover {
   background-color: #3e8e41;
 }
+
+
+.back-button {
+  text-decoration: none;
+  background-color: white; 
+  color: black !important;
+  border: 2px solid #1c6bc3;
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}    
+
+.back-button:hover {
+  text-decoration: none;
+  background-color: #1c6bc3;
+  color: white !important; 
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}

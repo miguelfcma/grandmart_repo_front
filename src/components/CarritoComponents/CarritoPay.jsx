@@ -77,6 +77,12 @@ export function CarritoPay() {
     <div className="cart-actions2">
       <button>Pagar</button>
     </div>
+
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <button className="back-button" type="button">
+          <span>Atrás</span>
+        </button>
+      </Link>
   </div>
   );
 }
