@@ -1,8 +1,9 @@
-import { useState,useEffect } from "react";
+import { async } from "@firebase/util";
+import { useState, useEffect } from "react";
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
-export function FormUpdateProducto({ producto }) {
+export function FormUpdateProducto({ onSubmit,producto }) {
   const { updateProducto } = useProductos();
   const { categorias, loadCategorias } = useCategorias();
   useEffect(() => {
@@ -19,15 +20,22 @@ export function FormUpdateProducto({ producto }) {
     estado: producto.estado,
     id_categoria: producto.id_categoria,
   });
+  console.log(formValues);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    updateProducto(producto.id, formValues);
+    try {
+        await updateProducto(producto.id, formValues);
+        onSubmit();
+    } catch (error) {
+        console.error(error)
+    }
+    
   };
 
   const handleIdParentChange = (event) => {
@@ -110,16 +118,20 @@ export function FormUpdateProducto({ producto }) {
         onChange={handleInputChange}
       >
         <option value="">Seleccione una opción</option>
-        <option value="nuevo">Nuevo</option>
-        <option value="usado">Usado</option>
+        <option value="true" selected={true === formValues.estado}>
+          Nuevo
+        </option>
+        <option value="false" selected={false === formValues.estado}>
+          Usado
+        </option>
       </select>
 
       <label>
         Categoría del producto:
         <select
           name="id_categoria"
-          value={producto.id_categoria}
-          onChange={handleIdParentChange}
+          value={formValues.id_categoria}
+          onChange={handleInputChange}
           required
         >
           <option value="">Seleccionar categoría padre</option>
@@ -127,7 +139,7 @@ export function FormUpdateProducto({ producto }) {
             .filter((categoria) => categoria.id_parent === null)
             .map((categoriaPadre) => (
               <optgroup
-                className="categoria-padre" // Agregamos una clase a las opciones de las categorías padres
+                className="categoria-padre"
                 label={categoriaPadre.nombre}
                 key={categoriaPadre.id}
               >
@@ -135,10 +147,14 @@ export function FormUpdateProducto({ producto }) {
                   .filter(
                     (categoria) =>
                       categoria.id_parent === categoriaPadre.id &&
-                      categoria.id !== producto.id_categoria // para evitar que se pueda seleccionar como categoría padre a sí mismo
+                      categoria.id !== formValues.id_categoria
                   )
                   .map((categoriaHija) => (
-                    <option key={categoriaHija.id} value={categoriaHija.id}>
+                    <option
+                      key={categoriaHija.id}
+                      value={categoriaHija.id}
+                      selected={categoriaHija.id === formValues.id_categoria} // Agregamos el atributo selected si el id de la categoría coincide con el id del producto
+                    >
                       {categoriaHija.nombre}
                     </option>
                   ))}
