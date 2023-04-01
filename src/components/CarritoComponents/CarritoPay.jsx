@@ -1,6 +1,7 @@
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./CarritoPay.css";
 
 export function CarritoPay() {
   const {
@@ -53,28 +54,35 @@ export function CarritoPay() {
           <tr key={item.id}>
             <td>
               <Link to={`/productos/detalles/${item.id}`} style={{ textDecoration: "none" }}>
-                <img className="card-producto-img2" src={imgUrls[item.id] || ""} />
                 <h3>{item.nombre}</h3>
+                <img className="card-producto-img2" src={imgUrls[item.id] || ""} />
               </Link>
             </td>
-            <td>${item.precio}</td>
+            <td className="prices">$ {item.precio}</td>
             <td className="cart-item-controls2">
               <button onClick={() => decrementarCantidadItemCarrito(item)}>-</button>
-              <span>{item.cantidad}</span>
+              <span className="prices">{item.cantidad}</span>
               <button onClick={() => incrementarCantidadItemCarrito(item)}>+</button>
             </td>
-            <td>${item.precio * item.cantidad}</td>
+            <td className="prices"> $ {item.precio * item.cantidad}
+            </td>
             <td>
-              <button onClick={() => eliminarItemCarrito(item)}>Eliminar</button>
+              <button onClick={() => eliminarItemCarrito(item)} className="btnEliminar">Eliminar</button>
             </td>
           </tr>
         ))}
       </tbody>
     </table>
-    <p>Total: ${getTotal()}</p>
+    <p className="totalPrice">Total:&nbsp;&nbsp;&nbsp;&nbsp; $&nbsp; {getTotal()}</p>
     <div className="cart-actions2">
       <button>Pagar</button>
     </div>
+
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <button className="back-button" type="button">
+          <span>Atrás</span>
+        </button>
+      </Link>
   </div>
   );
 }

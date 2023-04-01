@@ -43,8 +43,8 @@ export function Carrito() {
                 <button onClick={vaciarCarrito}>Vaciar carrito</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <Link to="/resumen-compras">
-                <button>Pagar</button>
+                <Link to="/resumen-compras"  style={{ textDecoration: "none" }} className="btnpagar" type="button">
+                  <span>Pagar</span>
                 </Link>
               </div>
             </>

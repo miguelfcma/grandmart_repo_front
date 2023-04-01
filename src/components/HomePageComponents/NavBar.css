@@ -248,3 +248,29 @@
   background-color: #cc0000;
 }
 
+.btnpagar{
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  padding: 8px 15px;
+  text-decoration: none;
+  color: #fff !important;
+  background-color: #4caf50;
+  border-radius: 5px;
+  border: none;
+  margin-inline: 23px;
+  top: -35px;
+  right: -140px;
+}
+
+.btnpagar:hover{
+  color: #fff !important;
+  background-color: #3e8e41;
+}
+
+.btnpagar span {
+  display: block;
+}
+
+
+
