@@ -8,7 +8,6 @@ import { useEffect,useState } from "react";
 export function CardUsuario({ usuario }) {
   const{ deleteUsuario} = useUsuarios()
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formularioEnviado, setFormularioEnviado] = useState(false);
 
   function handleOpenModal() {
     setIsModalOpen(true);
@@ -16,19 +15,15 @@ export function CardUsuario({ usuario }) {
 
   function handleCloseModal() {
     setIsModalOpen(false);
-    setFormularioEnviado(false); // Reiniciar el estado del formulario enviado
+
   }
 
   function handleSubmit() {
     // Lógica para enviar el formulario
-    setFormularioEnviado(true);
+    handleCloseModal();
   }
 
-  useEffect(() => {
-    if (formularioEnviado) {
-      handleCloseModal(); // Cerrar la ventana modal si el formulario se ha enviado correctamente
-    }
-  }, [formularioEnviado]);
+  
   return (
     <div className="card-usuario">
         <div>Id: {usuario.id}</div>

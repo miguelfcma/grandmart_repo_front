@@ -6,7 +6,7 @@ export function ProductosDetallesPage() {
   const { id } = useParams();
   return (
     <>
-       <Navbar/>
+      <Navbar />
       <DetallesProducto id={id} />
     </>
   );

@@ -10,7 +10,7 @@ import { CategoriasPage } from "../pages/DashAdminPages/DashPages/CategoriasPage
 import { ProductosPage } from "../pages/DashAdminPages/DashPages/ProductosPage";
 import { ServiciosPage } from "../pages/DashAdminPages/DashPages/ServiciosPage";
 
-import { ProductoDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ProductosPage/ProductoDetallesAdminPage"; ///GFFFFFFFFFFF
+import { ProductoDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ProductosPage/ProductoDetallesAdminPage";
 
 import { DashClient } from "../pages/DashClientPages/DashClient";
 import { ProductosClient } from "../pages/DashClientPages/DashPages/ProductosClient";
@@ -24,9 +24,9 @@ import { RegistroProductoPage2 } from "../pages/DashAdminPages/DashPages/Product
 import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup";
 
 import { ProductosByCategoriaPage } from "../pages/HomePages/Productos-Pages/ProductosByCategoriaPage";
-import { ProductosDetallesPage } from "../pages/HomePages/Productos-Pages/ProductosDetallesPage";
+import { ProductosDetallesPage } from "../pages/HomePages/productos-Pages/ProductosDetallesPage";
 import { SignupPage } from "../pages/HomePages/Login-Signup-Pages/SignupPage";
-import { PerfilPage } from "../pages/DashAdminPages/DashPages/PerfilPage";
+import { PerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPageAdmin";
 import { BlogPage } from "../pages/HomePages/Blog-Pages/BlogPage";
 
 export function MyRoutes() {
@@ -47,7 +47,7 @@ export function MyRoutes() {
           element={<CategoriasPage />}
         />
         <Route exact path="/dashAdmin/productos" element={<ProductosPage />} />
-        <Route exact path="/dashAdmin/perfil" element={<PerfilPage />} />
+        <Route exact path="/dashAdmin/perfil" element={<PerfilPageAdmin />} />
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"
