@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { createUsuarioRequest } from "../../../API/usuarios.api";
-import "./SignupFormUsuario.css";
+import React, { useState } from "react";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
+import "./SignupFormUsuario.css";
+import { useNavigate } from "react-router-dom";
 
-
-export function SignupFormUsuario  ({ onSubmit, initialUsuario =null })  {
-  const {createUsuario, updateUsuario} = useUsuarios();
+export function SignupFormUsuario() {
+  const { createUsuario } = useUsuarios();
+  const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
   const [apellidoPaterno, setApellidoPaterno] = useState("");
@@ -15,21 +15,7 @@ export function SignupFormUsuario  ({ onSubmit, initialUsuario =null })  {
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [telefono, setTelefono] = useState("");
   const [password, setPassword] = useState("");
-  const [tipoUsuario, setTipoUsuario] = useState("");
-
-  useEffect(() => {
-    if (initialUsuario !== null) {
-      setNombre(initialUsuario.nombre);
-      setApellidoPaterno(initialUsuario.apellidoPaterno);
-      setApellidoMaterno(initialUsuario.apellidoMaterno);
-      setEmail(initialUsuario.email);
-      setSexo(initialUsuario.sexo);
-      setFechaNacimiento(initialUsuario.fechaNacimiento);
-      setTelefono(initialUsuario.telefono);
-      setPassword(initialUsuario.password);
-      setTipoUsuario(initialUsuario.tipoUsuario);
-    }
-  }, [initialUsuario]);
+  const [tipoUsuario, setTipoUsuario] = useState("false");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -47,15 +33,9 @@ export function SignupFormUsuario  ({ onSubmit, initialUsuario =null })  {
     };
 
     try {
-      let status;
+      const status = await createUsuario(formData);
 
-      if (initialUsuario === null) {
-        status = await createUsuario(formData);
-      } else {
-        status = await updateUsuario(initialUsuario.id, formData);
-      }
-      console.log(status)
-      if (status == true) {
+      if (status === true) {
         setNombre("");
         setApellidoPaterno("");
         setApellidoMaterno("");
@@ -64,9 +44,11 @@ export function SignupFormUsuario  ({ onSubmit, initialUsuario =null })  {
         setFechaNacimiento("");
         setTelefono("");
         setPassword("");
-        onSubmit();
+        navigate("/login");
       } else {
-        window.alert("Ha ocurrido un error al procesar la solicitud. Inténtelo de nuevo más tarde.");
+        window.alert(
+          "Ha ocurrido un error al procesar la solicitud. Inténtelo de nuevo más tarde."
+        );
       }
     } catch (error) {
       console.error(error);
@@ -117,7 +99,6 @@ export function SignupFormUsuario  ({ onSubmit, initialUsuario =null })  {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             required
-            disabled={initialUsuario}
           />
         </label>
         <br />
@@ -159,7 +140,8 @@ export function SignupFormUsuario  ({ onSubmit, initialUsuario =null })  {
           />
         </label>
         <br />
-        {initialUsuario ? <div></div> :  <label htmlFor="password">
+
+        <label htmlFor="password">
           Contraseña:
           <input
             type="password"
@@ -168,8 +150,7 @@ export function SignupFormUsuario  ({ onSubmit, initialUsuario =null })  {
             onChange={(event) => setPassword(event.target.value)}
             required
           />
-        </label>}
-       
+        </label>
 
         <br />
         <br />
@@ -177,4 +158,4 @@ export function SignupFormUsuario  ({ onSubmit, initialUsuario =null })  {
       </form>
     </>
   );
-};
+}
