@@ -1,9 +1,17 @@
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
+<<<<<<< Updated upstream:src/components/usuarioComponents/UsuarioPerfilComponents/FormCreateUsuarioDomicilio.jsx
 import { useState } from "react";
 
 export function FormCreateUsuarioDomicilio({onSubmit}) {
+=======
+import { useState, useEffect } from "react";
+
+export function FormUsuarioDomicilio({ onSubmit, initialDomicilio = {} }) {
+>>>>>>> Stashed changes:src/components/usuarioComponents/UsuarioPerfilComponents/FormUsuarioDomicilio.jsx
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { createDomicilioUsuario } = useUsuarios();
+  const { createDomicilioUsuario, updateDomicilioUsuario } = useUsuarios();
+
+  const isUpdating = initialDomicilio !== null && initialDomicilio !== undefined;
 
   const [formData, setFormData] = useState({
     nombre_ine: "",
@@ -18,7 +26,14 @@ export function FormCreateUsuarioDomicilio({onSubmit}) {
     calle2: "",
     descripcion: "",
     id_usuario: usuario.id,
+    ...initialDomicilio,
   });
+
+  useEffect(() => {
+    if (initialDomicilio) {
+      setFormData(initialDomicilio);
+    }
+  }, [initialDomicilio]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,6 +42,7 @@ export function FormCreateUsuarioDomicilio({onSubmit}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< Updated upstream:src/components/usuarioComponents/UsuarioPerfilComponents/FormCreateUsuarioDomicilio.jsx
       await createDomicilioUsuario(formData);
       setFormData({
         nombre_ine: "",
@@ -43,6 +59,28 @@ export function FormCreateUsuarioDomicilio({onSubmit}) {
         id_usuario: "",
       });
       onSubmit();
+=======
+      if (isUpdating) {
+        await updateDomicilioUsuario(formData);
+        onSubmit();
+      } else {
+        await createDomicilioUsuario(formData);
+        setFormData({
+          nombre_ine: "",
+          postal: "",
+          estado: "",
+          municipio_alcaldia: "",
+          colonia: "",
+          calle: "",
+          numeroExterior: "",
+          numeroInterior: "",
+          calle1: "",
+          calle2: "",
+          descripcion: "",
+          id_usuario: "",
+        });
+      }
+>>>>>>> Stashed changes:src/components/usuarioComponents/UsuarioPerfilComponents/FormUsuarioDomicilio.jsx
     } catch (error) {
       console.error(error);
     }

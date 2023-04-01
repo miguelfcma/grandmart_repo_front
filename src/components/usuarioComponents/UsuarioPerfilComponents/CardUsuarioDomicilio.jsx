@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 import { Modal } from "../../../components/ModalComponents/Modal";
+<<<<<<< Updated upstream
 import { FormUpdateUsuarioDomicilio } from "./FormUpdateUsuarioDomicilio";
 import { FormCreateUsuarioDomicilio } from "./FormCreateUsuarioDomicilio";
 export function CardUsuarioDomicilio() {
@@ -14,6 +15,45 @@ export function CardUsuarioDomicilio() {
     loadDomicilio(usuario.id);
   }, []);
   
+=======
+import { FormUsuarioDomicilio } from "./FormUsuarioDomicilio";
+
+export function CardUsuarioDomicilio() {
+  const { getDomicilioUsuarioByUserId, actualizarDomicilioUsuario, crearDomicilioUsuario } = useUsuarios();
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const [domicilio, setDomicilio] = useState(null);
+  const [isNewDomicilio, setIsNewDomicilio] = useState(false);
+
+  useEffect(() => {
+    const fetchDomicilio = async () => {
+      const domicilio = await getDomicilioUsuarioByUserId(usuario.id);
+
+      if (domicilio) {
+        setIsNewDomicilio(false);
+        setDomicilio(domicilio);
+      } else {
+        setIsNewDomicilio(true);
+        setDomicilio({
+          nombre_ine: "",
+          postal: "",
+          estado: "",
+          municipio_alcaldia: "",
+          colonia: "",
+          calle: "",
+          numeroExterior: "",
+          numeroInterior: "",
+          calle1: "",
+          calle2: "",
+          descripcion: "",
+        });
+      }
+    };
+    fetchDomicilio();
+  }, [getDomicilioUsuarioByUserId, usuario.id]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formularioEnviado, setFormularioEnviado] = useState(false);
+>>>>>>> Stashed changes
 
   function handleOpenModal() {
     setIsModalOpen(true);
@@ -24,8 +64,17 @@ export function CardUsuarioDomicilio() {
     setFormularioEnviado(false); // Reiniciar el estado del formulario enviado
   }
 
+<<<<<<< Updated upstream
   function handleSubmit() {
     // Lógica para enviar el formulario
+=======
+  async function handleSubmit(domicilioData) {
+    if (isNewDomicilio) {
+      await crearDomicilioUsuario(usuario.id, domicilioData);
+    } else {
+      await actualizarDomicilioUsuario(domicilio.id, domicilioData);
+    }
+>>>>>>> Stashed changes
     setFormularioEnviado(true);
   }
 
@@ -35,11 +84,14 @@ export function CardUsuarioDomicilio() {
     }
   }, [formularioEnviado]);
 
+<<<<<<< Updated upstream
   function handleDomicilioCreado() {
     loadDomicilio(usuario.id);
   }
   
 
+=======
+>>>>>>> Stashed changes
   return (
     <div>
       {domicilio ? (
@@ -56,6 +108,7 @@ export function CardUsuarioDomicilio() {
           <p>Calle 2: {domicilio.calle2}</p>
           <p>Descripción: {domicilio.descripcion}</p>
 
+<<<<<<< Updated upstream
         
           <button onClick={handleOpenModal}>Editar domicilio</button>
 
@@ -73,6 +126,17 @@ export function CardUsuarioDomicilio() {
         <FormCreateUsuarioDomicilio onSubmit={() => {handleDomicilioCreado();}} />
 
         </div>
+=======
+          <button onClick={handleOpenModal}>Editar domicilio</button>
+
+          <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+            <FormUsuarioDomicilio onSubmit={handleSubmit} initialDomicilio={domicilio} />
+            <button onClick={handleCloseModal}>Cerrar ventana</button>
+          </Modal>
+        </div>
+      ) : (
+        <p>NO HAY DOMICILIO</p>
+>>>>>>> Stashed changes
       )}
     </div>
   );

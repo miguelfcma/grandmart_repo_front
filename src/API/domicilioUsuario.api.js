@@ -25,6 +25,7 @@ export const getDomicilioUsuarioByUserIdRequest = async (id_usuario) => {
     console.log({
       status: response.status,
       message: response.data.message,
+      data: response.data
     });
     return response;
   } catch (error) {
