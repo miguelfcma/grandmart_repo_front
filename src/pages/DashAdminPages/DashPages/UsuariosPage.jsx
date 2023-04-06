@@ -1,8 +1,8 @@
+import { Sidebar } from "../../../components/DashAdminComponents/Sidebar";
+import { Header } from "../../../components/DashAdminComponents/Header";
 import { FormUsuario } from "../../../components/usuarioComponents/FormUsuario";
-
 import { ListUsuarios } from "../../../components/usuarioComponents/ListUsuarios";
 import { Modal } from "../../../components/ModalComponents/Modal";
-import { Sidebar } from "../../../components/DashAdminComponents/Sidebar";
 import { useEffect, useState } from "react";
 import "./UsuariosPage.css";
 
@@ -32,6 +32,7 @@ export function UsuariosPage() {
 
   return (
     <div className="content-container">
+      <Header/>
       <Sidebar />
       <h1>Página de usuarios</h1>
       <button type="submit" onClick={handleOpenModal}>

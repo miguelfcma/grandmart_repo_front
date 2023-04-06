@@ -5,14 +5,12 @@ import { Header } from "../../components/DashAdminComponents/Header";
 import { Content } from "../../components/DashAdminComponents/Content";
 import { useNavigate } from "react-router-dom";
 
-
 export function DashAdmin() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (!token) {
       navigate("/login");
     } else {

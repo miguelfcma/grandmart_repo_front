@@ -1,7 +1,5 @@
 import { useProductos } from "../ProductosContext/ProductoProvider";
-
 import { useEffect, useState } from "react";
-
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { ComentariosProducto } from "./ComentariosProducto";
 import { ReviewsProducto } from "./ReviewsProducto";

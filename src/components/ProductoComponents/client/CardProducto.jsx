@@ -2,20 +2,20 @@ import "./CardProducto.css";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { deleteImagesProducto } from "../../../firebase/productoStorage";
+import { FormUpdateProducto } from "./FormUpdateProducto";
+import { Modal } from "../../ModalComponents/Modal";
+
 export function CardProducto({ producto }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
-  const {
-    getImgPortadaProducto,
-    agregarFavorito,
-    eliminarFavorito,
-    favoritos,
-    carrito,
-    agregarItemCarrito,
-  } = useProductos();
+
+  const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =
+    useProductos();
+
   const [urlImagen, setUrlImagen] = useState("");
-  const esFavorito = favoritos.some((p) => p.id === producto.id);
-  const esProductoEnCarrito = carrito.some((p) => p.id === producto.id);
+
   async function obtenerUrlImagenAsync(idProducto) {
     const url = await getImgPortadaProducto(idProducto);
     setUrlImagen(url);
@@ -25,59 +25,67 @@ export function CardProducto({ producto }) {
     obtenerUrlImagenAsync(producto.id);
   }, [producto.id]);
 
-  function toggleFavorito() {
-    if (esFavorito) {
-      eliminarFavorito(producto);
-    } else {
-      if (usuario) {
-        agregarFavorito(producto);
-      } else {
-        navigate("/login");
-      }
+  const handleEliminarProducto = async () => {
+    try {
+      const imagenesProducto = await getAllImagesProduct(producto.id);
+      const urls = imagenesProducto.map((imagen) => imagen.url);
+
+      await deleteImagesProducto(urls);
+      await deleteProducto(producto.id);
+    } catch (error) {
+      console.error(error);
     }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formularioEnviado, setFormularioEnviado] = useState(false);
+
+  function handleOpenModal() {
+    setIsModalOpen(true);
   }
-  function agregarAlCarrito() {
-    if (usuario) {
-      agregarItemCarrito(producto);
-    } else {
-      navigate("/login");
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+    setFormularioEnviado(false); // Reiniciar el estado del formulario enviado
+  }
+
+  function handleSubmit() {
+    // Lógica para enviar el formulario
+    setFormularioEnviado(true);
+  }
+
+  useEffect(() => {
+    if (formularioEnviado) {
+      handleCloseModal(); // Cerrar la ventana modal si el formulario se ha enviado correctamente
     }
-  }
+  }, [formularioEnviado]);
 
   return (
-
-      <div className="card-producto">
-
-        <Link to={`/productos/detalles/${producto.id}`} style={{ textDecoration: "none" }}>
+    <div className="card-producto">
+      <Link
+        to={`/dashClient/productos/detalles/${producto.id}`}
+        style={{ textDecoration: "none" }}
+      >
+        <div>ID: {producto.id}</div>
+        <div>Nombre: {producto.nombre}</div>
         <img
           className="card-producto-img"
           src={urlImagen}
           alt={producto.nombre}
         />
-        <div>{producto.nombre}</div>
-        <br></br>
-        <div>${producto.precio}</div>
-        </Link>
+        <div>Precio: ${producto.precio}</div>
+      </Link>
 
-        <button
-          onClick={toggleFavorito}
-          title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}
-        >
-          <box-icon
-            type="solid"
-            name="heart"
-            color={esFavorito ? "red" : "white"}
-          ></box-icon>
-        </button>
-        <button
-          onClick={agregarAlCarrito}
-          disabled={esProductoEnCarrito}
-          title={
-            esProductoEnCarrito ? "Ya está en el carrito" : "Agregar al carrito"
-          }
-        >
-          {esProductoEnCarrito ? "Agregado al carrito" : "Agregar al carrito"}
-        </button>
-      </div>
+      <button className="card-producto" onClick={handleOpenModal}>
+        Editar producto
+      </button>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <FormUpdateProducto onSubmit={handleSubmit} producto={producto} />
+        <button onClick={handleCloseModal}>Cerrar ventana</button>
+      </Modal>
+      <button className="card-producto" onClick={handleEliminarProducto}>
+        Eliminar producto
+      </button>
+    </div>
   );
 }

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import './DashClient.css';
-import {Sidebar} from '../../components/DashClientComponents/Sidebar';
-import {Header} from '../../components/DashClientComponents/Header';
-import {Content} from '../../components/DashClientComponents/Content';
+import { Sidebar } from '../../components/DashClientComponents/Sidebar';
+import { Header } from '../../components/DashClientComponents/Header';
+import { Content } from '../../components/DashClientComponents/Content';
 import { useNavigate } from "react-router-dom";
 
 export function DashClient() {
@@ -13,14 +13,14 @@ export function DashClient() {
     if (!token) {
       navigate('/login');
     }
-  }, [history]);
+  }, [navigate]); //estaba un history
 
   return (
-    
-    <div>
-      <Header />
-      <div className="sidebar-container">
-        <Sidebar />
+    <div className="dashboard-container">
+      <Sidebar />
+      <div className="dashboard-content">
+        <Header />
+        <Content />
       </div>
     </div>
   );

@@ -1,0 +1,16 @@
+.list-productos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+.titulo {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2rem;
+  color: #555;
+}

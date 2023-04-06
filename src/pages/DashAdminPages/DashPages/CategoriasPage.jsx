@@ -1,4 +1,5 @@
 import { Sidebar } from "../../../components/DashAdminComponents/Sidebar";
+import { Header } from "../../../components/DashAdminComponents/Header";
 import { ListCategorias } from "../../../components/CategoriaComponents/ListCategorias";
 import { Modal } from "../../../components/ModalComponents/Modal";
 import { FormCategoria } from "../../../components/CategoriaComponents/FormCategoria";
@@ -28,7 +29,8 @@ export function CategoriasPage() {
   }, [formularioEnviado]);
   return (
     <div className="content-container">
-        <Sidebar />
+      <Header/>
+      <Sidebar />
       <h1>Página de categorías</h1>
       <button type="submit" onClick={handleOpenModal}>
         Nuevo registro

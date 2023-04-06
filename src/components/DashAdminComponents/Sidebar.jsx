@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
-export function Sidebar({ children }) {
 
+export function Sidebar({ children }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 const {vaciarFavoritos} = useProductos();
   const handleLogout = () => {

@@ -1,12 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
+import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 
 export function Sidebar({ children }) {
-  const token = localStorage.getItem("token");
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const {vaciarFavoritos} = useProductos();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    vaciarFavoritos();
     // redirigir a la página de inicio de sesión o a la página principal
   };
 
@@ -30,7 +34,7 @@ export function Sidebar({ children }) {
         </li>
       </ul>
       <div className="user-options">
-        <p>Nombre del usuario</p>
+        <p>Bienvenido: {usuario.nombre+" "+usuario.apellidoPaterno+" "+usuario.apellidoMaterno}</p>
 
         <br></br>
         <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Página principal</Link>
