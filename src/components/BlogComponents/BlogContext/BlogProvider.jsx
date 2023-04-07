@@ -10,7 +10,7 @@ import {
 
 import { BlogContext } from "./BlogContext";
 
-export const useBlog = () => {
+export const usePublicacionesBlog = () => {
   const context = useContext(BlogContext);
   if (context === undefined) {
     throw new Error(
@@ -19,6 +19,7 @@ export const useBlog = () => {
   }
   return context;
 };
+
 
 export const BlogContextProvider = ({ children }) => {
   const [publicaciones, setPublicaciones] = useState([]);
