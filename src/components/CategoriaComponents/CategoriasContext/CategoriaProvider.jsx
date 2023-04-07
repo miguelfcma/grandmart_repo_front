@@ -6,7 +6,7 @@ import {
   updateCategoriaRequest,
   createCategoriaRequest,
 
-} from "../../../API/categorias.api";
+} from "../../../API/CategoriasApiRest/categorias.api";
 
 import { CategoriaContext } from "./CategoriaContext";
 

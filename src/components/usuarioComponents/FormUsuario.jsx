@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { createUsuarioRequest } from "../../API/usuarios.api";
 import "./FormUsuario.css";
 import { useUsuarios } from "./UsuariosContext/UsuarioProvider";
 

@@ -5,7 +5,7 @@ import {
   createServicioRequest,
   deleteServicioRequest,
   updateServicioRequest,
-} from "../../../API/servicios.api";
+} from "../../../API/ServiciosApiRest/servicios.api";
 
 import { ServicioContext } from "./ServicioContext";
 

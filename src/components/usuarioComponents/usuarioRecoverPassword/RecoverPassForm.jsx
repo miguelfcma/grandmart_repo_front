@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { recoveryPassRequest } from "../../../API/recoveryPass.api";
+import { recoveryPassRequest } from "../../../API/RecoveryPassApiRest/recoveryPass.api";
 import { Link, useNavigate } from "react-router-dom";
 
 export function RecoverPassForm() {

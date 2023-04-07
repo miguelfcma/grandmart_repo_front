@@ -6,13 +6,13 @@ import {
   deleteUsuarioRequest,
   updateUsuarioRequest,
   getUsuarioLoginRequest,
-} from "../../../API/usuarios.api";
+} from "../../../API/UsuariosApiRest/usuarios.api";
 import {
   getDomicilioUsuarioByUserIdRequest,
   deleteDomicilioUsuarioByUserIdRequest,
   createDomicilioUsuarioRequest,
   updateDomicilioUsuarioByUserIdRequest,
-} from "../../../API/domicilioUsuario.api";
+} from "../../../API/UsuariosApiRest/domicilioUsuario.api";
 import { UsuarioContext } from "./UsuarioContext";
 
 export const useUsuarios = () => {

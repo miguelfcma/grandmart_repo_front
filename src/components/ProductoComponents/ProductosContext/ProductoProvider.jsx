@@ -7,14 +7,14 @@ import {
   deleteProductoRequest,
   updateProductoRequest,
   createProductoRequest,
-} from "../../../API/productos.api";
+} from "../../../API/ProductosApiRest/productos.api";
 
 import {
   createProductImageRequest,
   getProductImagePortadaRequest,
   getProductImagesGaleriaRequest,
   getAllImagesProductRequest,
-} from "../../../API/imagenProductos.api";
+} from "../../../API/ProductosApiRest/imagenProductos.api";
 
 import { ProductoContext } from "./ProductoContext";
 

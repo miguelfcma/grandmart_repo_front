@@ -1,10 +1,10 @@
 import axios from "axios";
-import { API_BASE_URL } from "./config.api";
+import { API_BASE_URL } from "../config.api";
+//const API_BASE_URL = "http://localhost:4000/productos";
 
-
-export const createDomicilioUsuarioRequest = async (domicilioUsuario) => {
+export const getProductosRequest = async () => {
   try {
-    const response = await axios.post(API_BASE_URL + "domicilio-usuario", domicilioUsuario);
+    const response = await axios.get(API_BASE_URL+"productos");
     console.log({
       status: response.status,
       message: response.data.message,
@@ -19,27 +19,10 @@ export const createDomicilioUsuarioRequest = async (domicilioUsuario) => {
   }
 };
 
-export const getDomicilioUsuarioByUserIdRequest = async (id_usuario) => {
+export const createProductoRequest = async (producto) => {
+  console.log(producto)
   try {
-    const response = await axios.get(API_BASE_URL + `domicilio-usuario/${id_usuario}`);
-    console.log({
-      status: response.status,
-      message: response.data.message,
-      data: response.data
-    });
-    return response;
-  } catch (error) {
-    console.log({
-      status: error.response.status,
-      message: error.response.data.message,
-    });
-    return error.response;
-  }
-};
-
-export const updateDomicilioUsuarioByUserIdRequest = async (id_usuario, domicilioUsuario) => {
-  try {
-    const response = await axios.put(API_BASE_URL + `domicilio-usuario/${id_usuario}`, domicilioUsuario);
+    const response = await axios.post(API_BASE_URL+"productos", producto);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -54,9 +37,26 @@ export const updateDomicilioUsuarioByUserIdRequest = async (id_usuario, domicili
   }
 };
 
-export const deleteDomicilioUsuarioByUserIdRequest = async (id_usuario) => {
+export const updateProductoRequest = async (id, producto) => {
   try {
-    const response = await axios.delete(API_BASE_URL + `domicilio-usuario/${id_usuario}`);
+    const response = await axios.put(`${API_BASE_URL+"productos"}/${id}`, producto);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};
+
+export const deleteProductoRequest = async (id) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL+"productos"}/${id}`);
     console.log({
       status: response.status,
       message: response.data.message,
