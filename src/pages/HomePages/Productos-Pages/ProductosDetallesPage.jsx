@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { DetallesProducto } from "../../../components/ProductoComponents/client/DetallesProducto";
+import { DetallesProductoGeneral } from "../../../components/ProductoComponents/general/VistaDetallesProductoGeneral/DetallesProductoGeneral";
 import { Navbar } from "../../../components/HomePageComponents/NavBar";
 
 export function ProductosDetallesPage() {
@@ -7,7 +7,7 @@ export function ProductosDetallesPage() {
   return (
     <>
       <Navbar />
-      <DetallesProducto id={id} />
+      <DetallesProductoGeneral id={id} />
     </>
   );
 }

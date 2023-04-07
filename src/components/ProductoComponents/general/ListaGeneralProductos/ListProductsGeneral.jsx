@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { CardProducto } from "./client/CardProducto";
+import { CardProductoGeneral } from "./CardProductoGeneral"
 import "./ListProductsGeneral.css";
-import { useProductos } from "./ProductosContext/ProductoProvider";
+import { useProductos } from "../../ProductosContext/ProductoProvider";
 
 export function ListProductsGeneral() {
   const { productos, loadProductos } = useProductos();
@@ -24,7 +24,7 @@ export function ListProductsGeneral() {
       return <h1>No hay productos registrados</h1>;
     } else {
       return currentProducts.map((producto) => (
-        <CardProducto key={producto.id} producto={producto} />
+        <CardProductoGeneral key={producto.id} producto={producto} />
       ));
     }
   }

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { CardProducto } from "./CardProducto";
-import { useProductos } from "../ProductosContext/ProductoProvider";
-import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
+import { CardProductoGeneral } from "../ListaGeneralProductos/CardProductoGeneral";
+import { useProductos } from "../../ProductosContext/ProductoProvider";
+import { useCategorias } from "../../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 
 export  function FilterProducts({id_categoria}) {
     const { productos, loadProductos } = useProductos();
@@ -32,7 +32,7 @@ export  function FilterProducts({id_categoria}) {
         return <h1>No hay productos registrados</h1>;
       } else {
         return filteredProducts.map((producto) => (
-          <CardProducto key={producto.id} producto={producto} />
+          <CardProductoGeneral key={producto.id} producto={producto} />
         ));
       }
     }

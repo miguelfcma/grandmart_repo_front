@@ -1,5 +1,5 @@
 import "./Content.css";
-import { ListProductsGeneral } from "../ProductoComponents/ListProductsGeneral";
+import { ListProductsGeneral } from "../ProductoComponents/general/ListaGeneralProductos/ListProductsGeneral";
 
 export function Content({ searchTerm }) {
   console.log(searchTerm);
@@ -15,6 +15,7 @@ export function Content({ searchTerm }) {
         </section>
 
         <ListProductsGeneral searchTerm={searchTerm} />
+        
       </main>
       <footer>
         <p>Derechos Reservados © 2023 GrandMart</p>

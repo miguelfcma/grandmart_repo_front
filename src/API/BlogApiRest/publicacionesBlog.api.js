@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL} from "../config.api";
 
-export const createPublicacion = async (data) => {
+export const createPublicacionRequest = async (data) => {
     try {
       const response = await axios.post(`${BASE_URL}/blog-publicaciones`, data);
       console.log({
@@ -18,7 +18,7 @@ export const createPublicacion = async (data) => {
     }
   };
   
-  export const deletePublicacionPorIdUsuario = async (idUsuario) => {
+  export const deletePublicacionPorIdUsuarioRequest = async (idUsuario) => {
     try {
       const response = await axios.delete(`${BASE_URL}/blog-publicaciones/${idUsuario}`);
       console.log({
@@ -35,7 +35,7 @@ export const createPublicacion = async (data) => {
     }
   };
   
-  export const updatePublicacionPorIdUsuario = async (idUsuario, data) => {
+  export const updatePublicacionPorIdUsuarioRequest = async (idUsuario, data) => {
     try {
       const response = await axios.put(`${BASE_URL}/blog-publicaciones/${idUsuario}`, data);
       console.log({
@@ -52,7 +52,7 @@ export const createPublicacion = async (data) => {
     }
   };
   
-  export const getPublicaciones = async () => {
+  export const getPublicacionesRequest = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/blog-publicaciones`);
       console.log({
@@ -69,7 +69,7 @@ export const createPublicacion = async (data) => {
     }
   };
   
-  export const getPublicacionesPorIdUsuario = async (idUsuario) => {
+  export const getPublicacionesPorIdUsuarioRequest = async (idUsuario) => {
     try {
       const response = await axios.get(`${BASE_URL}/blog-publicaciones/${idUsuario}`);
       console.log({

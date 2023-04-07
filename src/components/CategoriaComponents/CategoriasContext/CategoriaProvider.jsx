@@ -14,7 +14,7 @@ export const useCategorias = () => {
   const context = useContext(CategoriaContext);
   if (context === undefined) {
     throw new Error(
-      "useCategorias must be used within a CategoriaContextProvider"
+      "useCategorias debe ser utilizado dentro de un CategoriaContextProvider"
     );
   }
   return context;
