@@ -3,7 +3,7 @@ import { API_BASE_URL } from "../config.api";
 
 export const crearPregunta = async (data) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/producto-preguntas`, data);
+    const response = await axios.post(`${API_BASE_URL}producto-preguntas`, data);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -20,7 +20,7 @@ export const crearPregunta = async (data) => {
 
 export const crearRespuesta = async (idPregunta, data) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/producto-preguntas/${idPregunta}/respuesta`, data);
+    const response = await axios.post(`${API_BASE_URL}producto-preguntas/${idPregunta}/respuesta`, data);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -37,7 +37,7 @@ export const crearRespuesta = async (idPregunta, data) => {
 
 export const getPreguntasByIdProducto = async (idProducto) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/producto-preguntas/producto/${idProducto}`);
+    const response = await axios.get(`${API_BASE_URL}producto-preguntas/producto/${idProducto}`);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -54,7 +54,7 @@ export const getPreguntasByIdProducto = async (idProducto) => {
 
 export const eliminarPregunta = async (idPregunta) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/producto-preguntas/${idPregunta}`);
+    const response = await axios.delete(`${API_BASE_URL}producto-preguntas/${idPregunta}`);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -71,7 +71,7 @@ export const eliminarPregunta = async (idPregunta) => {
 
 export const actualizarPregunta = async (idPregunta, data) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/producto-preguntas/${idPregunta}`, data);
+    const response = await axios.put(`${API_BASE_URL}producto-preguntas/${idPregunta}`, data);
     console.log({
       status: response.status,
       message: response.data.message,

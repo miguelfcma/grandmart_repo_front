@@ -3,24 +3,27 @@ import { API_BASE_URL} from "../config.api";
 
 export const createPublicacionRequest = async (data) => {
     try {
-      const response = await axios.post(`${BASE_URL}/blog-publicaciones`, data);
+      const response = await axios.post(`${API_BASE_URL}blog-publicaciones`, data);
       console.log({
         status: response.status,
         message: response.data.message,
       });
       return response;
     } catch (error) {
+      console.log(error)
+      
       console.log({
         status: error.response.status,
         message: error.response.data.message,
       });
+      
       return error.response;
     }
   };
   
   export const deletePublicacionPorIdUsuarioRequest = async (idUsuario) => {
     try {
-      const response = await axios.delete(`${BASE_URL}/blog-publicaciones/${idUsuario}`);
+      const response = await axios.delete(`${API_BASE_URL}blog-publicaciones/${idUsuario}`);
       console.log({
         status: response.status,
         message: response.data.message,
@@ -37,7 +40,7 @@ export const createPublicacionRequest = async (data) => {
   
   export const updatePublicacionPorIdUsuarioRequest = async (idUsuario, data) => {
     try {
-      const response = await axios.put(`${BASE_URL}/blog-publicaciones/${idUsuario}`, data);
+      const response = await axios.put(`${API_BASE_URL}blog-publicaciones/${idUsuario}`, data);
       console.log({
         status: response.status,
         message: response.data.message,
@@ -54,12 +57,12 @@ export const createPublicacionRequest = async (data) => {
   
   export const getPublicacionesRequest = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/blog-publicaciones`);
+      const response = await axios.get(`${API_BASE_URL}blog-publicaciones`);
       console.log({
         status: response.status,
         message: response.data.message,
       });
-      return response.data;
+      return response
     } catch (error) {
       console.log({
         status: error.response.status,
@@ -71,7 +74,7 @@ export const createPublicacionRequest = async (data) => {
   
   export const getPublicacionesPorIdUsuarioRequest = async (idUsuario) => {
     try {
-      const response = await axios.get(`${BASE_URL}/blog-publicaciones/${idUsuario}`);
+      const response = await axios.get(`${API_BASE_URL}blog-publicaciones/${idUsuario}`);
       console.log({
         status: response.status,
         message: response.data.message,

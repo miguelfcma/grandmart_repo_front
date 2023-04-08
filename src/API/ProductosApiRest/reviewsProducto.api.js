@@ -3,7 +3,7 @@ import { API_BASE_URL } from "../config.api";
 
 export const createReview = async (data) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/producto-review/`, data);
+    const response = await axios.post(`${API_BASE_URL}producto-review/`, data);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -20,7 +20,7 @@ export const createReview = async (data) => {
 
 export const deleteReviewById = async (id) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/producto-review/${id}`);
+    const response = await axios.delete(`${API_BASE_URL}producto-review/${id}`);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -37,7 +37,7 @@ export const deleteReviewById = async (id) => {
 
 export const getReviewsByProductId = async (id_producto) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/producto-review/${id_producto}`);
+    const response = await axios.get(`${API_BASE_URL}producto-review/${id_producto}`);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -54,7 +54,7 @@ export const getReviewsByProductId = async (id_producto) => {
 
 export const updateReviewById = async (id, data) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/producto-review/${id}`, data);
+    const response = await axios.put(`${API_BASE_URL}producto-review/${id}`, data);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -71,7 +71,7 @@ export const updateReviewById = async (id, data) => {
 
 export const getAvgRatingByProductId = async (id_producto) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/producto-review/${id_producto}/avg-rating`);
+    const response = await axios.get(`${API_BASE_URL}producto-review/${id_producto}/avg-rating`);
     console.log({
       status: response.status,
       message: response.data.message,

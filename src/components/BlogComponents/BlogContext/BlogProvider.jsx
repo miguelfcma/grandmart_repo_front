@@ -10,6 +10,7 @@ import {
 
 import { BlogContext } from "./BlogContext";
 
+
 export const usePublicacionesBlog = () => {
   const context = useContext(BlogContext);
   if (context === undefined) {
@@ -29,6 +30,7 @@ export const BlogContextProvider = ({ children }) => {
       const response = await getPublicacionesRequest();
       
       if (response.status === 200) {
+        console.log(response.data)
         setPublicaciones(response.data);
       } else {
         throw new Error("No se pudo obtener la lista de publicaciones");
@@ -42,7 +44,7 @@ export const BlogContextProvider = ({ children }) => {
   const getPublicacionesPorIdUsuario = async (idUsuario) => {
     try {
       const response = await getPublicacionesPorIdUsuarioRequest(idUsuario);
-      if (response.status == 200) {
+      if (response.status === 200) {
         return response.data;
       } else {
         throw new Error("No se pudo obtener la lista de publicaciones del usuario");
