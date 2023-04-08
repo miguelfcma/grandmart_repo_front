@@ -20,35 +20,40 @@ export function Publicaciones() {
 
   return (
     <div>
-      {publicaciones.map((publicacion) => (
-        <div key={publicacion.id}>
-          <h3>{publicacion.titulo}</h3>
-          <h4>Publicación por: {publicacion.usuario.nombre}</h4>
-          <h4>
-            Fecha de publicación:{" "}
-            {new Date(publicacion.updatedAt).toLocaleDateString()}
-          </h4>
-          <p>{publicacion.descripcion}</p>
-          <h4>Comentarios: </h4>
-          <p></p>
-          <img src={publicacion.imagen} alt={publicacion.titulo} />
-
-          <form onSubmit={(event) => handleSubmit(event, publicacion.id)}>
-            <label htmlFor={`comentario-${publicacion.id}`}>Agregar comentario:</label>
-            <textarea
-              id={`comentario-${publicacion.id}`}
-              value={comentarios[publicacion.id] || ""}
-              onChange={(event) =>
-                setComentarios({
-                  ...comentarios,
-                  [publicacion.id]: event.target.value
-                })
-              }
-            ></textarea>
-            <button type="submit">Enviar</button>
-          </form>
-        </div>
-      ))}
+      {publicaciones.length > 0 ? (
+        publicaciones.map((publicacion) => (
+          <div key={publicacion.id}>
+            <h3>{publicacion.titulo}</h3>
+            <h4>Publicación por: {publicacion.usuario.nombre}</h4>
+            <h4>
+              Fecha de publicación:{" "}
+              {new Date(publicacion.updatedAt).toLocaleDateString()}
+            </h4>
+            <p>{publicacion.descripcion}</p>
+            <h4>Comentarios: </h4>
+            <p></p>
+            <img src={publicacion.imagen} alt={publicacion.titulo} />
+  
+            <form onSubmit={(event) => handleSubmit(event, publicacion.id)}>
+              <label htmlFor={`comentario-${publicacion.id}`}>Agregar comentario:</label>
+              <textarea
+                id={`comentario-${publicacion.id}`}
+                value={comentarios[publicacion.id] || ""}
+                onChange={(event) =>
+                  setComentarios({
+                    ...comentarios,
+                    [publicacion.id]: event.target.value
+                  })
+                }
+              ></textarea>
+              <button type="submit">Enviar</button>
+            </form>
+          </div>
+        ))
+      ) : (
+        <p>No hay publicaciones.</p>
+      )}
     </div>
   );
+  
 }

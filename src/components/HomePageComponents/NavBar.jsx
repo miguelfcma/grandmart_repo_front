@@ -90,11 +90,16 @@ export function Navbar() {
                 ))}
               </div>
             </li>
-            <li>
+            <li> {usuario ? (
               <Link to="/blog">Blog</Link>
+
+              ) : (
+                <Link to="/login">Blog</Link>
+
+                )}
             </li>
             <li>
-              <Link to="/">Vender</Link>
+              <Link to="/">Contacto</Link>
             </li>
             <li>
               <div className="navbar-links">

@@ -99,6 +99,7 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await getProductosRequest();
 
       if (response.status === 200) {
+        console.log(response.data)
         setProductos(response.data);
       } else {
         throw new Error("No se pudo obtener la lista de productos");
