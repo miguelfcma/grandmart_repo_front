@@ -1,0 +1,19 @@
+:root {
+    --color-primario: #AADDE7;
+    --color-secundario: #98ADCC;
+    --color-terciario: #CC98A8;
+    --color-cuaternario: #CCB198;
+    --color-quintenario: #A478F6;
+  }
+  
+h1, h2 {
+    font-family: "actic didone", serif;
+    text-transform: uppercase;
+    font-size: 2.5rem;
+}
+
+p {
+    font-family: "PlayFair Display", serif;
+    font-size: 1.5rem;
+}
+

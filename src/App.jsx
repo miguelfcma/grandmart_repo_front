@@ -3,6 +3,7 @@ import { UsuarioContextProvider } from "./components/usuarioComponents/UsuariosC
 import { ProductoContextProvider } from "./components/ProductoComponents/ProductosContext/ProductoProvider";
 import { CategoriaContextProvider } from "./components/CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { BlogContextProvider } from "./components/BlogComponents/BlogContext/BlogProvider";
+import './globalStyles.css';
 function App() {
   return (
     <BlogContextProvider>

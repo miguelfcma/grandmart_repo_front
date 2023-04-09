@@ -5,7 +5,8 @@ import { useProductos } from "../ProductoComponents/ProductosContext/ProductoPro
 
 export function Sidebar({ children }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-const {vaciarFavoritos} = useProductos();
+  const {vaciarFavoritos} = useProductos();
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
@@ -17,25 +18,25 @@ const {vaciarFavoritos} = useProductos();
     <div className="sidebar-container">
       <ul>
         <li>
-          <Link to="/dashAdmin">Dashboard</Link>
+          <Link to="/dashClient">Dashboard</Link>
         </li>
         <li>
-          <Link to="/dashAdmin/usuarios">Usuarios</Link>
+          <Link to="/dashClient/productos">Productos</Link>
         </li>
         <li>
-          <Link to="/dashAdmin/categorias">Categorias</Link>
+          <Link to="/dashClient/servicios">Servicios</Link>
         </li>
         <li>
-          <Link to="/dashAdmin/productos">Productos</Link>
+          <Link to="/dashClient/pedidos">Pedidos</Link>
         </li>
         <li>
-          <Link to="/dashAdmin/servicios">Servicios</Link>
+          <Link to="/dashClient/perfil">Mi perfil</Link>
         </li>
         <li>
-          <Link to="/dashAdmin/perfil">Perfil</Link>
+          <Link to="/dashClient/preguntas">Preguntas</Link>
         </li>
         <li>
-          <Link to="/dashAdmin/database-backup">Database backup</Link>
+          <Link to="/dashClient/estadisticas">Estadísticas</Link>
         </li>
       </ul>
       <div className="user-options">
@@ -48,7 +49,6 @@ const {vaciarFavoritos} = useProductos();
         <Link to="/" onClick={handleLogout} style={{ textDecoration: 'none', color: 'white' }} className="iconuser"><box-icon name='log-out' color='#ffffff' ></box-icon>Cerrar sesión</Link>
       </div>
       {children}
-
     </div>
   );
 }
