@@ -1,4 +1,4 @@
-export function Content() {
+export function ContentAdmin() {
   return (
     <div>
       <h2>Bienvenido al dashboard de administrador</h2>

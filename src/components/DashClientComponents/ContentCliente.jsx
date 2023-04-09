@@ -1,4 +1,4 @@
-export function Content() {
+export function ContentCliente() {
   return (
     <div>
       <h2>Bienvenido al dashboard de cliente</h2>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "./DashAdmin.css";
-import { Sidebar } from "../../components/DashAdminComponents/Sidebar";
-import { Header } from "../../components/DashAdminComponents/Header";
-import { Content } from "../../components/DashAdminComponents/Content";
+
+import { SidebarAdmin } from "../../components/DashAdminComponents/SidebarAdmin";
+import { HeaderAdmin } from "../../components/DashAdminComponents/HeaderAdmin";
+import { ContentAdmin } from "../../components/DashAdminComponents/ContentAdmin";
 import { useNavigate } from "react-router-dom";
 
 export function DashAdmin() {
@@ -27,10 +27,10 @@ export function DashAdmin() {
         <div>Cargando...</div>
       ) : (
         <div className="dashboard-container">
-          <Sidebar />
+          <SidebarAdmin />
           <div className="dashboard-content">
-            <Header />
-            <Content />
+            <HeaderAdmin />
+            <ContentAdmin />
           </div>
         </div>
       )}

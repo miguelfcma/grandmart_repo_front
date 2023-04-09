@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Sidebar.css";
+import "./SidebarCliente.css";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 
-export function Sidebar({ children }) {
+export function SidebarCliente({ children }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const {vaciarFavoritos} = useProductos();
+  const [productoDropdown, setProductoDropdown] = useState(false);
+  const [servicioDropdown, setServicioDropdown] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -21,22 +23,40 @@ export function Sidebar({ children }) {
           <Link to="/dashClient">Dashboard</Link>
         </li>
         <li>
-          <Link to="/dashClient/productos">Productos</Link>
+          <div
+            className="dropdown"
+            onMouseEnter={() => setProductoDropdown(true)}
+            onMouseLeave={() => setProductoDropdown(false)}
+          >
+            <span>Productos</span>
+            {productoDropdown && (
+              <div className="dropdown-menu">
+                <Link to="/dashClient/productos/nuevo">Registrar nuevo producto</Link>
+                <Link to="/dashClient/productos">Ver productos existentes</Link>
+              </div>
+            )}
+          </div>
         </li>
         <li>
-          <Link to="/dashClient/servicios">Servicios</Link>
+          <div
+            className="dropdown"
+            onMouseEnter={() => setServicioDropdown(true)}
+            onMouseLeave={() => setServicioDropdown(false)}
+          >
+            <span>Servicios</span>
+            {servicioDropdown && (
+              <div className="dropdown-menu">
+                <Link to="/dashClient/servicios/nuevo">Registrar nuevo servicio</Link>
+                <Link to="/dashClient/servicios">Ver servicios existentes</Link>
+              </div>
+            )}
+          </div>
         </li>
         <li>
           <Link to="/dashClient/pedidos">Pedidos</Link>
         </li>
         <li>
           <Link to="/dashClient/perfil">Mi perfil</Link>
-        </li>
-        <li>
-          <Link to="/dashClient/preguntas">Preguntas</Link>
-        </li>
-        <li>
-          <Link to="/dashClient/estadisticas">Estadísticas</Link>
         </li>
       </ul>
       <div className="user-options">

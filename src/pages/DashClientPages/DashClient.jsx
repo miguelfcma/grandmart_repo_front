@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./DashClient.css";
-import { Sidebar } from "../../components/DashClientComponents/Sidebar";
-import { Header } from "../../components/DashClientComponents/Header";
-import { Content } from "../../components/DashClientComponents/Content";
+import { SidebarCliente } from "../../components/DashClientComponents/SidebarCliente";
+import { HeaderCliente } from "../../components/DashClientComponents/HeaderCliente";
+import { ContentCliente } from "../../components/DashClientComponents/ContentCliente";
 import { useNavigate } from "react-router-dom";
 
 export function DashClient() {
@@ -26,10 +26,10 @@ export function DashClient() {
         <div>Cargando...</div>
       ) : (
         <div className="dashboard-container">
-          <Sidebar />
+          <SidebarCliente />
           <div className="dashboard-content">
-            <Header />
-            <Content />
+            <HeaderCliente />
+            <ContentCliente />
           </div>
         </div>
       )}

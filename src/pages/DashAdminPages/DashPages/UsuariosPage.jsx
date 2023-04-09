@@ -1,5 +1,5 @@
-import { Sidebar } from "../../../components/DashAdminComponents/Sidebar";
-import { Header } from "../../../components/DashAdminComponents/Header";
+import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
+import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
 import { FormUsuario } from "../../../components/usuarioComponents/FormUsuario";
 import { ListUsuarios } from "../../../components/usuarioComponents/ListUsuarios";
 import { Modal } from "../../../components/ModalComponents/Modal";
@@ -32,8 +32,8 @@ export function UsuariosPage() {
 
   return (
     <div className="content-container">
-      <Header/>
-      <Sidebar />
+      <HeaderAdmin/>
+      <SidebarAdmin />
       <h1>Página de usuarios</h1>
       <button type="submit" onClick={handleOpenModal}>
         Nuevo registro

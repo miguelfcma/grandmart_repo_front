@@ -1,12 +1,12 @@
-import { Sidebar } from "../../../components/DashClientComponents/Sidebar";
-import { Header } from "../../../components/DashClientComponents/Header";
+import { SidebarCliente } from "../../../components/DashClientComponents/SidebarCliente";
+import { HeaderCliente } from "../../../components/DashClientComponents/HeaderCliente";
 import { CardUsuarioDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardUsuarioDomicilio";
 
 export function PerfilPageClient() {
   return (
     <div style={{ marginLeft: "200px" }}>
-      <Header/>
-      <Sidebar />
+      <HeaderCliente/>
+      <SidebarCliente />
       <CardUsuarioDomicilio />
     </div>
   );
