@@ -1,13 +1,13 @@
-import "./CardProducto.css";
+import "./CardProductoAdmin.css";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { deleteImagesProducto } from "../../../firebase/productoStorage";
-import { FormUpdateProducto } from "./FormUpdateProducto";
+import { FormUpdateProductoAdmin } from "./FormUpdateProductoAdmin";
 import { Modal } from "../../ModalComponents/Modal";
 
-export function CardProducto({ producto }) {
+export function CardProductoAdmin({ producto }) {
   const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =
     useProductos();
 
@@ -76,7 +76,7 @@ export function CardProducto({ producto }) {
         Editar producto
       </button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <FormUpdateProducto onSubmit={handleSubmit} producto={producto} />
+        <FormUpdateProductoAdmin onSubmit={handleSubmit} producto={producto} />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
       <button className="card-producto" onClick={handleEliminarProducto}>

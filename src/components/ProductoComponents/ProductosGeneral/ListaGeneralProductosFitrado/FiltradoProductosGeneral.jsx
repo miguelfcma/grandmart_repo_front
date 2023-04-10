@@ -3,7 +3,7 @@ import { CardProductoGeneral } from "../ListaGeneralProductos/CardProductoGenera
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useCategorias } from "../../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 
-export  function FilterProducts({id_categoria}) {
+export  function FiltradoProductosGeneral({id_categoria}) {
     const { productos, loadProductos } = useProductos();
     const { categorias, loadCategorias } = useCategorias();
     useEffect(() => {

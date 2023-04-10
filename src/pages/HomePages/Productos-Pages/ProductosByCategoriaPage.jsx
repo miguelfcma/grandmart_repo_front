@@ -1,12 +1,11 @@
 
 import { useParams } from "react-router-dom";
 import { Navbar } from "../../../components/HomePageComponents/NavBar";
-import { FilterProducts } from "../../../components/ProductoComponents/general/ListaGeneralProductosFitrado/FilterProducts";
-
+import { FiltradoProductosGeneral } from "../../../components/ProductoComponents/ProductosGeneral/ListaGeneralProductosFitrado/FiltradoProductosGeneral";
 export function ProductosByCategoriaPage() {
   const { id_categoria } = useParams();
   return<>
   <Navbar/>
-  <FilterProducts id_categoria={id_categoria}/>
+  <FiltradoProductosGeneral id_categoria={id_categoria}/>
   </>
 };

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
 
-export const createComentario = async (data) => {
+export const createComentarioRequest = async (data) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/blog-comentarios`, data);
+    const response = await axios.post(`${API_BASE_URL}blog-comentarios`, data);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -18,14 +18,14 @@ export const createComentario = async (data) => {
   }
 };
 
-export const getComentariosPorIdPublicacion = async (idPublicacion) => {
+export const getComentariosPorIdPublicacionRequest = async (id_publicacionBlog) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/blog-comentarios/${idPublicacion}`);
+    const response = await axios.get(`${API_BASE_URL}blog-comentarios/${id_publicacionBlog}`);
     console.log({
       status: response.status,
       message: response.data.message,
     });
-    return response.data;
+    return response
   } catch (error) {
     console.log({
       status: error.response.status,
@@ -35,9 +35,9 @@ export const getComentariosPorIdPublicacion = async (idPublicacion) => {
   }
 };
 
-export const deleteComentarioPorIdUsuario = async (idUsuario) => {
+export const deleteComentarioPorIdUsuarioRequest = async (idUsuario) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/blog-comentarios/${idUsuario}`);
+    const response = await axios.delete(`${API_BASE_URL}blog-comentarios/${idUsuario}`);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -52,9 +52,9 @@ export const deleteComentarioPorIdUsuario = async (idUsuario) => {
   }
 };
 
-export const updateComentarioPorIdUsuario = async (idUsuario, data) => {
+export const updateComentarioPorIdUsuarioRequest = async (idUsuario, data) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/blog-comentarios/${idUsuario}`, data);
+    const response = await axios.put(`${API_BASE_URL}blog-comentarios/${idUsuario}`, data);
     console.log({
       status: response.status,
       message: response.data.message,

@@ -4,7 +4,7 @@ import { useCategorias } from "../../CategoriaComponents/CategoriasContext/Categ
 import { ComentariosProducto } from "./ComentariosProducto";
 import { ReviewsProducto } from "./ReviewsProducto";
 
-export  function DetallesProducto({id}) {
+export  function DetallesProductoCliente({id}) {
     const { productos, getImgPortadaProducto, getProductImagesGaleria, loadProductos } = useProductos();
   
     const [producto, setProducto] = useState(null);

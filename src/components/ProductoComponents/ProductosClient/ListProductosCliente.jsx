@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { CardProducto } from "./CardProducto";
-import "./ListProductos.css";
+import { CardProductoCliente } from "./CardProductoCliente";
+
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
-export function ListProductos() {
+export function ListProductosCliente() {
   const { productos, loadProductos } = useProductos();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export function ListProductos() {
       return <h1>No hay productos registrados</h1>;
     } else {
       return productos.map((producto) => (
-        <CardProducto key={producto.id} producto={producto} />
+        <CardProductoCliente key={producto.id} producto={producto} />
       ));
     }
   }

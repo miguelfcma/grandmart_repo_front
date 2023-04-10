@@ -58,6 +58,7 @@ export function CardProductoGeneral({ producto }) {
         <div>{producto.nombre}</div>
         <br></br>
         <div>${producto.precio}</div>
+        <div>{producto.usuario.nombre}</div>
         </Link>
 
         <button

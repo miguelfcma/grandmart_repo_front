@@ -1,5 +1,5 @@
 import "./Content.css";
-import { ListProductsGeneral } from "../ProductoComponents/general/ListaGeneralProductos/ListProductsGeneral";
+import { ListProductsGeneral } from "../ProductoComponents/ProductosGeneral/ListaGeneralProductos/ListProductsGeneral"
 
 export function Content({ searchTerm }) {
   console.log(searchTerm);

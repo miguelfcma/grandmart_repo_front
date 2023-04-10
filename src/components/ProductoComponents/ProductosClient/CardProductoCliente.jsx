@@ -1,13 +1,13 @@
-import "./CardProducto.css";
+import "./CardProductoCliente.css";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { deleteImagesProducto } from "../../../firebase/productoStorage";
-import { FormUpdateProducto } from "./FormUpdateProducto";
+import { FormUpdateProductoCliente } from "./FormUpdateProductoCliente";
 import { Modal } from "../../ModalComponents/Modal";
 
-export function CardProducto({ producto }) {
+export function CardProductoCliente({ producto }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
 
@@ -80,7 +80,7 @@ export function CardProducto({ producto }) {
         Editar producto
       </button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <FormUpdateProducto onSubmit={handleSubmit} producto={producto} />
+        <FormUpdateProductoCliente onSubmit={handleSubmit} producto={producto} />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
       <button className="card-producto" onClick={handleEliminarProducto}>

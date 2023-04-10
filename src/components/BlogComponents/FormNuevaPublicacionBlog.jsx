@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
 
-export function NuevaPublicacionBlog() {
+export function FormNuevaPublicacionBlog() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [publicacion, setPublicacion] = useState({
     titulo: "",

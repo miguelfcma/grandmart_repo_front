@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 import { useNavigate } from "react-router-dom";
 
-export function FormProducto() {
+export function FormProductoCliente() {
   const navigate = useNavigate();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { createProducto } = useProductos();

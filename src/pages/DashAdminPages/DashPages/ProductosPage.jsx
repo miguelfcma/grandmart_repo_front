@@ -1,6 +1,6 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
-import { ListProductos } from "../../../components/ProductoComponents/admin/ListProductos";
+import { ListProductosAdmin } from "../../../components/ProductoComponents/ProductosAdmin/ListProductosAdmin";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ export function ProductosPage() {
         < button type="submit"> Nuevo registro </button>
       </Link>
 
-      <ListProductos />
+      <ListProductosAdmin />
     </div>
   );
 }

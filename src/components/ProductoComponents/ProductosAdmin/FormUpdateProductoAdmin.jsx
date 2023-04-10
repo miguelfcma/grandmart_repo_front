@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
-export function FormUpdateProducto({ onSubmit,producto }) {
+export function FormUpdateProductoAdmin({ onSubmit,producto }) {
   const { updateProducto } = useProductos();
   const { categorias, loadCategorias } = useCategorias();
   useEffect(() => {

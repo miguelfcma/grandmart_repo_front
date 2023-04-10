@@ -1,7 +1,7 @@
 import { SidebarCliente } from "../../../components/DashClientComponents/SidebarCliente";
 import { HeaderCliente } from "../../../components/DashClientComponents/HeaderCliente";
 
-import { ListProductos } from "../../../components/ProductoComponents/client/ListProductos";
+import { ListProductosCliente } from "../../../components/ProductoComponents/ProductosClient/ListProductosCliente";
 import { Link } from "react-router-dom";
 
 export function ProductosClient() {
@@ -14,7 +14,7 @@ export function ProductosClient() {
         < button type="submit"> Nuevo registro </button>
       </Link>
 
-      <ListProductos />
+      <ListProductosCliente />
     </div>
   )
 }

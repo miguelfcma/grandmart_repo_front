@@ -1,10 +1,10 @@
 
-import { FormProducto } from "../../../../components/ProductoComponents/admin/FormProducto";
+import { FormProductoAdmin } from "../../../../components/ProductoComponents/ProductosAdmin/FormProductoAdmin";
 export function RegistroProductoPage1() {
   return (
     <div>
    
-      <FormProducto/>
+      <FormProductoAdmin/>
     </div>
   );
 }
