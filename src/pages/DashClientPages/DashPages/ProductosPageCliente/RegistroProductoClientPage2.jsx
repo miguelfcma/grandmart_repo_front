@@ -1,11 +1,11 @@
-import { FormImgProducto } from "../../../../components/ProductoComponents/ImgProductoComponent/FormImgProducto";
+import { FormImgProductoCliente } from "../../../../components/ProductoComponents/ProductosClient/FormImgProductoCliente";
 import { useParams } from "react-router-dom";
 
 export function RegistroProductoClientPage2() {
   const { idProducto } = useParams();
   return (
     <div>
-      <FormImgProducto idProducto={idProducto} />
+      <FormImgProductoCliente idProducto={idProducto} />
     </div>
   );
 }

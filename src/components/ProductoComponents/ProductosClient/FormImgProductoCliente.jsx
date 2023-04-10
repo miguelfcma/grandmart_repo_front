@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import { uploadImageProducto,uploadImagesProducto } from "../../../firebase/productoStorage";
 import { useProductos } from "../ProductosContext/ProductoProvider";
-import "./FormImgProducto.css"
+import "./FormImgProductoCliente.css"
 import { useNavigate } from "react-router-dom";
 
-export function FormImgProducto(idProducto) {
+export function FormImgProductoCliente(idProducto) {
   const id_producto = idProducto.idProducto;
 
   const { createProductImage } = useProductos();
@@ -115,7 +115,7 @@ export function FormImgProducto(idProducto) {
   
       setImgPortada(null);
       setImagenes([]);
-  navigate("/dashAdmin/productos")
+  navigate("/dashClient/productos")
     } catch (error) {
       console.error(error);
       alert("Error al subir las imágenes: " + error.message);

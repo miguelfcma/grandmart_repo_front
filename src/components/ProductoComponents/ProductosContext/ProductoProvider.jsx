@@ -116,11 +116,15 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await getProductosByUsuarioIdRequest(id_usuario);
 
       if (response.status === 200) {
-        console.log(response.data)
+        console.log(response.data);
         setProductosUsuario(response.data);
+      } else if (response.status === 404) {
+        console.log("La lista de productos no existe");
+        setProductosUsuario([]);
       } else {
         throw new Error("No se pudo obtener la lista de productos");
       }
+      
     } catch (error) {
       console.error(error);
     }
