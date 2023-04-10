@@ -5,7 +5,7 @@ import { ComentariosProducto } from "./ComentariosProducto";
 import { ReviewsProducto } from "./ReviewsProducto";
 
 export  function DetallesProductoCliente({id}) {
-    const { productos, getImgPortadaProducto, getProductImagesGaleria, loadProductos } = useProductos();
+    const { productosAll, getImgPortadaProducto, getProductImagesGaleria, loadProductos } = useProductos();
   
     const [producto, setProducto] = useState(null);
     const [imagen, setImagen] = useState(null);
@@ -18,7 +18,7 @@ export  function DetallesProductoCliente({id}) {
     }, []);
   
     useEffect(() => {
-      const productoEncontrado = productos.find(
+      const productoEncontrado = productosAll.find(
         (prod) => prod.id === parseInt(id)
       );
   
@@ -34,7 +34,7 @@ export  function DetallesProductoCliente({id}) {
   
         cargarImagen();
       }
-    }, [productos, id, getImgPortadaProducto, getProductImagesGaleria]);
+    }, [productosAll, id, getImgPortadaProducto, getProductImagesGaleria]);
   
     return (
 <div className="contenedor-producto detalles-producto" style={{ paddingTop: "80px" }}>

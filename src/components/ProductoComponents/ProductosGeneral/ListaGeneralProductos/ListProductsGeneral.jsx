@@ -4,7 +4,7 @@ import "./ListProductsGeneral.css";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 
 export function ListProductsGeneral() {
-  const { productos, loadProductos } = useProductos();
+  const { productosAll, loadProductos } = useProductos();
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 9;
 
@@ -15,7 +15,7 @@ export function ListProductsGeneral() {
   function renderMain() {
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = productos.slice(
+    const currentProducts = productosAll.slice(
       indexOfFirstProduct,
       indexOfLastProduct
     );
@@ -30,7 +30,7 @@ export function ListProductsGeneral() {
   }
 
   function renderPagination() {
-    const totalPages = Math.ceil(productos.length / productsPerPage);
+    const totalPages = Math.ceil(productosAll.length / productsPerPage);
     const pages = [];
 
     for (let i = 1; i <= totalPages; i++) {

@@ -4,17 +4,25 @@ import { CardProductoCliente } from "./CardProductoCliente";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
 export function ListProductosCliente() {
-  const { productos, loadProductos } = useProductos();
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const { productosUsuario, loadProductosUsuario } = useProductos();
 
   useEffect(() => {
-    loadProductos();
+    async function fetchData() {
+      try {
+        await loadProductosUsuario(usuario.id);
+      } catch (error) {
+        console.log("Error al cargar los productos:", error);
+      }
+    }
+    fetchData();
   }, []);
 
   function renderMain() {
-    if (productos.length === 0) {
+    if (productosUsuario.length === 0) {
       return <h1>No hay productos registrados</h1>;
     } else {
-      return productos.map((producto) => (
+      return productosUsuario.map((producto) => (
         <CardProductoCliente key={producto.id} producto={producto} />
       ));
     }

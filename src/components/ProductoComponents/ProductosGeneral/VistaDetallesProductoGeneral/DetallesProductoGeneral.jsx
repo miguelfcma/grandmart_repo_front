@@ -6,7 +6,7 @@ import styles from "./DetallesProductoGeneral.module.css";
 
 export function DetallesProductoGeneral({ id }) {
   const {
-    productos,
+    productosAll,
     getImgPortadaProducto,
     getProductImagesGaleria,
     loadProductos,
@@ -21,7 +21,7 @@ export function DetallesProductoGeneral({ id }) {
   }, []);
 
   useEffect(() => {
-    const productoEncontrado = productos.find(
+    const productoEncontrado = productosAll.find(
       (prod) => prod.id === parseInt(id)
     );
 
@@ -37,7 +37,7 @@ export function DetallesProductoGeneral({ id }) {
 
       cargarImagen();
     }
-  }, [productos, id, getImgPortadaProducto, getProductImagesGaleria]);
+  }, [productosAll, id, getImgPortadaProducto, getProductImagesGaleria]);
 
   return (
     <div className={styles.container}>

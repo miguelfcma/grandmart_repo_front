@@ -4,17 +4,17 @@ import "./ListProductosAdmin.css";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
 export function ListProductosAdmin() {
-  const { productos, loadProductos } = useProductos();
+  const { productosAll, loadProductos } = useProductos();
 
   useEffect(() => {
     loadProductos();
   }, []);
 
   function renderMain() {
-    if (productos.length === 0) {
+    if (productosAll.length === 0) {
       return <h1>No hay productos registrados</h1>;
     } else {
-      return productos.map((producto) => (
+      return productosAll.map((producto) => (
         <CardProductoAdmin key={producto.id} producto={producto} />
       ));
     }

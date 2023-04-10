@@ -7,6 +7,7 @@ import {
   deleteProductoRequest,
   updateProductoRequest,
   createProductoRequest,
+  getProductosByUsuarioIdRequest
 } from "../../../API/ProductosApiRest/productos.api";
 
 import {
@@ -29,7 +30,8 @@ export const useProductos = () => {
 };
 
 export const ProductoContextProvider = ({ children }) => {
-  const [productos, setProductos] = useState([]);
+  const [productosAll, setProductosAll] = useState([]);
+  const [productosUsuario, setProductosUsuario] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
   const [carrito, setCarrito] = useState([]);
 
@@ -100,7 +102,7 @@ export const ProductoContextProvider = ({ children }) => {
 
       if (response.status === 200) {
         console.log(response.data)
-        setProductos(response.data);
+        setProductosAll(response.data);
       } else {
         throw new Error("No se pudo obtener la lista de productos");
       }
@@ -108,6 +110,22 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   }
+
+  const loadProductosUsuario = async(id_usuario) =>{
+    try {
+      const response = await getProductosByUsuarioIdRequest(id_usuario);
+
+      if (response.status === 200) {
+        console.log(response.data)
+        setProductosUsuario(response.data);
+      } else {
+        throw new Error("No se pudo obtener la lista de productos");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
   const deleteProducto = async (id) => {
     try {
@@ -196,8 +214,10 @@ export const ProductoContextProvider = ({ children }) => {
   return (
     <ProductoContext.Provider
       value={{
-        productos,
+        productosAll,
+        productosUsuario,
         loadProductos,
+        loadProductosUsuario,
         deleteProducto,
         createProducto,
         updateProducto,
