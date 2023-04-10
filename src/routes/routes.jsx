@@ -2,28 +2,27 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { NotFoundPage } from "../pages/NotFoundPage";
 
 // Páginas de administrador
-import { CategoriasPage } from "../pages/DashAdminPages/DashPages/CategoriasPage";
+import { CategoriasPageAdmin } from "../pages/DashAdminPages/DashPages/CategoriasPageAdmin";
 import { DashAdmin } from "../pages/DashAdminPages/DashAdmin";
-import { DatabaseBackup } from "../pages/DashAdminPages/DashPages/DatabaseBackup";
+import { DatabaseBackupAdmin } from "../pages/DashAdminPages/DashPages/DatabaseBackupAdmin";
 import { PerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPageAdmin";
-import { ProductoDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ProductosPage/ProductoDetallesAdminPage";
-import { ProductosPage } from "../pages/DashAdminPages/DashPages/ProductosPage";
-import { RegistroProductoPage1 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage1";
-import { RegistroProductoPage2 } from "../pages/DashAdminPages/DashPages/ProductosPage/RegistroProductoPage2";
-import { ServiciosPage } from "../pages/DashAdminPages/DashPages/ServiciosPage";
-import { UsuariosPage } from "../pages/DashAdminPages/DashPages/UsuariosPage";
+import { ProductoDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ProductosPageAdmin/ProductoDetallesAdminPage";
+import { ProductosPageAdmin } from "../pages/DashAdminPages/DashPages/ProductosPageAdmin";
+import { RegistroProductoAdminPage1 } from "../pages/DashAdminPages/DashPages/ProductosPageAdmin/RegistroProductoAdminPage1";
+import { RegistroProductoAdminPage2 } from "../pages/DashAdminPages/DashPages/ProductosPageAdmin/RegistroProductoAdminage2";
+import { ServiciosPageAdmin } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin";
+import { UsuariosPageAdmin } from "../pages/DashAdminPages/DashPages/UsuariosPageAdmin";
 
 // Páginas de cliente
 import { CompraCarrito } from "../pages/HomePages/CarritoPage/CompraCarrito";
 import { DashClient } from "../pages/DashClientPages/DashClient";
-import { PedidosClient } from "../pages/DashClientPages/DashPages/PedidosClient";
+import { PedidosPageClient } from "../pages/DashClientPages/DashPages/PedidosPageClient";
 import { PerfilPageClient } from "../pages/DashClientPages/DashPages/PerfilPageClient";
-import { ProductoDetallesClientPage } from "../pages/DashClientPages/DashPages/ProductosPage/ProductoDetallesClientPage";
-import { ProductosByCategoriaPage } from "../pages/HomePages/Productos-Pages/ProductosByCategoriaPage";
-import { ProductosClient } from "../pages/DashClientPages/DashPages/ProductosClient";
-import { RegistroProductoClientPage1 } from "../pages/DashClientPages/DashPages/ProductosPage/RegistroProductoClientPage1";
-import { RegistroProductoClientPage2 } from "../pages/DashClientPages/DashPages/ProductosPage/RegistroProductoClientPage2";
-import { ServiciosClient } from "../pages/DashClientPages/DashPages/ServiciosClient";
+import { ProductoDetallesClientPage } from "../pages/DashClientPages/DashPages/ProductosPageCliente/ProductoDetallesClientPage";
+import { ProductosPageClient } from "../pages/DashClientPages/DashPages/ProductosPageClient";
+import { RegistroProductoClientPage1 } from "../pages/DashClientPages/DashPages/ProductosPageCliente/RegistroProductoClientPage1";
+import { RegistroProductoClientPage2 } from  "../pages/DashClientPages/DashPages/ProductosPageCliente/RegistroProductoClientPage2";
+import { ServiciosPageClient } from "../pages/DashClientPages/DashPages/ServiciosPageClient";
 
 // Páginas de inicio de sesión y registro
 import { BlogPage } from "../pages/HomePages/Blog-Pages/BlogPage";
@@ -33,7 +32,8 @@ import { RecovPassPage } from "../pages/HomePages/Login-Signup-Pages/RecovPassPa
 import { SignupPage } from "../pages/HomePages/Login-Signup-Pages/SignupPage";
 
 // Páginas de productos
-import { ProductosDetallesPage } from "../pages/HomePages/productos-Pages/ProductosDetallesPage";
+import { ProductosDetallesPage } from "../pages/HomePages/Productos-Pages/ProductosDetallesPage";
+import { ProductosByCategoriaPage } from "../pages/HomePages/Productos-Pages/ProductosByCategoriaPage";
 
 export function MyRoutes() {
   return (
@@ -47,34 +47,34 @@ export function MyRoutes() {
 
         {/* Rutas para administrador */}
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
-        <Route exact path="/dashAdmin/usuarios" element={<UsuariosPage />} />
+        <Route exact path="/dashAdmin/usuarios" element={<UsuariosPageAdmin />} />
         <Route
           exact
           path="/dashAdmin/categorias"
-          element={<CategoriasPage />}
+          element={<CategoriasPageAdmin />}
         />
-        <Route exact path="/dashAdmin/productos" element={<ProductosPage />} />
+        <Route exact path="/dashAdmin/productos" element={<ProductosPageAdmin />} />
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"
-          element={<RegistroProductoPage1 />}
+          element={<RegistroProductoAdminPage1 />}
         />
         <Route
           exact
           path="/dashAdmin/productos/registro-producto/:idProducto"
-          element={<RegistroProductoPage2 />}
+          element={<RegistroProductoAdminPage2 />}
         />
         <Route
           exact
           path="/dashAdmin/productos/detalles/:id"
           element={<ProductoDetallesAdminPage />}
         />
-        <Route exact path="/dashAdmin/servicios" element={<ServiciosPage />} />
+        <Route exact path="/dashAdmin/servicios" element={<ServiciosPageAdmin />} />
         <Route exact path="/dashAdmin/perfil" element={<PerfilPageAdmin />} />
         <Route
           exact
           path="/dashAdmin/database-backup"
-          element={<DatabaseBackup />}
+          element={<DatabaseBackupAdmin />}
         />
 
         {/* Rutas para cliente */}
@@ -82,7 +82,7 @@ export function MyRoutes() {
         <Route
           exact
           path="/dashClient/productos"
-          element={<ProductosClient />}
+          element={<ProductosPageClient />}
         />
         <Route
           exact
@@ -102,9 +102,9 @@ export function MyRoutes() {
         <Route
           exact
           path="/dashClient/servicios"
-          element={<ServiciosClient />}
+          element={<ServiciosPageClient />}
         />
-        <Route exact path="/dashClient/pedidos" element={<PedidosClient />} />
+        <Route exact path="/dashClient/pedidos" element={<PedidosPageClient />} />
         <Route exact path="/dashClient/perfil" element={<PerfilPageClient />} />
 
         {/* Otras rutas */}

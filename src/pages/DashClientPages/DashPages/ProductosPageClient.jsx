@@ -4,7 +4,7 @@ import { HeaderCliente } from "../../../components/DashClientComponents/HeaderCl
 import { ListProductosCliente } from "../../../components/ProductoComponents/ProductosClient/ListProductosCliente";
 import { Link } from "react-router-dom";
 
-export function ProductosClient() {
+export function ProductosPageClient() {
   return (
     <div className="content-container">
       <HeaderCliente/>

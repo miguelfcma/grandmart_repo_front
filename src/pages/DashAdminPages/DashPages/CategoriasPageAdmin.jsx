@@ -4,7 +4,7 @@ import { ListCategorias } from "../../../components/CategoriaComponents/ListCate
 import { Modal } from "../../../components/ModalComponents/Modal";
 import { FormCategoria } from "../../../components/CategoriaComponents/FormCategoria";
 import { useState,useEffect} from "react";
-export function CategoriasPage() {
+export function CategoriasPageAdmin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
 

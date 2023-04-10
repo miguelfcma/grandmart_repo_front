@@ -4,7 +4,7 @@ import { FormCreateBackup } from "../../../components/BackupComponents/FormCreat
 import { Link } from "react-router-dom"
 
 import { FormCreateRestore } from "../../../components/BackupComponents/FormCreateRestore";
-export function DatabaseBackup() {
+export function DatabaseBackupAdmin() {
   return (
     <div>
       <HeaderAdmin/>

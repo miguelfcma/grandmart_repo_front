@@ -4,7 +4,7 @@ import { ListProductosAdmin } from "../../../components/ProductoComponents/Produ
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export function ProductosPage() {
+export function ProductosPageAdmin() {
 
   return (
     <div className="content-container">

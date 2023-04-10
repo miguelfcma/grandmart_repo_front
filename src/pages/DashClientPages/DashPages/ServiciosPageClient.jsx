@@ -1,7 +1,7 @@
 import { SidebarCliente } from "../../../components/DashClientComponents/SidebarCliente";
 import { HeaderCliente } from "../../../components/DashClientComponents/HeaderCliente";
 
-export function ServiciosClient() {
+export function ServiciosPageClient() {
   return (
     <div className="content-container">
       <HeaderCliente/>
@@ -11,4 +11,4 @@ export function ServiciosClient() {
   )
 }
 
-export default ServiciosClient;
+

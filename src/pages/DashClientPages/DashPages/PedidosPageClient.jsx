@@ -1,7 +1,7 @@
 import {SidebarCliente} from '../../../components/DashClientComponents/SidebarCliente';
 import { HeaderCliente } from '../../../components/DashClientComponents/HeaderCliente';
 
-export function PedidosClient() {
+export function PedidosPageClient() {
   return (
     <div className="content-container">
       <HeaderCliente/>

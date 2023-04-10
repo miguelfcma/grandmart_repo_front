@@ -1,7 +1,7 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
 
-export function ServiciosPage() {
+export function ServiciosPageAdmin() {
   return (
     <div className="content-container">
       <HeaderAdmin/>

@@ -4,9 +4,9 @@ import { FormUsuario } from "../../../components/usuarioComponents/FormUsuario";
 import { ListUsuarios } from "../../../components/usuarioComponents/ListUsuarios";
 import { Modal } from "../../../components/ModalComponents/Modal";
 import { useEffect, useState } from "react";
-import "./UsuariosPage.css";
+import "./UsuariosPageAdmin.css";
 
-export function UsuariosPage() {
+export function UsuariosPageAdmin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
 

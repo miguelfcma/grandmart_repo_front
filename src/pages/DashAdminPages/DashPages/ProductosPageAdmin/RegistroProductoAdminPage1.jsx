@@ -1,6 +1,6 @@
 
 import { FormProductoAdmin } from "../../../../components/ProductoComponents/ProductosAdmin/FormProductoAdmin";
-export function RegistroProductoPage1() {
+export function RegistroProductoAdminPage1() {
   return (
     <div>
    
