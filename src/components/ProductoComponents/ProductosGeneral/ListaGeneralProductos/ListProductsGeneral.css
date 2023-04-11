@@ -10,7 +10,7 @@
 }
 
 .list-productos > * {
-  flex-basis: calc(29% - 10px);
+  flex-basis: calc(33% - 10px);
 }
 
 .titulo {

@@ -51,7 +51,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="navbar">
+    <div class="navbar navbar-fixed">
       <div className="navbar-container">
         <Link to="/">
           <img
@@ -145,6 +145,6 @@ export function Navbar() {
           </ul>
         </div>
       </div>
-    </nav>
+    </div>
   );
 }

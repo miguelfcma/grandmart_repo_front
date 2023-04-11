@@ -1,19 +1,13 @@
 import "./Content.css";
 import { ListProductsGeneral } from "../ProductoComponents/ProductosGeneral/ListaGeneralProductos/ListProductsGeneral"
+import Carrusel from "./Carrusel/Carrusel";
 
 export function Content({ searchTerm }) {
   console.log(searchTerm);
   return (
     <>
       <main>
-        <section id="hero">
-          <h1>Bienvenido</h1>
-          <p>Encuentra los mejores productos al mejor precio</p>
-          <div id="carousel-container">
-            <img></img>
-          </div>
-        </section>
-
+        <Carrusel/>
         <ListProductsGeneral searchTerm={searchTerm} />
         
       </main>
