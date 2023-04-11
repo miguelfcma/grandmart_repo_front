@@ -12,6 +12,7 @@ h1, h2, h3 {
 main {
   width: 80%;
   margin: 0 auto;
+  margin-top: 60px;
 }
 
 section {

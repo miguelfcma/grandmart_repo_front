@@ -91,7 +91,6 @@ class Carrusel extends Component {
                 max-width: 100%;
                 height: 500px;
                 background: #AADDE7;
-                margin-top: 2px;
               }`
           }
         </style>
@@ -104,6 +103,8 @@ class Carrusel extends Component {
         >
           <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
           {slides}
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
         </Carousel>
       </div>
     );
