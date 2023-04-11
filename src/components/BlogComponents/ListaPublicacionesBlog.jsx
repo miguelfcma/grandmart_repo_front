@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
 import { ListaComentariosPublicacionBlog } from "./ListaComentariosPublicacionBlog";
 import { FormComentarioPublicacionBlog } from "./FormComentarioPublicacionBlog";
+import "./ListaPublicacionesBlog.css";
 
 export function ListaPublicacionesBlog() {
   const { publicaciones, loadPublicaciones } = usePublicacionesBlog();
@@ -11,10 +12,10 @@ export function ListaPublicacionesBlog() {
   }, []);
 
   return (
-    <div>
+    <div className="blog-container">
       {publicaciones.length > 0 ? (
         publicaciones.map((publicacion) => (
-          <div key={publicacion.id}>
+          <div key={publicacion.id} className="publicacion">
             <h3>id: {publicacion.id} Titulo:{publicacion.titulo}</h3>
             <h4>Publicación por: {publicacion.usuario.nombre}</h4>
             <h4>

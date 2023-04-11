@@ -1,0 +1,52 @@
+/* Estilos para el contenedor principal */
+.blog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Estilos para cada publicación */
+  .publicacion {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  
+  .publicacion h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .publicacion h4 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .publicacion p {
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+  .publicacion .comentarios {
+    margin-top: 20px;
+  }
+  
+  .publicacion .comentarios h4 {
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el botón de enviar comentario */
+  .btn-enviar {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .btn-enviar:hover {
+    background-color: #555;
+  }
+  
