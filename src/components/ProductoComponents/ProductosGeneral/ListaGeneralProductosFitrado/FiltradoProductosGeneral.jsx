@@ -4,7 +4,7 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useCategorias } from "../../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 
 export  function FiltradoProductosGeneral({id_categoria}) {
-    const { productos, loadProductos } = useProductos();
+    const { productosAll, loadProductos } = useProductos();
     const { categorias, loadCategorias } = useCategorias();
     useEffect(() => {
       loadCategorias();
@@ -14,7 +14,7 @@ export  function FiltradoProductosGeneral({id_categoria}) {
     }, []);
   
     function renderMain() {
-      let filteredProducts = productos;
+      let filteredProducts = productosAll;
   
       if (id_categoria) {
         const categoriasHijas = categorias.filter(
@@ -23,7 +23,7 @@ export  function FiltradoProductosGeneral({id_categoria}) {
         const idsCategoriasHijas = categoriasHijas.map(
           (categoria) => categoria.id
         );
-        filteredProducts = productos.filter((producto) =>
+        filteredProducts = productosAll.filter((producto) =>
           idsCategoriasHijas.includes(producto.id_categoria)
         );
       }

@@ -20,9 +20,9 @@ export const useServicios = () => {
 };
 
 export const ServicioContextProvider = ({ children }) => {
-  const [servicios, setServicios] = useState([]);
+  const [serviciosAll, setServiciosAll] = useState([]);
 
-  async function loadServicios() {
+  async function loadServiciosAll() {
     try {
       const response = await getServiciosRequest();
       if (response === undefined) {
@@ -37,7 +37,7 @@ export const ServicioContextProvider = ({ children }) => {
   const deleteServicio = async (id) => {
     try {
       const response = await deleteServicioRequest(id);
-      setServicios(servicios.filter((servicio) => servicio.id !== id));
+      setServiciosAll(serviciosAll.filter((servicio) => servicio.id !== id));
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +48,7 @@ export const ServicioContextProvider = ({ children }) => {
       const response = await createServicioRequest(servicio);
 
       if (response.status == 201) {
-        await refreshServicios(); // Llama a la función refreshServicios después de actualizar el servicio.
+        loadServiciosAll();
         return true;
       } else {
         return false;
@@ -63,7 +63,7 @@ export const ServicioContextProvider = ({ children }) => {
       const response = await updateServicioRequest(id, servicio);
       console.log(response);
       if (response.status == 200) {
-        await refreshServicios(); // Llama a la función refreshServicios después de actualizar el servicio.
+        loadServiciosAll();
         return true;
       } else {
         return false;
@@ -73,24 +73,13 @@ export const ServicioContextProvider = ({ children }) => {
     }
   };
 
-  const refreshServicios = async () => {
-    // Agrega la función refreshServicios.
-    try {
-      const response = await getServiciosRequest();
-      if (response === undefined) {
-        throw new Error("No se pudo obtener la lista de servicios");
-      }
-      setServicios(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
   return (
     <ServicioContext.Provider
       value={{
-        servicios,
-        loadServicios,
+        serviciosAll,
+        loadServiciosAll,
         deleteServicio,
         createServicio,
         updateServicio,

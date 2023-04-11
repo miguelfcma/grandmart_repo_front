@@ -45,3 +45,34 @@ export async function uploadImagesProducto(files) {
 
   return urls;
 }
+export async function updateImageProducto(file, url) {
+  const MAX_SIZE_BYTES = 10 * 1024 * 1024; // Tamaño máximo de 10 MB en bytes
+  if (file.size > MAX_SIZE_BYTES) {
+    throw new Error('El tamaño máximo de la imagen es de 10 MB');
+  }
+  const storageRef = ref(storage, url);
+  await uploadBytes(storageRef, file);
+  const updatedUrl = await getDownloadURL(storageRef);
+  return updatedUrl;
+}
+export async function updateImagesProducto(files, urls) {
+  const MAX_SIZE_BYTES = 10 * 1024 * 1024; // Tamaño máximo de 10 MB en bytes
+  if (files.length !== urls.length) {
+    throw new Error('El número de archivos no coincide con el número de URLs');
+  }
+  const updatedUrls = [];
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const url = urls[i];
+    if (file.size > MAX_SIZE_BYTES) {
+      throw new Error('El tamaño máximo de la imagen es de 10 MB');
+    }
+    const storageRef = ref(storage, url);
+    await uploadBytes(storageRef, file);
+    const updatedUrl = await getDownloadURL(storageRef);
+    updatedUrls.push(updatedUrl);
+  }
+
+  return updatedUrls;
+}
