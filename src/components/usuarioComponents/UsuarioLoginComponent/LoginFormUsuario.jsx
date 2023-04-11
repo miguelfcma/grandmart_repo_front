@@ -85,7 +85,7 @@ export function LoginFormUsuario() {
 
           <p className="login-links">
             <span>
-              <Link to="/login/recoverpass">¿Olvidaste tu contraseña?</Link>
+              <Link to="/login/recuperar-contrasena">¿Olvidaste tu contraseña?</Link>
             </span>
             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span>

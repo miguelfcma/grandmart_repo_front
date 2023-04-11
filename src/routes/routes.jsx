@@ -119,7 +119,7 @@ export function MyRoutes() {
           element={<ProductosByCategoriaPage />}
         />
         <Route exact path="/resumen-compras" element={<CompraCarrito />} />
-        <Route exact path="/recuperar-contrasena" element={<RecovPassPage />} />
+        <Route exact path="/login/recuperar-contrasena" element={<RecovPassPage />} />
 
         {/* Ruta para manejar las rutas no encontradas */}
         <Route path="*" element={<NotFoundPage />} />
