@@ -2,6 +2,7 @@ import { useCategorias } from "./CategoriasContext/CategoriaProvider";
 import { useEffect, useState } from "react";
 import { Modal } from "../ModalComponents/Modal";
 import { FormCategoria } from "./FormCategoria";
+import { Table, Button } from "react-bootstrap";
 import "./ListCategorias.css";
 
 export function ListCategorias() {
@@ -9,7 +10,7 @@ export function ListCategorias() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
 
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null); // Nuevo estado para la categoría seleccionada
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
   useEffect(() => {
     loadCategorias();
@@ -17,13 +18,13 @@ export function ListCategorias() {
 
   function handleOpenModal(categoria) {
     setIsModalOpen(true);
-    setCategoriaSeleccionada(categoria); // Actualiza la categoría seleccionada
+    setCategoriaSeleccionada(categoria);
   }
 
   function handleCloseModal() {
     setIsModalOpen(false);
     setFormularioEnviado(false);
-    setCategoriaSeleccionada(null); // Resetea la categoría seleccionada al cerrar la ventana modal
+    setCategoriaSeleccionada(null);
   }
 
   function handleSubmit() {
@@ -38,9 +39,8 @@ export function ListCategorias() {
 
   return (
     <>
-      
       <h2 className="titulo">Lista de categorias:</h2>
-      <table className="tabla-categorias">
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>ID</th>
@@ -57,27 +57,29 @@ export function ListCategorias() {
               <td>{categoria.nombre}</td>
               <td>{categoria.id_parent || "-"}</td>
               <td>
-                <button onClick={() => handleOpenModal(categoria)}>
+                <Button variant="primary" onClick={() => handleOpenModal(categoria)}>
                   Editar
-                </button>
+                </Button>
               </td>
               <td>
-                <button onClick={() => deleteCategoria(categoria.id)}>
+                <Button variant="danger" onClick={() => deleteCategoria(categoria.id)}>
                   Eliminar
-                </button>
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        {categoriaSeleccionada && ( // Renderiza el formulario sólo si hay una categoría seleccionada
+        {categoriaSeleccionada && (
           <FormCategoria
             onSubmit={handleSubmit}
-            categoria={categoriaSeleccionada} // Pasa la categoría seleccionada como propiedad al formulario
+            categoria={categoriaSeleccionada}
           />
         )}
-        <button onClick={handleCloseModal}>Cerrar ventana</button>
+        <Button variant="secondary" onClick={handleCloseModal}>
+          Cerrar ventana
+        </Button>
       </Modal>
     </>
   );

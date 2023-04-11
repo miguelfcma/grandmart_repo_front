@@ -135,7 +135,7 @@ export const ProductoContextProvider = ({ children }) => {
     try {
       const response = await deleteProductoRequest(id);
       if (response.status == 200) {
-        setProductos(productos.filter((producto) => producto.id !== id));
+        setProductosAll(productosAll.filter((producto) => producto.id !== id));
       }
     } catch (error) {
       console.error(error);

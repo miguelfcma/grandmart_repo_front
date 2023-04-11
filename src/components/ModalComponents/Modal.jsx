@@ -1,20 +1,22 @@
 import React from 'react';
+import { Modal as ReactModal } from 'react-bootstrap';
 import "./Modal.css"
+
 export function Modal(props) {
-  if (!props.isOpen) return null;
+  const handleClose = () => {
+    if (props.onClose) {
+      props.onClose();
+    }
+  };
 
   return (
-    <div className="modal-overlay" >
-      <div className="modal">
-        <div className="modal-header">
-          <span className="close" onClick={props.onClose}>&times;</span>
-        </div>
-        <div className="modal-body">
-          {props.children}
-        </div>
+    <ReactModal show={props.isOpen} onHide={handleClose} className="custom-modal" scrollable>
+      <div className="modal-header">
+        <span className="close" onClick={handleClose}>&times;</span>
       </div>
-    </div>
+      <div className="modal-body">
+        {props.children}
+      </div>
+    </ReactModal>
   );
 }
-
-

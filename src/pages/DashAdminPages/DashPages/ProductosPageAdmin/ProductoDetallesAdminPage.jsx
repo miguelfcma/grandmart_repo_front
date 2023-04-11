@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 
 import "./ProductoDetallesAdminPage.css";
 import { useCategorias } from "../../../../components/CategoriaComponents/CategoriasContext/CategoriaProvider";
-
+import { SidebarAdmin } from "../../../../components/DashAdminComponents/SidebarAdmin";
+import { HeaderAdmin } from "../../../../components/DashAdminComponents/HeaderAdmin";
 export function ProductoDetallesAdminPage() {
-  const { productos, getImgPortadaProducto, getProductImagesGaleria, loadProductos } = useProductos();
+  const { productosAll, getImgPortadaProducto, getProductImagesGaleria, loadProductos } = useProductos();
   const { id } = useParams();
 
   const [producto, setProducto] = useState(null);
@@ -21,7 +22,7 @@ export function ProductoDetallesAdminPage() {
   }, []);
 
   useEffect(() => {
-    const productoEncontrado = productos.find(
+    const productoEncontrado = productosAll.find(
       (prod) => prod.id === parseInt(id)
     );
 
@@ -37,10 +38,12 @@ export function ProductoDetallesAdminPage() {
 
       cargarImagen();
     }
-  }, [productos, id, getImgPortadaProducto, getProductImagesGaleria]);
+  }, [productosAll, id, getImgPortadaProducto, getProductImagesGaleria]);
 
   return (
-    <div className="contenedor-producto">
+    <div className="contenedor-producto"  style={{ marginLeft: '200px' }}>
+      <HeaderAdmin/>
+      <SidebarAdmin />
       {producto ? (
         <>
           <div className="info-producto">

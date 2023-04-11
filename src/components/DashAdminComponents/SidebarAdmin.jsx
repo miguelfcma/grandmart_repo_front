@@ -27,6 +27,9 @@ export function SidebarAdmin({ children }) {
           <Link to="/dashAdmin/servicios">Servicios</Link>
         </li>
         <li>
+          <Link to="/dashAdmin/categorias">Categorias</Link>
+        </li>
+        <li>
           <Link to="/dashAdmin/pedidos">Pedidos</Link>
         </li>
         <li>
