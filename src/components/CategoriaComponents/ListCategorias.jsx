@@ -40,7 +40,7 @@ export function ListCategorias() {
   return (
     <>
       <h2 className="titulo">Lista de categorias:</h2>
-      <Table striped bordered hover>
+      <Table striped bordered hover variant="dark">
         <thead>
           <tr>
             <th>ID</th>
@@ -57,12 +57,18 @@ export function ListCategorias() {
               <td>{categoria.nombre}</td>
               <td>{categoria.id_parent || "-"}</td>
               <td>
-                <Button variant="primary" onClick={() => handleOpenModal(categoria)}>
+                <Button
+                  variant="primary"
+                  onClick={() => handleOpenModal(categoria)}
+                >
                   Editar
                 </Button>
               </td>
               <td>
-                <Button variant="danger" onClick={() => deleteCategoria(categoria.id)}>
+                <Button
+                  variant="danger"
+                  onClick={() => deleteCategoria(categoria.id)}
+                >
                   Eliminar
                 </Button>
               </td>

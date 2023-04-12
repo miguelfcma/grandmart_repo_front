@@ -3,45 +3,42 @@ import { CardProductoGeneral } from "../ListaGeneralProductos/CardProductoGenera
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useCategorias } from "../../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 
-export  function FiltradoProductosGeneral({id_categoria}) {
-    const { productosAll, loadProductos } = useProductos();
-    const { categorias, loadCategorias } = useCategorias();
-    useEffect(() => {
-      loadCategorias();
-    }, []);
-    useEffect(() => {
-      loadProductos();
-    }, []);
+export function FiltradoProductosGeneral({id_categoria}) {
+  const { productosAll, loadProductos } = useProductos();
+  const { categorias, loadCategorias } = useCategorias();
+
+  useEffect(() => {
+    loadProductos();
+    loadCategorias();
+  }, []);
+
+  function renderMain() {
+    let filteredProducts = productosAll;
   
-    function renderMain() {
-      let filteredProducts = productosAll;
-  
-      if (id_categoria) {
-        const categoriasHijas = categorias.filter(
-          (categoria) => categoria.id_parent === parseInt(id_categoria)
-        );
-        const idsCategoriasHijas = categoriasHijas.map(
-          (categoria) => categoria.id
-        );
-        filteredProducts = productosAll.filter((producto) =>
-          idsCategoriasHijas.includes(producto.id_categoria)
-        );
-      }
-  
-      if (filteredProducts.length === 0) {
-        return <h1>No hay productos registrados</h1>;
+    if (id_categoria) {
+      const categoriasHijas = categorias.filter(categoria => categoria.id_parent === parseInt(id_categoria));
+      if (categoriasHijas.length > 0) {
+        const idsCategoriasHijas = categoriasHijas.map(categoria => categoria.id);
+        filteredProducts = productosAll.filter(producto => idsCategoriasHijas.includes(producto.id_categoria));
       } else {
-        return filteredProducts.map((producto) => (
-          <CardProductoGeneral key={producto.id} producto={producto} />
-        ));
+        filteredProducts = productosAll.filter(producto => producto.id_categoria === parseInt(id_categoria));
       }
     }
   
-    return (
-      <>
-        <h2 className="titulo">Lista de productos:</h2>
-        <div className="list-productos">{renderMain()}</div>
-      </>
-    );
+    if (filteredProducts.length === 0) {
+      return <h1>No hay productos registrados</h1>;
+    } else {
+      return filteredProducts.map(producto => (
+        <CardProductoGeneral key={producto.id} producto={producto} />
+      ));
+    }
   }
   
+
+  return (
+    <>
+      <h2 className="titulo">Lista de productos:</h2>
+      <div className="list-productos">{renderMain()}</div>
+    </>
+  );
+}

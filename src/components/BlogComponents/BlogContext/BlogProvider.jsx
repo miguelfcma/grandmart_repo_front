@@ -60,16 +60,16 @@ export const BlogContextProvider = ({ children }) => {
     }
   };
 
-  const deletePublicacionPorIdUsuario = async (idUsuario, idPublicacion) => {
+  const deletePublicacionPorIdUsuario = async (id_usuario, id_publicacionBlog) => {
     try {
       const response = await deletePublicacionPorIdUsuarioRequest(
-        idUsuario,
-        idPublicacion
+        id_usuario,
+        id_publicacionBlog
       );
       if (response.status == 204) {
         setPublicaciones(
           publicaciones.filter(
-            (publicacion) => publicacion.id !== idPublicacion
+            (publicacion) => publicacion.id !== id_publicacionBlog
           )
         );
       }

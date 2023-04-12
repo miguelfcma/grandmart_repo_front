@@ -30,6 +30,9 @@ export function SidebarAdmin({ children }) {
           <Link to="/dashAdmin/categorias">Categorias</Link>
         </li>
         <li>
+          <Link to="/dashAdmin/usuarios">Usuarios</Link>
+        </li>
+        <li>
           <Link to="/dashAdmin/pedidos">Pedidos</Link>
         </li>
         <li>
@@ -40,6 +43,9 @@ export function SidebarAdmin({ children }) {
         </li>
         <li>
           <Link to="/dashAdmin/estadisticas">Estadísticas</Link>
+        </li>
+        <li>
+          <Link to="/dashAdmin/database-backup">Base de datos</Link>
         </li>
       </ul>
       <div className="user-options">

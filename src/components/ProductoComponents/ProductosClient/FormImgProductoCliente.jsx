@@ -49,23 +49,7 @@ export function FormImgProductoCliente(idProducto) {
     setError("");
   };
 
-  const handleAgregarPortada = (event) => {
-    event.preventDefault();
-    const archivo = portadaRef.current.files[0];
 
-    if (!archivo) {
-      setError("Debe seleccionar una imagen");
-      return;
-    }
-
-    setImgPortada({
-      archivo,
-      url: URL.createObjectURL(archivo)
-    });
-
-    portadaRef.current.value = "";
-    setError("");
-  }
 
   const handleEliminarImagen = (index) => {
     const nuevasImagenes = [...imagenes];

@@ -50,7 +50,7 @@ export function ListProductsGeneral() {
 
   return (
     <>
-      <h2 className="titulo">Lista de productos:</h2>
+    
       <div className="list-productos">{renderMain()}</div>
       {renderPagination()}
     </>
