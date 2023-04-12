@@ -12,14 +12,15 @@ export function ListaPublicacionesBlog() {
   }, []);
 
   function renderMain() {
-    if (publicaciones.length == 0) {
-      return <h1>No hay usuarios registrados</h1>;
+    if (publicaciones.length === 0) {
+      return <h1>No hay publicaciones disponibles</h1>;
     } else {
       return publicaciones.map((publicacion) => (
         <CardPublicacionBlog key={publicacion.id} publicacion={publicacion} />
       ));
     }
   }
+  
   return (
     <>
       <div className="list-usuarios">{renderMain()}</div>

@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
+import { Form, Button, FormGroup, FormLabel, FormControl } from "react-bootstrap";
+import "./FormComentarioPublicacionBlog.css"
+
 
 export function FormComentarioPublicacionBlog({ id_publicacionBlog, actualizarComentarios }) {
   const { createComentario } = usePublicacionesBlog();
@@ -31,17 +34,22 @@ export function FormComentarioPublicacionBlog({ id_publicacionBlog, actualizarCo
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="comentario">Comentario:</label>
-        <textarea
+    <Form className="form-comentario" onSubmit={handleSubmit}>
+      <FormGroup>
+        <FormLabel htmlFor="comentario">Comentario:</FormLabel>
+        <FormControl
           id="comentario"
           name="comentario"
+          as="textarea"
+          rows={3}
           value={comentario.comentario}
           onChange={handleComentarioChange}
         />
-      </div>
-      <button type="submit">Publicar comentario</button>
-    </form>
+      </FormGroup>
+      <Button className="btn-publicar" variant="primary" type="submit">
+        Publicar comentario
+      </Button>
+    </Form>
   );
+  
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
 import { FormComentarioPublicacionBlog } from "./FormComentarioPublicacionBlog";
+import "./ListaComentariosPublicacionBlog.css"
 
 export function ListaComentariosPublicacionBlog({ id_publicacionBlog }) {
   const { getComentariosPorIdPublicacion } = usePublicacionesBlog();
@@ -39,11 +40,17 @@ export function ListaComentariosPublicacionBlog({ id_publicacionBlog }) {
         <p>Cargando comentarios...</p>
       ) : comentarios.length > 0 ? (
         comentarios.map((comentario) => (
-          <div key={comentario.id}>
-            <p>{comentario.comentario}</p>
-            <p>Por: {comentario.usuario.nombre}</p>
+          <div key={comentario.id} className="comentario">
+           
+            <div className="contenido">
+              <div className="nombre">{comentario.usuario.nombre}</div>
+              <div className="texto">{comentario.comentario}</div>
+              <div className="fecha">Comentario realizado el:{new Date(comentario.updatedAt).toLocaleDateString()}</div>
+             
+            </div>
           </div>
         ))
+        
       ) : (
         <p>No hay comentarios aún.</p>
       )}

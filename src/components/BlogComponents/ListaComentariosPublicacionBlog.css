@@ -1,0 +1,58 @@
+.comentario {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 16px;
+    background-color: #f0f2f5;
+    border-radius: 16px;
+  }
+  
+  .avatar {
+    margin-right: 16px;
+  }
+  
+  .avatar img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
+  
+  .contenido {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .nombre {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .texto {
+    margin-bottom: 8px;
+  }
+  
+  .acciones {
+    display: flex;
+  }
+  
+  .acciones button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #65676b;
+    margin-right: 16px;
+  }
+  
+  .acciones button:hover {
+    color: #1a1e21;
+  }
+  
+  .btn-like:hover {
+    color: #4267b2;
+  }
+  
+  .btn-reply:hover {
+    color: #1a1e21;
+  }
+  

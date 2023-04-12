@@ -82,7 +82,7 @@ export function Navbar() {
         <div className="navbar-links">
           <ul>
             <li className="dropdown">
-              <Link to="#" className="dropbtn">
+              <Link to="/categorias" className="dropbtn">
                 Categorías
               </Link>
               <div className="dropdown-content">
