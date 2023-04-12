@@ -2,22 +2,13 @@ import { ListaComentariosPublicacionBlog } from "./ListaComentariosPublicacionBl
 import { useState } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
+import "./CardPublicacionBlog.css"
 
-export function CardPublicaciónBlog({ publicacion }) {
+
+export function CardPublicacionBlog({ publicacion }) {
   const [comentariosVisibles, setComentariosVisibles] = useState(false); // 1. agregar el estado para almacenar si los comentarios están visibles o no
-  const {deletePublicacionPorIdUsuario} = usePublicacionesBlog();
-  
-  const handleEliminarProducto = async () => {
-    try {
-      const imagenesProducto = await getAllImagesProduct(producto.id);
-      const urls = imagenesProducto.map((imagen) => imagen.url);
-
-      await deleteImagesProducto(urls);
-      await deletePublicacionPorIdUsuario(producto.id);
-    } catch (error) {
-      console.error(error);
-    }
-}
+  const { deletePublicacionPorIdUsuario } = usePublicacionesBlog();
+  const MAX_DESCRIPCION_LENGTH = 200;
 
   const toggleComentarios = () => {
     // 3. al hacer clic en el botón, cambiar el valor del estado que indica si los comentarios están visibles o no
@@ -27,7 +18,6 @@ export function CardPublicaciónBlog({ publicacion }) {
   return (
     <div>
       <Container fluid className="blog-container">
-    
         <Card key={publicacion.id} className="publicacion">
           <Card.Body>
             <Card.Title>
@@ -40,7 +30,17 @@ export function CardPublicaciónBlog({ publicacion }) {
               Fecha de publicación:{" "}
               {new Date(publicacion.updatedAt).toLocaleDateString()}
             </Card.Subtitle>
-            <Card.Text>{publicacion.descripcion}</Card.Text>
+            <Card.Text>
+              {publicacion.descripcion.length > MAX_DESCRIPCION_LENGTH
+                ? publicacion.descripcion.slice(0, MAX_DESCRIPCION_LENGTH) +
+                  "..."
+                : publicacion.descripcion}
+              {publicacion.descripcion.length > MAX_DESCRIPCION_LENGTH && (
+                <Button variant="link" onClick={toggleComentarios}>
+                  Ver más
+                </Button>
+              )}
+            </Card.Text>
             <Button onClick={toggleComentarios}>
               {comentariosVisibles
                 ? "Ocultar comentarios"
@@ -53,9 +53,7 @@ export function CardPublicaciónBlog({ publicacion }) {
               />
             )}{" "}
             {/* mostrar la lista de comentarios solo si los comentarios están visibles */}
-      
           </Card.Body>
-
         </Card>
       </Container>
     </div>

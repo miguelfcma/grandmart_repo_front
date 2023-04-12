@@ -2,6 +2,7 @@ import { useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
 import { Form, Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
+import "./FormNuevaPublicacionBlog.css";
 
 export function FormNuevaPublicacionBlog() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -24,7 +25,11 @@ export function FormNuevaPublicacionBlog() {
           if (!file.type.startsWith("image/")) {
             reject(new Error(`El archivo "${file.name}" no es una imagen`));
           } else if (file.size > maxSize) {
-            reject(new Error(`El archivo "${file.name}" excede el tamaño máximo permitido de 10 MB`));
+            reject(
+              new Error(
+                `El archivo "${file.name}" excede el tamaño máximo permitido de 10 MB`
+              )
+            );
           } else {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -94,21 +99,27 @@ export function FormNuevaPublicacionBlog() {
       </Form.Group>
       <Form.Group controlId="imagenes">
         <Form.Label>Imágenes:</Form.Label>
-        <div {...getRootProps()}>
+        <div {...getRootProps()} className="dropzone-area">
           <input {...getInputProps()} />
           <p>
-            Arrastre y suelte archivos aquí o haga clic para seleccionar archivos
+            Arrastre y suelte archivos aquí o haga clic para seleccionar
+            archivos
           </p>
         </div>
         {imagenes.map((imagen, index) => (
-          <div key={index}>
-            <img src={imagen} alt={`Imagen ${index + 1}`} />
+          <div key={index} className="imagen-preview">
+            <img
+              src={imagen}
+              alt={`Imagen ${index + 1}`}
+              className="imagen-preview__img"
+            />
             <button type="button" onClick={() => handleEliminarImagen(index)}>
-              Eliminar
+              &times;
             </button>
           </div>
         ))}
       </Form.Group>
+
       {imagenes.length >= 5 && <p>Sólo se permiten hasta 5 imágenes</p>}
       {imagenes.some((imagen) => !imagen.startsWith("data:image")) && (
         <p>Sólo se permiten archivos de imagen</p>
@@ -118,5 +129,4 @@ export function FormNuevaPublicacionBlog() {
       </Button>
     </Form>
   );
-  
 }

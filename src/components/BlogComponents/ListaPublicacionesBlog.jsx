@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
-import { CardPublicaciónBlog } from "./CardPublicaciónBlog";
+import { CardPublicacionBlog } from "./CardPublicacionBlog";
 
 import "./ListaPublicacionesBlog.css";
 
@@ -16,7 +16,7 @@ export function ListaPublicacionesBlog() {
       return <h1>No hay usuarios registrados</h1>;
     } else {
       return publicaciones.map((publicacion) => (
-        <CardPublicaciónBlog key={publicacion.id} publicacion={publicacion} />
+        <CardPublicacionBlog key={publicacion.id} publicacion={publicacion} />
       ));
     }
   }
