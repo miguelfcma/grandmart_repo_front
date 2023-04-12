@@ -35,8 +35,13 @@
     cursor: pointer;
   }
   
-  .galeria img:hover {
-    opacity: 0.8;
+  .galeria img:hover,
+  .galeria img.zoom {
+    opacity: 1;
+  }
+
+  .galeria img.zoom{
+    transform : scale(1.6);
   }
   
   @media screen and (max-width: 768px) {

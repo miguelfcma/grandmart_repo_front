@@ -51,7 +51,7 @@ export function Navbar() {
   };
 
   return (
-    <nav class="navbar">
+    <nav className="navbar">
       <div className="navbar-container">
         <Link to="/">
           <img

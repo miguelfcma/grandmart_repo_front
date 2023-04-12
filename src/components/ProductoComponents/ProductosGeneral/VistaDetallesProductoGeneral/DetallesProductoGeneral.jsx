@@ -39,18 +39,33 @@ export function DetallesProductoGeneral({ id }) {
     }
   }, [productosAll, id, getImgPortadaProducto, getProductImagesGaleria]);
 
+  const [zoom, setZoom] = useState(1);
+  const handleZoomIn = () => {
+    setZoom(1.5);
+  };
+  const handleZoomOut = () => {
+    setZoom(1);
+  };
+
+  const [imagenZoom, setImagenZoom] = useState(null);
+
+
   return (
     <div className={styles.container}>
       <div className={styles.galeria}>
         {imagenes &&
           imagenes.map((imagen) => (
-            <img key={imagen.id} src={imagen.url} alt={imagen.id} />
+            <img key={imagen.id} src={imagen.url} alt={imagen.id}
+            className={imagen.url === imagenZoom ? styles.zoom : ""}
+            onMouseEnter={() => setImagenZoom(imagen.url)}
+            onMouseLeave={() => setImagenZoom(null)}/>
           ))}
         <div>
           <img
-        
-            src={imagenPortada}
-        
+          src={imagenPortada}
+          onMouseOver={handleZoomIn}
+          onMouseOut={handleZoomOut}
+          style={{ transform: `scale(${zoom})` }}
           ></img>
         </div>
       </div>
