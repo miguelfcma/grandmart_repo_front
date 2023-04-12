@@ -8,10 +8,13 @@ import axios from "axios";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 import { useCategorias } from "../CategoriaComponents/CategoriasContext/CategoriaProvider";
 
+
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+
 export function Navbar() {
-  const [searchTerm, setSearchTerm] = useState("");
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const [searchResults, setSearchResults] = useState([]);
 
   const { vaciarFavoritos } = useProductos();
   const handleLogout = () => {
@@ -41,12 +44,13 @@ export function Navbar() {
     { id: 37, nombre: "Moda", link: "/productos/categoria/37" },
   ];
 
+  const [searchTerm, setSearchTerm] = useState("");
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`/productos=${searchTerm}`);
-      setSearchResults(response.data);
+      const response = await axios.get(`/api/productos?search=${searchTerm}`);
+      // Guardar los productos obtenidos en el estado de la aplicación
     } catch (error) {
-      console.log(error);
+      // Manejar errores de la llamada a la API
     }
   };
 
@@ -61,22 +65,24 @@ export function Navbar() {
         </Link>
 
         <div className="navbar-search">
-          <input
-            type="text"
-            placeholder="Buscar"
-            name="search"
-            value={searchTerm}
+          <InputGroup className="mb-3">
+            <Form.Control
+              type= "text"
+              placeholder="Buscar"
+              name="search"
+              value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="button" onClick={handleSearch}>
-            <box-icon name="search-alt" color="#ffffff"></box-icon>
-          </button>
+            />
+            <Button variant="outline-secondary" id="button-addon2" onClick={handleSearch}>
+                <box-icon name="search-alt" color="#ffffff"></box-icon>
+            </Button>
+          </InputGroup>
         </div>
 
         <div className="navbar-links">
           <ul>
             <li className="dropdown">
-              <Link to="/categorias" className="dropbtn">
+              <Link to="#" className="dropbtn">
                 Categorías
               </Link>
               <div className="dropdown-content">
@@ -148,3 +154,6 @@ export function Navbar() {
     </nav>
   );
 }
+
+
+
