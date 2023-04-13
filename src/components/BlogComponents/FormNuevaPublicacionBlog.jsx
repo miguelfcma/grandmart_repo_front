@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import "./FormNuevaPublicacionBlog.css";
 import { uploadImagesBlog } from "../../firebase/blogStorage";
+
 
 export function FormNuevaPublicacionBlog() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -13,7 +14,8 @@ export function FormNuevaPublicacionBlog() {
     id_usuario: usuario.id,
   });
   const [imagenes, setImagenes] = useState([]);
-  const { createPublicacion,createImagenesPublicacionBlog } = usePublicacionesBlog();
+  const { createPublicacion, createImagenesPublicacionBlog } =
+    usePublicacionesBlog();
   const [loading, setLoading] = useState(false);
 
   const onDrop = async (acceptedFiles) => {
@@ -35,7 +37,7 @@ export function FormNuevaPublicacionBlog() {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
-              nuevasImagenes.push(reader.result);
+              nuevasImagenes.push(file);
               resolve();
             };
             reader.onerror = reject;
@@ -57,6 +59,7 @@ export function FormNuevaPublicacionBlog() {
     const nuevasImagenes = [...imagenes];
     nuevasImagenes.splice(index, 1);
     setImagenes(nuevasImagenes);
+    console.log(imagenes);
   };
 
   const handleChange = (event) => {
@@ -70,10 +73,22 @@ export function FormNuevaPublicacionBlog() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await createPublicacion(publicacion);
-      console.log(response)
+      
+      const urls = await uploadImagesBlog(imagenes);
+      console.log(urls)
+      const response = await createPublicacion(publicacion, urls);
+      console.log(response.data.id)
+      await createImagenesPublicacionBlog(response.data.id, urls);
+      setImagenes([])
+      setPublicacion({
+        titulo: "",
+        descripcion: "",
+        id_usuario: usuario.id,
+      });
+      alert("La publicación se creó con éxito");
+
     } catch (error) {
-      console.log(error);
+      alert(`Error al crear la publicación: ${error.message}`);
     }
   };
 
@@ -108,24 +123,35 @@ export function FormNuevaPublicacionBlog() {
             archivos
           </p>
         </div>
-        {imagenes.map((imagen, index) => (
-          <div key={index} className="imagen-preview">
-            <img
-              src={imagen}
-              alt={`Imagen ${index + 1}`}
-              className="imagen-preview__img"
-            />
-            <button type="button" onClick={() => handleEliminarImagen(index)}>
-              &times;
-            </button>
-          </div>
-        ))}
+        <div className="imagen-preview-container">
+          {imagenes.map((imagen, index) => (
+            <div key={index} className="imagen-preview">
+              {index === 0 && (
+                <>
+                  <box-icon
+                    type="solid"
+                    name="star"
+                    className="imagen-preview__icono-portada"
+                  />
+                  <span className="imagen-preview__texto-portada">Portada</span>
+                </>
+              )}
+              <img
+                src={URL.createObjectURL(imagen)}
+                alt={`Imagen ${index + 1}`}
+                className="imagen-preview__img"
+              />
+              <button
+                type="button"
+                onClick={() => handleEliminarImagen(index)}
+                className="imagen-preview__eliminar"
+              >
+                &times;
+              </button>
+            </div>
+          ))}
+        </div>
       </Form.Group>
-
-      {imagenes.length >= 5 && <p>Sólo se permiten hasta 5 imágenes</p>}
-      {imagenes.some((imagen) => !imagen.startsWith("data:image")) && (
-        <p>Sólo se permiten archivos de imagen</p>
-      )}
       <Button variant="primary" type="submit" disabled={loading}>
         Crear publicación
       </Button>

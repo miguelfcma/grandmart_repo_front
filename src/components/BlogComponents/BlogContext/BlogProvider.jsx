@@ -15,7 +15,10 @@ import {
   updateComentarioPorIdUsuarioRequest,
 } from "../../../API/BlogApiRest/comentarioBlog.api";
 
-import { createImagenesPublicacionBlogRequest, getImagenPortadaPorIdPublicacionRequest } from "../../../API/BlogApiRest/imagenBlog.api";
+import {
+  createImagenesPublicacionBlogRequest,
+  getImagenPortadaPorIdPublicacionRequest,
+} from "../../../API/BlogApiRest/imagenBlog.api";
 
 import { BlogContext } from "./BlogContext";
 
@@ -37,7 +40,6 @@ export const BlogContextProvider = ({ children }) => {
       const response = await getPublicacionesRequest();
 
       if (response.status === 200) {
- 
         setPublicaciones(response.data);
       } else {
         throw new Error("No se pudo obtener la lista de publicaciones");
@@ -62,7 +64,10 @@ export const BlogContextProvider = ({ children }) => {
     }
   };
 
-  const deletePublicacionPorIdUsuario = async (id_usuario, id_publicacionBlog) => {
+  const deletePublicacionPorIdUsuario = async (
+    id_usuario,
+    id_publicacionBlog
+  ) => {
     try {
       const response = await deletePublicacionPorIdUsuarioRequest(
         id_usuario,
@@ -85,7 +90,7 @@ export const BlogContextProvider = ({ children }) => {
       const response = await createPublicacionRequest(publicacion);
 
       if (response.status == 201) {
-        loadPublicaciones(); // Llama a la función loadPublicaciones después de crear la publicación.
+        loadPublicaciones();
         return response;
       } else {
         return false;
@@ -94,7 +99,6 @@ export const BlogContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-
 
   const updatePublicacionPorIdUsuario = async (
     idUsuario,
@@ -155,7 +159,6 @@ export const BlogContextProvider = ({ children }) => {
       );
 
       if (response.status === 200) {
-  
         return response.data;
       } else {
         throw new Error("No se pudo obtener la lista de comentarios");
@@ -203,12 +206,17 @@ export const BlogContextProvider = ({ children }) => {
     }
   };
 
-
-  const createImagenesPublicacionBlog = async (imagenes) => {
+  const createImagenesPublicacionBlog = async (
+    id_publicacionBlog,
+    imagenes
+  ) => {
     try {
-      const response = await createImagenesPublicacionBlogRequest(imagenes);
+      const response = await createImagenesPublicacionBlogRequest(
+        id_publicacionBlog,
+        imagenes
+      );
 
-      if (response.status == 201) {
+      if (response.status == 201 && response.data) {
         return response.data;
       } else {
         return null;
@@ -218,12 +226,13 @@ export const BlogContextProvider = ({ children }) => {
     }
   };
 
-  const getImagenPortadaPorIdPublicacion= async (id_publicacionBlog) => {
+  const getImagenPortadaPorIdPublicacion = async (id_publicacionBlog) => {
     try {
-      const response = await getImagenPortadaPorIdPublicacionRequest(id_publicacionBlog);
+      const response = await getImagenPortadaPorIdPublicacionRequest(
+        id_publicacionBlog
+      );
 
-      if (response.status == 200) {
-        
+      if (response.status === 200 && response.data) {
         return response.data.url;
       } else {
         return null;
@@ -232,8 +241,7 @@ export const BlogContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-  getImagenPortadaPorIdPublicacionRequest
-
+  getImagenPortadaPorIdPublicacionRequest;
 
   return (
     <BlogContext.Provider
@@ -252,9 +260,8 @@ export const BlogContextProvider = ({ children }) => {
         createComentario,
         loadComentarios,
 
-
         createImagenesPublicacionBlog,
-        getImagenPortadaPorIdPublicacion
+        getImagenPortadaPorIdPublicacion,
       }}
     >
       {children}

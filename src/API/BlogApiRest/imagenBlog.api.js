@@ -8,8 +8,7 @@ export const createImagenPublicacionBlogRequest = async (imagen) => {
     return response;
   } catch (error) {
     console.log({
-      status: error.response.status,
-      message: error.response.data.message,
+      error
     });
     return error.response;
   }
@@ -27,8 +26,7 @@ export const updateImagenPorIdPublicacionRequest = async (
     return response;
   } catch (error) {
     console.log({
-      status: error.response.status,
-      message: error.response.data.message,
+      error
     });
     return error.response;
   }
@@ -41,8 +39,7 @@ export const deleteImagenPorIdPublicacionRequest = async (id_publicacionBlog) =>
     return response;
   } catch (error) {
     console.log({
-      status: error.response.status,
-      message: error.response.data.message,
+      error
     });
     return error.response;
   }
@@ -55,8 +52,7 @@ export const getImagenesPorIdPublicacionRequest = async (id_publicacionBlog) => 
     return response;
   } catch (error) {
     console.log({
-      status: error.response.status,
-      message: error.response.data.message,
+      error
     });
     return error.response;
   }
@@ -71,24 +67,20 @@ export const getImagenPortadaPorIdPublicacionRequest = async (
     return response;
   } catch (error) {
     console.log({
-      status: error.response.status,
-      message: error.response.data.message,
+      error
     });
     return error.response;
   }
 };
-export const createImagenesPublicacionBlogRequest = async (imagenes) => {
+export const createImagenesPublicacionBlogRequest = async (id_publicacionBlog, imagenes) => {
   try {
     const response = await axios.post(
       API_BASE_URL + "blog-imagenes/multiple",
-      imagenes
+      { id_publicacionBlog, imagenes }
     );
     return response;
   } catch (error) {
-    console.log({
-      status: error.response.status,
-      message: error.response.data.message,
-    });
+    console.log({ error });
     return error.response;
   }
 };

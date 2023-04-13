@@ -15,7 +15,6 @@ export function CardPublicacionBlog({ publicacion }) {
   const [urlImagen, setUrlImagen] = useState("");
   async function obtenerUrlImagenAsync(id_publicacionBlog) {
     const url = await getImagenPortadaPorIdPublicacion(id_publicacionBlog);
-    console.log(url)
     setUrlImagen(url);
   }
 

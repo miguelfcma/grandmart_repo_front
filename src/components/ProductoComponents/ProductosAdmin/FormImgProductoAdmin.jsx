@@ -24,7 +24,7 @@ export function FormImgProductoAdmin(idProducto) {
   const handleAgregarImagen = (event) => {
     event.preventDefault();
     const archivos = archivoRef.current.files;
-
+console.log(archivos)
     if (!archivos.length) {
       setError("Debe seleccionar al menos una imagen");
       return;
@@ -90,6 +90,7 @@ export function FormImgProductoAdmin(idProducto) {
       setLoading(true); // Establece loading a true antes de enviar la solicitud
 
       const archivos = imagenes.map((imagen) => imagen.archivo);
+      
       const urls = await uploadImagesProducto(archivos);
       const portadaUrl = await uploadImageProducto(imgPortada);
       console.log("URL de imagen de portada subida:", portadaUrl);
