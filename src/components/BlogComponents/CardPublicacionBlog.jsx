@@ -1,5 +1,6 @@
 import { ListaComentariosPublicacionBlog } from "./ListaComentariosPublicacionBlog";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
 import "./CardPublicacionBlog.css";
@@ -7,8 +8,20 @@ import "./CardPublicacionBlog.css";
 export function CardPublicacionBlog({ publicacion }) {
   const [comentariosVisibles, setComentariosVisibles] = useState(false);
   const [descripcionCompleta, setDescripcionCompleta] = useState(false);
-  const { deletePublicacionPorIdUsuario } = usePublicacionesBlog();
+  const { deletePublicacionPorIdUsuario, getImagenPortadaPorIdPublicacion } =
+    usePublicacionesBlog();
   const MAX_DESCRIPCION_LENGTH = 10;
+
+  const [urlImagen, setUrlImagen] = useState("");
+  async function obtenerUrlImagenAsync(id_publicacionBlog) {
+    const url = await getImagenPortadaPorIdPublicacion(id_publicacionBlog);
+    console.log(url)
+    setUrlImagen(url);
+  }
+
+  useEffect(() => {
+    obtenerUrlImagenAsync(publicacion.id);
+  }, [publicacion.id]);
 
   const toggleDescripcion = () => {
     setDescripcionCompleta((completa) => !completa);
@@ -24,6 +37,11 @@ export function CardPublicacionBlog({ publicacion }) {
         <Card key={publicacion.id} className="publicacion">
           <Card.Body>
             <Card.Title>{publicacion.titulo}</Card.Title>
+            <img
+              className="card-publicacion-img"
+              src={urlImagen}
+              alt={publicacion.titulo}
+            />
             <Card.Text>
               {descripcionCompleta
                 ? publicacion.descripcion

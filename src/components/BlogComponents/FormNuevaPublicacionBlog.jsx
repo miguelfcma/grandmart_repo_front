@@ -3,6 +3,7 @@ import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
 import { Form, Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import "./FormNuevaPublicacionBlog.css";
+import { uploadImagesBlog } from "../../firebase/blogStorage";
 
 export function FormNuevaPublicacionBlog() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -12,7 +13,7 @@ export function FormNuevaPublicacionBlog() {
     id_usuario: usuario.id,
   });
   const [imagenes, setImagenes] = useState([]);
-  const { createPublicacion } = usePublicacionesBlog();
+  const { createPublicacion,createImagenesPublicacionBlog } = usePublicacionesBlog();
   const [loading, setLoading] = useState(false);
 
   const onDrop = async (acceptedFiles) => {
@@ -69,7 +70,8 @@ export function FormNuevaPublicacionBlog() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await createPublicacion({ ...publicacion, imagenes });
+      const response = await createPublicacion(publicacion);
+      console.log(response)
     } catch (error) {
       console.log(error);
     }

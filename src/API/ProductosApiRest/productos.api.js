@@ -5,10 +5,7 @@ import { API_BASE_URL } from "../config.api";
 export const getProductosRequest = async () => {
   try {
     const response = await axios.get(API_BASE_URL+"productos");
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -23,10 +20,7 @@ export const createProductoRequest = async (producto) => {
   console.log(producto)
   try {
     const response = await axios.post(API_BASE_URL+"productos", producto);
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -40,10 +34,7 @@ export const createProductoRequest = async (producto) => {
 export const updateProductoRequest = async (id, producto) => {
   try {
     const response = await axios.put(`${API_BASE_URL+"productos"}/${id}`, producto);
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -57,10 +48,7 @@ export const updateProductoRequest = async (id, producto) => {
 export const deleteProductoRequest = async (id) => {
   try {
     const response = await axios.delete(`${API_BASE_URL+"productos"}/${id}`);
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -76,10 +64,7 @@ export const deleteProductoRequest = async (id) => {
 export const getProductosByUsuarioIdRequest = async (id_usuario) => {
   try {
     const response = await axios.get(`${API_BASE_URL}productos/user/${id_usuario}`);
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({

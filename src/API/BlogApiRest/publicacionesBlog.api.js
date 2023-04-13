@@ -7,10 +7,7 @@ export const createPublicacionRequest = async (data) => {
       `${API_BASE_URL}blog-publicaciones`,
       data
     );
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log(error);
@@ -33,10 +30,7 @@ export const deletePublicacionPorIdUsuarioRequest = async (
       `${API_BASE_URL}blog-publicaciones/${id_usuario}?id=${id_publicacionBlog}`
 
     );
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -53,10 +47,7 @@ export const updatePublicacionPorIdUsuarioRequest = async (idUsuario, data) => {
       `${API_BASE_URL}blog-publicaciones/${idUsuario}`,
       data
     );
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -70,10 +61,7 @@ export const updatePublicacionPorIdUsuarioRequest = async (idUsuario, data) => {
 export const getPublicacionesRequest = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}blog-publicaciones`);
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -89,10 +77,7 @@ export const getPublicacionesPorIdUsuarioRequest = async (idUsuario) => {
     const response = await axios.get(
       `${API_BASE_URL}blog-publicaciones/${idUsuario}`
     );
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response.data;
   } catch (error) {
     console.log({

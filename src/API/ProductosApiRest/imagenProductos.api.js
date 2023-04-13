@@ -8,10 +8,7 @@ export const createProductImageRequest = async (productImage) => {
       API_BASE_URL + "product-images",
       productImage
     );
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -29,10 +26,7 @@ export const getProductImagePortadaRequest = async (id_producto) => {
     const response = await axios.get(
       `${API_BASE_URL + "product-images/portada"}/${id_producto}`
     );
-    console.log({
-      status: response.status,
-      message: "Imagen de producto recuperada correctamente",
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -48,10 +42,7 @@ export const getProductImagesGaleriaRequest = async (id_producto) => {
     const response = await axios.get(
       `${API_BASE_URL}product-images/galeria/${id_producto}`
     );
-    console.log({
-      status: response.status,
-      message: "Imagen de producto recuperada correctamente",
-    });
+
     return response;
   } catch (error) {
     console.log({
@@ -69,10 +60,7 @@ export const getAllImagesProductRequest = async (id_producto) => {
         `${API_BASE_URL}product-images/todas/${id_producto}`
    
     );
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
+
     return response;
   } catch (error) {
     console.log({

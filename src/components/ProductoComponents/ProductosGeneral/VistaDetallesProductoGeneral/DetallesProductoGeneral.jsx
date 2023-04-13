@@ -5,7 +5,6 @@ import { ReviewsProducto } from "../ReviewsProductosGeneral/ReviewsProducto";
 import styles from "./DetallesProductoGeneral.module.css";
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
-import Button from 'react-bootstrap/Button';
 
 export function DetallesProductoGeneral({ id }) {
   const {
