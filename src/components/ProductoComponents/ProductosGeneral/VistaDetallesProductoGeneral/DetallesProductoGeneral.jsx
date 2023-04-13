@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { ComentariosProducto } from "../ComentariosProductoGeneral/ComentariosProducto";
 import { ReviewsProducto } from "../ReviewsProductosGeneral/ReviewsProducto";
 import styles from "./DetallesProductoGeneral.module.css";
+import Card from 'react-bootstrap/Card';
+import CardGroup from 'react-bootstrap/CardGroup';
+import Button from 'react-bootstrap/Button';
 
 export function DetallesProductoGeneral({ id }) {
   const {
@@ -52,28 +55,45 @@ export function DetallesProductoGeneral({ id }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.galeria}>
-        {imagenes &&
-          imagenes.map((imagen) => (
-            <img key={imagen.id} src={imagen.url} alt={imagen.id}
-            className={imagen.url === imagenZoom ? styles.zoom : ""}
-            onMouseEnter={() => setImagenZoom(imagen.url)}
-            onMouseLeave={() => setImagenZoom(null)}/>
-          ))}
-        <div>
-          <img
-          src={imagenPortada}
-          onMouseOver={handleZoomIn}
-          onMouseOut={handleZoomOut}
-          style={{ transform: `scale(${zoom})` }}
-          ></img>
+
+        <div className={styles.galeria}>
+          <div className={styles.imagenAmpliada}
+            style={{ display: imagenZoom ? "block" : "none" }}>
+            <img src={imagenZoom} alt="Imagen ampliada" />
+          </div>
+            <CardGroup>
+              {imagenPortada && (
+                <Card>
+                    <Card.Img variant="top" src={imagenPortada} alt="Portada"
+                      className={imagenPortada === imagenZoom ? styles.zoom : ""}
+                      onMouseEnter={() => setImagenZoom(imagenPortada)}
+                      onMouseLeave={() => setImagenZoom(null)}
+                    />
+                </Card>
+              )}
+              {imagenes &&
+                imagenes.map((imagen) => (
+                  <Card key={imagen.id}>
+                      <Card.Img variant="top" src={imagen.url} alt={imagen.id}
+                        className={imagen.url === imagenZoom ? styles.zoom : ""}
+                        onMouseEnter={() => setImagenZoom(imagen.url)}
+                        onMouseLeave={() => setImagenZoom(null)}
+                      />
+                  </Card>
+                ))}
+            </CardGroup>
         </div>
-      </div>
+
+        <br></br>
+
       <div className={styles.infoProducto}>
         {producto ? (
           <>
+          <Card style={{ width: '98%', margin: '0 auto' }}>
+            <Card.Title>
             <div className={styles.infoProductoTitulo}>{producto.nombre}</div>
             <div className={styles.infoProductoPrecio}>${producto.precio}</div>
+            
             <div className={styles.infoProductoDescripcion}>
               {producto.descripcion}
             </div>
@@ -85,6 +105,11 @@ export function DetallesProductoGeneral({ id }) {
               <div>Categoría: {producto.categoria.nombre}</div>
               <div>Producto públicado por: {producto.usuario.nombre}</div>
             </div>
+            </Card.Title>
+            </Card>
+
+            <br></br>
+
             <button onClick={() => window.history.back()}>Regresar</button>
             <ComentariosProducto />
             <ReviewsProducto />
