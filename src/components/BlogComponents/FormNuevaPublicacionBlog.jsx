@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
-import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  Image,
+  Alert,
+} from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 import "./FormNuevaPublicacionBlog.css";
 import { uploadImagesBlog } from "../../firebase/blogStorage";
-
 
 export function FormNuevaPublicacionBlog() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -19,7 +26,6 @@ export function FormNuevaPublicacionBlog() {
   const [loading, setLoading] = useState(false);
 
   const onDrop = async (acceptedFiles) => {
-    setLoading(true);
     const nuevasImagenes = [];
     const maxSize = 10 * 1024 * 1024; // 10 MB
     await Promise.all(
@@ -45,7 +51,7 @@ export function FormNuevaPublicacionBlog() {
         });
       })
     );
-    setLoading(false);
+
     setImagenes((prevImagenes) => [...prevImagenes, ...nuevasImagenes]);
   };
 
@@ -59,7 +65,6 @@ export function FormNuevaPublicacionBlog() {
     const nuevasImagenes = [...imagenes];
     nuevasImagenes.splice(index, 1);
     setImagenes(nuevasImagenes);
-    console.log(imagenes);
   };
 
   const handleChange = (event) => {
@@ -70,91 +75,128 @@ export function FormNuevaPublicacionBlog() {
     }));
   };
 
+  const [alerta, setAlerta] = useState(null);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
-      
       const urls = await uploadImagesBlog(imagenes);
-      console.log(urls)
-      const response = await createPublicacion(publicacion, urls);
-      console.log(response.data.id)
-      await createImagenesPublicacionBlog(response.data.id, urls);
-      setImagenes([])
-      setPublicacion({
-        titulo: "",
-        descripcion: "",
-        id_usuario: usuario.id,
-      });
-      alert("La publicación se creó con éxito");
 
+      const response = await createPublicacion(publicacion, urls);
+
+      if (response.status === 201 && response.data && response.data.id) {
+        const dataUrls = await createImagenesPublicacionBlog(
+          response.data.id,
+          urls
+        );
+
+        if (dataUrls) {
+          setLoading(false);
+          setAlerta({
+            variant: "success",
+            mensaje: "La publicación y sus imágenes se crearon correctamente.",
+          });
+        } else {
+          setLoading(false);
+          setAlerta({
+            variant: "danger",
+            mensaje:
+              "Hubo un problema al crear las imágenes de la publicación.",
+          });
+        }
+      } else {
+        setLoading(false);
+        setAlerta({
+          variant: "danger",
+          mensaje: "Hubo un problema al crear la publicación.",
+        });
+      }
     } catch (error) {
-      alert(`Error al crear la publicación: ${error.message}`);
+      setLoading(false);
+      setAlerta({
+        variant: "danger",
+        mensaje: `Error al crear la publicación: ${error.message}`,
+      });
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="titulo">
-        <Form.Label>Titulo:</Form.Label>
-        <Form.Control
-          type="text"
-          name="titulo"
-          value={publicacion.titulo}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-      <Form.Group controlId="descripcion">
-        <Form.Label>Descripcion:</Form.Label>
-        <Form.Control
-          type="text"
-          name="descripcion"
-          value={publicacion.descripcion}
-          onChange={handleChange}
-          required
-        />
-      </Form.Group>
-      <Form.Group controlId="imagenes">
-        <Form.Label>Imágenes:</Form.Label>
-        <div {...getRootProps()} className="dropzone-area">
-          <input {...getInputProps()} />
-          <p>
-            Arrastre y suelte archivos aquí o haga clic para seleccionar
-            archivos
-          </p>
-        </div>
-        <div className="imagen-preview-container">
-          {imagenes.map((imagen, index) => (
-            <div key={index} className="imagen-preview">
-              {index === 0 && (
-                <>
-                  <box-icon
-                    type="solid"
-                    name="star"
-                    className="imagen-preview__icono-portada"
-                  />
-                  <span className="imagen-preview__texto-portada">Portada</span>
-                </>
-              )}
-              <img
-                src={URL.createObjectURL(imagen)}
-                alt={`Imagen ${index + 1}`}
-                className="imagen-preview__img"
-              />
-              <button
-                type="button"
-                onClick={() => handleEliminarImagen(index)}
-                className="imagen-preview__eliminar"
-              >
-                &times;
-              </button>
-            </div>
-          ))}
-        </div>
-      </Form.Group>
-      <Button variant="primary" type="submit" disabled={loading}>
-        Crear publicación
-      </Button>
-    </Form>
+    <div>
+      {alerta && (
+        <Alert
+          variant={alerta.variant}
+          onClose={() => setAlerta(null)}
+          dismissible
+        >
+          {alerta.mensaje}
+        </Alert>
+      )}
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="titulo">
+          <Form.Label>Titulo:</Form.Label>
+          <Form.Control
+            type="text"
+            name="titulo"
+            value={publicacion.titulo}
+            onChange={handleChange}
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="descripcion">
+          <Form.Label>Descripcion:</Form.Label>
+          <Form.Control
+            type="text"
+            name="descripcion"
+            value={publicacion.descripcion}
+            onChange={handleChange}
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="imagenes">
+          <Form.Label>Imágenes:</Form.Label>
+          <div {...getRootProps()} className="dropzone-area">
+            <input {...getInputProps()} />
+            <p>
+              Arrastre y suelte archivos aquí o haga clic para seleccionar
+              archivos
+            </p>
+          </div>
+          <div className="imagen-preview-container">
+            {imagenes.map((imagen, index) => (
+              <div key={index} className="imagen-preview">
+                {index === 0 && (
+                  <>
+                    <box-icon
+                      type="solid"
+                      name="star"
+                      className="imagen-preview__icono-portada"
+                    />
+                    <span className="imagen-preview__texto-portada">
+                      Portada
+                    </span>
+                  </>
+                )}
+                <img
+                  src={URL.createObjectURL(imagen)}
+                  alt={`Imagen ${index + 1}`}
+                  className="imagen-preview__img"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleEliminarImagen(index)}
+                  className="imagen-preview__eliminar"
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+          </div>
+        </Form.Group>
+        <Button variant="primary" type="submit" disabled={loading}>
+          Crear publicación
+        </Button>
+      </Form>
+    </div>
   );
 }
