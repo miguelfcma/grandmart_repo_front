@@ -7,7 +7,7 @@ import {
   deleteProductoRequest,
   updateProductoRequest,
   createProductoRequest,
-  getProductosByUsuarioIdRequest
+  getProductosByUsuarioIdRequest,
 } from "../../../API/ProductosApiRest/productos.api";
 
 import {
@@ -17,7 +17,10 @@ import {
   getAllImagesProductRequest,
 } from "../../../API/ProductosApiRest/imagenProductos.api";
 
-import { crearPreguntaProductoRequest } from "../../../API/ProductosApiRest/preguntasProducto.api";
+import {
+  crearPreguntaProductoRequest,
+  getPreguntasByIdProductoRequest,
+} from "../../../API/ProductosApiRest/preguntasProducto.api";
 
 import { ProductoContext } from "./ProductoContext";
 
@@ -67,7 +70,6 @@ export const ProductoContextProvider = ({ children }) => {
     setFavoritos([]);
   }
 
-
   function incrementarCantidadItemCarrito(producto) {
     setCarrito((prevCarrito) =>
       prevCarrito.map((p) =>
@@ -77,7 +79,7 @@ export const ProductoContextProvider = ({ children }) => {
       )
     );
   }
-  
+
   // Decrementar la cantidad de un producto en el carrito
   function decrementarCantidadItemCarrito(producto) {
     setCarrito((prevCarrito) =>
@@ -103,7 +105,6 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await getProductosRequest();
 
       if (response.status === 200) {
-   
         setProductosAll(response.data);
       } else {
         throw new Error("No se pudo obtener la lista de productos");
@@ -113,12 +114,11 @@ export const ProductoContextProvider = ({ children }) => {
     }
   }
 
-  const loadProductosUsuario = async(id_usuario) =>{
+  const loadProductosUsuario = async (id_usuario) => {
     try {
       const response = await getProductosByUsuarioIdRequest(id_usuario);
 
       if (response.status === 200) {
-   
         setProductosUsuario(response.data);
       } else if (response.status === 404) {
         console.log("La lista de productos no existe");
@@ -126,12 +126,10 @@ export const ProductoContextProvider = ({ children }) => {
       } else {
         throw new Error("No se pudo obtener la lista de productos");
       }
-      
     } catch (error) {
       console.error(error);
     }
-  }
-
+  };
 
   const deleteProducto = async (id) => {
     try {
@@ -147,7 +145,7 @@ export const ProductoContextProvider = ({ children }) => {
   const createProducto = async (producto) => {
     try {
       const response = await createProductoRequest(producto);
- 
+
       if (response.status == 201) {
         loadProductos();
         return response.data;
@@ -188,7 +186,6 @@ export const ProductoContextProvider = ({ children }) => {
     }
   };
 
-  
   const getImgPortadaProducto = async (id_producto) => {
     const response = await getProductImagePortadaRequest(id_producto);
     if (response.status == 200) {
@@ -201,7 +198,6 @@ export const ProductoContextProvider = ({ children }) => {
   const getProductImagesGaleria = async (id_producto) => {
     const response = await getProductImagesGaleriaRequest(id_producto);
     if (response.status == 200) {
-   
       return response.data;
     } else {
       return null;
@@ -211,22 +207,33 @@ export const ProductoContextProvider = ({ children }) => {
   const getAllImagesProduct = async (id_producto) => {
     const response = await getAllImagesProductRequest(id_producto);
     if (response.status == 200) {
-   
       return response.data;
     } else {
       return null;
     }
   };
 
+  //Preguntas
 
-
-  //Preguntas 
-  
   const crearPreguntaProducto = async (data) => {
     try {
       const response = await crearPreguntaProductoRequest(data);
 
       if (response.status == 201) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getPreguntasByIdProducto = async (data) => {
+    try {
+      const response = await getPreguntasByIdProductoRequest(data);
+      console.log(response);
+      if (response.status == 200) {
         return response.data;
       } else {
         return null;
@@ -260,9 +267,8 @@ export const ProductoContextProvider = ({ children }) => {
         decrementarCantidadItemCarrito,
         vaciarFavoritos,
 
-
-
-        crearPreguntaProducto
+        crearPreguntaProducto,
+        getPreguntasByIdProducto,
       }}
     >
       {children}

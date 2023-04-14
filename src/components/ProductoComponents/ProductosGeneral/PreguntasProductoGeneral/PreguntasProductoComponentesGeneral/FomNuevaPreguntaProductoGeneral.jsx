@@ -3,7 +3,7 @@ import { useProductos } from "../../../ProductosContext/ProductoProvider";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-export function FomNuevaPreguntaProductoGeneral({id_producto}) {
+export function FomNuevaPreguntaProductoGeneral({id_producto,actualizarPreguntas}) {
   const { crearPreguntaProducto } = useProductos();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -29,6 +29,7 @@ export function FomNuevaPreguntaProductoGeneral({id_producto}) {
         id_producto: id_producto,
         id_usuario: usuario.id,
       });
+      actualizarPreguntas()
       alert("La pregunta fue creada exitosamente.");
     } catch (error) {
       alert("Ocurrió un error al crear la pregunta.");

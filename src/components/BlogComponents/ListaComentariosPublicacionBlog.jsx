@@ -24,6 +24,8 @@ export function ListaComentariosPublicacionBlog({ id_publicacionBlog }) {
 
     fetchComentarios();
   }, [id_publicacionBlog]);
+
+  
   const actualizarComentarios = async () => {
     try {
       const comentariosActualizados = await getComentariosPorIdPublicacion(
