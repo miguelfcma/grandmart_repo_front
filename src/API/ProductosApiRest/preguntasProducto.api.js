@@ -1,8 +1,9 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
 
-export const crearPregunta = async (data) => {
+export const crearPreguntaProductoRequest = async (data) => {
   try {
+    console.log("el bicho siuu", data)
     const response = await axios.post(`${API_BASE_URL}producto-preguntas`, data);
     console.log({
       status: response.status,

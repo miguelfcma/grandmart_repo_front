@@ -17,6 +17,8 @@ import {
   getAllImagesProductRequest,
 } from "../../../API/ProductosApiRest/imagenProductos.api";
 
+import { crearPreguntaProductoRequest } from "../../../API/ProductosApiRest/preguntasProducto.api";
+
 import { ProductoContext } from "./ProductoContext";
 
 export const useProductos = () => {
@@ -199,7 +201,7 @@ export const ProductoContextProvider = ({ children }) => {
   const getProductImagesGaleria = async (id_producto) => {
     const response = await getProductImagesGaleriaRequest(id_producto);
     if (response.status == 200) {
-      console.log(response.data);
+   
       return response.data;
     } else {
       return null;
@@ -209,10 +211,28 @@ export const ProductoContextProvider = ({ children }) => {
   const getAllImagesProduct = async (id_producto) => {
     const response = await getAllImagesProductRequest(id_producto);
     if (response.status == 200) {
-      console.log(response.data);
+   
       return response.data;
     } else {
       return null;
+    }
+  };
+
+
+
+  //Preguntas 
+  
+  const crearPreguntaProducto = async (data) => {
+    try {
+      const response = await crearPreguntaProductoRequest(data);
+
+      if (response.status == 201) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
   return (
@@ -238,7 +258,11 @@ export const ProductoContextProvider = ({ children }) => {
         vaciarCarrito,
         incrementarCantidadItemCarrito,
         decrementarCantidadItemCarrito,
-        vaciarFavoritos
+        vaciarFavoritos,
+
+
+
+        crearPreguntaProducto
       }}
     >
       {children}

@@ -1,10 +1,11 @@
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
-import { ComentariosProducto } from "../ComentariosProductoGeneral/ComentariosProducto";
-import { ReviewsProducto } from "../ReviewsProductosGeneral/ReviewsProducto";
+
+import { ReviewsProducto } from "../ReviewsProductoGeneral/ReviewsProducto";
 import "./DetallesProductoGeneral.css";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
+import { PreguntasProductoComponenteCompletoGeneral } from "../PreguntasProductoGeneral/PreguntasProductoComponenteCompletoGeneral";
 
 export function DetallesProductoGeneral({ id }) {
   const {
@@ -128,10 +129,12 @@ export function DetallesProductoGeneral({ id }) {
             <br></br>
 
             <button onClick={() => window.history.back()}>Regresar</button>
-            <ComentariosProducto />
-            <ReviewsProducto />
+            
           </div>
+          <PreguntasProductoComponenteCompletoGeneral  id_producto={producto.id}/>
+          <ReviewsProducto/>
         </>
+        
       )}
     </div>
     </div>
