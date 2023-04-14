@@ -1,0 +1,95 @@
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+}
+  
+  .infoProductoTitulo{
+    display: inline-block;
+    max-width: 98%;
+    font-size: 30px;
+    margin-top: 1px;
+    margin-left: 16px;
+    
+  }
+
+  .infoProducto {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: -20px;
+    text-align: justify;
+    
+  }
+
+  .infoProductoPrecio{
+    font-size: 30px;
+  }
+
+  .infoProductoDescripcion{
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .infoProductoCaracteristicas{
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  .galeria {
+    display: inline-block;
+    height: 240px;
+    max-width: 98%; /* máximo abarcará 1280px */
+    margin: 0;
+    padding: 0;
+    margin-left: 14px;
+    margin-top: 10px;
+  }
+  
+  .galeria img{
+    cursor: pointer;
+    height: 99%; /* cubre 99% de altura */
+    width: 96%; /* cubre 96% de ancho */
+    object-fit: fill; /* la imagen se ajusta al tamaño de la caja */
+    margin-top: 1px; /* centrar horizontalmente */
+  }
+  
+  
+  .galeria img:hover{
+    opacity: 60%;
+    animation: zoom-in 0.1s ease-in-out forwards;
+    
+  }
+  
+  .galeria img:not(:hover) {
+    transform: none;
+    animation: none;  
+  }
+  
+  .imagenAmpliada {
+    position: fixed;
+    top: 160px;
+    left: 450px;
+    right: auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    animation: none;
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1.6);
+    height: auto;
+    width: auto;
+    margin-top: 0px;
+    padding: 3px 3px 3px 3px;
+    object-fit: contain;
+  }
+
+  .imagenAmpliada:hover {
+    animation: none;
+    transition: none;
+    z-index: -99999;
+  }
+
+  
