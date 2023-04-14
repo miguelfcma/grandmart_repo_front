@@ -8,25 +8,21 @@ export function ListaPreguntasProductoGeneral({id_producto, actualizarPreguntas}
   useEffect(() => {
     const fetchPreguntas = async () => {
       const preguntasData = await getPreguntasByIdProducto(id_producto);
-      console.log(preguntasData)
-      setPreguntas(preguntasData);
+      setPreguntas(preguntasData || []);
     };
-
     fetchPreguntas();
-}, [id_producto, actualizarPreguntas]);
+  }, [id_producto, actualizarPreguntas]);
 
   return (
     <div>
       <h2>Preguntas</h2>
-      {preguntas.length > 0 ? (
+      {preguntas && preguntas.length > 0 ? (
         <ul>
           {preguntas.map((pregunta) => (
             <li key={pregunta.id}>
               <p>{pregunta.pregunta}</p>
               <p>{pregunta.respuesta}</p>
               <div className="fecha">Pregunta realizada el:{new Date(pregunta.updatedAt).toLocaleDateString()} Por: {pregunta.usuario.nombre}</div>
-
-              
             </li>
           ))}
         </ul>
