@@ -8,12 +8,11 @@ import axios from "axios";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 import { useCategorias } from "../CategoriaComponents/CategoriasContext/CategoriaProvider";
 
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-
-export function Navbar() {
+export function Navbar({ onSearch }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   const { vaciarFavoritos } = useProductos();
@@ -45,13 +44,10 @@ export function Navbar() {
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(`/api/productos?search=${searchTerm}`);
-      // Guardar los productos obtenidos en el estado de la aplicación
-    } catch (error) {
-      // Manejar errores de la llamada a la API
-    }
+
+  const handleSearch = () => {
+    onSearch(searchTerm);
+   
   };
 
   return (
@@ -67,14 +63,18 @@ export function Navbar() {
         <div className="navbar-search">
           <InputGroup className="mb-3">
             <Form.Control
-              type= "text"
+              type="text"
               placeholder="Buscar"
               name="search"
               value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Button variant="outline-secondary" id="button-addon2" onClick={handleSearch}>
-                <box-icon name="search-alt" color="#ffffff"></box-icon>
+            <Button
+              variant="outline-secondary"
+              id="button-addon2"
+              onClick={handleSearch}
+            >
+              <box-icon name="search-alt" color="#ffffff"></box-icon>
             </Button>
           </InputGroup>
         </div>
@@ -96,13 +96,13 @@ export function Navbar() {
                 ))}
               </div>
             </li>
-            <li> {usuario ? (
-              <Link to="/blog">Blog</Link>
-
+            <li>
+              {" "}
+              {usuario ? (
+                <Link to="/blog">Blog</Link>
               ) : (
                 <Link to="/login">Blog</Link>
-
-                )}
+              )}
             </li>
             <li>
               <Link to="/">Contacto</Link>
@@ -154,6 +154,3 @@ export function Navbar() {
     </nav>
   );
 }
-
-
-

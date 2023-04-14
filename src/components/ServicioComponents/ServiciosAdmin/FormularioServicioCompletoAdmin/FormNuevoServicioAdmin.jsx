@@ -6,6 +6,7 @@ import { Form, Button, Col } from "react-bootstrap";
 
 export function FormNuevoServicioAdmin({handleServicioRegistrado}) {
   const navigate = useNavigate();
+  
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { createServicio } = useServicios();
   const [servicio, setServicio] = useState({

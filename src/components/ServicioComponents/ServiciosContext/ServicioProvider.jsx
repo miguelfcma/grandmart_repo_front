@@ -6,7 +6,7 @@ import {
   deleteServicioRequest,
   updateServicioRequest,
 } from "../../../API/ServiciosApiRest/servicios.api";
-
+import { createImagenesRequest } from "../../../API/ServiciosApiRest/imagenServicio.api";
 import { ServicioContext } from "./ServicioContext";
 
 export const useServicios = () => {
@@ -61,7 +61,7 @@ export const ServicioContextProvider = ({ children }) => {
   const updateServicio = async (id, servicio) => {
     try {
       const response = await updateServicioRequest(id, servicio);
- 
+
       if (response.status == 200) {
         loadServiciosAll();
         return true;
@@ -72,8 +72,39 @@ export const ServicioContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+  const createImagenesServicioEnbd = async (id_servicio, imagenes) => {
+    try {
+      const response = await createImagenesRequest(
+        id_servicio,
+        imagenes
+      );
 
-  
+      if (response.status == 201) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  /*
+  const getImagenPortadaPorIdPublicacion = async (id_publicacionBlog) => {
+    try {
+      const response = await getImagenPortadaPorIdPublicacionRequest(
+        id_publicacionBlog
+      );
+
+      if (response.status === 200 && response.data) {
+        return response.data.url;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+*/
 
   return (
     <ServicioContext.Provider
@@ -83,6 +114,8 @@ export const ServicioContextProvider = ({ children }) => {
         deleteServicio,
         createServicio,
         updateServicio,
+
+        createImagenesServicioEnbd,
       }}
     >
       {children}

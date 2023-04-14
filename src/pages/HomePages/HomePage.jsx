@@ -4,11 +4,13 @@ import { FormCreateBackup } from "../../components/BackupComponents/FormCreateBa
 import { useState } from "react";
 export function HomePage() {
     const [searchTerm, setSearchTerm] = useState("");
-
+    const handleSearch = (searchTerm) => {
+      setSearchTerm(searchTerm)
+    };
     
     return (
       <>
-        <Navbar setSearchTerm={setSearchTerm} />
+        <Navbar onSearch={handleSearch}/>
         
         <Content searchTerm={searchTerm} />
       </>

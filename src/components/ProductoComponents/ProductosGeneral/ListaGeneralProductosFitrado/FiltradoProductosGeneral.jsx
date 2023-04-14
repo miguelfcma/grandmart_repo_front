@@ -37,7 +37,6 @@ export function FiltradoProductosGeneral({id_categoria}) {
 
   return (
     <>
-      <h2 className="titulo">Lista de productos:</h2>
       <div className="list-productos">{renderMain()}</div>
     </>
   );

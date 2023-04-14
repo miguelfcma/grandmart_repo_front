@@ -120,6 +120,7 @@ export function DetallesProductoGeneral({ id }) {
                   <div>Estado: {producto.estado ? "Nuevo" : "Usado"}</div>
                   <div>Categoría: {producto.categoria.nombre}</div>
                   <div>Producto públicado por: {producto.usuario.nombre}</div>
+                  <div>Cantidades disponibles: {producto.stock}</div>
                 </div>
               </Card.Title>
             </Card>

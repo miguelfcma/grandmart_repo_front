@@ -241,8 +241,7 @@ export const BlogContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-  getImagenPortadaPorIdPublicacionRequest;
-
+ 
   return (
     <BlogContext.Provider
       value={{
