@@ -2,13 +2,13 @@ import { useRef, useState } from "react";
 import {
   uploadImageServicio,
   uploadImagesServicio,
-} from "../../../firebase/servicioStorage";
-import { useServicios } from "../ServiciosContext/ServicioProvider";
-import "./FormImgServicioCliente.css";
+} from "../../../../firebase/servicioStorage";
+import { useServicios } from "../../ServiciosContext/ServicioProvider";
+
 import { useNavigate } from "react-router-dom";
 
 export function FormImgServicioCliente({ idServicio }) {
-  const id_servicio = idServicio.idServicio;
+  const id_servicio = idServicio;
 
   const { createServiceImage } = useServicios();
   const navigate = useNavigate();
@@ -51,23 +51,7 @@ export function FormImgServicioCliente({ idServicio }) {
     setError("");
   };
 
-  const handleAgregarPortada = (event) => {
-    event.preventDefault();
-    const archivo = portadaRef.current.files[0];
-
-    if (!archivo) {
-      setError("Debe seleccionar una imagen");
-      return;
-    }
-
-    setImgPortada({
-      archivo,
-      url: URL.createObjectURL(archivo),
-    });
-
-    portadaRef.current.value = "";
-    setError("");
-  };
+ 
 
   const handleEliminarImagen = (index) => {
     const nuevasImagenes = [...imagenes];

@@ -101,7 +101,7 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await getProductosRequest();
 
       if (response.status === 200) {
-        console.log(response.data)
+   
         setProductosAll(response.data);
       } else {
         throw new Error("No se pudo obtener la lista de productos");
@@ -116,7 +116,7 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await getProductosByUsuarioIdRequest(id_usuario);
 
       if (response.status === 200) {
-        console.log(response.data);
+   
         setProductosUsuario(response.data);
       } else if (response.status === 404) {
         console.log("La lista de productos no existe");
@@ -145,7 +145,7 @@ export const ProductoContextProvider = ({ children }) => {
   const createProducto = async (producto) => {
     try {
       const response = await createProductoRequest(producto);
-      console.log(response.data);
+ 
       if (response.status == 201) {
         loadProductos();
         return response.data;
@@ -175,7 +175,7 @@ export const ProductoContextProvider = ({ children }) => {
   const createProductImage = async (imgProducto) => {
     try {
       const response = await createProductImageRequest(imgProducto);
-      console.log(response.data);
+
       if (response.status == 201) {
         return response.data;
       } else {

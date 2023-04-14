@@ -1,6 +1,6 @@
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 import "../HomePageComponents/NavBar.css";
-
+import "./Favoritos.css";
 export function Favoritos() {
   const { favoritos, eliminarFavorito } = useProductos();
 
@@ -8,19 +8,17 @@ export function Favoritos() {
     eliminarFavorito(producto);
   };
 
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
-    // redirigir a la página de inicio de sesión o a la página principal
-  };
-  
-
   return (
     <div className="navbar-links">
       <ul>
         <li className="dropdown">
+          {favoritos.length === 0 ? (
+            <div></div>
+          ) : (
+            <div className="favoritos-count">{favoritos.length}</div>
+          )}
+         
+
           <a href="#" className="dropbtn">
             Favoritos
           </a>
@@ -32,9 +30,14 @@ export function Favoritos() {
                 <>
                   {favoritos.map((producto) => (
                     <div key={producto.id} className="favoritos-item">
-                      <a href={`/productos/detalles/${producto.id}`}>{producto.nombre}</a>
+                      <a href={`/productos/detalles/${producto.id}`}>
+                        {producto.nombre}
+                      </a>
                       <div className="eliminar-btn-container">
-                        <button className="eliminar-btn" onClick={() => handleEliminar(producto)}>
+                        <button
+                          className="eliminar-btn"
+                          onClick={() => handleEliminar(producto)}
+                        >
                           Eliminar
                         </button>
                       </div>

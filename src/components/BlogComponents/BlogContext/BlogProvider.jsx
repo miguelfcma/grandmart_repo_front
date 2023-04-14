@@ -15,6 +15,11 @@ import {
   updateComentarioPorIdUsuarioRequest,
 } from "../../../API/BlogApiRest/comentarioBlog.api";
 
+import {
+  createImagenesPublicacionBlogRequest,
+  getImagenPortadaPorIdPublicacionRequest,
+} from "../../../API/BlogApiRest/imagenBlog.api";
+
 import { BlogContext } from "./BlogContext";
 
 export const usePublicacionesBlog = () => {
@@ -35,7 +40,6 @@ export const BlogContextProvider = ({ children }) => {
       const response = await getPublicacionesRequest();
 
       if (response.status === 200) {
-        console.log(response.data);
         setPublicaciones(response.data);
       } else {
         throw new Error("No se pudo obtener la lista de publicaciones");
@@ -60,7 +64,10 @@ export const BlogContextProvider = ({ children }) => {
     }
   };
 
-  const deletePublicacionPorIdUsuario = async (id_usuario, id_publicacionBlog) => {
+  const deletePublicacionPorIdUsuario = async (
+    id_usuario,
+    id_publicacionBlog
+  ) => {
     try {
       const response = await deletePublicacionPorIdUsuarioRequest(
         id_usuario,
@@ -83,8 +90,8 @@ export const BlogContextProvider = ({ children }) => {
       const response = await createPublicacionRequest(publicacion);
 
       if (response.status == 201) {
-        loadPublicaciones(); // Llama a la función loadPublicaciones después de crear la publicación.
-        return true;
+        loadPublicaciones();
+        return response;
       } else {
         return false;
       }
@@ -152,7 +159,6 @@ export const BlogContextProvider = ({ children }) => {
       );
 
       if (response.status === 200) {
-        console.log(response.data)
         return response.data;
       } else {
         throw new Error("No se pudo obtener la lista de comentarios");
@@ -200,6 +206,43 @@ export const BlogContextProvider = ({ children }) => {
     }
   };
 
+  const createImagenesPublicacionBlog = async (
+    id_publicacionBlog,
+    imagenes
+  ) => {
+    try {
+      const response = await createImagenesPublicacionBlogRequest(
+        id_publicacionBlog,
+        imagenes
+      );
+
+      if (response.status == 201 && response.data) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getImagenPortadaPorIdPublicacion = async (id_publicacionBlog) => {
+    try {
+      const response = await getImagenPortadaPorIdPublicacionRequest(
+        id_publicacionBlog
+      );
+
+      if (response.status === 200 && response.data) {
+        return response.data.url;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  getImagenPortadaPorIdPublicacionRequest;
+
   return (
     <BlogContext.Provider
       value={{
@@ -216,6 +259,9 @@ export const BlogContextProvider = ({ children }) => {
         getComentariosPorIdPublicacion,
         createComentario,
         loadComentarios,
+
+        createImagenesPublicacionBlog,
+        getImagenPortadaPorIdPublicacion,
       }}
     >
       {children}

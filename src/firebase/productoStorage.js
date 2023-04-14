@@ -42,7 +42,6 @@ export async function uploadImagesProducto(files) {
     const url = await getDownloadURL(storageRef);
     urls.push(url);
   }
-
   return urls;
 }
 export async function updateImageProducto(file, url) {

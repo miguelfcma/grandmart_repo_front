@@ -28,7 +28,7 @@ export const ServicioContextProvider = ({ children }) => {
       if (response === undefined) {
         throw new Error("No se pudo obtener la lista de servicios");
       }
-      setServicios(response);
+      setServiciosAll(response);
     } catch (error) {
       console.error(error);
     }
@@ -47,9 +47,9 @@ export const ServicioContextProvider = ({ children }) => {
     try {
       const response = await createServicioRequest(servicio);
 
-      if (response.status == 201) {
+      if (response.status === 201) {
         loadServiciosAll();
-        return true;
+        return response.data;
       } else {
         return false;
       }
@@ -61,7 +61,7 @@ export const ServicioContextProvider = ({ children }) => {
   const updateServicio = async (id, servicio) => {
     try {
       const response = await updateServicioRequest(id, servicio);
-      console.log(response);
+ 
       if (response.status == 200) {
         loadServiciosAll();
         return true;

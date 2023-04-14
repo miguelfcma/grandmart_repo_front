@@ -13,36 +13,58 @@
     border-color: #999;
   }
   
-  /* Estilos personalizados para las imágenes agregadas */
-  .imagen-preview {
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    position: relative;
+  .imagen-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
-  .imagen-preview img {
+  
+  .imagen-preview {
+    position: relative;
+    width: calc(25% - 0.75rem); /* ajusta el tamaño de las imágenes */
+  }
+  
+  .imagen-preview__img {
+    display: block;
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    object-fit: cover;
   }
-  .imagen-preview button {
+  
+
+
+  
+  .imagen-preview__portada-container {
+    position: relative;
+  }
+  
+  .imagen-preview__icono-portada {
     position: absolute;
-    top: -10px;
-    right: -10px;
-    border: none;
-    border-radius: 50%;
-    background-color: #fff;
-    color: #aaa;
-    font-size: 18px;
-    line-height: 1;
-    width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    top: 10px; /* ajusta esta posición según tus necesidades */
+    left: 10px; /* ajusta esta posición según tus necesidades */
+    font-size: 24px;
+    color: yellow; /* ajusta el color según tus necesidades */
   }
-  .imagen-preview button:hover {
-    background-color: #eee;
+  
+  .imagen-preview__texto-portada {
+    position: absolute;
+    top: 10px; /* ajusta esta posición según tus necesidades */
+    left: 40px; /* ajusta esta posición según tus necesidades */
+    font-size: 16px;
+    color: white; /* ajusta el color según tus necesidades */
+    background-color: rgba(0, 0, 0, 0.6); /* ajusta el fondo según tus necesidades */
+    padding: 5px; /* ajusta el padding según tus necesidades */
+    border-radius: 5px; /* ajusta el borde según tus necesidades */
+  }
+  
+  .imagen-preview__eliminar {
+    position: absolute;
+    top: 10px; /* ajusta esta posición según tus necesidades */
+    right: 10px; /* ajusta esta posición según tus necesidades */
+    background-color: red; /* ajusta el color según tus necesidades */
+    color: white; /* ajusta el color según tus necesidades */
+    border: none;
+    padding: 5px; /* ajusta el padding según tus necesidades */
+    border-radius: 5px; /* ajusta el borde según tus necesidades */
   }
   

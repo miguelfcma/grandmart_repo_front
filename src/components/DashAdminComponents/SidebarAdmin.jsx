@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./SidebarAdmin.css";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 
-export function SidebarAdmin({ children }) {
+export function SidebarAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const {vaciarFavoritos} = useProductos();
 
@@ -30,9 +30,6 @@ export function SidebarAdmin({ children }) {
           <Link to="/dashAdmin/categorias">Categorias</Link>
         </li>
         <li>
-          <Link to="/dashAdmin/usuarios">Usuarios</Link>
-        </li>
-        <li>
           <Link to="/dashAdmin/pedidos">Pedidos</Link>
         </li>
         <li>
@@ -44,9 +41,6 @@ export function SidebarAdmin({ children }) {
         <li>
           <Link to="/dashAdmin/estadisticas">Estadísticas</Link>
         </li>
-        <li>
-          <Link to="/dashAdmin/database-backup">Base de datos</Link>
-        </li>
       </ul>
       <div className="user-options">
         <p>Bienvenido: {usuario.nombre+" "+usuario.apellidoPaterno+" "+usuario.apellidoMaterno}</p>
@@ -57,7 +51,7 @@ export function SidebarAdmin({ children }) {
 
         <Link to="/" onClick={handleLogout} style={{ textDecoration: 'none', color: 'white' }} className="iconuser"><box-icon name='log-out' color='#ffffff' ></box-icon>Cerrar sesión</Link>
       </div>
-      {children}
+
     </div>
   );
 }

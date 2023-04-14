@@ -14,9 +14,11 @@ export function CardProductoGeneral({ producto }) {
     carrito,
     agregarItemCarrito,
   } = useProductos();
-  const [urlImagen, setUrlImagen] = useState("");
+
   const esFavorito = favoritos.some((p) => p.id === producto.id);
   const esProductoEnCarrito = carrito.some((p) => p.id === producto.id);
+  
+  const [urlImagen, setUrlImagen] = useState("");
   async function obtenerUrlImagenAsync(idProducto) {
     const url = await getImgPortadaProducto(idProducto);
     setUrlImagen(url);
@@ -46,10 +48,11 @@ export function CardProductoGeneral({ producto }) {
   }
 
   return (
-
-      <div className="card-producto">
-
-        <Link to={`/productos/detalles/${producto.id}`} style={{ textDecoration: "none" }}>
+    <div className="card-producto">
+      <Link
+        to={`/productos/detalles/${producto.id}`}
+        style={{ textDecoration: "none" }}
+      >
         <img
           className="card-producto-img"
           src={urlImagen}
@@ -59,27 +62,27 @@ export function CardProductoGeneral({ producto }) {
         <br></br>
         <div>${producto.precio}</div>
         <div>{producto.usuario.nombre}</div>
-        </Link>
+      </Link>
 
-        <button
-          onClick={toggleFavorito}
-          title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}
-        >
-          <box-icon
-            type="solid"
-            name="heart"
-            color={esFavorito ? "red" : "white"}
-          ></box-icon>
-        </button>
-        <button
-          onClick={agregarAlCarrito}
-          disabled={esProductoEnCarrito}
-          title={
-            esProductoEnCarrito ? "Ya está en el carrito" : "Agregar al carrito"
-          }
-        >
-          {esProductoEnCarrito ? "Agregado al carrito" : "Agregar al carrito"}
-        </button>
-      </div>
+      <button
+        onClick={toggleFavorito}
+        title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}
+      >
+        <box-icon
+          type="solid"
+          name="heart"
+          color={esFavorito ? "red" : "white"}
+        ></box-icon>
+      </button>
+      <button
+        onClick={agregarAlCarrito}
+        disabled={esProductoEnCarrito}
+        title={
+          esProductoEnCarrito ? "Ya está en el carrito" : "Agregar al carrito"
+        }
+      >
+        {esProductoEnCarrito ? "Agregado al carrito" : "Agregar al carrito"}
+      </button>
+    </div>
   );
 }
