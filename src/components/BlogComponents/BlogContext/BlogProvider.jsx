@@ -216,7 +216,7 @@ export const BlogContextProvider = ({ children }) => {
         imagenes
       );
 
-      if (response.status == 201 && response.data) {
+      if (response.status == 201 ) {
         return response.data;
       } else {
         return null;
