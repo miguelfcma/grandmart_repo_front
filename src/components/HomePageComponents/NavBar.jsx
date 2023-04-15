@@ -2,17 +2,22 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import React from "react";
 import { Favoritos } from "../FavoritosComponents/Favoritos";
-import "./NavBar.css";
 import { Carrito } from "../CarritoComponents/Carrito";
 import axios from "axios";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 import { useCategorias } from "../CategoriaComponents/CategoriasContext/CategoriaProvider";
 
+import "./NavBar.css";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+
 import InputGroup from "react-bootstrap/InputGroup";
 
-export function Navbar({ onSearch }) {
+export function Navbar1({ onSearch }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   const { vaciarFavoritos } = useProductos();
@@ -29,11 +34,7 @@ export function Navbar({ onSearch }) {
     { id: 27, nombre: "Consultoría", link: "/productos/categoria/27" },
     { id: 28, nombre: "Salud", link: "/productos/categoria/28" },
     { id: 29, nombre: "Movilidad", link: "/productos/categoria/29" },
-    {
-      id: 30,
-      nombre: "Enseñanza Aprendizaje",
-      link: "/productos/categoria/30",
-    },
+    { id: 30, nombre: "Enseñanza Aprendizaje", link: "/productos/categoria/30"},
     { id: 31, nombre: "Mascotas", link: "/productos/categoria/31" },
     { id: 32, nombre: "Vivienda", link: "/productos/categoria/32" },
     { id: 33, nombre: "Emprendimientos", link: "/productos/categoria/33" },
@@ -47,21 +48,20 @@ export function Navbar({ onSearch }) {
 
   const handleSearch = () => {
     onSearch(searchTerm);
-   
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <Link to="/">
+    <Navbar collapseOnSelect expand="lg" bg="light">
+      <Container className="navbar-container">
+        <Navbar.Brand href="/">
           <img
             alt="e-commerce"
             src="../src/components/HomePageComponents/logo.png"
           />
-        </Link>
-
-        <div className="navbar-search">
-          <InputGroup className="mb-3">
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav" className="my-navbar-collapse">
+          <InputGroup className="navbar-search">
             <Form.Control
               type="text"
               placeholder="Buscar"
@@ -69,88 +69,67 @@ export function Navbar({ onSearch }) {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Button
-              variant="outline-secondary"
-              id="button-addon2"
-              onClick={handleSearch}
-            >
-              <box-icon name="search-alt" color="#ffffff"></box-icon>
+            <Button onClick={handleSearch}>
+              <box-icon name="search-alt" color="#ffffff">
+              </box-icon>
             </Button>
           </InputGroup>
-        </div>
 
-        <div className="navbar-links">
-          <ul>
-            <li className="dropdown">
-              <Link to="/categorias" className="dropbtn">
-                Categorías
-              </Link>
-              <div className="dropdown-content">
+          <Nav className="elementosnavbar" >
+            <NavDropdown
+              title="Categorías"
+              id="collasible-nav-dropdown"
+              onMouseEnter={(e) => {
+                e.currentTarget.click();
+              }}
+            >
+              <Nav.Link href="/categorias" >
                 {categorias.map((categoria) => (
-                  <Link
+                  <NavDropdown.Item
                     key={categoria.id}
-                    to={`/productos/categoria/${categoria.id}`}
+                    href={`/productos/categoria/${categoria.id}`}
                   >
                     {categoria.nombre}
-                  </Link>
+                  </NavDropdown.Item>
+                  
                 ))}
-              </div>
-            </li>
-            <li>
-              {" "}
-              {usuario ? (
-                <Link to="/blog">Blog</Link>
-              ) : (
-                <Link to="/login">Blog</Link>
-              )}
-            </li>
-            <li>
-              <Link to="/">Contacto</Link>
-            </li>
-            <li>
-              <div className="navbar-links">
-                <Favoritos />
-              </div>
-            </li>
-            <li>
-              <div className="navbar-links navbar-carrito">
-                <Carrito />
-              </div>
-            </li>
+                <NavDropdown.Divider />
+                  <NavDropdown.Item href="/categorias">
+                    Ver más categorías
+                  </NavDropdown.Item>
+              </Nav.Link>
+            </NavDropdown>
+
+            <Nav.Link href="/blog">Blog</Nav.Link>
+            <Nav.Link href="/">Contacto</Nav.Link>
+            <Nav.Link>
+              <Favoritos />
+            </Nav.Link>
+            <Nav.Link>
+              <Carrito />
+            </Nav.Link>
             {usuario ? (
-              <li className="dropdown">
+              <NavDropdown title={usuario.nombre} id="collasible-nav-dropdown">
                 {usuario.tipoUsuario === true ? (
-                  <Link to="/dashAdmin" className="dropbtn">
-                    <div className="iconuser">
-                      <box-icon name="user"></box-icon>
-                    </div>
-                    {usuario.nombre}
-                  </Link>
+                  <NavDropdown.Item href="/dashAdmin">
+                    <box-icon name="user"></box-icon> Administración
+                  </NavDropdown.Item>
                 ) : (
-                  <Link to="/dashClient" className="dropbtn">
-                    <div className="iconuser">
-                      <box-icon name="user"></box-icon>
-                    </div>
-                    {usuario.nombre}
-                  </Link>
+                  <NavDropdown.Item href="/dashClient">
+                    <box-icon name="user"></box-icon> Mi cuenta
+                  </NavDropdown.Item>
                 )}
-                <div className="dropdown-content">
-                  <Link to="/login" onClick={handleLogout}>
-                    <div className="iconuser">
-                      Salir
-                      <box-icon name="log-out"></box-icon>
-                    </div>
-                  </Link>
-                </div>
-              </li>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>
+                  <box-icon name="log-out"></box-icon> Salir
+                </NavDropdown.Item>
+              </NavDropdown>
             ) : (
-              <li>
-                <Link to="/login">Ingresa</Link>
-              </li>
+              <Nav.Link href="/login">Ingresa</Nav.Link>
             )}
-          </ul>
-        </div>
-      </div>
-    </nav>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }

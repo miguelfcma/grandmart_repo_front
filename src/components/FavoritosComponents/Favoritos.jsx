@@ -17,11 +17,7 @@ export function Favoritos() {
           ) : (
             <div className="favoritos-count">{favoritos.length}</div>
           )}
-         
-
-          <a href="#" className="dropbtn">
             Favoritos
-          </a>
           <div className="dropdown-content">
             <div className="favoritos-dropdown">
               {favoritos.length === 0 ? (

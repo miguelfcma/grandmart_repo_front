@@ -23,7 +23,11 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
     );
 
     if (filteredProductos.length === 0) {
-      return <h1>No hay productos registrados</h1>;
+      return(
+      <h2>No hay publicaciones que coincidan con tu búsqueda </h2>,
+      <h2> * Revisa la ortografía de la palabra.</h2>,
+      <h2>Utiliza palabras más genéricas o menos palabras.</h2>,
+      <h2>Navega por las categorías para encontrar un producto similar</h2>)
     } else {
       return filteredProductos.map((producto) => (
         <CardProductoGeneral key={producto.id} producto={producto} />

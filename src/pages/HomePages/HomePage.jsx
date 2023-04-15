@@ -1,4 +1,4 @@
-import { Navbar } from "../../components/HomePageComponents/NavBar"
+import { Navbar1 } from "../../components/HomePageComponents/NavBar"
 import { Content } from "../../components/HomePageComponents/Content"
 import { FormCreateBackup } from "../../components/BackupComponents/FormCreateBackup";
 import { useState } from "react";
@@ -10,7 +10,7 @@ export function HomePage() {
     
     return (
       <>
-        <Navbar onSearch={handleSearch}/>
+        <Navbar1 onSearch={handleSearch}/>
         
         <Content searchTerm={searchTerm} />
       </>

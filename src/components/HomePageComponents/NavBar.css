@@ -17,7 +17,6 @@
 
 .navbar {
   background-color: #fff;
-  border-bottom: 1px solid #ccc;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   height: 60px;
   padding: 0 20px;
@@ -26,6 +25,10 @@
   right: 0;
   width: 100%; /* Establece el ancho en 100% para ocupar todo el ancho de la pantalla */
   z-index: 1000; /*Para que se muestre por encima del carrusel*/
+  }
+
+  .navbar .dropdown-menu {
+    background-color: #fff;
   }
   
   .navbar-container {
@@ -38,11 +41,12 @@
   }
 
 .navbar-search {
-  flex-basis: 40%;
+  flex-basis: 32%;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  top: -7px;
+  left: -15px;
 }
 
 .navbar-search input {
@@ -57,35 +61,35 @@
 
 .navbar-search button {
   background-color: #1c6bc3 !important;
-  margin-right: 3px;
+  margin-right: 2px;
   margin-top: 35px;
   height: 40px;
+  padding: 8px 10px;
 }
 
-.navbar-links ul {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.elementosnavbar{
+  gap: 14px;
+  font-weight: bold;
 }
 
-.navbar-links li {
-  margin-right: 20px;
+.menuresponsivo{
+  background-color: #1256a3;
+  
 }
 
-.navbar-links a {
-  color: #333;
-  font-size: 16px;
-  font-weight: bold; /* texto más grueso */
-  text-decoration: none;
-}
-
-.navbar-links a:hover {
-  color: #ffffff;
-  font-size: 17px;
-  overflow: hidden; /* evita que el texto desborde del contenedor */
+/* Este estilo sólo se aplicará al navbar cuando la pantalla se vea reducida */
+@media (max-width: 992px) {
+  .my-navbar-collapse {
+    background-color: rgba(245, 245, 245, 0.979) !important;
+    border-radius: 6px;
+    margin-top: -2px;
+    overflow-y: auto; /* para scroll vertical */
+    max-height: 270px; /* la altura máxima del menu*/
+  }
+  .navbar-nav {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }
 
 .dropdown-content {
@@ -131,19 +135,18 @@
 }
 
 .navbar-links li {
-  margin-right: 20px;
+  margin-right: 18px;
 }
 
 .navbar-links a {
   color: #333;
   font-size: 16px;
-  font-weight: bold; /* texto más grueso */
+  /* texto más grueso */
   text-decoration: none;
 }
 
 .navbar-links a:hover {
-  color: #ffffff;
-  font-size: 17px;
+  color: #1f1beb;
   overflow: hidden; /* evita que el texto desborde del contenedor */
 }
 
@@ -185,13 +188,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px; /* Ajusta el ancho del icono del carrito */
-  height: 30px; /* Ajusta la altura del icono del carrito */
+  width: 25px; /* Ajusta el ancho del icono del carrito */
+  height: 25px; /* Ajusta la altura del icono del carrito */
+  margin-right: 15px;
 }
 
 .cart-count {
   position: absolute;
-  top: -8px; /* Ajusta la posición vertical del contador a tu gusto */
+  top: -11px; /* Ajusta la posición vertical del contador a tu gusto */
   right: -8px; /* Ajusta la posición horizontal del contador a tu gusto */
   background-color: #f00;
   color: #fff;
@@ -279,7 +283,7 @@
 .favoritos-item a {
   color: #333;
   background-color: #ffffff;
-  font-weight: bold;
+
   text-decoration: none;
 }
 

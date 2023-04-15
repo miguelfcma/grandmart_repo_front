@@ -17,7 +17,7 @@ export function ListaCategoriasGeneral() {
       color: nivel === 0 ? "blue" : "green",
     };
     return (
-      <ListGroup.Item key={categoria.id} style={estiloCategoria}>
+      <ListGroup.Item key={categoria.id} style={estiloCategoria} className="paginacategorias">
        <Link to={`/productos/categoria/${categoria.id}`}>
         {categoria.nombre}
       </Link>
@@ -55,6 +55,7 @@ export function ListaCategoriasGeneral() {
           renderizarCategoria(categoria, 0)
         )}
       </ListGroup>
+      <br></br><br></br>
     </>
   );
 }

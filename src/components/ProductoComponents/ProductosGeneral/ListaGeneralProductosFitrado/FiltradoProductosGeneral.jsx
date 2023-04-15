@@ -33,7 +33,6 @@ export function FiltradoProductosGeneral({id_categoria}) {
       ));
     }
   }
-  
 
   return (
     <>
