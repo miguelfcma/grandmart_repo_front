@@ -87,7 +87,7 @@ export function Navbar1({ onSearch }) {
                 {categorias.map((categoria) => (
                   <NavDropdown.Item
                     key={categoria.id}
-                    href={`/productos/categoria/${categoria.id}`}
+                    href={`/productos/categoria/${categoria.id}/${categoria.nombre}`}
                   >
                     {categoria.nombre}
                   </NavDropdown.Item>

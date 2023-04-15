@@ -133,7 +133,7 @@ export function MyRoutes() {
         />
         <Route
           exact
-          path="/productos/categoria/:id_categoria"
+          path="/productos/categoria/:id_categoria/:nombre_categoria"
           element={<ProductosByCategoriaPage />}
         />
         <Route exact path="/resumen-compras" element={<CompraCarrito />} />

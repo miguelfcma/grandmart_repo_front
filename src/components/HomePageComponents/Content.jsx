@@ -3,17 +3,16 @@ import { ListProductsGeneral } from "../ProductoComponents/ProductosGeneral/List
 import {Carrusel} from "./Carrusel/Carrusel";
 import { FiltradoProductosPorBusqueda } from "../ProductoComponents/ProductosGeneral/ListaGeneralProductosFitrado/FiltradoProductosPorBusqueda";
 export function Content({ searchTerm }) {
-  console.log("siuu el bicho",searchTerm)
   return (
     <>
       <main>
-        <Carrusel/>
         {searchTerm ? (
           <FiltradoProductosPorBusqueda searchTerm={searchTerm}/>
         ) : (
-          
+          <div>
+          <Carrusel/>
           <ListProductsGeneral  />
-
+          </div>
         )}
       </main>
       <footer>

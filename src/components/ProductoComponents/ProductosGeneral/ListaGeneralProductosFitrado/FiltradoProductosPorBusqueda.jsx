@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { CardProductoGeneral } from "../ListaGeneralProductos/CardProductoGeneral";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
+import "./FiltradoProductos.css";
 
 export function FiltradoProductosPorBusqueda({ searchTerm }) {
   const { productosAll, loadProductos } = useProductos();
@@ -23,20 +24,40 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
     );
 
     if (filteredProductos.length === 0) {
-      return(
-      <h2>No hay publicaciones que coincidan con tu búsqueda </h2>,
-      <h2> * Revisa la ortografía de la palabra.</h2>,
-      <h2>Utiliza palabras más genéricas o menos palabras.</h2>,
-      <h2>Navega por las categorías para encontrar un producto similar</h2>)
+      const noHayResultados = `No hay publicaciones que coincidan con tu búsqueda "${searchTerm}."`;
+      return (
+        <div style={{ maxWidth: "1000px", marginLeft: "-90px" }}>
+          <div style={{ paddingTop: "30px", fontSize: "30px" }}>
+            {noHayResultados}
+            <br></br> <br></br>
+            * Revisa la ortografía de la palabra. <br></br>
+            * Utiliza palabras más genéricas o menos palabras. <br></br>
+            * Navega por las categorías para encontrar un producto similar.
+          </div>
+        </div>
+      );
     } else {
-      return filteredProductos.map((producto) => (
-        <CardProductoGeneral key={producto.id} producto={producto} />
-      ));
+      const siHayResultados = `Resultados para "${searchTerm}."`;
+      return (
+        <div style={{ maxWidth: "1000px", marginLeft: "-90px" }}>
+          <div style={{ paddingTop: "25px", fontSize: "30px"}}>
+            {siHayResultados}
+            
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap"}}>
+          {filteredProductos.map((producto) => (
+            <div key={producto.id} style={{marginTop: "15px", marginRight: "35px" }}>
+            <CardProductoGeneral producto={producto} />
+          </div>
+          ))}
+          </div>
+        </div>
+      );
     }
   }
   return (
     <>
-      <div className="list-productos">{renderMain()}</div>
+      <div className="filtProductos">{renderMain()}</div>
     </>
   );
 }
