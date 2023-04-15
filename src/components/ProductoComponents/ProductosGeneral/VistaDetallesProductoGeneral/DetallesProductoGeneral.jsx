@@ -132,7 +132,7 @@ export function DetallesProductoGeneral({ id }) {
             
           </div>
           <PreguntasProductoComponenteCompletoGeneral  id_producto={producto.id}/>
-          <ReviewsProducto/>
+       
         </>
         
       )}
