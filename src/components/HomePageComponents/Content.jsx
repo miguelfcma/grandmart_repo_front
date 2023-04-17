@@ -6,13 +6,15 @@ export function Content({ searchTerm }) {
   return (
     <>
       <main>
+        
         {searchTerm ? (
           <FiltradoProductosPorBusqueda searchTerm={searchTerm}/>
         ) : (
-          <div>
+          <>
           <Carrusel/>
           <ListProductsGeneral  />
-          </div>
+          </>
+
         )}
       </main>
       <footer>
