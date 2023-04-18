@@ -10,20 +10,91 @@ export function Carrito() {
     actualizarCantidadProductoEnCarrito,
     eliminarProductoDelCarrito,
     vaciarCarrito,
-
-   
   } = useProductos();
-  
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
   useEffect(() => {
-    obtenerCarritoDeCompras();
+    obtenerCarritoDeCompras(usuario.id);
   }, []);
 
+  function getTotal() {
+    return carrito.totalCantidad;
+  }
 
+  function eliminarItemCarrito(item) {
+    eliminarProductoDelCarrito(item.id_producto, { id_usuario: usuario.id });
+  }
 
+  function vaciarCarritoCompleto() {
+    vaciarCarrito(parseInt(usuario.id));
+  }
+  
+
+  function incrementarCantidadItemCarrito(item) {
+    actualizarCantidadProductoEnCarrito(item.id_producto, {
+      id_usuario: usuario.id,
+      accion: "incrementar",
+    });
+  }
+
+  function decrementarCantidadItemCarrito(item) {
+    actualizarCantidadProductoEnCarrito(item.id_producto, {
+      id_usuario: usuario.id,
+      accion: "decrementar",
+    });
+  }
 
   return (
     <div className="cart-icon-container">
-    
+      {/* Renderizar el icono del carrito y la cantidad de items en el carrito */}
+      <box-icon type="solid" name="cart" className="cart-icon"></box-icon>
+      {carrito.detalles.length === 0 ? (
+        <div></div>
+      ) : (
+        <div className="cart-count">{carrito.detalles.length}</div>
+      )}
+
+      <div className="cart-dropdown">
+        {carrito === 0 ? (
+          <p>Tu carrito está vacío.</p>
+        ) : (
+          <>
+            {carrito.detalles.map((item) => (
+              <div key={item.id} className="cart-item">
+                <div className="cart-item-info">
+                  <h3>{item.producto.nombre}</h3>
+                  <p>Precio: ${item.producto.precio}</p>
+                </div>
+                <div className="cart-item-controls">
+                  <button onClick={() => incrementarCantidadItemCarrito(item)}>
+                    +
+                  </button>
+                  <span>{item.cantidad}</span>
+                  <button onClick={() => decrementarCantidadItemCarrito(item)}>
+                    -
+                  </button>
+                  <button onClick={() => eliminarItemCarrito(item)}>
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            ))}
+            <p>Total: ${getTotal()}</p>
+            <div className="cart-actions">
+              <button onClick={vaciarCarritoCompleto}>Vaciar carrito</button>
+        
+              <Link
+                to="/resumen-compras"
+                style={{ textDecoration: "none" }}
+                className="btnpagar"
+                type="button"
+              >
+                <span>Pagar</span>
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

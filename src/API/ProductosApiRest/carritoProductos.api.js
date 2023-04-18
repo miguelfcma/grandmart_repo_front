@@ -79,11 +79,14 @@ export const eliminarProductoDelCarritoRequest = async (id_producto, data) => {
 }
    * 
    */
+  console.log(data);
   try {
     const response = await axios.delete(
       `${API_BASE_URL}carrito/${id_producto}`,
-      data
+
+      { params: data } // Pasar data como parámetros de la URL
     );
+    satisfies;
     console.log({
       status: response.status,
       message: response.data.message,
@@ -99,14 +102,16 @@ export const eliminarProductoDelCarritoRequest = async (id_producto, data) => {
 };
 
 // Función para vaciar el carrito de compras
-export const vaciarCarritoRequest = async (data) => {
+export const vaciarCarritoRequest = async (id_usuario) => {
   /**
  {
   "id_usuario":"77"
 }
    */
   try {
-    const response = await axios.delete(`${API_BASE_URL}carrito/vaciar`, data);
+    const response = await axios.delete(
+      `${API_BASE_URL}carrito/vaciar/${id_usuario}`
+    );
     console.log({
       status: response.status,
       message: response.data.message,

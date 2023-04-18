@@ -62,7 +62,7 @@ export const ProductoContextProvider = ({ children }) => {
   /////////////////////////////////////////////////////////////////
 
   // Función para obtener el carrito de compras
-  async function obtenerCarritoDeCompras() {
+  async function obtenerCarritoDeCompras(id_usuario) {
     try {
       const response = await obtenerCarritoDeComprasRequest(id_usuario); // Cambiar por el nombre de la función que realiza la solicitud para obtener el carrito
       if (response.status === 200) {
@@ -75,7 +75,7 @@ export const ProductoContextProvider = ({ children }) => {
 
         // Calcular el total de la cantidad de productos en el carrito
         for (let i = 0; i < detalles.length; i++) {
-          totalCantidad += detalles[i].cantidad;
+          totalCantidad += detalles[i].cantidad * detalles[i].producto.precio;
         }
 
         // Actualizar el estado del carrito con los datos obtenidos
@@ -99,11 +99,7 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await agregarProductoAlCarritoRequest(data);
 
       if (response.status === 200) {
-        const nuevoDetalle = response.data.detalle;
-        setCarrito({
-          ...carrito,
-          detalles: [...carrito.detalles, nuevoDetalle],
-        });
+        obtenerCarritoDeCompras(data.id_usuario);
         console.log("Producto agregado al carrito exitosamente", carrito);
       } else {
         throw new Error("No se pudo agregar el producto al carrito");
@@ -114,15 +110,18 @@ export const ProductoContextProvider = ({ children }) => {
   }
 
   // Función para vaciar el carrito
-  async function vaciarCarrito() {
+  async function vaciarCarrito(id_usuario) {
     try {
-      const response = await vaciarCarritoRequest({
-        id_usuario: carrito.id_usuario,
-      }); // Pasar el id del carrito a la función de la API
+      const response = await vaciarCarritoRequest(id_usuario); // Pasar el id del carrito a la función de la API
 
       if (response.status === 200) {
         // Actualizar el estado del carrito con un arreglo vacío para vaciar el carrito
-        setCarrito([]);
+        setCarrito({
+          idCarrito: null,
+          id_usuario: null,
+          detalles: [],
+          totalCantidad: 0,
+        });
         console.log("Carrito vaciado exitosamente");
       } else {
         throw new Error("No se pudo vaciar el carrito");
@@ -133,11 +132,11 @@ export const ProductoContextProvider = ({ children }) => {
   }
 
   // Función para actualizar la cantidad de un producto en el carrito
-  async function actualizarCantidadProductoEnCarrito(id_producto, accion) {
+  async function actualizarCantidadProductoEnCarrito(id_producto, data) {
     try {
       const response = await actualizarCantidadProductoEnCarritoRequest(
-        id_producto, // Pasar el id del producto a actualizar como parámetro de ruta
-        { id_usuario: carrito.id_usuario, accion } // Pasar el body con los datos de actualización: id_usuario y cantidad
+        id_producto,
+        data
       );
 
       if (response.status === 200) {
@@ -166,11 +165,12 @@ export const ProductoContextProvider = ({ children }) => {
   }
 
   // Función para eliminar un producto del carrito
-  async function eliminarProductoDelCarrito(id_producto) {
+  async function eliminarProductoDelCarrito(id_producto, data) {
+    console.log(data);
     try {
       const response = await eliminarProductoDelCarritoRequest(
-        id_producto, // Pasar el id del producto a eliminar como parámetro de ruta
-        { id_usuario: carrito.id_usuario } // Pasar el id del usuario en el cuerpo de la solicitud
+        id_producto,
+        data
       );
 
       if (response.status === 200) {
@@ -178,9 +178,11 @@ export const ProductoContextProvider = ({ children }) => {
         const nuevosDetalles = carrito.detalles.filter(
           (detalle) => detalle.id_producto !== id_producto
         ); // Filtrar los detalles del carrito para excluir el producto eliminado por su id_producto
-        */
+        
         const nuevosDetalles = response.data.detalleCarrito;
         setCarrito({ ...carrito, detalles: nuevosDetalles });
+        */
+        obtenerCarritoDeCompras(data.id_usuario);
         console.log("Producto eliminado del carrito exitosamente");
       } else {
         throw new Error("No se pudo eliminar el producto del carrito");
