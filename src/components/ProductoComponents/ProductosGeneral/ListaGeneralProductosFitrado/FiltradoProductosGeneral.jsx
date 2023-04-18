@@ -36,31 +36,46 @@ export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
     if (filteredProducts.length === 0) {
       return (
         <div>
-          <div style={{fontSize: "30px", paddingTop: "50px"}}>
-            Por ahora no hay productos registrados en esta categoría. Lo sentimos.
+          <div style={{ fontSize: "30px", paddingTop: "50px" }}>
+            Por ahora no hay productos registrados en esta categoría. Lo
+            sentimos.
           </div>
-          <br></br><br></br><br></br><br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
         </div>
       );
     } else {
       const categoriaFiltrada = `Estás en la categoría de "${nombre_categoria}".`;
       return (
-        <div>
-          <div style={{fontSize: "30px", paddingTop: "20px"}}>
+        <div style={{ justifyContent: "center" }}>
+          <div style={{ fontSize: "30px", paddingTop: "20px" }}>
             {categoriaFiltrada}
             <br></br>
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gridGap: "20px",
+              maxWidth: "1200px",
+              margin: "0 auto",
+            }}
+          >
             {filteredProducts.map((producto) => (
-              <div key={producto.id} style={{
-                marginTop: "20px", 
-                marginRight: "35px",
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-                gap: "20px",
-                alignItems: "stretch",
-                flex: "1 0 300px", /* Se establece una flex-basis de 300px*/}}>
+              <div
+                key={producto.id}
+                style={{
+                  marginTop: "10px",
+                  marginRight: "35px",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                  gap: "20px",
+                  flex: "1 0 300px" /* Se establece una flex-basis de 300px*/,
+                }}
+              >
                 <CardProductoGeneral key={producto.id} producto={producto} />
               </div>
             ))}

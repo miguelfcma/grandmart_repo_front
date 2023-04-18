@@ -67,7 +67,11 @@ export function Navbar1({ onSearch }) {
               placeholder="Buscar"
               name="search"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setSearchTerm(e.target.value)} onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearch();
+                }
+              }}
             />
             <Button onClick={handleSearch}>
               <box-icon name="search-alt" color="#ffffff">
