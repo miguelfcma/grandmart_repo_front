@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import React from "react";
-import { Favoritos } from "../FavoritosComponents/Favoritos";
+//import { Favoritos } from "../FavoritosComponents/Favoritos";
 import { Carrito } from "../CarritoComponents/Carrito";
 import axios from "axios";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
@@ -20,11 +20,11 @@ import InputGroup from "react-bootstrap/InputGroup";
 export function Navbar1({ onSearch }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-  const { vaciarFavoritos } = useProductos();
+  //const { vaciarFavoritos } = useProductos();
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
-    vaciarFavoritos();
+    //vaciarFavoritos();
     // redirigir a la página de inicio de sesión o a la página principal
   };
 
@@ -107,10 +107,11 @@ export function Navbar1({ onSearch }) {
             <Nav.Link href="/blog">Blog</Nav.Link>
             <Nav.Link href="/">Contacto</Nav.Link>
             <Nav.Link>
-              <Favoritos />
+              {/*  <Favoritos />*/}
+             
             </Nav.Link>
             <Nav.Link>
-              <Carrito />
+            <Carrito />   
             </Nav.Link>
             {usuario ? (
               <NavDropdown title={usuario.nombre} id="collasible-nav-dropdown">

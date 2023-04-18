@@ -22,6 +22,20 @@ import {
   getPreguntasByIdProductoRequest,
 } from "../../../API/ProductosApiRest/preguntasProducto.api";
 
+import {
+  agregarProductoAlCarritoRequest,
+  actualizarCantidadProductoEnCarritoRequest,
+  vaciarCarritoRequest,
+  obtenerCarritoDeComprasRequest,
+  eliminarProductoDelCarritoRequest,
+} from "../../../API/ProductosApiRest/carritoProductos.api";
+
+import {
+  obtenerFavoritosRequest,
+  eliminarProductoFavoritoRequest,
+  agregarProductoAFavoritosRequest,
+} from "../../../API/ProductosApiRest/favoritosProductos.api";
+
 import { ProductoContext } from "./ProductoContext";
 
 export const useProductos = () => {
@@ -38,7 +52,146 @@ export const ProductoContextProvider = ({ children }) => {
   const [productosAll, setProductosAll] = useState([]);
   const [productosUsuario, setProductosUsuario] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState({
+    idCarrito: null, // Valor inicial correspondiente
+    id_usuario: null, // Valor inicial correspondiente
+    detalles: [], // Valor inicial correspondiente
+    totalCantidad: 0, // Valor inicial correspondiente
+  });
+
+  /////////////////////////////////////////////////////////////////
+
+  // Función para obtener el carrito de compras
+  async function obtenerCarritoDeCompras() {
+    try {
+      const response = await obtenerCarritoDeComprasRequest(id_usuario); // Cambiar por el nombre de la función que realiza la solicitud para obtener el carrito
+      if (response.status === 200) {
+        const carritoData = response.data; // Obtener los datos del carrito de la respuesta
+        const idCarrito = carritoData.carrito.id; // Obtener el id del carrito
+        const id_usuario = carritoData.carrito.id_usuario; // Obtener el id del usuario del carrito
+        const detalles = carritoData.detalleCarrito; // Obtener los detalles del carrito
+
+        let totalCantidad = 0; // Inicializar el total de cantidad en 0
+
+        // Calcular el total de la cantidad de productos en el carrito
+        for (let i = 0; i < detalles.length; i++) {
+          totalCantidad += detalles[i].cantidad;
+        }
+
+        // Actualizar el estado del carrito con los datos obtenidos
+        setCarrito({
+          idCarrito,
+          id_usuario,
+          detalles,
+          totalCantidad,
+        });
+      } else {
+        throw new Error("No se pudo obtener el carrito"); // Manejar el error si no se pudo obtener el carrito
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // Función para agregar un producto al carrito
+  async function agregarProductoAlCarrito(data) {
+    try {
+      const response = await agregarProductoAlCarritoRequest(data);
+
+      if (response.status === 200) {
+        const nuevoDetalle = response.data.detalle;
+        setCarrito({
+          ...carrito,
+          detalles: [...carrito.detalles, nuevoDetalle],
+        });
+        console.log("Producto agregado al carrito exitosamente", carrito);
+      } else {
+        throw new Error("No se pudo agregar el producto al carrito");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // Función para vaciar el carrito
+  async function vaciarCarrito() {
+    try {
+      const response = await vaciarCarritoRequest({
+        id_usuario: carrito.id_usuario,
+      }); // Pasar el id del carrito a la función de la API
+
+      if (response.status === 200) {
+        // Actualizar el estado del carrito con un arreglo vacío para vaciar el carrito
+        setCarrito([]);
+        console.log("Carrito vaciado exitosamente");
+      } else {
+        throw new Error("No se pudo vaciar el carrito");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // Función para actualizar la cantidad de un producto en el carrito
+  async function actualizarCantidadProductoEnCarrito(id_producto, accion) {
+    try {
+      const response = await actualizarCantidadProductoEnCarritoRequest(
+        id_producto, // Pasar el id del producto a actualizar como parámetro de ruta
+        { id_usuario: carrito.id_usuario, accion } // Pasar el body con los datos de actualización: id_usuario y cantidad
+      );
+
+      if (response.status === 200) {
+        const detalleActualizado = response.data.detalle; // Obtener el detalle actualizado de la respuesta de la API
+
+        // Actualizar el estado del carrito con los detalles actualizados
+        const nuevosDetalles = carrito.detalles.map((detalle) => {
+          if (detalle.id_producto === detalleActualizado.id_producto) {
+            // Comparar con el id del producto en el detalle actualizado
+            return detalleActualizado; // Retornar el detalle actualizado
+          } else {
+            return detalle;
+          }
+        });
+
+        setCarrito({ ...carrito, detalles: nuevosDetalles });
+        console.log("Cantidad de producto actualizada exitosamente");
+      } else {
+        throw new Error(
+          "No se pudo actualizar la cantidad del producto en el carrito"
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // Función para eliminar un producto del carrito
+  async function eliminarProductoDelCarrito(id_producto) {
+    try {
+      const response = await eliminarProductoDelCarritoRequest(
+        id_producto, // Pasar el id del producto a eliminar como parámetro de ruta
+        { id_usuario: carrito.id_usuario } // Pasar el id del usuario en el cuerpo de la solicitud
+      );
+
+      if (response.status === 200) {
+        /*
+        const nuevosDetalles = carrito.detalles.filter(
+          (detalle) => detalle.id_producto !== id_producto
+        ); // Filtrar los detalles del carrito para excluir el producto eliminado por su id_producto
+        */
+        const nuevosDetalles = response.data.detalleCarrito;
+        setCarrito({ ...carrito, detalles: nuevosDetalles });
+        console.log("Producto eliminado del carrito exitosamente");
+      } else {
+        throw new Error("No se pudo eliminar el producto del carrito");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  ///////////////////////////////////////////////////
+  /*
 
   // Agregar un producto al carrito
   function agregarItemCarrito(producto) {
@@ -90,6 +243,7 @@ export const ProductoContextProvider = ({ children }) => {
       )
     );
   }
+  */
   function agregarFavorito(producto) {
     setFavoritos((prevFavoritos) => [...prevFavoritos, producto]);
   }
@@ -259,13 +413,21 @@ export const ProductoContextProvider = ({ children }) => {
         favoritos,
         agregarFavorito,
         eliminarFavorito,
-        carrito,
+        /*
+        
         agregarItemCarrito,
         eliminarItemCarrito,
         vaciarCarrito,
         incrementarCantidadItemCarrito,
         decrementarCantidadItemCarrito,
         vaciarFavoritos,
+*/
+        agregarProductoAlCarrito,
+        obtenerCarritoDeCompras,
+        carrito,
+        actualizarCantidadProductoEnCarrito,
+        eliminarProductoDelCarrito,
+        vaciarCarrito,
 
         crearPreguntaProducto,
         getPreguntasByIdProducto,

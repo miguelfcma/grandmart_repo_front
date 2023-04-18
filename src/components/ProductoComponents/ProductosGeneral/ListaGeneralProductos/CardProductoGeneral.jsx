@@ -13,10 +13,11 @@ export function CardProductoGeneral({ producto }) {
     favoritos,
     carrito,
     agregarItemCarrito,
+    agregarProductoAlCarrito,
   } = useProductos();
 
-  const esFavorito = favoritos.some((p) => p.id === producto.id);
-  const esProductoEnCarrito = carrito.some((p) => p.id === producto.id);
+ 
+ 
   
   const [urlImagen, setUrlImagen] = useState("");
   async function obtenerUrlImagenAsync(idProducto) {
@@ -28,20 +29,14 @@ export function CardProductoGeneral({ producto }) {
     obtenerUrlImagenAsync(producto.id);
   }, [producto.id]);
 
-  function toggleFavorito() {
-    if (esFavorito) {
-      eliminarFavorito(producto);
-    } else {
-      if (usuario) {
-        agregarFavorito(producto);
-      } else {
-        navigate("/login");
-      }
-    }
-  }
+  
   function agregarAlCarrito() {
     if (usuario) {
-      agregarItemCarrito(producto);
+      agregarProductoAlCarrito({
+        id_usuario: usuario.id,
+        id_producto: producto.id,
+        cantidad: 1
+      });
     } else {
       navigate("/login");
     }
@@ -62,8 +57,7 @@ export function CardProductoGeneral({ producto }) {
         <br></br>
         <div>${producto.precio}</div>
       </Link>
-
-      <button
+{/* <button
         onClick={toggleFavorito}
         title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}
       >
@@ -72,15 +66,15 @@ export function CardProductoGeneral({ producto }) {
           name="heart"
           color={esFavorito ? "red" : "white"}
         ></box-icon>
-      </button>
+      </button>*/}
+      
       <button
         onClick={agregarAlCarrito}
-        disabled={esProductoEnCarrito}
-        title={
-          esProductoEnCarrito ? "Ya está en el carrito" : "Agregar al carrito"
-        }
+      
+        title="Agregar al carrito"
+      
       >
-        {esProductoEnCarrito ? "Agregado al carrito" : "Agregar al carrito"}
+        Agregar al carrito
       </button>
     </div>
   );

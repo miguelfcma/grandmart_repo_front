@@ -6,14 +6,14 @@ import { Dropdown } from "react-bootstrap";
 
 export function SidebarCliente({ children }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { vaciarFavoritos } = useProductos();
+  //const { vaciarFavoritos } = useProductos();
   const [productoDropdown, setProductoDropdown] = useState(false);
   const [servicioDropdown, setServicioDropdown] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
-    vaciarFavoritos();
+    //vaciarFavoritos();
     // redirigir a la página de inicio de sesión o a la página principal
   };
 

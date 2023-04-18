@@ -1,13 +1,10 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
 
-export const crearPreguntaProductoRequest = async (data) => {
+// Función para crear una nueva orden
+export const crearOrdenRequest = async (data) => {
   try {
-
-    const response = await axios.post(
-      `${API_BASE_URL}producto-preguntas`,
-      data
-    );
+    const response = await axios.post(`${API_BASE_URL}ordenes`, data);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -22,12 +19,10 @@ export const crearPreguntaProductoRequest = async (data) => {
   }
 };
 
-export const crearRespuesta = async (idPregunta, data) => {
+// Función para obtener las órdenes de un usuario
+export const obtenerOrdenesUsuarioRequest = async (idUsuario) => {
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}producto-preguntas/${idPregunta}/respuesta`,
-      data
-    );
+    const response = await axios.get(`${API_BASE_URL}ordenes/${idUsuario}`);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -42,11 +37,10 @@ export const crearRespuesta = async (idPregunta, data) => {
   }
 };
 
-export const getPreguntasByIdProductoRequest = async (idProducto) => {
+// Función para actualizar el estado de una orden
+export const actualizarEstadoOrdenRequest = async (idOrden, data) => {
   try {
-    const response = await axios.get(
-      `${API_BASE_URL}producto-preguntas/producto/${idProducto}`
-    );
+    const response = await axios.put(`${API_BASE_URL}ordenes/${idOrden}`, data);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -61,31 +55,10 @@ export const getPreguntasByIdProductoRequest = async (idProducto) => {
   }
 };
 
-export const eliminarPregunta = async (idPregunta) => {
+// Función para obtener el detalle de una orden
+export const obtenerDetalleOrdenRequest = async (idOrden) => {
   try {
-    const response = await axios.delete(
-      `${API_BASE_URL}producto-preguntas/${idPregunta}`
-    );
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
-    return response;
-  } catch (error) {
-    console.log({
-      status: error.response.status,
-      message: error.response.data.message,
-    });
-    return error.response;
-  }
-};
-
-export const actualizarPregunta = async (idPregunta, data) => {
-  try {
-    const response = await axios.put(
-      `${API_BASE_URL}producto-preguntas/${idPregunta}`,
-      data
-    );
+    const response = await axios.get(`${API_BASE_URL}ordenes/detalles/${idOrden}`);
     console.log({
       status: response.status,
       message: response.data.message,
