@@ -31,8 +31,8 @@ export function CardPublicacionBlog({ publicacion }) {
   };
 
   return (
-    <div>
-      <Container fluid className="blog-container">
+    <div style={{maxWidth: "1200px", display: "flex", flexWrap: "wrap"}}>
+      <Container className="blog-container">
         <Card key={publicacion.id} className="publicacion">
           <Card.Body>
             <Card.Title>{publicacion.titulo}</Card.Title>

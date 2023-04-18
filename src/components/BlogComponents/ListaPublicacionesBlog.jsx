@@ -16,14 +16,18 @@ export function ListaPublicacionesBlog() {
       return <h1>No hay publicaciones disponibles</h1>;
     } else {
       return publicaciones.map((publicacion) => (
+
         <CardPublicacionBlog key={publicacion.id} publicacion={publicacion} />
+        
       ));
     }
   }
   
   return (
-    <>
-      <div className="list-usuarios">{renderMain()}</div>
-    </>
+    <div className="blog-container">
+    <div className="publicaciones-grid">
+      {renderMain()}
+    </div>
+  </div>
   );
 }

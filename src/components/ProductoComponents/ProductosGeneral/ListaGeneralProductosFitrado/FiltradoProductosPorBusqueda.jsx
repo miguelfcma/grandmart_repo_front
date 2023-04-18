@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { CardProductoGeneral } from "../ListaGeneralProductos/CardProductoGeneral";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
-import "./FiltradoProductos.css";
 
 export function FiltradoProductosPorBusqueda({ searchTerm }) {
   const { productosAll, loadProductos } = useProductos();
@@ -26,7 +25,7 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
     if (filteredProductos.length === 0) {
       const noHayResultados = `No hay publicaciones que coincidan con tu búsqueda "${searchTerm}."`;
       return (
-        <div style={{ maxWidth: "1000px", marginLeft: "-90px" }}>
+        <div>
           <div style={{ paddingTop: "30px", fontSize: "30px" }}>
             {noHayResultados}
             <br></br> <br></br>
@@ -34,19 +33,27 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
             * Utiliza palabras más genéricas o menos palabras. <br></br>
             * Navega por las categorías para encontrar un producto similar.
           </div>
+          <br></br><br></br><br></br><br></br>
         </div>
       );
     } else {
       const siHayResultados = `Resultados para "${searchTerm}."`;
       return (
-        <div style={{ maxWidth: "1000px", marginLeft: "-90px" }}>
-          <div style={{ paddingTop: "25px", fontSize: "30px"}}>
+        <div>
+          <div style={{fontSize: "30px", paddingTop: "20px"}}>
             {siHayResultados}
             
           </div>
           <div style={{ display: "flex", flexWrap: "wrap"}}>
           {filteredProductos.map((producto) => (
-            <div key={producto.id} style={{marginTop: "15px", marginRight: "35px" }}>
+            <div key={producto.id} style={{
+                marginTop: "15px", 
+                marginRight: "35px",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                gap: "20px",
+                alignItems: "stretch"}}>
             <CardProductoGeneral producto={producto} />
           </div>
           ))}

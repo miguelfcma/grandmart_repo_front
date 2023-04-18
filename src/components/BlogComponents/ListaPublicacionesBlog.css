@@ -1,8 +1,8 @@
 /* Estilos para el contenedor principal */
 .blog-container {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
   }
   
   /* Estilos para cada publicación */
@@ -49,4 +49,22 @@
   .btn-enviar:hover {
     background-color: #555;
   }
+
+  .publicaciones-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .publicaciones-grid {
+      grid-template-columns: 1fr;
+    }
+    .publicacion{
+        max-width: 460px;
+        max-height: 250;
+        margin-bottom: 20px;
+    }
+  }
+
   

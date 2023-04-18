@@ -35,26 +35,35 @@ export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
 
     if (filteredProducts.length === 0) {
       return (
-        <div style={{ maxWidth: "1000px", marginLeft: "-90px" }}>
-          <div style={{ paddingTop: "60px", fontSize: "30px"}}>
-           Por ahora no hay productos registrados en esta categoría. Lo sentimos.
+        <div>
+          <div style={{fontSize: "30px", paddingTop: "50px"}}>
+            Por ahora no hay productos registrados en esta categoría. Lo sentimos.
           </div>
+          <br></br><br></br><br></br><br></br>
         </div>
       );
     } else {
-      const categoriaFiltrada = `Estas en la categoría de "${nombre_categoria}"`;
-      return(
-        <div style={{ maxWidth: "1080px", marginLeft: "-90px" }}>
-        <div style={{ paddingTop: "60px", fontSize: "30px"}}>
-          {categoriaFiltrada}
-          <br></br><br></br>
-        </div>
-        <div style={{ display: "flex", flexWrap: "wrap"}}>
-      {filteredProducts.map((producto) => (
-        <div key={producto.id} style={{marginTop: "15px", marginRight: "35px" }}>
-          <CardProductoGeneral key={producto.id} producto={producto} />
+      const categoriaFiltrada = `Estás en la categoría de "${nombre_categoria}".`;
+      return (
+        <div>
+          <div style={{fontSize: "30px", paddingTop: "20px"}}>
+            {categoriaFiltrada}
+            <br></br>
           </div>
-          ))}
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {filteredProducts.map((producto) => (
+              <div key={producto.id} style={{
+                marginTop: "20px", 
+                marginRight: "35px",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                gap: "20px",
+                alignItems: "stretch",
+                flex: "1 0 300px", /* Se establece una flex-basis de 300px*/}}>
+                <CardProductoGeneral key={producto.id} producto={producto} />
+              </div>
+            ))}
           </div>
         </div>
       );
