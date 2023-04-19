@@ -62,7 +62,8 @@ export const ProductoContextProvider = ({ children }) => {
   /////////////////////////////////////////////////////////////////
 
   // Función para obtener el carrito de compras
-  async function obtenerCarritoDeCompras(id_usuario) {
+  
+  const  obtenerCarritoDeCompras = async(id_usuario) =>{
     try {
       const response = await obtenerCarritoDeComprasRequest(id_usuario); // Cambiar por el nombre de la función que realiza la solicitud para obtener el carrito
       if (response.status === 200) {
@@ -94,7 +95,7 @@ export const ProductoContextProvider = ({ children }) => {
   }
 
   // Función para agregar un producto al carrito
-  async function agregarProductoAlCarrito(data) {
+  const agregarProductoAlCarrito= async(data) =>{
     try {
       const response = await agregarProductoAlCarritoRequest(data);
 
@@ -110,7 +111,7 @@ export const ProductoContextProvider = ({ children }) => {
   }
 
   // Función para vaciar el carrito
-  async function vaciarCarrito(id_usuario) {
+  const vaciarCarrito = async (id_usuario) => {
     try {
       const response = await vaciarCarritoRequest(id_usuario); // Pasar el id del carrito a la función de la API
 
@@ -129,30 +130,44 @@ export const ProductoContextProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  // Función para actualizar la cantidad de un producto en el carrito
-  async function actualizarCantidadProductoEnCarrito(id_producto, data) {
+  const actualizarCantidadProductoEnCarrito = async (id_producto, data) => {
     try {
       const response = await actualizarCantidadProductoEnCarritoRequest(
         id_producto,
         data
       );
-
+  
       if (response.status === 200) {
         const detalleActualizado = response.data.detalle; // Obtener el detalle actualizado de la respuesta de la API
-
+  
         // Actualizar el estado del carrito con los detalles actualizados
         const nuevosDetalles = carrito.detalles.map((detalle) => {
-          if (detalle.id_producto === detalleActualizado.id_producto) {
-            // Comparar con el id del producto en el detalle actualizado
+          if (detalle.id === detalleActualizado.id) {
+            // Comparar con el id del detalle actualizado
             return detalleActualizado; // Retornar el detalle actualizado
           } else {
             return detalle;
           }
         });
-
-        setCarrito({ ...carrito, detalles: nuevosDetalles });
+  
+        // Actualizar el total de cantidad en el carrito
+        const totalCantidadActualizada =
+          carrito.totalCantidad -
+          carrito.detalles.find(
+            (detalle) => detalle.id === detalleActualizado.id
+          ).cantidad *
+            carrito.detalles.find(
+              (detalle) => detalle.id === detalleActualizado.id
+            ).producto.precio +
+          detalleActualizado.cantidad * detalleActualizado.producto.precio;
+  
+        setCarrito({
+          ...carrito,
+          detalles: nuevosDetalles,
+          totalCantidad: totalCantidadActualizada,
+        });
         console.log("Cantidad de producto actualizada exitosamente");
       } else {
         throw new Error(
@@ -163,26 +178,36 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   }
+  
 
   // Función para eliminar un producto del carrito
-  async function eliminarProductoDelCarrito(id_producto, data) {
-    console.log(data);
+  const eliminarProductoDelCarrito = async (id_producto) => {
     try {
       const response = await eliminarProductoDelCarritoRequest(
         id_producto,
-        data
-      );
+        carrito
+      ); // Pasar el estado actual del carrito como data
 
       if (response.status === 200) {
-        /*
+        // Utilizar el método filter para crear una nueva lista de detalles sin el producto eliminado
         const nuevosDetalles = carrito.detalles.filter(
           (detalle) => detalle.id_producto !== id_producto
-        ); // Filtrar los detalles del carrito para excluir el producto eliminado por su id_producto
-        
-        const nuevosDetalles = response.data.detalleCarrito;
-        setCarrito({ ...carrito, detalles: nuevosDetalles });
-        */
-        obtenerCarritoDeCompras(data.id_usuario);
+        );
+
+        // Calcular el nuevo total de cantidad
+        let nuevoTotalCantidad = 0;
+        for (let i = 0; i < nuevosDetalles.length; i++) {
+          nuevoTotalCantidad +=
+            nuevosDetalles[i].cantidad * nuevosDetalles[i].producto.precio;
+        }
+
+        // Actualizar el estado del carrito con los nuevos detalles y total de cantidad
+        setCarrito({
+          ...carrito,
+          detalles: nuevosDetalles,
+          totalCantidad: nuevoTotalCantidad,
+        });
+
         console.log("Producto eliminado del carrito exitosamente");
       } else {
         throw new Error("No se pudo eliminar el producto del carrito");
@@ -190,7 +215,7 @@ export const ProductoContextProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   ///////////////////////////////////////////////////
   /*

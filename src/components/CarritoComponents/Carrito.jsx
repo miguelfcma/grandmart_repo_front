@@ -4,18 +4,21 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export function Carrito() {
-  const {
-    carrito,
-    obtenerCarritoDeCompras,
-    actualizarCantidadProductoEnCarrito,
-    eliminarProductoDelCarrito,
-    vaciarCarrito,
-  } = useProductos();
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
-
-  useEffect(() => {
-    obtenerCarritoDeCompras(usuario.id);
-  }, []);
+    const {
+      carrito,
+      obtenerCarritoDeCompras,
+      actualizarCantidadProductoEnCarrito,
+      eliminarProductoDelCarrito,
+      vaciarCarrito,
+    } = useProductos();
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+  
+    // Verificar si el usuario ha iniciado sesión antes de obtener el carrito de compras
+    useEffect(() => {
+      if (usuario && usuario.id) {
+        obtenerCarritoDeCompras(usuario.id);
+      }
+    }, []);
 
   function getTotal() {
     return carrito.totalCantidad;
@@ -55,7 +58,7 @@ export function Carrito() {
       )}
 
       <div className="cart-dropdown">
-        {carrito === 0 ? (
+        {carrito.detalles.length === 0 ? (
           <p>Tu carrito está vacío.</p>
         ) : (
           <>

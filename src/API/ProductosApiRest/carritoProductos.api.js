@@ -81,22 +81,19 @@ export const eliminarProductoDelCarritoRequest = async (id_producto, data) => {
    */
   console.log(data);
   try {
-    const response = await axios.delete(
-      `${API_BASE_URL}carrito/${id_producto}`,
+    const response = await axios.post(
+      `${API_BASE_URL}carrito/eliminar-producto/${id_producto}`,
 
-      { params: data } // Pasar data como parámetros de la URL
+      data
     );
-    satisfies;
+
     console.log({
       status: response.status,
       message: response.data.message,
     });
     return response;
   } catch (error) {
-    console.log({
-      status: error.response.status,
-      message: error.response.data.message,
-    });
+    console.error(error);
     return error.response;
   }
 };
