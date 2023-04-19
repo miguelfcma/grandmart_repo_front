@@ -1,11 +1,5 @@
 import app from "./config";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytes,
-  deleteObject,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes,deleteObject } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
 const storage = getStorage(app);
@@ -63,8 +57,6 @@ export async function updateImageServicio(file, url) {
     const updatedUrl = await getDownloadURL(storageRef);
     return updatedUrl;
   }
-  
-
   export async function updateImagesServicio(files, urls) {
     const MAX_SIZE_BYTES = 10 * 1024 * 1024; // Tamaño máximo de 10 MB en bytes
     if (files.length !== urls.length) {

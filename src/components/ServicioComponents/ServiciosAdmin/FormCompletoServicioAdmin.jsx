@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FormNuevoServicioAdmin } from './FormularioServicioCompletoAdmin/FormNuevoServicioAdmin';
-import { FormImgServicioCliente } from './FormularioServicioCompletoAdmin/FormImagesServicioAdmin';
+import { FormImgServicioAdmin } from './FormularioServicioCompletoAdmin/FormImgServicioAdmin';
 
 export default function FormCompletoServicioAdmin() {
   const [datosServicioRegistrados, setDatosServicioRegistrados] = useState(false);
@@ -17,7 +17,7 @@ export default function FormCompletoServicioAdmin() {
       {!datosServicioRegistrados ? (
         <FormNuevoServicioAdmin handleServicioRegistrado={handleServicioRegistrado} />
       ) : (
-        <FormImgServicioCliente idServicio={idServicio} />
+        <FormImgServicioAdmin idServicio={idServicio} />
       )}
     </div>
   );

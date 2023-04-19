@@ -5,8 +5,15 @@ import {
   createServicioRequest,
   deleteServicioRequest,
   updateServicioRequest,
+  getServiciosByUsuarioIdRequest
 } from "../../../API/ServiciosApiRest/servicios.api";
-import { createImagenesRequest } from "../../../API/ServiciosApiRest/imagenServicio.api";
+
+import { 
+  createServicioImageRequest,
+  getServicioImagePortadaRequest,
+  getImagenesPorIdServicioRequest
+} from "../../../API/ServiciosApiRest/imagenServicio.api";
+
 import { ServicioContext } from "./ServicioContext";
 
 export const useServicios = () => {
@@ -21,8 +28,9 @@ export const useServicios = () => {
 
 export const ServicioContextProvider = ({ children }) => {
   const [serviciosAll, setServiciosAll] = useState([]);
+  const [serviciosUsuario, setServiciosUsuario] = useState([]);
 
-  async function loadServiciosAll() {
+  async function loadServicios() {
     try {
       const response = await getServiciosRequest();
       if (response === undefined) {
@@ -33,15 +41,6 @@ export const ServicioContextProvider = ({ children }) => {
       console.error(error);
     }
   }
-
-  const deleteServicio = async (id) => {
-    try {
-      const response = await deleteServicioRequest(id);
-      setServiciosAll(serviciosAll.filter((servicio) => servicio.id !== id));
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const createServicio = async (servicio) => {
     try {
@@ -72,6 +71,16 @@ export const ServicioContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  const deleteServicio = async (id) => {
+    try {
+      const response = await deleteServicioRequest(id);
+      setServiciosAll(serviciosAll.filter((servicio) => servicio.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const createImagenesServicioEnbd = async (id_servicio, imagenes) => {
     try {
       const response = await createImagenesRequest(
@@ -88,34 +97,70 @@ export const ServicioContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-  /*
-  const getImagenPortadaPorIdPublicacion = async (id_publicacionBlog) => {
-    try {
-      const response = await getImagenPortadaPorIdPublicacionRequest(
-        id_publicacionBlog
-      );
 
-      if (response.status === 200 && response.data) {
-        return response.data.url;
+  async function loadServicios() {
+    try {
+      const response = await getServiciosRequest();
+
+      if (response.status === 200) {
+        setServiciosAll(response.data);
       } else {
-        return null;
+        throw new Error("No se pudo obtener la lista de servicios");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const loadServiciosUsuario = async (id_usuario) => {
+    try {
+      const response = await getServiciosByUsuarioIdRequest(id_usuario);
+
+      if (response.status === 200) {
+        setServiciosUsuario(response.data);
+      } else if (response.status === 404) {
+        console.log("La lista de servicios no existe");
+        setServiciosUsuario([]);
+      } else {
+        throw new Error("No se pudo obtener la lista de servicios");
       }
     } catch (error) {
       console.error(error);
     }
   };
-*/
+
+  const getImgPortadaServicio = async (id_servicio) => {
+    const response = await getServicioImagePortadaRequest(id_servicio);
+    if (response.status == 200) {
+      return response.data.url;
+    } else {
+      return null;
+    }
+  };
+
+  const getAllImagesServicio = async (id_servicio) => {
+    const response = await getAllImagesServicioRequest(id_producto);
+    if (response.status == 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  };
+
 
   return (
     <ServicioContext.Provider
       value={{
         serviciosAll,
-        loadServiciosAll,
+        serviciosUsuario,
+        loadServicios,
+        loadServiciosUsuario,
         deleteServicio,
         createServicio,
         updateServicio,
-
         createImagenesServicioEnbd,
+        getImgPortadaServicio,
+        getAllImagesServicio,
       }}
     >
       {children}

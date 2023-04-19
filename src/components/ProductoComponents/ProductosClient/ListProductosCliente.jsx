@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { CardProductoCliente } from "./CardProductoCliente";
-
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
 export function ListProductosCliente() {
