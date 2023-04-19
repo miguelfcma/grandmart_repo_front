@@ -4,9 +4,9 @@ import { useContext, useState, useEffect } from "react";
 
 import {
   getProductosRequest,
+  createProductoRequest,
   deleteProductoRequest,
   updateProductoRequest,
-  createProductoRequest,
   getProductosByUsuarioIdRequest,
 } from "../../../API/ProductosApiRest/productos.api";
 

@@ -8,9 +8,6 @@ import { FormUpdateServicioAdmin } from "./FormUpdateServicioAdmin";
 import { Modal } from "../../ModalComponents/Modal";
 
 export function CardServicioAdmin({ servicio }) {
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
-    const navigate = useNavigate();
-  
     const { deleteServicio, getImgPortadaServicio, getAllImagesServicio } =
       useServicios();
   

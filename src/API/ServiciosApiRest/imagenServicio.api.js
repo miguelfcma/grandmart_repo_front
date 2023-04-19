@@ -81,7 +81,6 @@ export const createServicioImageRequest = async (url, id_servicio) => {
       const response = await axios.get(
   
           `${API_BASE_URL}servicio-images/todas/${id_producto}`
-     
       );
   
       return response;

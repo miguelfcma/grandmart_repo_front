@@ -13,7 +13,7 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
     titulo: servicio.titulo,
     descripcion: servicio.descripcion,
     precio: servicio.precio,
-    id_categoria: producto.id_categoria,
+    id_categoria: servicio.id_categoria,
   });
   console.log(formValues);
 

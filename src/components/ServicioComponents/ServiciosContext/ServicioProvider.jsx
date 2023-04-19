@@ -10,8 +10,9 @@ import {
 
 import { 
   createServicioImageRequest,
+  createImagenesRequest,
   getServicioImagePortadaRequest,
-  getImagenesPorIdServicioRequest
+  getAllImagesServicioRequest,
 } from "../../../API/ServiciosApiRest/imagenServicio.api";
 
 import { ServicioContext } from "./ServicioContext";
@@ -47,7 +48,7 @@ export const ServicioContextProvider = ({ children }) => {
       const response = await createServicioRequest(servicio);
 
       if (response.status === 201) {
-        loadServiciosAll();
+        loadServicios();
         return response.data;
       } else {
         return false;
@@ -62,7 +63,7 @@ export const ServicioContextProvider = ({ children }) => {
       const response = await updateServicioRequest(id, servicio);
 
       if (response.status == 200) {
-        loadServiciosAll();
+        loadServicios();
         return true;
       } else {
         return false;
@@ -75,8 +76,9 @@ export const ServicioContextProvider = ({ children }) => {
   const deleteServicio = async (id) => {
     try {
       const response = await deleteServicioRequest(id);
+      if (response.status == 200) {
       setServiciosAll(serviciosAll.filter((servicio) => servicio.id !== id));
-    } catch (error) {
+    }}catch (error) {
       console.error(error);
     }
   };
@@ -129,6 +131,20 @@ export const ServicioContextProvider = ({ children }) => {
     }
   };
 
+  const createServicioImage = async (imgServicio) => {
+    try {
+      const response = await createServicioImageRequest(imgServicio);
+
+      if (response.status == 201) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const getImgPortadaServicio = async (id_servicio) => {
     const response = await getServicioImagePortadaRequest(id_servicio);
     if (response.status == 200) {
@@ -139,7 +155,7 @@ export const ServicioContextProvider = ({ children }) => {
   };
 
   const getAllImagesServicio = async (id_servicio) => {
-    const response = await getAllImagesServicioRequest(id_producto);
+    const response = await getAllImagesServicioRequest(id_servicio);
     if (response.status == 200) {
       return response.data;
     } else {
@@ -158,6 +174,7 @@ export const ServicioContextProvider = ({ children }) => {
         deleteServicio,
         createServicio,
         updateServicio,
+        createServicioImage,
         createImagenesServicioEnbd,
         getImgPortadaServicio,
         getAllImagesServicio,
