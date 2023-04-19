@@ -1,13 +1,14 @@
-import "./CardServicioAdmin.css";
+import "./CardServicioCliente.css";
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { deleteImagesServicio } from "../../../firebase/servicioStorage";
-import { FormUpdateServicioAdmin } from "./FormUpdateServicioAdmin";
+import { FormUpdateServicioCliente } from "./FormUpdateServicioCliente";
+
 import { Modal } from "../../ModalComponents/Modal";
 
-export function CardServicioAdmin({ servicio }) {
+export function CardServicioCliente({ servicio }) {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     const navigate = useNavigate();
   
@@ -63,7 +64,7 @@ export function CardServicioAdmin({ servicio }) {
     return (
       <div className="card-servicio">
         <Link
-          to={`/dashAdmin/servicios/detalles/${servicio.id}`}
+          to={`/dashClient/servicios/detalles/${servicio.id}`}
           style={{ textDecoration: "none" }}
         >
           <div>ID: {servicio.id}</div>
@@ -80,7 +81,7 @@ export function CardServicioAdmin({ servicio }) {
           Editar servicio
         </button>
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <FormUpdateServicioAdmin onSubmit={handleSubmit} servicio={servicio} />
+          <FormUpdateServicioCliente onSubmit={handleSubmit} servicio={servicio} />
           <button onClick={handleCloseModal}>Cerrar ventana</button>
         </Modal>
         <button className="card-servicio" onClick={handleEliminarServicio}>

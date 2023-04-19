@@ -71,3 +71,19 @@ export const deleteServicioRequest = async (id) => {
     return error.response;
   }
 };
+
+
+
+export const getServiciosByUsuarioIdRequest = async (id_usuario) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}servicios/user/${id_usuario}`);
+
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};

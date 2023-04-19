@@ -2,10 +2,10 @@ import axios from "axios";
 import { API_BASE_URL} from "../config.api";
 
 
-export const createImgServicioRequest = async (url, id_servicio) => {
+export const createServicioImageRequest = async (url, id_servicio) => {
     try {
       const response = await axios.post(
-        API_BASE_URL + "servicio-imagenes",
+        API_BASE_URL + "servicio-images",
         { url, id_servicio }
       );
       return response;
@@ -52,7 +52,7 @@ export const createImgServicioRequest = async (url, id_servicio) => {
     }
   };
 
-  export const getPortadaRequest = async (id_servicio) => {
+  export const getServicioImagePortadaRequest = async (id_servicio) => {
     try {
       const response = await axios.get(API_BASE_URL + `servicio-imagenes/portada/${id_servicio}`);
       return response;
@@ -76,4 +76,20 @@ export const createImgServicioRequest = async (url, id_servicio) => {
   };
   
   
+  export const getAllImagesServicioRequest = async (id_producto) => {
+    try {
+      const response = await axios.get(
   
+          `${API_BASE_URL}servicio-images/todas/${id_producto}`
+     
+      );
+  
+      return response;
+    } catch (error) {
+      console.log({
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      return error.response;
+    }
+  };

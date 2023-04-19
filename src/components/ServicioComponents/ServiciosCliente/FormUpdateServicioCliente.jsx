@@ -1,24 +1,19 @@
 import { async } from "@firebase/util";
 import { useState, useEffect } from "react";
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
-import { useProductos } from "../ProductosContext/ProductoProvider";
+import { useServicios } from "../ServiciosContext/ServicioProvider";
 
-export function FormUpdateProductoCliente({ onSubmit,producto }) {
-  const { updateProducto } = useProductos();
+export function FormUpdateServicioCliente({ onSubmit, servicio }) {
+  const { updateServicio } = useServicios();
   const { categorias, loadCategorias } = useCategorias();
   useEffect(() => {
     loadCategorias();
   }, []);
   const [formValues, setFormValues] = useState({
-    nombre: producto.nombre,
-    precio: producto.precio,
-    stock: producto.stock,
-    descripcion: producto.descripcion,
-    marca: producto.marca,
-    modelo: producto.modelo,
-    color: producto.color,
-    estado: producto.estado,
-    id_categoria: producto.id_categoria
+    titulo: servicio.titulo,
+    descripcion: servicio.descripcion,
+    precio: servicio.precio,
+    id_categoria: servicio.id_categoria,
   });
   console.log(formValues);
 
@@ -30,48 +25,29 @@ export function FormUpdateProductoCliente({ onSubmit,producto }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        await updateProducto(producto.id, formValues);
-        onSubmit();
+      await updateServicio(servicio.id, formValues);
+      onSubmit();
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
-    
   };
 
   const handleIdParentChange = (event) => {
     const { value } = event.target;
-    setProducto((prevProducto) => ({
-      ...prevProducto,
+    setServicio((prevServicio) => ({
+      ...prevServicio,
       id_categoria: value,
     }));
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="nombre">Nombre:</label>
+      <label htmlFor="titulo">Titulo:</label>
       <input
         type="text"
-        id="nombre"
-        name="nombre"
-        value={formValues.nombre}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="precio">Precio:</label>
-      <input
-        type="number"
-        id="precio"
-        name="precio"
-        value={formValues.precio}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="stock">Stock:</label>
-      <input
-        type="number"
-        id="stock"
-        name="stock"
-        value={formValues.stock}
+        id="titulo"
+        name="titulo"
+        value={formValues.titulo}
         onChange={handleInputChange}
       />
 
@@ -83,48 +59,14 @@ export function FormUpdateProductoCliente({ onSubmit,producto }) {
         onChange={handleInputChange}
       ></textarea>
 
-      <label htmlFor="marca">Marca:</label>
+      <label htmlFor="precio">Precio:</label>
       <input
-        type="text"
-        id="marca"
-        name="marca"
-        value={formValues.marca}
+        type="number"
+        id="precio"
+        name="precio"
+        value={formValues.precio}
         onChange={handleInputChange}
       />
-
-      <label htmlFor="modelo">Modelo:</label>
-      <input
-        type="text"
-        id="modelo"
-        name="modelo"
-        value={formValues.modelo}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="color">Color:</label>
-      <input
-        type="text"
-        id="color"
-        name="color"
-        value={formValues.color}
-        onChange={handleInputChange}
-      />
-
-      <label htmlFor="estado">Estado:</label>
-      <select
-        id="estado"
-        name="estado"
-        value={formValues.estado}
-        onChange={handleInputChange}
-      >
-        <option value="">Seleccione una opción</option>
-        <option value="true" selected={true === formValues.estado}>
-          Nuevo
-        </option>
-        <option value="false" selected={false === formValues.estado}>
-          Usado
-        </option>
-      </select>
 
       <label>
         Categoría del producto:
@@ -163,7 +105,7 @@ export function FormUpdateProductoCliente({ onSubmit,producto }) {
         </select>
       </label>
 
-      <button type="submit">Actualizar producto</button>
+      <button type="submit">Actualizar servicio</button>
     </form>
   );
 }
