@@ -8,8 +8,7 @@ import { FormUpdateServicioAdmin } from "./FormUpdateServicioAdmin";
 import { Modal } from "../../ModalComponents/Modal";
 
 export function CardServicioAdmin({ servicio }) {
-    const { deleteServicio, getImgPortadaServicio, getAllImagesServicio } =
-      useServicios();
+    const { deleteServicio, getImgPortadaServicio, getAllImagesServicio } = useServicios();
   
     const [urlImagen, setUrlImagen] = useState("");
   

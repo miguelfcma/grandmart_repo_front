@@ -76,11 +76,11 @@ export const createServicioImageRequest = async (url, id_servicio) => {
   };
   
   
-  export const getAllImagesServicioRequest = async (id_producto) => {
+  export const getAllImagesServicioRequest = async (id_servicio) => {
     try {
       const response = await axios.get(
   
-          `${API_BASE_URL}servicio-images/todas/${id_producto}`
+          `${API_BASE_URL}servicio-images/todas/${id_servicio}`
       );
   
       return response;

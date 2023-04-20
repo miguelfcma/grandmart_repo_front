@@ -8,8 +8,7 @@ import { FormUpdateProductoAdmin } from "./FormUpdateProductoAdmin";
 import { Modal } from "../../ModalComponents/Modal";
 
 export function CardProductoAdmin({ producto }) {
-  const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =
-    useProductos();
+  const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =  useProductos();
 
   const [urlImagen, setUrlImagen] = useState("");
 
