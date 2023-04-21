@@ -1,0 +1,60 @@
+@media (max-width: 992px) {
+  .card-producto {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 300px; /* Se establece una flex-basis de 300px */
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.card-producto {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-producto div {
+  margin: 0;
+  margin-left: 1px;
+  text-align: justify; /* Agregado para justificar el nombre del producto*/
+  color: #4d4d4d;
+  font-size: 17px;
+}
+
+.card-producto div:nth-of-type(2) {
+  text-align: center; /* Agregado para centrar el precio del producto */
+  color: #000000;
+  font-family: Helvetica;
+  font-size: 21px;
+}
+
+.card-producto-img {
+  width: auto;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.card-producto button {
+  margin-top: 16px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #7197ff;
+  color: #ffffff;
+  font-weight: bold;
+  /* text-shadow: 1px 1px 0 #9fced8, -1px -1px 0 #9fced8, 1px -1px 0 #9fced8, -1px 1px 0 #9fced8; */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.card-producto button:hover {
+  background-color: #1c6bc3;
+}

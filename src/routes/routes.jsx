@@ -11,6 +11,7 @@ import { ProductosPageAdmin } from "../pages/DashAdminPages/DashPages/ProductosP
 import { RegistroProductoAdminPage1 } from "../pages/DashAdminPages/DashPages/ProductosPageAdmin/RegistroProductoAdminPage1";
 import { RegistroProductoAdminPage2 } from "../pages/DashAdminPages/DashPages/ProductosPageAdmin/RegistroProductoAdminage2";
 import { ServiciosPageAdmin } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin";
+import { ServicioDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin/ServicioDetallesAdminPage";
 import { UsuariosPageAdmin } from "../pages/DashAdminPages/DashPages/UsuariosPageAdmin";
 
 // Páginas de cliente
@@ -23,6 +24,7 @@ import { ProductosPageClient } from "../pages/DashClientPages/DashPages/Producto
 import { RegistroProductoClientPage1 } from "../pages/DashClientPages/DashPages/ProductosPageCliente/RegistroProductoClientPage1";
 import { RegistroProductoClientPage2 } from "../pages/DashClientPages/DashPages/ProductosPageCliente/RegistroProductoClientPage2";
 import { ServiciosPageClient } from "../pages/DashClientPages/DashPages/ServiciosPageClient";
+import { ServicioDetallesClientPage } from "../pages/DashClientPages/DashPages/ServicioPagesCliente/ServicioDetallesClientPage";
 
 // Páginas de inicio de sesión y registro
 import { BlogPage } from "../pages/HomePages/Blog-Pages/BlogPage";
@@ -35,8 +37,13 @@ import { SignupPage } from "../pages/HomePages/Login-Signup-Pages/SignupPage";
 import { ProductosDetallesPage } from "../pages/HomePages/Productos-Pages/ProductosDetallesPage";
 import { ProductosByCategoriaPage } from "../pages/HomePages/Productos-Pages/ProductosByCategoriaPage";
 
+// Páginas de servicios
+import { ServiciosDetallesPage } from "../pages/HomePages/Servicios-Pages/ServiciosDetallesPage";
+
 //Página de categorias de home page
 import { CategoriasHomePage } from "../pages/HomePages/Categorias-pages/CategoriasHomePage";
+import { ServiciosPage } from "../pages/HomePages/Servicios-Pages/ServiciosPage";
+
 export function MyRoutes() {
   return (
     <Router>
@@ -47,6 +54,8 @@ export function MyRoutes() {
         <Route exact path="/signup" element={<SignupPage />} />
         <Route exact path="/blog" element={<BlogPage />} />
         <Route exact path="/categorias" element={<CategoriasHomePage />} />
+        <Route exact path="/servicios" element={<ServiciosPage />} />
+
         {/* Rutas para administrador */}
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
         <Route
@@ -84,6 +93,11 @@ export function MyRoutes() {
           path="/dashAdmin/servicios"
           element={<ServiciosPageAdmin />}
         />
+        <Route
+          exact
+          path="/dashAdmin/servicios/detalles/:id"
+          element={<ServicioDetallesAdminPage />}
+        />
         <Route exact path="/dashAdmin/perfil" element={<PerfilPageAdmin />} />
         <Route
           exact
@@ -120,6 +134,11 @@ export function MyRoutes() {
         />
         <Route
           exact
+          path="/dashClient/servicios/detalles/:id"
+          element={<ServicioDetallesClientPage />}
+        />
+        <Route
+          exact
           path="/dashClient/pedidos"
           element={<PedidosPageClient />}
         />
@@ -136,6 +155,13 @@ export function MyRoutes() {
           path="/productos/categoria/:id_categoria/:nombre_categoria"
           element={<ProductosByCategoriaPage />}
         />
+
+        <Route
+          exact
+          path="/servicios/detalles/:id"
+          element={<ServiciosDetallesPage />}
+        />
+
         <Route exact path="/resumen-compras" element={<CompraCarrito />} />
         <Route
           exact

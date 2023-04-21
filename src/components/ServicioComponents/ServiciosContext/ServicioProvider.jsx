@@ -15,6 +15,13 @@ import {
   getAllImagesServicioRequest,
 } from "../../../API/ServiciosApiRest/imagenServicio.api";
 
+/* 
+import {
+  crearPreguntaProductoRequest,
+  getPreguntasByIdProductoRequest,
+} from "../../../API/ProductosApiRest/preguntasProducto.api";
+*/
+
 import { ServicioContext } from "./ServicioContext";
 
 export const useServicios = () => {

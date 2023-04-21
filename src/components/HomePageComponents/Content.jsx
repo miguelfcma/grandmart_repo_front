@@ -1,12 +1,12 @@
 import "./Content.css";
-import { ListProductsGeneral } from "../ProductoComponents/ProductosGeneral/ListaGeneralProductos/ListProductsGeneral"
+import { ListProductsGeneral } from "../ProductoComponents/ProductosGeneral/ListaGeneralProductos/ListProductsGeneral";
 import {Carrusel} from "./Carrusel/Carrusel";
 import { FiltradoProductosPorBusqueda } from "../ProductoComponents/ProductosGeneral/ListaGeneralProductosFitrado/FiltradoProductosPorBusqueda";
 export function Content({ searchTerm }) {
+
   return (
     <>
       <main>
-        
         {searchTerm ? (
           <FiltradoProductosPorBusqueda searchTerm={searchTerm}/>
         ) : (
@@ -14,7 +14,6 @@ export function Content({ searchTerm }) {
           <Carrusel/>
           <ListProductsGeneral  />
           </>
-
         )}
       </main>
       <footer>

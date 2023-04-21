@@ -41,7 +41,7 @@ export function Navbar1({ onSearch }) {
     { id: 34, nombre: "Belleza", link: "/productos/categoria/34" },
     { id: 35, nombre: "Caprichos y cariños", link: "/productos/categoria/35" },
     { id: 36, nombre: "Aparatos funcionales", link: "/productos/categoria/36" },
-    { id: 37, nombre: "Moda", link: "/productos/categoria/37" },
+    { id: 37, nombre: "Moda", link: "/productos/categoria/37" }
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -95,8 +95,8 @@ export function Navbar1({ onSearch }) {
                   >
                     {categoria.nombre}
                   </NavDropdown.Item>
-                  
                 ))}
+                <NavDropdown.Item href="/servicios">Servicios</NavDropdown.Item>
                 <NavDropdown.Divider />
                   <NavDropdown.Item href="/categorias">
                     Ver más categorías

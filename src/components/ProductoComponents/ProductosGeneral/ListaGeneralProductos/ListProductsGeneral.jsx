@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CardProductoGeneral } from "./CardProductoGeneral"
+import { CardProductoGeneral } from "./CardProductoGeneral";
 import "./ListProductsGeneral.css";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 
@@ -31,6 +31,7 @@ export function ListProductsGeneral() {
 
   function renderPagination() {
     const totalPages = Math.ceil(productosAll.length / productsPerPage);
+
     const pages = [];
 
     for (let i = 1; i <= totalPages; i++) {
@@ -50,7 +51,6 @@ export function ListProductsGeneral() {
 
   return (
     <>
-    
       <div className="list-productos">{renderMain()}</div>
       {renderPagination()}
     </>
