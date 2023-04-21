@@ -20,7 +20,8 @@ export function ItemOrdenAdmin({ orden }) {
       <td className={`estado-${estado_orden.toLowerCase()}`}>{estado_orden}</td>
       <td>{id_usuario}</td>
       <td>{new Date(createdAt).toLocaleDateString()}</td>
-      <td>{new Date(updatedAt).toLocaleDateString()}</td>
+      <td></td>
+      {/* <td>{new Date(updatedAt).toLocaleDateString()}</td> */}
       <td>{total}</td>
       <td>
         {/* Agregar el botón con el icono de ojo y la función de manejo de eventos */}

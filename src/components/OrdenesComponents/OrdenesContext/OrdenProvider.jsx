@@ -6,6 +6,7 @@ import {
   obtenerTodasLasOrdenesConDetallesRequest,
   obtenerDetalleOrdenRequest,
   actualizarEstadoOrdenRequest,
+  obtenerDireccionEnvioOrdenRequest
 } from "../../../API/OrdenesApiRest/ordenes.api";
 
 export const useOrdenes = () => {
@@ -64,7 +65,22 @@ export const OrdenContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+  
+  const obtenerDireccionEnvioOrden = async (id_orden) => {
+    try {
+    
+      const response = await obtenerDireccionEnvioOrdenRequest(id_orden);
 
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        throw new Error("No se obtener las ordenes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const actualizarEstadoOrden = async (id_orden, data) => {
     console.log(id_orden+data)
     try {
@@ -90,6 +106,7 @@ export const OrdenContextProvider = ({ children }) => {
         ordenesUser,
         obtenerDetalleOrden,
         actualizarEstadoOrden,
+        obtenerDireccionEnvioOrden
       }}
     >
       {children}

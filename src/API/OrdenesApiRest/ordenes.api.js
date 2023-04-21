@@ -90,3 +90,21 @@ export const obtenerDetalleOrdenRequest = async (id_orden) => {
     return error.response;
   }
 };
+
+// Función p
+export const obtenerDireccionEnvioOrdenRequest = async (id_orden) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}ordenes/direccion/${id_orden}`);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};

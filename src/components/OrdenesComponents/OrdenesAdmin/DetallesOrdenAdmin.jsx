@@ -11,7 +11,11 @@ import {
 import "./DetallesOrdenAdmin.css";
 
 export function DetallesOrdenAdmin({ id_orden }) {
-  const { obtenerDetalleOrden, actualizarEstadoOrden } = useOrdenes();
+  const {
+    obtenerDetalleOrden,
+    actualizarEstadoOrden,
+    obtenerDireccionEnvioOrden,
+  } = useOrdenes();
   const [orden, setOrden] = useState({
     id: null,
     total: null,
@@ -22,11 +26,13 @@ export function DetallesOrdenAdmin({ id_orden }) {
     detallesOrden: [],
   });
   const [nuevoEstado, setNuevoEstado] = useState("");
-
+  const [direccionEnvio, setDireccionEnvio] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await obtenerDetalleOrden(id_orden);
+        const data2 = await obtenerDireccionEnvioOrden(id_orden);
+
         setOrden({
           id: data.orden.id,
           total: data.orden.total,
@@ -36,6 +42,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
           updatedAt: data.orden.updatedAt,
           detallesOrden: data.detallesOrden,
         });
+        setDireccionEnvio(data2.direccion_envio);
         setNuevoEstado(data.orden.estado_orden);
       } catch (error) {
         console.error(error);
@@ -93,7 +100,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
               {" "}
               <DropdownButton
                 variant="info"
-                title= {orden.estado_orden}
+                title={orden.estado_orden}
                 id="estadoDropdown"
               >
                 {estados.map((estado, index) => (
@@ -144,7 +151,26 @@ export function DetallesOrdenAdmin({ id_orden }) {
               ))}
             </tbody>
           </Table>
-          <h1 className="detalles-orden-titulo">Detalles del envío:</h1>
+          {direccionEnvio && (
+            <div>
+              <h1 className="detalles-orden-titulo">Detalles del envío:</h1>
+              <Row className="orden-row">
+                <Col md={4}>
+                  <p>ID: {direccionEnvio.id}</p>
+                  <p>Calle: {direccionEnvio.calle}</p>
+                  <p>Calle 1: {direccionEnvio.calle1}</p>
+                  <p>Calle 2: {direccionEnvio.calle2}</p>
+                  <p>Colonia: {direccionEnvio.colonia}</p>
+                  <p>Descripción: {direccionEnvio.descripcion}</p>
+                  <p>Municipio/Alcaldía: {direccionEnvio.municipio_alcaldia}</p>
+                  <p>Nombre INE: {direccionEnvio.nombre_ine}</p>
+                  <p>Número Exterior: {direccionEnvio.numeroExterior}</p>
+                  <p>Número Interior: {direccionEnvio.numeroInterior}</p>
+                  <p>Código Postal: {direccionEnvio.postal}</p>
+                </Col>
+              </Row>
+            </div>
+          )}
         </div>
       )}
     </Container>
