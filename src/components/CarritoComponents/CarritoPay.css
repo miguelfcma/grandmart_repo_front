@@ -1,4 +1,3 @@
-
 .cart-table table {
   width: 100%;
   border-collapse: collapse;
@@ -20,7 +19,6 @@
 .cart-table th {
   background-color: #f2f2f2;
 }
-
 .cart-item-controls2 button {
   background-color: #478ad6;
   border: none;
@@ -45,7 +43,6 @@
   margin-right: 500px;
   margin-top: 5px;
 }
-
 .cart-table {
   border: 1px solid #ddd;
   padding: 13px;
@@ -83,7 +80,6 @@
   background-color: #3e8e41;
 }
 
-
 .back-button {
   text-decoration: none;
   background-color: white; 
@@ -108,4 +104,43 @@
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+.cart-total {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cart-total h3 {
+  font-size: 1.5rem;
+  color: #333;
+}
+.btn-empty {
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.btn-empty:hover {
+  background-color: #ff3d3d;
+}
+
+.btn-checkout {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.btn-checkout:hover {
+  background-color: #0069d9;
 }

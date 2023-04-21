@@ -119,8 +119,8 @@ export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario }
                 <br></br>
 
                 <div className="infoProductoCaracteristicas">
-                  <div>Categoría: {nombre_categoria}</div>
-                  <div>Servicio publicado por: {nombre_usuario}</div>
+                  <div>Categoría: {servicio.categoria.nombre}</div>
+                  <div>Servicio publicado por: {servicio.usuario.nombre}</div>
                 </div>
               </Card.Title>
             </Card>

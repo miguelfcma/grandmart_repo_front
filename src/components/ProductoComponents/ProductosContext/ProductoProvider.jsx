@@ -62,8 +62,16 @@ export const ProductoContextProvider = ({ children }) => {
   /////////////////////////////////////////////////////////////////
 
   // Función para obtener el carrito de compras
-  
-  const  obtenerCarritoDeCompras = async(id_usuario) =>{
+
+  const limpiarCarrito = () => {
+    setCarrito({
+      idCarrito: null,
+      id_usuario: null,
+      detalles: [],
+      totalCantidad: 0,
+    });
+  };
+  const obtenerCarritoDeCompras = async (id_usuario) => {
     try {
       const response = await obtenerCarritoDeComprasRequest(id_usuario); // Cambiar por el nombre de la función que realiza la solicitud para obtener el carrito
       if (response.status === 200) {
@@ -92,10 +100,10 @@ export const ProductoContextProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   // Función para agregar un producto al carrito
-  const agregarProductoAlCarrito= async(data) =>{
+  const agregarProductoAlCarrito = async (data) => {
     try {
       const response = await agregarProductoAlCarritoRequest(data);
 
@@ -108,7 +116,7 @@ export const ProductoContextProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   // Función para vaciar el carrito
   const vaciarCarrito = async (id_usuario) => {
@@ -138,10 +146,10 @@ export const ProductoContextProvider = ({ children }) => {
         id_producto,
         data
       );
-  
+
       if (response.status === 200) {
         const detalleActualizado = response.data.detalle; // Obtener el detalle actualizado de la respuesta de la API
-  
+
         // Actualizar el estado del carrito con los detalles actualizados
         const nuevosDetalles = carrito.detalles.map((detalle) => {
           if (detalle.id === detalleActualizado.id) {
@@ -151,7 +159,7 @@ export const ProductoContextProvider = ({ children }) => {
             return detalle;
           }
         });
-  
+
         // Actualizar el total de cantidad en el carrito
         const totalCantidadActualizada =
           carrito.totalCantidad -
@@ -162,7 +170,7 @@ export const ProductoContextProvider = ({ children }) => {
               (detalle) => detalle.id === detalleActualizado.id
             ).producto.precio +
           detalleActualizado.cantidad * detalleActualizado.producto.precio;
-  
+
         setCarrito({
           ...carrito,
           detalles: nuevosDetalles,
@@ -177,8 +185,7 @@ export const ProductoContextProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
     }
-  }
-  
+  };
 
   // Función para eliminar un producto del carrito
   const eliminarProductoDelCarrito = async (id_producto) => {
@@ -449,6 +456,7 @@ export const ProductoContextProvider = ({ children }) => {
         decrementarCantidadItemCarrito,
         vaciarFavoritos,
 */
+        limpiarCarrito,
         agregarProductoAlCarrito,
         obtenerCarritoDeCompras,
         carrito,

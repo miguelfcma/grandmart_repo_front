@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
-export function FormUpdateProductoAdmin({ onSubmit,producto }) {
+export function FormUpdateProductoAdmin({ onSubmit, producto }) {
   const { updateProducto } = useProductos();
   const { categorias, loadCategorias } = useCategorias();
   useEffect(() => {
@@ -30,12 +30,11 @@ export function FormUpdateProductoAdmin({ onSubmit,producto }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        await updateProducto(producto.id, formValues);
-        onSubmit();
+      await updateProducto(producto.id, formValues);
+      onSubmit();
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
-    
   };
 
   const handleIdParentChange = (event) => {

@@ -4,22 +4,25 @@ import { ProductoContextProvider } from "./components/ProductoComponents/Product
 import { CategoriaContextProvider } from "./components/CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { BlogContextProvider } from "./components/BlogComponents/BlogContext/BlogProvider";
 import { ServicioContextProvider } from "./components/ServicioComponents/ServiciosContext/ServicioProvider";
+import { OrdenContextProvider } from "./components/OrdenesComponents/OrdenesContext/OrdenProvider";
 import "./globalStyles.css";
 function App() {
   return (
-    <ServicioContextProvider>
-      <BlogContextProvider>
-        <UsuarioContextProvider>
-          <ProductoContextProvider>
-            <CategoriaContextProvider>
-              <div>
-                <MyRoutes />
-              </div>
-            </CategoriaContextProvider>
-          </ProductoContextProvider>
-        </UsuarioContextProvider>
-      </BlogContextProvider>
-    </ServicioContextProvider>
+    <OrdenContextProvider>
+      <ServicioContextProvider>
+        <BlogContextProvider>
+          <UsuarioContextProvider>
+            <ProductoContextProvider>
+              <CategoriaContextProvider>
+                <div>
+                  <MyRoutes />
+                </div>
+              </CategoriaContextProvider>
+            </ProductoContextProvider>
+          </UsuarioContextProvider>
+        </BlogContextProvider>
+      </ServicioContextProvider>
+    </OrdenContextProvider>
   );
 }
 

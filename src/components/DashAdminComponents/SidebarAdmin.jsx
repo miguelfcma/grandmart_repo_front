@@ -31,6 +31,9 @@ export function SidebarAdmin() {
         </li>
         <li>
           <Link to="/dashAdmin/pedidos">Pedidos</Link>
+        </li>{" "}
+        <li>
+          <Link to="/dashAdmin/ordenes">Ordenes</Link>
         </li>
         <li>
           <Link to="/dashAdmin/perfil">Mi perfil</Link>
@@ -43,15 +46,35 @@ export function SidebarAdmin() {
         </li>
       </ul>
       <div className="user-options">
-        <p>Bienvenido: {usuario.nombre+" "+usuario.apellidoPaterno+" "+usuario.apellidoMaterno}</p>
+        <p>
+          Bienvenido:{" "}
+          {usuario.nombre +
+            " " +
+            usuario.apellidoPaterno +
+            " " +
+            usuario.apellidoMaterno}
+        </p>
 
         <br></br>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>Página principal</Link>
-        <br></br><br></br><br></br><br></br><br></br><br></br>
+        <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          Página principal
+        </Link>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
 
-        <Link to="/" onClick={handleLogout} style={{ textDecoration: 'none', color: 'white' }} className="iconuser"><box-icon name='log-out' color='#ffffff' ></box-icon>Cerrar sesión</Link>
+        <Link
+          to="/"
+          onClick={handleLogout}
+          style={{ textDecoration: "none", color: "white" }}
+          className="iconuser"
+        >
+          <box-icon name="log-out" color="#ffffff"></box-icon>Cerrar sesión
+        </Link>
       </div>
-
     </div>
   );
 }

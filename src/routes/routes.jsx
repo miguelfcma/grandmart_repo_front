@@ -13,9 +13,11 @@ import { RegistroProductoAdminPage2 } from "../pages/DashAdminPages/DashPages/Pr
 import { ServiciosPageAdmin } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin";
 import { ServicioDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin/ServicioDetallesAdminPage";
 import { UsuariosPageAdmin } from "../pages/DashAdminPages/DashPages/UsuariosPageAdmin";
+import { OrdenesDeCompraPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesDeCompraPageAdmin";
 
+import { OrdenDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesPageAdmin/OrdenDetallesPageAdmin";
 // Páginas de cliente
-import { CompraCarrito } from "../pages/HomePages/CarritoPage/CompraCarrito";
+import { CompraCarritoPage } from "../pages/HomePages/CarritoPage/CompraCarritoPage";
 import { DashClient } from "../pages/DashClientPages/DashClient";
 import { PedidosPageClient } from "../pages/DashClientPages/DashPages/PedidosPageClient";
 import { PerfilPageClient } from "../pages/DashClientPages/DashPages/PerfilPageClient";
@@ -75,6 +77,16 @@ export function MyRoutes() {
         />
         <Route
           exact
+          path="/dashAdmin/ordenes"
+          element={<OrdenesDeCompraPageAdmin />}
+        />
+         <Route
+          exact
+          path="/dashAdmin/ordenes/detalles/:id_orden"
+          element={<OrdenDetallesPageAdmin />}
+        />
+        <Route
+          exact
           path="/dashAdmin/productos/registro-producto"
           element={<RegistroProductoAdminPage1 />}
         />
@@ -104,7 +116,6 @@ export function MyRoutes() {
           path="/dashAdmin/database-backup"
           element={<DatabaseBackupAdmin />}
         />
-
         {/* Rutas para cliente */}
         <Route exact path="/dashClient" element={<DashClient />} />
         <Route
@@ -143,7 +154,6 @@ export function MyRoutes() {
           element={<PedidosPageClient />}
         />
         <Route exact path="/dashClient/perfil" element={<PerfilPageClient />} />
-
         {/* Otras rutas */}
         <Route
           exact
@@ -162,13 +172,12 @@ export function MyRoutes() {
           element={<ServiciosDetallesPage />}
         />
 
-        <Route exact path="/resumen-compras" element={<CompraCarrito />} />
+<Route exact path="/resumen-compras" element={<CompraCarritoPage />} />
         <Route
           exact
           path="/login/recuperar-contrasena"
           element={<RecovPassPage />}
         />
-
         {/* Ruta para manejar las rutas no encontradas */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

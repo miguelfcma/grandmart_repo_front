@@ -2,6 +2,7 @@ import { useProductos } from "../ProductoComponents/ProductosContext/ProductoPro
 import "../HomePageComponents/NavBar.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "./Carrito.css";
 
 export function Carrito() {
     const {
