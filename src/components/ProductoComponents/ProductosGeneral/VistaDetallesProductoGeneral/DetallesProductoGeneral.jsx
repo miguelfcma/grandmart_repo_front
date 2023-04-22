@@ -131,7 +131,7 @@ export function DetallesProductoGeneral({ id }) {
             <button onClick={() => window.history.back()}>Regresar</button>
             
           </div>
-          <PreguntasProductoComponenteCompletoGeneral  id_producto={producto.id}/>
+        
        
         </>
         

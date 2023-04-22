@@ -1,0 +1,43 @@
+/* ListaPreguntasProductoGeneral.css */
+
+/* Estilo para el título */
+.titulo {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Estilo para la lista de preguntas */
+  .lista-preguntas {
+    margin-bottom: 2rem;
+  }
+  
+  /* Estilo para cada item de la lista de preguntas */
+  .pregunta-item {
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  /* Estilo para el texto de la pregunta */
+  .pregunta {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Estilo para el texto de la respuesta */
+  .respuesta {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Estilo para la fecha y nombre de usuario */
+  .fecha {
+    color: #777;
+    font-size: 0.8rem;
+  }
+  
+  /* Estilo para el mensaje de "No hay preguntas para mostrar" */
+  .no-preguntas {
+    margin-top: 1rem;
+  }
+  

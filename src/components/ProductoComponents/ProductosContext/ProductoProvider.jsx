@@ -20,6 +20,7 @@ import {
 import {
   crearPreguntaProductoRequest,
   getPreguntasByIdProductoRequest,
+  getProductosConPreguntasByUsuarioIdRequest,
 } from "../../../API/ProductosApiRest/preguntasProducto.api";
 
 import {
@@ -58,6 +59,7 @@ export const ProductoContextProvider = ({ children }) => {
     detalles: [], // Valor inicial correspondiente
     totalCantidad: 0, // Valor inicial correspondiente
   });
+  const [productosPreguntas, setProductosPreguntas] = useState([]);
 
   /////////////////////////////////////////////////////////////////
 
@@ -430,6 +432,23 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  const getProductosConPreguntasByUsuarioId = async (id_usuario) => {
+    try {
+      const response = await getProductosConPreguntasByUsuarioIdRequest(
+        id_usuario
+      );
+      console.log(response);
+      if (response.status == 200) {
+        setProductosPreguntas(response.data);
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ProductoContext.Provider
       value={{
@@ -466,6 +485,8 @@ export const ProductoContextProvider = ({ children }) => {
 
         crearPreguntaProducto,
         getPreguntasByIdProducto,
+        getProductosConPreguntasByUsuarioId,
+        productosPreguntas,
       }}
     >
       {children}

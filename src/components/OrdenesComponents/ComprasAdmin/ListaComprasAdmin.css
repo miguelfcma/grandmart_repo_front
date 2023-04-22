@@ -1,0 +1,26 @@
+.list-ordenes {
+  margin-top: 20px;
+}
+
+.titulo {
+  margin-bottom: 20px;
+}
+
+@media (min-width: 576px) {
+  .list-ordenes {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 768px) {
+  .list-ordenes {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 992px) {
+  .list-ordenes {
+    justify-content: flex-start;
+  }
+}

@@ -16,6 +16,13 @@ import { UsuariosPageAdmin } from "../pages/DashAdminPages/DashPages/UsuariosPag
 import { OrdenesDeCompraPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesDeCompraPageAdmin";
 
 import { OrdenDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesPageAdmin/OrdenDetallesPageAdmin";
+import { PedidosPageAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin";
+import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin";
+import { PedidoDetallesPagesAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin/PedidoDetallesPagesAdmin";
+import { CompraDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/CompraDetallesPageAdmin";
+import { PreguntasPageAdmin } from "../pages/DashAdminPages/DashPages/PreguntasPageAdmin";
+
+
 // Páginas de cliente
 import { CompraCarritoPage } from "../pages/HomePages/CarritoPage/CompraCarritoPage";
 import { DashClient } from "../pages/DashClientPages/DashClient";
@@ -57,8 +64,13 @@ export function MyRoutes() {
         <Route exact path="/blog" element={<BlogPage />} />
         <Route exact path="/categorias" element={<CategoriasHomePage />} />
         <Route exact path="/servicios" element={<ServiciosPage />} />
-
-        {/* Rutas para administrador */}
+        {/* Rutas para administrador 
+        
+        
+        import { PedidosPageAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin";
+import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin";
+        
+        */}
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
         <Route
           exact
@@ -70,6 +82,8 @@ export function MyRoutes() {
           path="/dashAdmin/categorias"
           element={<CategoriasPageAdmin />}
         />
+        <Route exact path="/dashAdmin/pedidos" element={<PedidosPageAdmin />} />
+        <Route exact path="/dashAdmin/compras" element={<ComprasPageAdmin />} />
         <Route
           exact
           path="/dashAdmin/productos"
@@ -82,9 +96,26 @@ export function MyRoutes() {
         />
          <Route
           exact
+          path="/dashAdmin/preguntas"
+          element={<PreguntasPageAdmin />}
+        />
+        <Route
+          exact
           path="/dashAdmin/ordenes/detalles/:id_orden"
           element={<OrdenDetallesPageAdmin />}
         />
+
+        <Route
+          exact
+          path="/dashAdmin/pedidos/detalles/:id_orden"
+          element={<PedidoDetallesPagesAdmin />}
+        />
+        <Route
+          exact
+          path="/dashAdmin/compras/detalles/:id_orden"
+          element={<CompraDetallesPageAdmin />}
+        />
+
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"
@@ -165,14 +196,12 @@ export function MyRoutes() {
           path="/productos/categoria/:id_categoria/:nombre_categoria"
           element={<ProductosByCategoriaPage />}
         />
-
         <Route
           exact
           path="/servicios/detalles/:id"
           element={<ServiciosDetallesPage />}
         />
-
-<Route exact path="/resumen-compras" element={<CompraCarritoPage />} />
+        <Route exact path="/resumen-compras" element={<CompraCarritoPage />} />
         <Route
           exact
           path="/login/recuperar-contrasena"

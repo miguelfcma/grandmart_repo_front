@@ -1,20 +1,26 @@
+import React, { useState } from "react";
+import { FormNuevaPreguntaProductoGeneral } from "./PreguntasProductoComponentesGeneral/FormNuevaPreguntaProductoGeneral";
+import { ListaPreguntasProductoGeneral } from "./PreguntasProductoComponentesGeneral/ListaPreguntasProductoGeneral";
+import "./PreguntasProductoComponenteCompletoGeneral.css"
 
-import { useState } from "react";
-import { FomNuevaPreguntaProductoGeneral } from "./PreguntasProductoComponentesGeneral/FomNuevaPreguntaProductoGeneral"
-import { ListaPreguntasProductoGeneral } from "./PreguntasProductoComponentesGeneral/ListaPreguntasProductoGeneral"
-
-export  function PreguntasProductoComponenteCompletoGeneral({id_producto}) {
-
-  const [actualizarPreguntas, setActualizarPreguntas] = useState(false); // inicialmente lo configuramos como falso
+export function PreguntasProductoComponenteCompletoGeneral({ id_producto }) {
+  const [actualizarPreguntas, setActualizarPreguntas] = useState(false);
 
   const actualizar = () => {
-    setActualizarPreguntas(!actualizarPreguntas); // cambiamos la variable para que se llame a la función de actualizar preguntas
+    setActualizarPreguntas(!actualizarPreguntas);
   };
 
   return (
-    <div>
-      <FomNuevaPreguntaProductoGeneral id_producto={id_producto} actualizarPreguntas={actualizar} />
-      <ListaPreguntasProductoGeneral id_producto={id_producto} actualizarPreguntas={actualizar}/>
+    <div className="preguntas-container">
+      <h1 className="titulo-preguntas">Preguntas del producto</h1>
+      <FormNuevaPreguntaProductoGeneral
+        id_producto={id_producto}
+        actualizarPreguntas={actualizar}
+      />
+      <ListaPreguntasProductoGeneral
+        id_producto={id_producto}
+        actualizarPreguntas={actualizar}
+      />
     </div>
-  )
+  );
 }

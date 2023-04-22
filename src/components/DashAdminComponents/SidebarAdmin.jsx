@@ -40,7 +40,10 @@ export function SidebarAdmin() {
           </li>
           <li>
             <Link to="/dashAdmin/pedidos">Pedidos</Link>
-          </li>{" "}
+          </li>
+          <li>
+            <Link to="/dashAdmin/compras">Compras</Link>
+          </li>
           <li>
             <Link to="/dashAdmin/ordenes">Ordenes</Link>
           </li>

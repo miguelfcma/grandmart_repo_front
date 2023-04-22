@@ -1,7 +1,10 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useProductos } from "../../../ProductosContext/ProductoProvider";
+import { Container, Row, Col, ListGroup } from "react-bootstrap";
+import "./ListaPreguntasProductoGeneral.css"; // Importa el archivo CSS con los estilos
 
-export function ListaPreguntasProductoGeneral({id_producto, actualizarPreguntas}) {
+export function ListaPreguntasProductoGeneral({ id_producto, actualizarPreguntas }) {
   const { getPreguntasByIdProducto } = useProductos();
   const [preguntas, setPreguntas] = useState([]);
 
@@ -14,21 +17,24 @@ export function ListaPreguntasProductoGeneral({id_producto, actualizarPreguntas}
   }, [id_producto, actualizarPreguntas]);
 
   return (
-    <div>
-      <h2>Preguntas</h2>
-      {preguntas && preguntas.length > 0 ? (
-        <ul>
-          {preguntas.map((pregunta) => (
-            <li key={pregunta.id}>
-              <p>{pregunta.pregunta}</p>
-              <p>{pregunta.respuesta}</p>
-              <div className="fecha">Pregunta realizada el:{new Date(pregunta.updatedAt).toLocaleDateString()} Por: {pregunta.usuario.nombre}</div>
-            </li>
+    <Container>
+    <h2 className="titulo">Preguntas</h2>
+    {preguntas && preguntas.length > 0 ? (
+      <ListGroup className="lista-preguntas">
+        {preguntas.map((pregunta) => (
+          <ListGroup.Item key={pregunta.id} className="pregunta-item">
+            <p className="pregunta">{pregunta.pregunta}</p>
+            <div className="fecha">
+              Pregunta realizada el:{new Date(pregunta.updatedAt).toLocaleDateString()} Por: {pregunta.usuario.nombre}
+            </div>
+            <p className="respuesta">Respuesta: {pregunta.respuesta || "Sin respuesta"}</p> {/* Mensaje "Sin respuesta" en caso de respuesta vacía */}
+           
+          </ListGroup.Item>
           ))}
-        </ul>
+        </ListGroup>
       ) : (
-        <p>No hay preguntas para mostrar.</p>
+        <p className="no-preguntas">No hay preguntas para mostrar.</p>
       )}
-    </div>
+    </Container>
   );
 }

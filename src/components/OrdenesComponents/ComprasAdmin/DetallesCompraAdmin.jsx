@@ -10,9 +10,9 @@ import {
   Button,
   Alert, // Agregar el componente de Alert de Bootstrap
 } from "react-bootstrap";
-import "./DetallesOrdenAdmin.css";
 
-export function DetallesOrdenAdmin({ id_orden }) {
+
+export function DetallesCompraAdmin({ id_orden }) {
   const {
     obtenerDetalleOrden,
     actualizarEstadoOrden,
@@ -31,6 +31,9 @@ export function DetallesOrdenAdmin({ id_orden }) {
   const [direccionEnvio, setDireccionEnvio] = useState(null);
   const [estadoModificable, setEstadoModificable] = useState(true);
   const [mostrarAdvertencia, setMostrarAdvertencia] = useState(false); // Agregar nueva variable de estado para mostrar advertencia
+
+
+  console.log(orden)
   useEffect(() => {
     const fetchData = async () => {
       try {

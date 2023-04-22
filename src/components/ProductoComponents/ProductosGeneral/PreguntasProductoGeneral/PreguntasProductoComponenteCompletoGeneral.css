@@ -1,0 +1,10 @@
+.preguntas-container {
+    background-color: #eaf6fc; /* Fondo azul claro */
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .titulo-preguntas {
+    color: #007bff; /* Color de texto azul */
+  }
+  

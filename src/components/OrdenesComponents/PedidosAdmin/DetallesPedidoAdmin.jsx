@@ -1,5 +1,5 @@
 
-export  function BusquedaOrdenesAdmin() {
+export  function DetallesPedidoAdmin() {
   return (
     <div>
       

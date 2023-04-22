@@ -19,7 +19,7 @@ export const crearOrdenRequest = async (data) => {
   }
 };
 
-// Función para obtener todas las ordenes 
+// Función para obtener todas las ordenes
 export const obtenerTodasLasOrdenesConDetallesRequest = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}ordenes-all`);
@@ -38,9 +38,9 @@ export const obtenerTodasLasOrdenesConDetallesRequest = async () => {
 };
 
 // Función para obtener las órdenes de un usuario
-export const obtenerOrdenesUsuarioRequest = async (idUsuario) => {
+export const obtenerOrdenesUsuarioRequest = async (id_usuario) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}ordenes/${idUsuario}`);
+    const response = await axios.get(`${API_BASE_URL}ordenes/usuario/${id_usuario}`);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -58,7 +58,10 @@ export const obtenerOrdenesUsuarioRequest = async (idUsuario) => {
 // Función para actualizar el estado de una orden
 export const actualizarEstadoOrdenRequest = async (id_orden, data) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}ordenes/${id_orden}`, data);
+    const response = await axios.put(
+      `${API_BASE_URL}ordenes/${id_orden}`,
+      data
+    );
     console.log({
       status: response.status,
       message: response.data.message,
@@ -76,7 +79,9 @@ export const actualizarEstadoOrdenRequest = async (id_orden, data) => {
 // Función para obtener el detalle de una orden
 export const obtenerDetalleOrdenRequest = async (id_orden) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}ordenes/detalles/${id_orden}`);
+    const response = await axios.get(
+      `${API_BASE_URL}ordenes/detalles/${id_orden}`
+    );
     console.log({
       status: response.status,
       message: response.data.message,
@@ -94,7 +99,28 @@ export const obtenerDetalleOrdenRequest = async (id_orden) => {
 // Función p
 export const obtenerDireccionEnvioOrdenRequest = async (id_orden) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}ordenes/direccion/${id_orden}`);
+    const response = await axios.get(
+      `${API_BASE_URL}ordenes/direccion/${id_orden}`
+    );
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};
+
+export const obtenerPedidosPorUsuarioRequest = async (id_usuario) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}ordenes/pedidos/${id_usuario}`
+    );
     console.log({
       status: response.status,
       message: response.data.message,

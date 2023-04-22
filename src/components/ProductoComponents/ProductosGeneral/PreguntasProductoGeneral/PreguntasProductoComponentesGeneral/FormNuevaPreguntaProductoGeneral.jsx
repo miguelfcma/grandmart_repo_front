@@ -2,8 +2,8 @@ import { crearPreguntaProductoRequest } from "../../../../../API/ProductosApiRes
 import { useProductos } from "../../../ProductosContext/ProductoProvider";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-
-export function FomNuevaPreguntaProductoGeneral({id_producto,actualizarPreguntas}) {
+import "./FormNuevaPreguntaProductoGeneral.css"
+export function FormNuevaPreguntaProductoGeneral({id_producto,actualizarPreguntas}) {
   const { crearPreguntaProducto } = useProductos();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -37,7 +37,7 @@ export function FomNuevaPreguntaProductoGeneral({id_producto,actualizarPreguntas
   };
 
   return (
-    <div>
+    <div className="nueva-pregunta-container">
       <h2>Nueva Pregunta de Producto</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formPregunta">
@@ -52,8 +52,10 @@ export function FomNuevaPreguntaProductoGeneral({id_producto,actualizarPreguntas
             required
           />
         </Form.Group>
-      
-        <Button type="submit">Crear Pregunta</Button>
+
+        <Button type="submit" className="btn-azul">
+          Crear Pregunta
+        </Button>
       </Form>
     </div>
   );

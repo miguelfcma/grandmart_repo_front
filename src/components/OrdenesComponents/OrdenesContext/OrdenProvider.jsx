@@ -6,7 +6,9 @@ import {
   obtenerTodasLasOrdenesConDetallesRequest,
   obtenerDetalleOrdenRequest,
   actualizarEstadoOrdenRequest,
-  obtenerDireccionEnvioOrdenRequest
+  obtenerDireccionEnvioOrdenRequest,
+  obtenerOrdenesUsuarioRequest,
+  obtenerPedidosPorUsuarioRequest,
 } from "../../../API/OrdenesApiRest/ordenes.api";
 
 export const useOrdenes = () => {
@@ -22,6 +24,7 @@ export const useOrdenes = () => {
 export const OrdenContextProvider = ({ children }) => {
   const [ordenesAll, setOrdenesAll] = useState([]);
   const [ordenesUser, setOrdenesUser] = useState([]);
+  const [pedidosUser, setPedidosUser] = useState([]);
 
   const crearOrden = async (data) => {
     try {
@@ -36,6 +39,38 @@ export const OrdenContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  
+  const obtenerPedidosPorUsuario= async (id_usuario) => {
+    try {
+      const response = await obtenerPedidosPorUsuarioRequest(id_usuario);
+
+      if (response.status === 200) {
+        setPedidosUser(response.data.productosPedidos);
+        console.log(response.data.productosPedidos);
+      } else {
+        throw new Error("No se obtener las ordenes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const obtenerOrdenesUsuario= async (id_usuario) => {
+    try {
+      const response = await obtenerOrdenesUsuarioRequest(id_usuario);
+      console.log(response);
+      if (response.status === 200) {
+        setOrdenesUser(response.data);
+        console.log(response.data);
+      } else {
+        throw new Error("No se obtener las ordenes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const obtenerTodasLasOrdenesConDetalles = async () => {
     try {
       const response = await obtenerTodasLasOrdenesConDetallesRequest();
@@ -65,10 +100,9 @@ export const OrdenContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-  
+
   const obtenerDireccionEnvioOrden = async (id_orden) => {
     try {
-    
       const response = await obtenerDireccionEnvioOrdenRequest(id_orden);
 
       if (response.status === 200) {
@@ -82,7 +116,7 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
   const actualizarEstadoOrden = async (id_orden, data) => {
-    console.log(id_orden+data)
+    console.log(id_orden + data);
     try {
       const response = await actualizarEstadoOrdenRequest(id_orden, data);
 
@@ -106,7 +140,11 @@ export const OrdenContextProvider = ({ children }) => {
         ordenesUser,
         obtenerDetalleOrden,
         actualizarEstadoOrden,
-        obtenerDireccionEnvioOrden
+        obtenerDireccionEnvioOrden,
+        obtenerPedidosPorUsuario,
+        obtenerOrdenesUsuario,
+        pedidosUser,
+  
       }}
     >
       {children}
