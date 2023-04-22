@@ -1,14 +1,16 @@
-
 import { FormProductoAdmin } from "../../../../components/ProductoComponents/ProductosAdmin/FormProductoAdmin";
 import { SidebarAdmin } from "../../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../../components/DashAdminComponents/HeaderAdmin";
+import "../../DashAdmin.css";
 
 export function RegistroProductoAdminPage1() {
   return (
-    <div style={{ marginLeft: '200px' }}>
-   <HeaderAdmin/>
+    <div className="dashboard-container">
       <SidebarAdmin />
-      <FormProductoAdmin/>
+      <div className="contenidoPages">
+        <HeaderAdmin />
+        <FormProductoAdmin />
+      </div>
     </div>
   );
 }

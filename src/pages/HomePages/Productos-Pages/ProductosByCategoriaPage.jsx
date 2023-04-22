@@ -6,11 +6,11 @@ export function ProductosByCategoriaPage() {
   const { id_categoria, nombre_categoria } = useParams();
   return(
   <>
-  <main>
-  <Navbar1/>
-  <FiltradoProductosGeneral id_categoria={id_categoria}  nombre_categoria ={nombre_categoria }/>
-  </main>
-  <footer>
+    <main>
+      <Navbar1/>
+          <FiltradoProductosGeneral id_categoria={id_categoria}  nombre_categoria ={nombre_categoria }/>
+    </main>
+      <footer>
         <p>Derechos Reservados © 2023 GrandMart</p>
       </footer>
   </>

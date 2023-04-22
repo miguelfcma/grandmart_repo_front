@@ -3,7 +3,8 @@ import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin
 import { ListCategorias } from "../../../components/CategoriaComponents/ListCategorias";
 import { Modal } from "../../../components/ModalComponents/Modal";
 import { FormCategoria } from "../../../components/CategoriaComponents/FormCategoria";
-import { useState,useEffect} from "react";
+import { useState, useEffect } from "react";
+import "../DashAdmin.css";
 export function CategoriasPageAdmin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
@@ -28,20 +29,22 @@ export function CategoriasPageAdmin() {
     }
   }, [formularioEnviado]);
   return (
-    <div className="content-container">
-      <HeaderAdmin/>
+    <div className="dashboard-container">
       <SidebarAdmin />
-      <h1>Página de categorías</h1>
-      <button type="submit" onClick={handleOpenModal}>
-        Nuevo registro
-      </button>
+      <div className="contenidoPages">
+        <HeaderAdmin />
+        <h1>Página de categorías</h1>
+        <button type="submit" onClick={handleOpenModal}>
+          Nuevo registro
+        </button>
 
-      <ListCategorias/>
+        <ListCategorias />
 
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <FormCategoria onSubmit={handleSubmit} />
-        <button onClick={handleCloseModal}>Cerrar ventana</button>
-      </Modal>
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <FormCategoria onSubmit={handleSubmit} />
+          <button onClick={handleCloseModal}>Cerrar ventana</button>
+        </Modal>
+      </div>
     </div>
-  )
+  );
 }

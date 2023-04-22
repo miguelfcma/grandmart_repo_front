@@ -2,13 +2,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SidebarCliente.css";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
-import { Dropdown } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import "../../components/DashClientComponents/SidebarCliente.css";
 
 export function SidebarCliente({ children }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   //const { vaciarFavoritos } = useProductos();
-  const [productoDropdown, setProductoDropdown] = useState(false);
-  const [servicioDropdown, setServicioDropdown] = useState(false);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -18,50 +22,18 @@ export function SidebarCliente({ children }) {
   };
 
   return (
-    <div className="sidebar-container">
-      <ul>
-        <li>
+    <div>
+      <div className="d-none d-md-block sidebar-container">
+        <ul>
+          <li>
           <Link to="/dashClient">Dashboard</Link>
         </li>
         <li>
-          <Dropdown
-            onMouseEnter={() => setProductoDropdown(true)}
-            onMouseLeave={() => setProductoDropdown(false)}
-            show={productoDropdown}
-          >
-            <Dropdown.Toggle variant="success" id="dropdown-productos">
-              Productos
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item as={Link} to="/dashClient/productos/nuevo">
-                Registrar nuevo producto
-              </Dropdown.Item>
-              <Dropdown.Item as={Link} to="/dashClient/productos">
-                Ver productos existentes
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </li>
-        <li>
-          <Dropdown
-            onMouseEnter={() => setServicioDropdown(true)}
-            onMouseLeave={() => setServicioDropdown(false)}
-            show={servicioDropdown}
-          >
-            <Dropdown.Toggle variant="success" id="dropdown-servicios">
-              Servicios
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item as={Link} to="/dashClient/servicios/nuevo">
-                Registrar nuevo servicio
-              </Dropdown.Item>
-              <Dropdown.Item as={Link} to="/dashClient/servicios">
-                Ver servicios existentes
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </li>
+            <Link to="/dashClient/productos">Productos</Link>
+          </li>
+          <li>
+            <Link to="/dashClient/servicios">Servicios</Link>
+          </li>
         <li>
           <Link to="/dashClient/pedidos">Pedidos</Link>
         </li>
@@ -99,7 +71,68 @@ export function SidebarCliente({ children }) {
           <box-icon name="log-out" color="#ffffff"></box-icon>Cerrar sesión
         </Link>
       </div>
-      {children}
+    </div>
+
+    <div className="d-md-none">
+        <Button className="botonMenu" variant="primary" onClick={handleShow}>
+        <box-icon name='menu' color='#ffffff' size='40px'></box-icon>
+        </Button>
+        <Offcanvas show={show} onHide={handleClose}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title style= {{fontSize: "25px"}}>Dashboard de cliente</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <div className="sidebar-container2">
+              <ul>
+                <li>
+                  <Link to="/dashClient">Dashboard</Link>
+                </li>
+                <li>
+                  <Link to="/dashClient/productos">Productos</Link>
+                </li>
+                <li>
+                  <Link to="/dashClient/servicios">Servicios</Link>
+                </li>
+                <li>
+                  <Link to="/dashClient/perfil">Pedidos</Link>
+                </li>
+                <li>
+                  <Link to="/dashClient/perfil">Mi perfil</Link>
+                </li>
+              </ul>
+              <div className="user-options">
+                <p>
+                  Bienvenido:{" "}
+                  {usuario.nombre +
+                    " " +
+                    usuario.apellidoPaterno +
+                    " " +
+                    usuario.apellidoMaterno}
+                </p>
+                <br></br>
+                <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                  Página principal
+                </Link>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+
+                <Link
+                  to="/"
+                  onClick={handleLogout}
+                  style={{ textDecoration: "none", color: "white" }}
+                  className="iconuser"
+                >
+                  <box-icon name="log-out" color="#ffffff"></box-icon>Cerrar sesión
+                </Link>
+              </div>
+            </div>
+          </Offcanvas.Body>
+        </Offcanvas>
+      </div>
     </div>
   );
 }

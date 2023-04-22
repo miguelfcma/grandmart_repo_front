@@ -14,7 +14,44 @@
   cursor: pointer;
 }
 
+
+
+
+
 .content-container {
   margin-left: 160px;
   padding: 20px;
+}
+
+.textoBienvenida{
+  margin-right: 30px;
+  margin-left: -160px;
+}
+
+.textoDash{
+  margin-right: 30px;
+  margin-left: 160px;
+}
+
+.contenidoPages{
+  margin-right: 30px;
+  margin-left: 5px;
+}
+
+/*Función para cuando se observe en un móvil */
+@media screen and (max-width: 768px) {
+  .textoBienvenida {
+    margin-right: 20px;
+    margin-left: -180px;
+  }
+  .textoDash {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 22px;
+  }
+  .contenidoPages{
+    margin-right: 30px;
+    margin-left: -150px;
+    margin-top: 22px;
+  }
 }

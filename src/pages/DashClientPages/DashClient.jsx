@@ -4,6 +4,7 @@ import { SidebarCliente } from "../../components/DashClientComponents/SidebarCli
 import { HeaderCliente } from "../../components/DashClientComponents/HeaderCliente";
 import { ContentCliente } from "../../components/DashClientComponents/ContentCliente";
 import { useNavigate } from "react-router-dom";
+import "./DashClient.css";
 
 export function DashClient() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export function DashClient() {
       ) : (
         <div className="dashboard-container">
           <SidebarCliente />
-          <div className="dashboard-content">
+          <div className="textoDash">
             <HeaderCliente />
             <ContentCliente />
           </div>

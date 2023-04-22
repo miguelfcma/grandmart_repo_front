@@ -1,13 +1,16 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
 import { CardUsuarioDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardUsuarioDomicilio";
+import "../DashAdmin.css";
 
 export function PerfilPageAdmin() {
   return (
-    <div style={{ marginLeft: "200px" }}>
-      <HeaderAdmin/>
+    <div className="dashboard-container">
       <SidebarAdmin />
+      <div className="contenidoPages">
+        <HeaderAdmin />
       <CardUsuarioDomicilio />
+    </div>
     </div>
   );
 }

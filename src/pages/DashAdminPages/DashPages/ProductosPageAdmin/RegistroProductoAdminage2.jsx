@@ -2,14 +2,17 @@ import { FormImgProductoAdmin } from "../../../../components/ProductoComponents/
 import { useParams } from "react-router-dom";
 import { SidebarAdmin } from "../../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../../components/DashAdminComponents/HeaderAdmin";
+import "../../DashAdmin.css";
 
 export function RegistroProductoAdminPage2() {
   const { idProducto } = useParams();
   return (
-    <div style={{ marginLeft: '200px' }}>
-      <HeaderAdmin/>
+    <div className="dashboard-container">
       <SidebarAdmin />
-      <FormImgProductoAdmin idProducto={idProducto} />
+      <div className="contenidoPages">
+        <HeaderAdmin />
+        <FormImgProductoAdmin idProducto={idProducto} />
+      </div>
     </div>
   );
 }

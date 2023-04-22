@@ -4,6 +4,7 @@ import { SidebarAdmin } from "../../components/DashAdminComponents/SidebarAdmin"
 import { HeaderAdmin } from "../../components/DashAdminComponents/HeaderAdmin";
 import { ContentAdmin } from "../../components/DashAdminComponents/ContentAdmin";
 import { useNavigate } from "react-router-dom";
+import "./DashAdmin.css";
 
 export function DashAdmin() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export function DashAdmin() {
       ) : (
         <div className="dashboard-container">
           <SidebarAdmin />
-          <div className="dashboard-content">
+          <div className="textoDash">
             <HeaderAdmin />
             <ContentAdmin />
           </div>
