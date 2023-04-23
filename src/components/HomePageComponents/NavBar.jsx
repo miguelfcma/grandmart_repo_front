@@ -117,16 +117,16 @@ export function Navbar1({ onSearch }) {
               <NavDropdown title={usuario.nombre} id="collasible-nav-dropdown">
                 {usuario.tipoUsuario === true ? (
                   <NavDropdown.Item href="/dashAdmin">
-                    <box-icon name="user"></box-icon> Administración
+                    <box-icon name="user" style={{ verticalAlign: "middle" }}></box-icon> Administración
                   </NavDropdown.Item>
                 ) : (
                   <NavDropdown.Item href="/dashClient">
-                    <box-icon name="user"></box-icon> Mi cuenta
+                    <box-icon name="user" style={{ verticalAlign: "middle" }}></box-icon> Mi cuenta
                   </NavDropdown.Item>
                 )}
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>
-                  <box-icon name="log-out"></box-icon> Salir
+                  <box-icon name="log-out" style={{ verticalAlign: "middle" }}></box-icon> Salir
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (

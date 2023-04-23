@@ -26,108 +26,192 @@ export function SidebarCliente({ children }) {
       <div className="d-none d-md-block sidebar-container">
         <ul>
           <li>
-          <Link to="/dashClient">Dashboard</Link>
-        </li>
-        <li>
-            <Link to="/dashClient/productos">Productos</Link>
+            <Link to="/dashClient" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="dashboard"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Dashboard
+            </Link>
           </li>
           <li>
-            <Link to="/dashClient/servicios">Servicios</Link>
+            <Link to="/dashClient/productos" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="store"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Productos
+            </Link>
           </li>
-        <li>
-          <Link to="/dashClient/pedidos">Pedidos</Link>
-        </li>
-        <li>
-          <Link to="/dashClient/perfil">Mi perfil</Link>
-        </li>
-      </ul>
-      <div className="user-options">
-        <p>
-          Bienvenido:{" "}
-          {usuario.nombre +
-            " " +
-            usuario.apellidoPaterno +
-            " " +
-            usuario.apellidoMaterno}
-        </p>
+          <li>
+            <Link to="/dashClient/servicios" className="separateIcon">
+              <box-icon
+                name="store"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Servicios
+            </Link>
+          </li>
+          <li>
+            <Link to="/dashClient/pedidos" className="separateIcon">
+              <box-icon
+                name="package"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Pedidos
+            </Link>
+          </li>
+          <li>
+            <Link to="/dashClient/perfil" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="user-detail"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Mi perfil
+            </Link>
+          </li>
+        </ul>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div className="user-options">
+          <Link
+            to="/"
+            className="separateIcon"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <box-icon
+              name="home"
+              color="#ffffff"
+              style={{ verticalAlign: "middle" }}
+            ></box-icon>
+            Página principal
+          </Link>
+          <br></br>
+          <br></br>
 
-        <br></br>
-        <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-          Página principal
-        </Link>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-
-        <Link
-          to="/"
-          onClick={handleLogout}
-          style={{ textDecoration: "none", color: "white" }}
-          className="iconuser"
-        >
-          <box-icon name="log-out" color="#ffffff"></box-icon>Cerrar sesión
-        </Link>
+          <Link
+            to="/"
+            onClick={handleLogout}
+            style={{ textDecoration: "none", color: "white" }}
+            className="separateIcon"
+          >
+            <box-icon
+              name="log-out"
+              color="#ffffff"
+              style={{ verticalAlign: "middle" }}
+            ></box-icon>
+            Cerrar sesión
+          </Link>
+        </div>
       </div>
-    </div>
 
-    <div className="d-md-none">
+      <div className="d-md-none">
         <Button className="botonMenu" variant="primary" onClick={handleShow}>
-        <box-icon name='menu' color='#ffffff' size='40px'></box-icon>
+          <box-icon name="menu" color="#ffffff" size="40px"></box-icon>
         </Button>
         <Offcanvas show={show} onHide={handleClose}>
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title style= {{fontSize: "25px"}}>Dashboard de cliente</Offcanvas.Title>
+            <Offcanvas.Title style={{ fontSize: "25px" }}>
+              Dashboard
+            </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <div className="sidebar-container2">
               <ul>
                 <li>
-                  <Link to="/dashClient">Dashboard</Link>
+                  <Link to="/dashClient" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="user-account"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Dashboard
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashClient/productos">Productos</Link>
+                  <Link to="/dashClient/productos" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="store"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Productos
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashClient/servicios">Servicios</Link>
+                  <Link to="/dashClient/servicios" className="separateIcon">
+                    <box-icon
+                      name="store"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Servicios
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashClient/perfil">Pedidos</Link>
+                  <Link to="/dashClient/perfil" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="shopping-bags"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Pedidos
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashClient/perfil">Mi perfil</Link>
+                  <Link to="/dashClient/perfil" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="user-detail"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Mi perfil
+                  </Link>
                 </li>
               </ul>
               <div className="user-options">
-                <p>
-                  Bienvenido:{" "}
-                  {usuario.nombre +
-                    " " +
-                    usuario.apellidoPaterno +
-                    " " +
-                    usuario.apellidoMaterno}
-                </p>
-                <br></br>
-                <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-                  Página principal
-                </Link>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-
-                <Link
-                  to="/"
-                  onClick={handleLogout}
-                  style={{ textDecoration: "none", color: "white" }}
-                  className="iconuser"
-                >
-                  <box-icon name="log-out" color="#ffffff"></box-icon>Cerrar sesión
-                </Link>
+                <div className="separateIcon">
+                  <br></br>
+                  <Link
+                    to="/"
+                    style={{ textDecoration: "none", color: "white" }}
+                  >
+                    <box-icon
+                      name="home"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Página principal
+                  </Link>
+                  <br></br>
+                  <br></br>
+                  <Link
+                    to="/"
+                    onClick={handleLogout}
+                    style={{ textDecoration: "none", color: "white" }}
+                    className="iconuser"
+                  >
+                    <box-icon
+                      name="log-out"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Cerrar sesión
+                  </Link>
+                </div>
               </div>
             </div>
           </Offcanvas.Body>

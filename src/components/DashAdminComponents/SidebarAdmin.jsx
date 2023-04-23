@@ -5,7 +5,7 @@ import { useProductos } from "../ProductoComponents/ProductosContext/ProductoPro
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import "../../components/DashAdminComponents/SidebarAdmin.css"
+import "../../components/DashAdminComponents/SidebarAdmin.css";
 
 export function SidebarAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -27,136 +27,293 @@ export function SidebarAdmin() {
       <div className="d-none d-md-block sidebar-container">
         <ul>
           <li>
-            <Link to="/dashAdmin">Dashboard</Link>
+            <Link to="/dashAdmin/usuarios" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="user-account"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Usuarios
+            </Link>
           </li>
           <li>
-            <Link to="/dashAdmin/productos">Productos</Link>
+            <Link to="/dashAdmin/productos" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="store"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Productos
+            </Link>
           </li>
           <li>
-            <Link to="/dashAdmin/servicios">Servicios</Link>
+            <Link to="/dashAdmin/servicios" className="separateIcon">
+              <box-icon
+                name="store"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Servicios
+            </Link>
           </li>
           <li>
-            <Link to="/dashAdmin/categorias">Categorias</Link>
+            <Link to="/dashAdmin/categorias" className="separateIcon">
+              <box-icon
+                name="category"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Categorias
+            </Link>
           </li>
           <li>
-            <Link to="/dashAdmin/pedidos">Pedidos</Link>
+            <Link to="/dashAdmin/compras" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="shopping-bags"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Compras
+            </Link>
           </li>
           <li>
-            <Link to="/dashAdmin/compras">Compras</Link>
+            <Link to="/dashAdmin/pedidos" className="separateIcon">
+              <box-icon
+                name="package"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Pedidos
+            </Link>
           </li>
           <li>
-            <Link to="/dashAdmin/ordenes">Ordenes</Link>
+            <Link to="/dashAdmin/ordenes" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="package"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Ordenes
+            </Link>
           </li>
           <li>
-            <Link to="/dashAdmin/perfil">Mi perfil</Link>
+            <Link to="/dashAdmin/perfil" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="user-detail"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Mi perfil
+            </Link>
           </li>
           <li>
-            <Link to="/dashAdmin/preguntas">Preguntas</Link>
+            <Link to="/dashAdmin/preguntas" className="separateIcon">
+              <box-icon
+                name="question-mark"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Preguntas
+            </Link>
           </li>
           <li>
-            <Link to="/dashAdmin/estadisticas">Estadísticas</Link>
+            <Link to="/dashAdmin/estadisticas" className="separateIcon">
+              <box-icon
+                name="line-chart"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Estadísticas
+            </Link>
           </li>
         </ul>
+        <br></br>
         <div className="user-options">
-          <p>
-            Bienvenido:{" "}
-            {usuario.nombre +
-              " " +
-              usuario.apellidoPaterno +
-              " " +
-              usuario.apellidoMaterno}
-          </p>
-
-          <br></br>
-          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <Link
+            to="/"
+            className="separateIcon"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            <box-icon
+              name="home"
+              color="#ffffff"
+              style={{ verticalAlign: "middle" }}
+            ></box-icon>
             Página principal
           </Link>
           <br></br>
           <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-
           <Link
             to="/"
             onClick={handleLogout}
             style={{ textDecoration: "none", color: "white" }}
-            className="iconuser"
+            className="separateIcon"
           >
-            <box-icon name="log-out" color="#ffffff"></box-icon>Cerrar sesión
+            <box-icon
+              name="log-out"
+              color="#ffffff"
+              style={{ verticalAlign: "middle" }}
+            ></box-icon>
+            Cerrar sesión
           </Link>
         </div>
       </div>
 
       <div className="d-md-none">
         <Button className="botonMenu" variant="primary" onClick={handleShow}>
-        <box-icon name='menu' color='#ffffff' size='40px'></box-icon>
+          <box-icon name="menu" color="#ffffff" size="40px"></box-icon>
         </Button>
         <Offcanvas show={show} onHide={handleClose}>
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title style= {{fontSize: "25px"}}>Dashboard de administrador</Offcanvas.Title>
+            <Offcanvas.Title style={{ fontSize: "25px" }}>
+              Dashboard de administrador
+            </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <div className="sidebar-container2">
               <ul>
                 <li>
-                  <Link to="/dashAdmin">Dashboard</Link>
+                  <Link to="/dashAdmin/usuarios" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="user-account"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Usuarios
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashAdmin/productos">Productos</Link>
+                  <Link to="/dashAdmin/productos" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="store"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Productos
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashAdmin/servicios">Servicios</Link>
+                  <Link to="/dashAdmin/servicios" className="separateIcon">
+                    <box-icon
+                      name="store"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Servicios
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashAdmin/categorias">Categorias</Link>
+                  <Link to="/dashAdmin/categorias" className="separateIcon">
+                    <box-icon
+                      name="category"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Categorias
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashAdmin/pedidos">Pedidos</Link>
+                  <Link to="/dashAdmin/pedidos" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="shopping-bags"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Pedidos
+                  </Link>
                 </li>{" "}
                 <li>
-                  <Link to="/dashAdmin/ordenes">Ordenes</Link>
+                  <Link to="/dashAdmin/compras" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="package"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Compras
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashAdmin/perfil">Mi perfil</Link>
+                  <Link to="/dashAdmin/ordenes" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="package"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Ordenes
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashAdmin/preguntas">Preguntas</Link>
+                  <Link to="/dashAdmin/perfil" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="user-detail"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Mi perfil
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/dashAdmin/estadisticas">Estadísticas</Link>
+                  <Link to="/dashAdmin/preguntas" className="separateIcon">
+                    <box-icon
+                      name="question-mark"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Preguntas
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashAdmin/estadisticas" className="separateIcon">
+                    <box-icon
+                      name="line-chart"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Estadísticas
+                  </Link>
                 </li>
               </ul>
               <div className="user-options">
-                <p>
-                  Bienvenido:{" "}
-                  {usuario.nombre +
-                    " " +
-                    usuario.apellidoPaterno +
-                    " " +
-                    usuario.apellidoMaterno}
-                </p>
-
-                <br></br>
-                <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-                  Página principal
-                </Link>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-
-                <Link
-                  to="/"
-                  onClick={handleLogout}
-                  style={{ textDecoration: "none", color: "white" }}
-                  className="iconuser"
-                >
-                  <box-icon name="log-out" color="#ffffff"></box-icon>Cerrar sesión
-                </Link>
+                <div className="separateIcon">
+                  <br></br>
+                  <Link
+                    to="/"
+                    style={{ textDecoration: "none", color: "white" }}
+                  >
+                    <box-icon
+                      name="home"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Página principal
+                  </Link>
+                  <br></br>
+                  <br></br>
+                  <Link
+                    to="/"
+                    onClick={handleLogout}
+                    style={{ textDecoration: "none", color: "white" }}
+                    className="iconuser"
+                  >
+                    <box-icon
+                      name="log-out"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Cerrar sesión
+                  </Link>
+                </div>
               </div>
             </div>
           </Offcanvas.Body>

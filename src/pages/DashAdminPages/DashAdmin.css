@@ -25,6 +25,7 @@
 .textoBienvenida{
   margin-right: 30px;
   margin-left: -160px;
+  text-align: justify;
 }
 
 .textoDash{
@@ -42,6 +43,7 @@
   .textoBienvenida {
     margin-right: 20px;
     margin-left: -180px;
+    text-align: justify;
   }
   .textoDash {
     margin-right: 20px;

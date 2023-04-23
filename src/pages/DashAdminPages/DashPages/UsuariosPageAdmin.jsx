@@ -4,7 +4,7 @@ import { FormUsuario } from "../../../components/usuarioComponents/FormUsuario";
 import { ListUsuarios } from "../../../components/usuarioComponents/ListUsuarios";
 import { Modal } from "../../../components/ModalComponents/Modal";
 import { useEffect, useState } from "react";
-import "./UsuariosPageAdmin.css";
+import "../DashAdmin.css";
 
 export function UsuariosPageAdmin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,9 +31,10 @@ export function UsuariosPageAdmin() {
   }, [formularioEnviado]);
 
   return (
-    <div className="content-container">
-      <HeaderAdmin/>
+    <div className="dashboard-container">
       <SidebarAdmin />
+      <div className="contenidoPages">
+        <HeaderAdmin />
       <h1>Página de usuarios</h1>
       <button type="submit" onClick={handleOpenModal}>
         Nuevo registro
@@ -44,6 +45,7 @@ export function UsuariosPageAdmin() {
         <FormUsuario onSubmit={handleSubmit} />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
+    </div>
     </div>
   );
 }

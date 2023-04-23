@@ -2,15 +2,17 @@ import { SidebarAdmin } from "../../../../components/DashAdminComponents/Sidebar
 import { HeaderAdmin } from "../../../../components/DashAdminComponents/HeaderAdmin";
 import { useParams } from "react-router-dom";
 import { DetallesCompraAdmin } from "../../../../components/OrdenesComponents/ComprasAdmin/DetallesCompraAdmin";
+import "../../DashAdmin.css";
 
 export  function CompraDetallesPageAdmin() {
     const { id_orden } = useParams();
 
     return (
-      <div style={{ marginLeft: "200px" }}>
-        <HeaderAdmin />
-        <SidebarAdmin />
+      <div className="dashboard-container">
+      <SidebarAdmin />
+      <div className="contenidoPages">
         <DetallesCompraAdmin id_orden={id_orden}/>
+    </div>
     </div>
   )
 }

@@ -5,7 +5,7 @@
   bottom: 0;
   background-color: #1c6bc3;
   padding: 10px;
-  width: 150px;
+  width: 165px !important;
   z-index: 1; /* z-index menor que la sección de contenido */
 }
 
@@ -48,6 +48,9 @@ li a:hover {
 }
 
 
+.separateIcon box-icon{
+  margin-right: 6px;
+}
 
 .botonMenu{
   margin-left: -178px;
