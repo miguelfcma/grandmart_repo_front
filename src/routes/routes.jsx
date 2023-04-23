@@ -21,7 +21,7 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
 import { PedidoDetallesPagesAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin/PedidoDetallesPagesAdmin";
 import { CompraDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/CompraDetallesPageAdmin";
 import { PreguntasPageAdmin } from "../pages/DashAdminPages/DashPages/PreguntasPageAdmin";
-
+import { EstadisticasPageAdmin } from "../pages/DashAdminPages/DashPages/EstadisticasPageAdmin";
 
 // Páginas de cliente
 import { CompraCarritoPage } from "../pages/HomePages/CarritoPage/CompraCarritoPage";
@@ -94,17 +94,21 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashAdmin/ordenes"
           element={<OrdenesDeCompraPageAdmin />}
         />
-         <Route
+        <Route
           exact
           path="/dashAdmin/preguntas"
           element={<PreguntasPageAdmin />}
+        />
+         <Route
+          exact
+          path="/dashAdmin/estadisticas"
+          element={<EstadisticasPageAdmin />}
         />
         <Route
           exact
           path="/dashAdmin/ordenes/detalles/:id_orden"
           element={<OrdenDetallesPageAdmin />}
         />
-
         <Route
           exact
           path="/dashAdmin/pedidos/detalles/:id_orden"
@@ -115,7 +119,6 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashAdmin/compras/detalles/:id_orden"
           element={<CompraDetallesPageAdmin />}
         />
-
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"
@@ -174,6 +177,7 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashClient/servicios"
           element={<ServiciosPageClient />}
         />
+       
         <Route
           exact
           path="/dashClient/servicios/detalles/:id"

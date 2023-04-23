@@ -22,10 +22,10 @@ export const crearPreguntaProductoRequest = async (data) => {
   }
 };
 
-export const crearRespuestaProductoRequest = async (idPregunta, data) => {
+export const crearRespuestaProductoRequest = async (id_pregunta, data) => {
   try {
     const response = await axios.post(
-      `${API_BASE_URL}producto-preguntas/${idPregunta}/respuesta`,
+      `${API_BASE_URL}producto-preguntas/${id_pregunta}/respuesta`,
       data
     );
     console.log({

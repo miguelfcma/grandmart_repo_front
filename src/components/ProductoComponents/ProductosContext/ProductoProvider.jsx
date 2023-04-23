@@ -21,6 +21,8 @@ import {
   crearPreguntaProductoRequest,
   getPreguntasByIdProductoRequest,
   getProductosConPreguntasByUsuarioIdRequest,
+  eliminarPreguntaProductoRequest,
+  crearRespuestaProductoRequest,
 } from "../../../API/ProductosApiRest/preguntasProducto.api";
 
 import {
@@ -449,6 +451,35 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  const eliminarPreguntaProducto = async (id_pregunta) => {
+    try {
+      const response = await eliminarPreguntaProductoRequest(id_pregunta);
+      console.log(response);
+      if (response.status == 200) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const crearRespuestaProducto = async (id_usuario, id_pregunta, data) => {
+    try {
+      const response = await crearRespuestaProductoRequest(id_pregunta, data);
+      console.log(response);
+      if (response.status == 200) {
+        await getProductosConPreguntasByUsuarioId(id_usuario)
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ProductoContext.Provider
       value={{
@@ -487,6 +518,8 @@ export const ProductoContextProvider = ({ children }) => {
         getPreguntasByIdProducto,
         getProductosConPreguntasByUsuarioId,
         productosPreguntas,
+        eliminarPreguntaProducto,
+        crearRespuestaProducto,
       }}
     >
       {children}

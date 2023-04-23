@@ -4,6 +4,7 @@ import { FormComentarioPublicacionBlog } from "./FormComentarioPublicacionBlog";
 import "./ListaComentariosPublicacionBlog.css"
 
 export function ListaComentariosPublicacionBlog({ id_publicacionBlog }) {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { getComentariosPorIdPublicacion } = usePublicacionesBlog();
   const [comentarios, setComentarios] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Card, ListGroup, Form, Button, Collapse } from "react-bootstrap";
+import { useProductos } from "../../ProductosContext/ProductoProvider";
 
 export function ItemProductoConPreguntaAdmin({ producto }) {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const { crearRespuestaProducto, eliminarPreguntaProductoRequest } =
+    useProductos();
   const [respuestas, setRespuestas] = useState([]);
   const [preguntasVisible, setPreguntasVisible] = useState(false);
 
@@ -20,15 +24,12 @@ export function ItemProductoConPreguntaAdmin({ producto }) {
     });
   };
 
-  const handleSubmitRespuesta = (preguntaId, respuesta) => {
-    // Aquí puedes manejar la lógica para enviar la respuesta al servidor
-    // por ejemplo, mediante una API
-    console.log(
-      "Respuesta enviada para la preguntaId:",
-      preguntaId,
-      "Respuesta:",
-      respuesta
-    );
+  const handleSubmitRespuesta = async(id_pregunta, respuesta) => {
+    try {
+        await crearRespuestaProducto(usuario.id, id_pregunta, {respuesta: respuesta})
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleEliminarPregunta = (preguntaId) => {
