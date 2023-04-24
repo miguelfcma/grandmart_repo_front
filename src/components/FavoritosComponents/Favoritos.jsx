@@ -1,11 +1,22 @@
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
+import { Link, useNavigate } from "react-router-dom";
 import "../HomePageComponents/NavBar.css";
 import "./Favoritos.css";
-export function Favoritos() {
-  const { favoritos, eliminarFavorito } = useProductos();
+import { useEffect } from "react";
 
-  const handleEliminar = (producto) => {
-    eliminarFavorito(producto);
+export function Favoritos() {
+  const { favoritos, eliminarFavorito, loadFavoritos } = useProductos();
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (usuario && usuario.id) {
+      loadFavoritos(usuario.id);
+    }
+  }, []);
+
+  const handleEliminar = (id_producto) => {
+    eliminarFavorito(usuario.id, id_producto);
   };
 
   return (
@@ -17,7 +28,7 @@ export function Favoritos() {
           ) : (
             <div className="favoritos-count">{favoritos.length}</div>
           )}
-            Favoritos
+          Favoritos
           <div className="dropdown-content">
             <div className="favoritos-dropdown">
               {favoritos.length === 0 ? (
@@ -26,13 +37,13 @@ export function Favoritos() {
                 <>
                   {favoritos.map((producto) => (
                     <div key={producto.id} className="favoritos-item">
-                      <a href={`/productos/detalles/${producto.id}`}>
-                        {producto.nombre}
-                      </a>
+                      <Link to={`/productos/detalles/${producto.producto.id}`}>
+                        {producto.producto.nombre}
+                      </Link>
                       <div className="eliminar-btn-container">
                         <button
                           className="eliminar-btn"
-                          onClick={() => handleEliminar(producto)}
+                          onClick={() => handleEliminar(producto.id)}
                         >
                           Eliminar
                         </button>

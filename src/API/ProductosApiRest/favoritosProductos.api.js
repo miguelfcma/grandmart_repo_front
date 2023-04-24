@@ -2,9 +2,9 @@ import axios from "axios";
 import { API_BASE_URL } from "../config.api";
 
 // Función para obtener los productos favoritos de un usuario
-export const obtenerFavoritosRequest = async (idUsuario) => {
+export const obtenerFavoritosRequest = async (id_usuario) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}favoritos/${idUsuario}`);
+    const response = await axios.get(`${API_BASE_URL}favoritos/${id_usuario}`);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -20,9 +20,10 @@ export const obtenerFavoritosRequest = async (idUsuario) => {
 };
 
 // Función para agregar un producto a los favoritos de un usuario
-export const agregarProductoAFavoritosRequest = async (idUsuario, data) => {
+export const agregarProductoAFavoritosRequest = async (id_usuario, id_producto) => {
+  console.log("hola2",id_usuario,id_producto)
   try {
-    const response = await axios.post(`${API_BASE_URL}favoritos/${idUsuario}`, data);
+    const response = await axios.post(`${API_BASE_URL}favoritos/${id_usuario}`, { data: { id_producto: id_producto } });
     console.log({
       status: response.status,
       message: response.data.message,
@@ -38,9 +39,9 @@ export const agregarProductoAFavoritosRequest = async (idUsuario, data) => {
 };
 
 // Función para eliminar un producto de los favoritos de un usuario
-export const eliminarProductoFavoritoRequest = async (idUsuario, idProducto) => {
+export const eliminarProductoFavoritoRequest = async (id_usuario, id_producto) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}favoritos/${idUsuario}`, { data: { id_producto: idProducto } });
+    const response = await axios.post(`${API_BASE_URL}favoritos-eliminar/${id_usuario}`, { data: { id_producto: id_producto } });
     console.log({
       status: response.status,
       message: response.data.message,

@@ -5,49 +5,49 @@ import { useEffect, useState } from "react";
 import "./Carrito.css";
 
 export function Carrito() {
-    const {
-      carrito,
-      obtenerCarritoDeCompras,
-      actualizarCantidadProductoEnCarrito,
-      eliminarProductoDelCarrito,
-      vaciarCarrito,
-    } = useProductos();
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
-  
-    // Verificar si el usuario ha iniciado sesión antes de obtener el carrito de compras
-    useEffect(() => {
-      if (usuario && usuario.id) {
-        obtenerCarritoDeCompras(usuario.id);
-      }
-    }, []);
+  const {
+    carrito,
+    obtenerCarritoDeCompras,
+    actualizarCantidadProductoEnCarrito,
+    eliminarProductoDelCarrito,
+    vaciarCarrito,
+  } = useProductos();
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  // Verificar si el usuario ha iniciado sesión antes de obtener el carrito de compras
+  useEffect(() => {
+    if (usuario && usuario.id) {
+      obtenerCarritoDeCompras(usuario.id);
+    }
+  }, []);
 
   function getTotal() {
     return carrito.totalCantidad;
   }
 
-  function eliminarItemCarrito(item) {
-    eliminarProductoDelCarrito(item.id_producto, { id_usuario: usuario.id });
+  async function eliminarItemCarrito(item) {
+    await eliminarProductoDelCarrito(item.id_producto, {
+      id_usuario: usuario.id,
+    });
   }
 
-  function vaciarCarritoCompleto() {
-    vaciarCarrito(parseInt(usuario.id));
+  async function vaciarCarritoCompleto() {
+    await vaciarCarrito(parseInt(usuario.id));
   }
-  
 
-  function incrementarCantidadItemCarrito(item) {
-    actualizarCantidadProductoEnCarrito(item.id_producto, {
+  async function incrementarCantidadItemCarrito(item) {
+    await actualizarCantidadProductoEnCarrito(item.id_producto, {
       id_usuario: usuario.id,
       accion: "incrementar",
     });
   }
 
-  function decrementarCantidadItemCarrito(item) {
-    actualizarCantidadProductoEnCarrito(item.id_producto, {
+  async function decrementarCantidadItemCarrito(item) {
+    await actualizarCantidadProductoEnCarrito(item.id_producto, {
       id_usuario: usuario.id,
       accion: "decrementar",
     });
   }
-
   return (
     <div className="cart-icon-container">
       {/* Renderizar el icono del carrito y la cantidad de items en el carrito */}
@@ -86,7 +86,7 @@ export function Carrito() {
             <p>Total: ${getTotal()}</p>
             <div className="cart-actions">
               <button onClick={vaciarCarritoCompleto}>Vaciar carrito</button>
-        
+
               <Link
                 to="/resumen-compras"
                 style={{ textDecoration: "none" }}

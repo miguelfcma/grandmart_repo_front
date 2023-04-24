@@ -282,15 +282,55 @@ export const ProductoContextProvider = ({ children }) => {
     );
   }
   */
-  function agregarFavorito(producto) {
-    setFavoritos((prevFavoritos) => [...prevFavoritos, producto]);
+  async function agregarFavorito(id_usuario, id_producto) {
+    console.log("hola",id_usuario,id_producto)
+    try {
+      const response = await agregarProductoAFavoritosRequest(
+        id_usuario,
+        id_producto
+      );
+
+      if (response.status === 201) {
+  
+        loadFavoritos(id_usuario);
+      } 
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  function eliminarFavorito(producto) {
-    setFavoritos((prevFavoritos) =>
-      prevFavoritos.filter((p) => p.id !== producto.id)
-    );
+  async function eliminarFavorito(id_usuario, id_producto) {
+    try {
+      console.log("hola")
+      const response = await eliminarProductoFavoritoRequest(
+        id_usuario,
+        id_producto
+      );
+
+      if (response.status === 200) {
+     
+        loadFavoritos(id_usuario);
+      } 
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  async function loadFavoritos(id_usuario) {
+    try {
+      const response = await obtenerFavoritosRequest(id_usuario);
+
+      if (response.status === 200) {
+        console.log(response)
+        setFavoritos(response.data.data);
+      } else {
+        throw new Error("No se pudo obtener la lista de favorito");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  //--------------------
 
   async function loadProductos() {
     try {
@@ -471,7 +511,7 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await crearRespuestaProductoRequest(id_pregunta, data);
       console.log(response);
       if (response.status == 200) {
-        await getProductosConPreguntasByUsuarioId(id_usuario)
+        await getProductosConPreguntasByUsuarioId(id_usuario);
         return response.data;
       } else {
         return null;
@@ -495,6 +535,7 @@ export const ProductoContextProvider = ({ children }) => {
         getProductImagesGaleria,
         getAllImagesProduct,
         favoritos,
+        loadFavoritos,
         agregarFavorito,
         eliminarFavorito,
         /*

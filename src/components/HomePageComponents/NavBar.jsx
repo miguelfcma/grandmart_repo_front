@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import React from "react";
-//import { Favoritos } from "../FavoritosComponents/Favoritos";
+import { Favoritos } from "../FavoritosComponents/Favoritos";
 import { Carrito } from "../CarritoComponents/Carrito";
 import axios from "axios";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
@@ -107,7 +107,7 @@ export function Navbar1({ onSearch }) {
             <Nav.Link href="/blog">Blog</Nav.Link>
             <Nav.Link href="/">Contacto</Nav.Link>
             <Nav.Link>
-              {/*  <Favoritos />*/}
+               <Favoritos />
              
             </Nav.Link>
             <Nav.Link>
