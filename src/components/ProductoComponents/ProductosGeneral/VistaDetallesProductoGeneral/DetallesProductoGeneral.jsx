@@ -123,7 +123,7 @@ export function DetallesProductoGeneral({ id }) {
           </div>
         )}
       </div>
-
+      
       <div className="columna-derecha">
         <br></br>
         <br></br>
