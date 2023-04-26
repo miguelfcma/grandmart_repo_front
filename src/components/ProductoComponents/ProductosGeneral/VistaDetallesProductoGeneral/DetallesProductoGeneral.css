@@ -1,95 +1,139 @@
 .contenedor {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 20px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
-  
-  .infoProductoTitulo{
-    display: inline-block;
-    max-width: 98%;
-    font-size: 30px;
-    margin-top: 1px;
-    margin-left: 16px;
-    
-  }
 
-  .infoProducto {
-    display: inline-block;
-    font-size: 18px;
-    line-height: 1.5;
-    margin-top: -20px;
-    text-align: justify;
-    
-  }
+.columna-izquierda {
+  width: 75px;
+  height: 595px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  margin-top: -20px;
+  margin-left: 25px;
+}
 
-  .infoProductoPrecio{
-    font-size: 30px;
-  }
+.imagen-producto {
+  width: 65px;
+  height: 60px;
+  margin-bottom: 10px;
+  border: 2px solid #aaaaaad0;
+}
 
-  .infoProductoDescripcion{
-    font-size: 18px;
-    line-height: 1.5;
-  }
 
-  .infoProductoCaracteristicas{
-    font-size: 18px;
-    line-height: 1.8;
-  }
+.columna-central {
+  width: 500px;
+  height: 565px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -330px;
+}
 
-  .galeria {
-    display: inline-block;
-    height: 240px;
-    max-width: 98%; /* máximo abarcará 1280px */
-    margin: 0;
-    padding: 0;
-    margin-left: 14px;
-    margin-top: 10px;
+.imagen-central-container {
+  height: 500px;
+  width: 500px;
+  margin-top: 85px;
+  cursor: pointer;
+}
+
+.imagen-central {
+  height: 500px;
+  width: 500px;
+  object-fit: contain;
+}
+
+
+.columna-derecha {
+  width: 630px;
+  display: flex;
+  flex-direction: column;
+  margin-left: -240px;
+  margin-top: 10px;
+}
+
+.infoProducto {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.infoProductoTitulo {
+  font-size: 25px;
+  padding: 10px 20px;
+}
+
+.infoProductoPrecio {
+  font-size: 30px;
+  padding: 5px 35px;
+}
+
+.infoProductoDescripcion {
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 10px 35px 0px 35px;
+}
+
+.infoProductoCaracteristicas {
+  font-size: 18px;
+  line-height: 1.8;
+  padding: 10px 35px;
+}
+.galeria-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 999;
   }
   
-  .galeria img{
-    cursor: pointer;
-    height: 99%; /* cubre 99% de altura */
-    width: 96%; /* cubre 96% de ancho */
-    object-fit: fill; /* la imagen se ajusta al tamaño de la caja */
-    margin-top: 1px; /* centrar horizontalmente */
+  .galeria-imagen {
+  max-height: 80vh;
+  max-width: 80vw;
+  object-fit: contain;
   }
   
-  
-  .galeria img:hover{
-    opacity: 60%;
-    animation: zoom-in 0.1s ease-in-out forwards;
-    
+  .galeria-boton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1000;
   }
   
-  .galeria img:not(:hover) {
-    transform: none;
-    animation: none;  
+  .galeria-boton-izquierda {
+  left: 10px;
   }
   
-  .imagenAmpliada {
-    position: fixed;
-    top: 160px;
-    left: 450px;
-    right: auto;
-    background-color: rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-    animation: none;
-    transition: transform 0.3s ease-in-out;
-    transform: scale(1.7);
-    height: auto;
-    width: auto;
-    margin-top: 0px;
-    padding: 3px 3px 3px 3px;
-    object-fit: contain;
+  .galeria-boton-derecha {
+  right: 10px;
   }
-
-  .imagenAmpliada:hover {
-    animation: none;
-    transition: none;
-    z-index: -99999;
-  }
-
   
+  @media (max-width: 768px) {
+  .galeria-imagen {
+  max-height: 60vh;
+  max-width: 60vw;
+  }
+  }
+  
+  @media (max-width: 480px) {
+  .galeria-imagen {
+  max-height: 50vh;
+  max-width: 50vw;
+  }
+  
+  .galeria-boton {
+  font-size: 1.5rem;
+  }
+  }

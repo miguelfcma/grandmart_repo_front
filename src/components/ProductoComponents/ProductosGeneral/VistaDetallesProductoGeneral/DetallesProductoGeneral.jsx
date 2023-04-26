@@ -1,11 +1,11 @@
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
-
 import { ReviewsProducto } from "../ReviewsProductoGeneral/ReviewsProducto";
 import "./DetallesProductoGeneral.css";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import { PreguntasProductoComponenteCompletoGeneral } from "../PreguntasProductoGeneral/PreguntasProductoComponenteCompletoGeneral";
+import { Modal, Button} from "react-bootstrap";
 
 export function DetallesProductoGeneral({ id }) {
   const {
@@ -18,6 +18,10 @@ export function DetallesProductoGeneral({ id }) {
   const [producto, setProducto] = useState(null);
   const [imagenPortada, setImagenPortada] = useState(null);
   const [imagenes, setImagenes] = useState(null);
+  const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
+  const [imagenHover, setImagenHover] = useState(null);
+
+  const [imagenAmpliada, setImagenAmpliada] = useState(null);
 
   useEffect(() => {
     loadProductos();
@@ -42,101 +46,168 @@ export function DetallesProductoGeneral({ id }) {
     }
   }, [productosAll, id, getImgPortadaProducto, getProductImagesGaleria]);
 
-  const [setZoom] = useState(1);
-  const handleZoomIn = () => {
-    setZoom(1.5);
-  };
-  const handleZoomOut = () => {
-    setZoom(1);
+  const handleImagenHover = (url) => {
+    setImagenHover(url);
+    setImagenSeleccionada(url);
   };
 
-  const [imagenZoom, setImagenZoom] = useState(null);
+  function ImgCentralClick(url) {
+    setImagenSeleccionada(url);
+  }
+
+  function ImagenAmpliada({
+    imagen,
+    onClose,
+    onPrev,
+    onNext,
+    imagenSeleccionada,
+  }) {
+    return (
+      <Modal show={Boolean(imagen)} onHide={onClose} centered>
+      <Modal.Body style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <img
+          src={imagenSeleccionada}
+          alt="Ampliada"
+          className="imagen-ampliada"
+          style={{ width: "90%" }}
+        />
+        <Button variant="light" className="btn-prev" onClick={onPrev}>
+          &#8249;
+        </Button>
+        <Button variant="light" className="btn-next" onClick={onNext}>
+          &#8250;
+        </Button>
+      </Modal.Body>
+    </Modal>
+    );
+  }
+
+  function handleImagenClick(url) {
+    setImagenAmpliada(url);
+  }
+
+  function handleImagenClose() {
+    setImagenAmpliada(null);
+  }
+
+  function handlePrevClick() {
+    let index = imagenes.findIndex((obj) => obj.url === imagenSeleccionada);
+    if (imagenSeleccionada === imagenPortada) {
+      setImagenSeleccionada(imagenes[imagenes.length - 1].url);
+      setIndiceActual(imagenes.length - 1);
+    } else if (index > 0) {
+      setImagenSeleccionada(imagenes[index - 1].url);
+      setIndiceActual(index - 1);
+    } else {
+      setImagenSeleccionada(imagenPortada);
+      setIndiceActual(-1);
+    }
+  }
+  
+  function handleNextClick() {
+    let index = imagenes.findIndex((obj) => obj.url === imagenSeleccionada);
+    if (index === -1) {
+      setImagenSeleccionada(imagenes[0].url);
+      setIndiceActual(0);
+    } else if (index === imagenes.length - 1) {
+      setImagenSeleccionada(imagenPortada);
+      setIndiceActual(-1);
+    } else {
+      setImagenSeleccionada(imagenes[index + 1].url);
+      setIndiceActual(index + 1);
+    }
+  }
 
   return (
     <div className="contenedor">
-    <div>
-      {producto && (
-        <>
-          <div className="infoProductoTitulo">
-            <Card.Title style={{ fontSize: "25px" }}>
-              {producto.nombre}
-            </Card.Title>
-          </div>
-          <br></br>
-          <div className="galeria">
+      <div className="columna-izquierda">
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div className="imagen-container">
+          {imagenPortada && (
+            <img
+              src={imagenPortada}
+              alt="Portada"
+              className="imagen-producto"
+              onMouseOver={() => handleImagenHover(imagenPortada)}
+            />
+          )}
+          {imagenes &&
+            imagenes.map((imagen) => (
+              <img
+                key={imagen.id}
+                src={imagen.url}
+                alt={imagen.id}
+                className="imagen-producto"
+                onMouseOver={() => handleImagenHover(imagen.url)}
+              />
+            ))}
+        </div>
+      </div>
+      <div className="columna-central">
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        {imagenSeleccionada && (
           <div
-              className="imagenAmpliada"
-              style={{ display: imagenZoom ? "block" : "none" }}
-            >
-              <img src={imagenZoom} alt="Imagen ampliada" />
-            </div>
-            <CardGroup>
-              {imagenPortada && (
-                <Card>
-                  <Card.Img
-                    variant="top"
-                    src={imagenPortada}
-                    alt="Portada"
-                    className={imagenPortada === imagenZoom ? "zoom" : ""}
-                    onMouseEnter={() => setImagenZoom(imagenPortada)}
-                    onMouseLeave={() => setImagenZoom(null)}
-                  />
-                </Card>
-              )}
-              {imagenes &&
-                imagenes.map((imagen) => (
-                  <Card key={imagen.id}>
-                    <Card.Img
-                      variant="top"
-                      src={imagen.url}
-                      alt={imagen.id}
-                      className={imagen.url === imagenZoom ? "zoom" : ""}
-                      onMouseEnter={() => setImagenZoom(imagen.url)}
-                      onMouseLeave={() => setImagenZoom(null)}
-                    />
-                  </Card>
-                ))}
-            </CardGroup>
+            className="imagen-central-container"
+            onClick={() => handleImagenClick(imagenSeleccionada)}
+          >
+            <img
+              src={imagenSeleccionada}
+              alt="Seleccionada"
+              className="imagen-central"
+            />
           </div>
+        )}
+      <ImagenAmpliada
+        imagen={imagenAmpliada}
+        onClose={handleImagenClose}
+        onPrev={handlePrevClick}
+        onNext={handleNextClick}
+        imagenSeleccionada={imagenSeleccionada}
+      />
+      </div>
 
-          <div className="infoProducto">
-            <Card
-              style={{
-                width: "98%",
-                margin: "0 auto",
-                padding: "15px 20px 15px 20px",
-              }}
-            >
+      <div className="columna-derecha">
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        {producto && (
+          <>
+            <Card className="infoProducto">
               <Card.Title>
-                <div className="infoProductoPrecio">${producto.precio}</div>
-                <br></br>
-
-                <div className="infoProductoDescripcion">{producto.descripcion}</div>
-                <br></br>
-
+                <div className="infoProductoTitulo">{producto.nombre}</div>
+              </Card.Title>
+              <Card.Title>
+                <div className="infoProductoPrecio">$ {producto.precio}</div>
+              </Card.Title>
+              <Card.Text>
+                <div className="infoProductoDescripcion">
+                  {producto.descripcion}
+                </div>
+              </Card.Text>
+              <Card.Text>
                 <div className="infoProductoCaracteristicas">
                   <div>Marca: {producto.marca}</div>
                   <div>Modelo: {producto.modelo}</div>
                   <div>Color: {producto.color}</div>
                   <div>Estado: {producto.estado ? "Nuevo" : "Usado"}</div>
                   <div>Categoría: {producto.categoria.nombre}</div>
-                  <div>Producto públicado por: {producto.usuario.nombre}</div>
+                  <div>Vendido por: {producto.usuario.nombre}</div>
                   <div>Cantidades disponibles: {producto.stock}</div>
                 </div>
-              </Card.Title>
+              </Card.Text>
             </Card>
-
             <br></br>
-
             <button onClick={() => window.history.back()}>Regresar</button>
-            
-          </div>
-        
-       
-        </>
-        
-      )}
-    </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
