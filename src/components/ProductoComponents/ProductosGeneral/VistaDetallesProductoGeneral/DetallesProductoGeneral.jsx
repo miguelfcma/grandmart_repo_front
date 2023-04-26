@@ -5,7 +5,7 @@ import "./DetallesProductoGeneral.css";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import { PreguntasProductoComponenteCompletoGeneral } from "../PreguntasProductoGeneral/PreguntasProductoComponenteCompletoGeneral";
-import { Modal, Button} from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 
 export function DetallesProductoGeneral({ id }) {
   const {
@@ -20,8 +20,6 @@ export function DetallesProductoGeneral({ id }) {
   const [imagenes, setImagenes] = useState(null);
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
   const [imagenHover, setImagenHover] = useState(null);
-
-  const [imagenAmpliada, setImagenAmpliada] = useState(null);
 
   useEffect(() => {
     loadProductos();
@@ -51,72 +49,24 @@ export function DetallesProductoGeneral({ id }) {
     setImagenSeleccionada(url);
   };
 
-  function ImgCentralClick(url) {
-    setImagenSeleccionada(url);
-  }
+  const [zoomStyle, setZoomStyle] = useState({ visibility: "hidden" });
 
-  function ImagenAmpliada({
-    imagen,
-    onClose,
-    onPrev,
-    onNext,
-    imagenSeleccionada,
-  }) {
-    return (
-      <Modal show={Boolean(imagen)} onHide={onClose} centered>
-      <Modal.Body style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <img
-          src={imagenSeleccionada}
-          alt="Ampliada"
-          className="imagen-ampliada"
-          style={{ width: "90%" }}
-        />
-        <Button variant="light" className="btn-prev" onClick={onPrev}>
-          &#8249;
-        </Button>
-        <Button variant="light" className="btn-next" onClick={onNext}>
-          &#8250;
-        </Button>
-      </Modal.Body>
-    </Modal>
-    );
-  }
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    const zoomX = ((x / width) * 100).toFixed(2);
+    const zoomY = ((y / height) * 100).toFixed(2);
+    setZoomStyle({
+      visibility: "visible",
+      transform: `translate(-${zoomX}%, -${zoomY}%) scale(3)`,
+    });
+  };
 
-  function handleImagenClick(url) {
-    setImagenAmpliada(url);
-  }
-
-  function handleImagenClose() {
-    setImagenAmpliada(null);
-  }
-
-  function handlePrevClick() {
-    let index = imagenes.findIndex((obj) => obj.url === imagenSeleccionada);
-    if (imagenSeleccionada === imagenPortada) {
-      setImagenSeleccionada(imagenes[imagenes.length - 1].url);
-      setIndiceActual(imagenes.length - 1);
-    } else if (index > 0) {
-      setImagenSeleccionada(imagenes[index - 1].url);
-      setIndiceActual(index - 1);
-    } else {
-      setImagenSeleccionada(imagenPortada);
-      setIndiceActual(-1);
-    }
-  }
-  
-  function handleNextClick() {
-    let index = imagenes.findIndex((obj) => obj.url === imagenSeleccionada);
-    if (index === -1) {
-      setImagenSeleccionada(imagenes[0].url);
-      setIndiceActual(0);
-    } else if (index === imagenes.length - 1) {
-      setImagenSeleccionada(imagenPortada);
-      setIndiceActual(-1);
-    } else {
-      setImagenSeleccionada(imagenes[index + 1].url);
-      setIndiceActual(index + 1);
-    }
-  }
+  const handleMouseLeave = () => {
+    setZoomStyle({ visibility: "hidden" });
+  };
 
   return (
     <div className="contenedor">
@@ -154,22 +104,24 @@ export function DetallesProductoGeneral({ id }) {
         {imagenSeleccionada && (
           <div
             className="imagen-central-container"
-            onClick={() => handleImagenClick(imagenSeleccionada)}
+            onMouseMove={(e) => handleMouseMove(e)}
+            onMouseLeave={() => handleMouseLeave()}
           >
             <img
               src={imagenSeleccionada}
               alt="Seleccionada"
               className="imagen-central"
             />
+            <div className="zoom-container" style={zoomStyle}>
+              <img
+                src={imagenSeleccionada}
+                alt="Zoom"
+                className="zoom-img"
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
           </div>
         )}
-      <ImagenAmpliada
-        imagen={imagenAmpliada}
-        onClose={handleImagenClose}
-        onPrev={handlePrevClick}
-        onNext={handleNextClick}
-        imagenSeleccionada={imagenSeleccionada}
-      />
       </div>
 
       <div className="columna-derecha">
