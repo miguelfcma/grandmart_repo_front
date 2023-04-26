@@ -2,6 +2,8 @@ import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 export function FiltroOrdenesAdmin({ filtroUsuario, setFiltroUsuario, filtroEstadoOrden, setFiltroEstadoOrden, filtroFechaInicio, setFiltroFechaInicio, filtroFechaFin, setFiltroFechaFin, filtroOrden, setFiltroOrden }) {
+  const opcionesEstadoOrden = ["pendiente", "en proceso", "enviado", "entregado", "cancelado"]; // Opciones de estado de orden
+
   return (
     <Container>
       <Row>
@@ -33,11 +35,15 @@ export function FiltroOrdenesAdmin({ filtroUsuario, setFiltroUsuario, filtroEsta
           <Form.Group controlId="filtroEstadoOrden">
             <Form.Label>Filtrar por Estado de Orden</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="Estado de Orden"
+              as="select" // Cambiamos el tipo de control a "select"
               value={filtroEstadoOrden}
               onChange={(e) => setFiltroEstadoOrden(e.target.value)}
-            />
+            >
+              <option value="">Seleccione un estado</option> {/* Opción vacía para que no haya selección inicial */}
+              {opcionesEstadoOrden.map((estado) => (
+                <option key={estado} value={estado}>{estado}</option>
+              ))}
+            </Form.Control>
           </Form.Group>
         </Col>
         <Col>

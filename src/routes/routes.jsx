@@ -13,16 +13,16 @@ import { RegistroProductoAdminPage2 } from "../pages/DashAdminPages/DashPages/Pr
 import { ServiciosPageAdmin } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin";
 import { ServicioDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin/ServicioDetallesAdminPage";
 import { UsuariosPageAdmin } from "../pages/DashAdminPages/DashPages/UsuariosPageAdmin";
-import { OrdenesDeCompraPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesDeCompraPageAdmin";
 
-import { OrdenDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesPageAdmin/OrdenDetallesPageAdmin";
+
 import { PedidosPageAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin";
 import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin";
 import { PedidoDetallesPagesAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin/PedidoDetallesPagesAdmin";
 import { CompraDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/CompraDetallesPageAdmin";
 import { PreguntasPageAdmin } from "../pages/DashAdminPages/DashPages/PreguntasPageAdmin";
 import { EstadisticasPageAdmin } from "../pages/DashAdminPages/DashPages/EstadisticasPageAdmin";
-
+import {OrdenesDeCompraPageAdmin} from "../pages/DashAdminPages/DashPages/OrdenesDeCompraPageAdmin";
+import { OrdenDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesPageAdmin/OrdenDetallesPageAdmin";
 // Páginas de cliente
 import { CompraCarritoPage } from "../pages/HomePages/CarritoPage/CompraCarritoPage";
 import { DashClient } from "../pages/DashClientPages/DashClient";

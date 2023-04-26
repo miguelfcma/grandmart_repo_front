@@ -131,6 +131,16 @@ export function SidebarAdmin() {
               Estadísticas
             </Link>
           </li>
+          <li>
+            <Link to="/dashAdmin/database-backup" className="separateIcon">
+              <box-icon
+                name="data"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Backups base de datos
+            </Link>
+          </li>
         </ul>
         <br></br>
         <div className="user-options">
@@ -281,6 +291,19 @@ export function SidebarAdmin() {
                       style={{ verticalAlign: "middle" }}
                     ></box-icon>
                     Estadísticas
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/dashAdmin/database-backup"
+                    className="separateIcon"
+                  >
+                    <box-icon
+                      name="data"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Backups base de datos
                   </Link>
                 </li>
               </ul>

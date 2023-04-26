@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
 import { ItemOrdenAdmin } from "./ItemOrdenAdmin";
 import { FiltroOrdenesAdmin } from "./FiltroOrdenesAdmin";
-
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import "./ListaOrdenesAdmin.css";
+import { generarReporteExcel } from "../../GeneracionDeReportes/generarReporteExcel";
 
 export function ListaOrdenesAdmin() {
   // Utilizar el hook useOrdenes para acceder al contexto y las funciones relacionadas con las órdenes
@@ -13,6 +14,7 @@ export function ListaOrdenesAdmin() {
   const [filtroFechaInicio, setFiltroFechaInicio] = useState("");
   const [filtroFechaFin, setFiltroFechaFin] = useState("");
   const [filtroOrden, setFiltroOrden] = useState("");
+  const [ordenesFiltradasReporte, setOrdenesFiltradasReporte] = useState([]); // Arreglo de órdenes filtradas
 
   useEffect(() => {
     // Definir una función asincrónica dentro del useEffect para utilizar await
@@ -26,6 +28,13 @@ export function ListaOrdenesAdmin() {
     fetchData();
   }, []);
 
+
+  const generarReporte = () => {
+    // Array de atributos que deseas incluir en el reporte
+    const atributosExcluir = ["updatedAt"];
+  
+    generarReporteExcel(ordenesFiltradasReporte, atributosExcluir);
+  };
   function renderMain() {
     // Filtrar las órdenes en base a los criterios de filtro ingresados por el usuario
     const ordenesFiltradas = ordenesAll.filter(
@@ -36,10 +45,14 @@ export function ListaOrdenesAdmin() {
         (filtroFechaInicio === "" || new Date(orden.createdAt) >= new Date(filtroFechaInicio)) &&
         (filtroFechaFin === "" || new Date(orden.createdAt) <= new Date(filtroFechaFin))
     );
+    if(ordenesFiltradasReporte.length != ordenesFiltradas.length){
+      setOrdenesFiltradasReporte(ordenesFiltradas)
+    }
 
     if (ordenesFiltradas.length === 0) {
       return <h1>No hay órdenes registradas</h1>;
     } else {
+     
       return ordenesFiltradas.map((orden) => (
         <ItemOrdenAdmin key={orden.id} orden={orden} />
       ));
@@ -61,6 +74,10 @@ export function ListaOrdenesAdmin() {
         filtroOrden={filtroOrden}
         setFiltroOrden={setFiltroOrden}
       />
+      {/* Renderizado del botón para generar el reporte */}
+      <Button onClick={generarReporte} className="btn-generar-reporte">
+        Generar Reporte
+      </Button>
       <div className="list-ordenes">
         <table className="tabla-ordenes">
           <thead>

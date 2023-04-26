@@ -13,8 +13,10 @@
     "bootstrap": "^5.2.3",
     "boxicons": "^2.1.4",
     "chart.js": "^4.2.1",
+    "file-saver": "^2.0.5",
     "firebase": "^9.17.2",
     "jquery": "^3.6.4",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-chartjs-2": "^5.2.0",
@@ -24,7 +26,9 @@
     "react-multi-carousel": "^2.8.3",
     "react-router-dom": "^6.9.0",
     "reactstrap": "^9.1.8",
-    "uuid": "^9.0.0"
+    "sheetjs": "^2.0.0",
+    "uuid": "^9.0.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
