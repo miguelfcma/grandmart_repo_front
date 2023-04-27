@@ -86,6 +86,7 @@ export function CardProductoGeneral({ producto }) {
       navigate("/login");
     }
   }
+
   return (
     <div className="card-producto">
       <Link

@@ -25,8 +25,9 @@ export function ListaPreguntasProductoGeneral({ id_producto, actualizarPreguntas
           <ListGroup.Item key={pregunta.id} className="pregunta-item">
             <p className="pregunta">{pregunta.pregunta}</p>
             <div className="fecha">
-              Pregunta realizada el:{new Date(pregunta.updatedAt).toLocaleDateString()} Por: {pregunta.usuario.nombre}
+              Pregunta realizada el:&nbsp;&nbsp;{new Date(pregunta.updatedAt).toLocaleDateString()}&nbsp;&nbsp;Por: {pregunta.usuario.nombre}
             </div>
+            <br></br>
             <p className="respuesta">Respuesta: {pregunta.respuesta || "Sin respuesta"}</p> {/* Mensaje "Sin respuesta" en caso de respuesta vacía */}
            
           </ListGroup.Item>

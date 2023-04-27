@@ -12,7 +12,7 @@
 li a {
   color: white; /* Cambiamos el color de texto a blanco */
   display: block;
-  padding: 8px 16px;
+  padding: 4px 16px !important;
   text-decoration: none;
 }
 

@@ -38,13 +38,12 @@ export function FormNuevaPreguntaProductoGeneral({id_producto,actualizarPregunta
 
   return (
     <div className="nueva-pregunta-container">
-      <h2>Nueva Pregunta de Producto</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formPregunta">
-          <Form.Label>Pregunta:</Form.Label>
+        <Form.Group>
+          <Form.Label>Pregúntale al vendedor:</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Escribe aquí tu pregunta"
+            placeholder="Escribe aquí tu pregunta..."
             value={pregunta.pregunta}
             onChange={(event) =>
               setPregunta({ ...pregunta, pregunta: event.target.value })
@@ -54,7 +53,7 @@ export function FormNuevaPreguntaProductoGeneral({id_producto,actualizarPregunta
         </Form.Group>
 
         <Button type="submit" className="btn-azul">
-          Crear Pregunta
+          Enviar
         </Button>
       </Form>
     </div>

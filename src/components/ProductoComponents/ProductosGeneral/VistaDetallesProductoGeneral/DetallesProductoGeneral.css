@@ -34,13 +34,13 @@
 .imagen-central-container {
   height: 500px;
   width: 500px;
-  margin-top: 85px;
+  margin-top: 110px;
   position: relative;
 }
 
 .imagen-central {
-  height: 500px;
-  width: 500px;
+  height: 450px;
+  width: 450px;
   object-fit: contain;
 }
 
@@ -99,3 +99,49 @@
   line-height: 1.8;
   padding: 10px 35px;
 }
+
+.btnCar{
+  position: absolute;
+  margin-left: -550px;
+  margin-top: 600px;
+  max-width: 240px !important;
+  background-color: #2961fa !important;
+}
+.btnCar:hover{
+  background-color: #0032bd !important;
+}
+
+.btnFav{
+  position: absolute;
+  margin-left: -285px;
+  margin-top: 600px;
+  max-width: 270px !important;
+  background-color: #d6dae2 !important;
+  color: #2961fa !important;
+}
+.btnFav:hover{
+  background-color: #b6b6b6 !important;
+}
+
+.back-button3 {
+  text-decoration: none;
+  background-color: white; 
+  color: black !important;
+  border: 2px solid #1c6bc3;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: -85px;
+  margin-top: 80px;
+  width: 100px;
+  }    
+  
+  .back-button3:hover {
+  text-decoration: none;
+  background-color: #1c6bc3;
+  color: white !important;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  }

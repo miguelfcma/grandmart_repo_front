@@ -5,14 +5,22 @@ import "./DetallesProductoGeneral.css";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import { PreguntasProductoComponenteCompletoGeneral } from "../PreguntasProductoGeneral/PreguntasProductoComponenteCompletoGeneral";
-import { Modal, Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import { agregarProductoAlCarritoRequest } from "../../../../API/ProductosApiRest/carritoProductos.api";
 
 export function DetallesProductoGeneral({ id }) {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
   const {
     productosAll,
     getImgPortadaProducto,
     getProductImagesGaleria,
     loadProductos,
+    agregarProductoAlCarrito,
+    favoritos,
+    loadFavoritos,
+    agregarFavorito,
+    eliminarFavorito,
   } = useProductos();
 
   const [producto, setProducto] = useState(null);
@@ -23,6 +31,7 @@ export function DetallesProductoGeneral({ id }) {
 
   useEffect(() => {
     loadProductos();
+    window.scrollTo(0, 0); //Para que muestre el producto desde arriba de la página
   }, []);
 
   useEffect(() => {
@@ -68,6 +77,65 @@ export function DetallesProductoGeneral({ id }) {
     setZoomStyle({ visibility: "hidden" });
   };
 
+  const [carritoTexto, setCarritoTexto] = useState("Agregar al carrito");
+  const [favoritosTexto, setFavoritosTexto] = useState("Agregar a favoritos");
+
+  async function agregarAlCarrito() {
+    if (usuario) {
+      try {
+        await agregarProductoAlCarrito({
+          id_usuario: usuario.id,
+          id_producto: producto.id,
+          cantidad: 1,
+        });
+        setCarritoTexto("Agregado en tu carrito");
+      } catch (error) {
+        // Manejar el error, si es necesario
+        console.error("Error agregando producto al carrito:", error);
+      }
+    } else {
+      navigate("/login");
+    }
+  }
+
+  useEffect(() => {
+    if (usuario && usuario.id) {
+      loadFavoritos(usuario.id);
+    }
+  }, []);
+  const [esFavorito, setEsFavorito] = useState(false);
+  const esProductoFavorito = favoritos.some(
+    (favorito) => favorito.id_producto === producto
+  );
+
+  async function toggleFavorito() {
+    if (usuario && usuario.id) {
+      if (esProductoFavorito) {
+        try {
+          const favorito = favoritos.find(
+            (favorito) => favorito.id_producto === producto.id
+          );
+          await eliminarFavorito(usuario.id, producto.id);
+          setFavoritosTexto("Agregar a favoritos");
+        } catch (error) {
+          // Manejar el error, si es necesario
+          console.error("Error eliminando producto de favoritos:", error);
+        }
+      } else {
+        try {
+          await agregarFavorito(usuario.id, producto.id);
+          setFavoritosTexto("Agregado a tus favoritos");
+        } catch (error) {
+          // Manejar el error, si es necesario
+          console.error("Error agregando producto a favoritos:", error);
+        }
+      }
+      setEsFavorito(!esFavorito);
+    } else {
+      navigate("/login");
+    }
+  }
+
   return (
     <div className="contenedor">
       <div className="columna-izquierda">
@@ -101,7 +169,15 @@ export function DetallesProductoGeneral({ id }) {
         <br></br>
         <br></br>
         <br></br>
-        {imagenSeleccionada && (
+
+        {imagenSeleccionada === null ? (
+          <img
+            src={imagenPortada}
+            alt="Portada"
+            onMouseOver={() => handleImagenHover(imagenPortada)}
+            style={{ height: "450px", marginTop: "61px" }} // Ajustar ancho a tamaño de contenedor
+          />
+        ) : (
           <div
             className="imagen-central-container"
             onMouseMove={(e) => handleMouseMove(e)}
@@ -123,7 +199,7 @@ export function DetallesProductoGeneral({ id }) {
           </div>
         )}
       </div>
-      
+
       <div className="columna-derecha">
         <br></br>
         <br></br>
@@ -156,7 +232,29 @@ export function DetallesProductoGeneral({ id }) {
               </Card.Text>
             </Card>
             <br></br>
-            <button onClick={() => window.history.back()}>Regresar</button>
+            <Button
+              variant="primary"
+              size="lg"
+              className="btnCar"
+              onClick={agregarAlCarrito}
+            >
+              {carritoTexto}
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              className="btnFav"
+              onClick={toggleFavorito}
+            >
+              {favoritosTexto}
+            </Button>
+            <button
+              onClick={() => window.history.back()}
+              className="back-button3"
+            >
+              Atrás
+            </button>
+            <br></br>
           </>
         )}
       </div>
