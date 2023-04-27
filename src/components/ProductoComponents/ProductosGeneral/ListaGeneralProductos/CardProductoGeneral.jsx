@@ -3,23 +3,19 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export function CardProductoGeneral({ producto }) {
+export function CardProductoGeneral({ producto,favoritos }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
   const {
     getImgPortadaProducto,
     agregarFavorito,
     eliminarFavorito,
-    favoritos,
-    loadFavoritos,
+  
+    
     agregarProductoAlCarrito,
   } = useProductos();
 
-  useEffect(() => {
-    if (usuario && usuario.id) {
-      loadFavoritos(usuario.id);
-    }
-  }, []);
+  
   const [esFavorito, setEsFavorito] = useState(false);
   const esProductoFavorito = favoritos.some(
     (favorito) => favorito.id_producto === producto.id

@@ -4,14 +4,19 @@ import "./ListProductsGeneral.css";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 
 export function ListProductsGeneral() {
-  const { productosAll, loadProductos } = useProductos();
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const { productosAll, loadProductos,  favoritos,loadFavoritos } = useProductos();
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 9;
 
   useEffect(() => {
     loadProductos();
   }, []);
-
+  useEffect(() => {
+    if (usuario && usuario.id) {
+      loadFavoritos(usuario.id);
+    }
+  }, []);
   function renderMain() {
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -24,7 +29,7 @@ export function ListProductsGeneral() {
       return <h1>No hay productos registrados</h1>;
     } else {
       return currentProducts.map((producto) => (
-        <CardProductoGeneral key={producto.id} producto={producto} />
+        <CardProductoGeneral key={producto.id} producto={producto} favoritos={favoritos} />
       ));
     }
   }

@@ -15,8 +15,8 @@ export function Favoritos() {
     }
   }, []);
 
-  const handleEliminar = (id_producto) => {
-    eliminarFavorito(usuario.id, id_producto);
+  const handleEliminar = async (id_producto) => {
+    await eliminarFavorito(usuario.id, id_producto);
   };
 
   return (
@@ -43,7 +43,7 @@ export function Favoritos() {
                       <div className="eliminar-btn-container">
                         <button
                           className="eliminar-btn"
-                          onClick={() => handleEliminar(producto.id)}
+                          onClick={() => handleEliminar(producto.producto.id)}
                         >
                           Eliminar
                         </button>

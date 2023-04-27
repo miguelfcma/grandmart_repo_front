@@ -293,6 +293,8 @@ export const ProductoContextProvider = ({ children }) => {
       if (response.status === 201) {
   
         loadFavoritos(id_usuario);
+      } else  {
+        setFavoritos([]);
       } 
     } catch (error) {
       console.error(error);
@@ -306,10 +308,11 @@ export const ProductoContextProvider = ({ children }) => {
         id_usuario,
         id_producto
       );
-
-      if (response.status === 200) {
-     
+      if (response.status === 201) {
+  
         loadFavoritos(id_usuario);
+      } else  {
+        setFavoritos([]);
       } 
     } catch (error) {
       console.error(error);
