@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
 import { ItemCompraAdmin } from "./ItemCompraAdmin";
-
+import { Container, Row, Col, Card } from "react-bootstrap";
 import "./ListaComprasAdmin.css";
-import { Container, Row, Col } from "react-bootstrap";
+
 export function ListaComprasAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-
   const { obtenerOrdenesUsuario, ordenesUser } = useOrdenes();
 
   useEffect(() => {
@@ -23,14 +22,16 @@ export function ListaComprasAdmin() {
 
   function renderMain() {
     if (ordenesUser.length === 0) {
-      return <h1>No hay órdenes registradas</h1>;
+      return <h1>No hay compras registradas</h1>;
     } else {
       return (
         <Container>
           <Row>
             {ordenesUser.map((orden) => (
               <Col key={orden.id} sm={12}>
-                <ItemCompraAdmin key={orden.id} orden={orden} />
+                <Card>
+                  <ItemCompraAdmin key={orden.id} orden={orden} />
+                </Card>
               </Col>
             ))}
           </Row>
@@ -41,8 +42,7 @@ export function ListaComprasAdmin() {
 
   return (
     <>
-      <h2 className="titulo">Lista de compras:</h2>
-
+      <h2 className="titulo">Mis compras:</h2>
       <div className="list-ordenes">{renderMain()}</div>
     </>
   );
