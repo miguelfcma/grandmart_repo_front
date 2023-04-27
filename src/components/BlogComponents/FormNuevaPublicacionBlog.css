@@ -68,3 +68,6 @@
     border-radius: 5px; /* ajusta el borde según tus necesidades */
   }
   
+  .btnFormShow{ 
+    margin-left: 570px !important;
+  }

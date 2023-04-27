@@ -6,10 +6,10 @@ import { Link } from "react-router-dom"
 import { ListaBackups } from "../../../components/BackupComponents/ListaBackups";
 export function DatabaseBackupAdmin() {
   return (
-    <div>
-      <HeaderAdmin/>
+    <div className="dashboard-container">
       <SidebarAdmin />
-      <div style={{ marginLeft: '200px' }}>
+      <div className="contenidoPages">
+        <HeaderAdmin />
         <FormCreateBackup />
        
         <ListaBackups/>

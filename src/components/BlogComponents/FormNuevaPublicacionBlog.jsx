@@ -121,6 +121,8 @@ export function FormNuevaPublicacionBlog() {
     }
   };
 
+  const [showForm, setShowForm] = useState(false);
+
   return (
     <div>
       {alerta && (
@@ -132,71 +134,77 @@ export function FormNuevaPublicacionBlog() {
           {alerta.mensaje}
         </Alert>
       )}
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="titulo">
-          <Form.Label>Titulo:</Form.Label>
-          <Form.Control
-            type="text"
-            name="titulo"
-            value={publicacion.titulo}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="descripcion">
-          <Form.Label>Descripcion:</Form.Label>
-          <Form.Control
-            type="text"
-            name="descripcion"
-            value={publicacion.descripcion}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="imagenes">
-          <Form.Label>Imágenes:</Form.Label>
-          <div {...getRootProps()} className="dropzone-area">
-            <input {...getInputProps()} />
-            <p>
-              Arrastre y suelte archivos aquí o haga clic para seleccionar
-              archivos
-            </p>
-          </div>
-          <div className="imagen-preview-container">
-            {imagenes.map((imagen, index) => (
-              <div key={index} className="imagen-preview">
-                {index === 0 && (
-                  <>
-                    <box-icon
-                      type="solid"
-                      name="star"
-                      className="imagen-preview__icono-portada"
-                    />
-                    <span className="imagen-preview__texto-portada">
-                      Portada
-                    </span>
-                  </>
-                )}
-                <img
-                  src={URL.createObjectURL(imagen)}
-                  alt={`Imagen ${index + 1}`}
-                  className="imagen-preview__img"
-                />
-                <button
-                  type="button"
-                  onClick={() => handleEliminarImagen(index)}
-                  className="imagen-preview__eliminar"
-                >
-                  &times;
-                </button>
-              </div>
-            ))}
-          </div>
-        </Form.Group>
-        <Button variant="primary" type="submit" disabled={loading}>
-          Crear publicación
-        </Button>
-      </Form>
+
+      <Button variant="primary"  className="btnFormShow" onClick={() => setShowForm(!showForm)}>
+        {showForm ? "Ocultar formulario" : "Hacer una publicación"}
+      </Button>
+      {showForm && (
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="titulo">
+            <Form.Label>Titulo:</Form.Label>
+            <Form.Control
+              type="text"
+              name="titulo"
+              value={publicacion.titulo}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="descripcion">
+            <Form.Label>Descripcion:</Form.Label>
+            <Form.Control
+              type="text"
+              name="descripcion"
+              value={publicacion.descripcion}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="imagenes">
+            <Form.Label>Imágenes:</Form.Label>
+            <div {...getRootProps()} className="dropzone-area">
+              <input {...getInputProps()} />
+              <p>
+                Arrastre y suelte archivos aquí o haga clic para seleccionar
+                archivos
+              </p>
+            </div>
+            <div className="imagen-preview-container">
+              {imagenes.map((imagen, index) => (
+                <div key={index} className="imagen-preview">
+                  {index === 0 && (
+                    <>
+                      <box-icon
+                        type="solid"
+                        name="star"
+                        className="imagen-preview__icono-portada"
+                      />
+                      <span className="imagen-preview__texto-portada">
+                        Portada
+                      </span>
+                    </>
+                  )}
+                  <img
+                    src={URL.createObjectURL(imagen)}
+                    alt={`Imagen ${index + 1}`}
+                    className="imagen-preview__img"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleEliminarImagen(index)}
+                    className="imagen-preview__eliminar"
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
+            </div>
+          </Form.Group>
+          <Button variant="primary" type="submit" disabled={loading}>
+            Crear publicación
+          </Button>
+        </Form>
+      )}
     </div>
   );
 }
