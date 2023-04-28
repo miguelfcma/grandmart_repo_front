@@ -12,9 +12,9 @@ export function FormImgServicioAdmin({ idServicio }) {
 
   const { createImagenesServicioEnbd } = useServicios();
 
-
   const [imagenes, setImagenes] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const onDrop = async (acceptedFiles) => {
     const nuevasImagenes = [];
     const maxSize = 10 * 1024 * 1024; // 10 MB
@@ -57,7 +57,6 @@ export function FormImgServicioAdmin({ idServicio }) {
     setImagenes(nuevasImagenes);
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -71,6 +70,7 @@ export function FormImgServicioAdmin({ idServicio }) {
       console.error(error);
     }
   };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="imagenes">

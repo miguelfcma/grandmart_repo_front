@@ -12,6 +12,7 @@ import {
 
 import {
   createProductImageRequest,
+  createImagenesRequest,
   getProductImagePortadaRequest,
   getProductImagesGaleriaRequest,
   getAllImagesProductRequest,
@@ -335,6 +336,23 @@ export const ProductoContextProvider = ({ children }) => {
   }
   //--------------------
 
+  const createImagenesProductoEnbd = async (id_producto, imagenes) => {
+    try {
+      const response = await createImagenesRequest(
+        id_producto,
+        imagenes
+      );
+
+      if (response.status == 201) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   async function loadProductos() {
     try {
       const response = await getProductosRequest();
@@ -534,6 +552,7 @@ export const ProductoContextProvider = ({ children }) => {
         createProducto,
         updateProducto,
         createProductImage,
+        createImagenesProductoEnbd,
         getImgPortadaProducto,
         getProductImagesGaleria,
         getAllImagesProduct,

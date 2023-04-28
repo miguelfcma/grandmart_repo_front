@@ -19,6 +19,21 @@ export const createProductImageRequest = async (productImage) => {
   }
 };
 
+export const createImagenesRequest = async (id_producto, imagenes) => {
+   
+  try {
+    const response = await axios.post(
+      API_BASE_URL + "producto-imagenes/multiple",
+      { id_producto, imagenes }
+    );
+ 
+    return response;
+
+  } catch (error) {
+    console.log({ error });
+    return error.response;
+  }
+};
 
 
 export const getProductImagePortadaRequest = async (id_producto) => {
