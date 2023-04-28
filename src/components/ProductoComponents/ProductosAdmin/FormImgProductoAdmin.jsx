@@ -52,7 +52,7 @@ export function FormImgProductoAdmin(idProducto) {
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop,
-    maxFiles: 5,
+    maxFiles: 7,
   });
 
   const handleEliminarImagen = (index) => {

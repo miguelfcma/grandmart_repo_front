@@ -43,9 +43,6 @@ export function FormNuevoServicioCliente({handleServicioRegistrado}) {
     }
 
     const response = await createServicio(servicio);
-    
-    
-
 
     if (response) {
       const idServicio = response.servicio.id;
