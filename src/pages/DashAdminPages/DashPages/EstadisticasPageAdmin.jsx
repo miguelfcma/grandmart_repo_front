@@ -43,8 +43,26 @@ export function EstadisticasPageAdmin() {
     fetchData();
   }, []);
 
-  // Obtener los datos de fechas y totales de las órdenes
-  const fechas = ordenesAll.map(orden => new Date(orden.createdAt));
+  // Obtener los datos de fechas y totales de las órdenes en español
+  const fechas = ordenesAll.map((orden) => {
+    const fecha = new Date(orden.createdAt);
+    const opcionesFecha = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const opcionesHora = {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    };
+    const fechaFormateada = fecha.toLocaleString("es-ES", opcionesFecha);
+    const horaFormateada = fecha.toLocaleString("es-ES", opcionesHora);
+    return `${fechaFormateada} ${horaFormateada}`;
+  });
+
+
   const totales = ordenesAll.map(orden => parseFloat(orden.total));
 
   // Configurar los datos y opciones del gráfico
@@ -56,11 +74,11 @@ export function EstadisticasPageAdmin() {
         data: totales,
         tension: 0.5,
         fill: true,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "rgb(54, 162, 235)",
+        backgroundColor: "rgba(54, 162, 235, 0.5)",
         pointRadius: 5,
-        pointBorderColor: "rgba(255, 99, 132)",
-        pointBackgroundColor: "rgba(255, 99, 132)",
+        pointBorderColor: "rgba(54, 162, 235)",
+        pointBackgroundColor: "rgba(54, 162, 235)",
       },
     
     ],
@@ -72,7 +90,7 @@ export function EstadisticasPageAdmin() {
         min: 0,
       },
       x: {
-        ticks: { color: "rgb(255, 99, 132)" },
+        display: false, /* Para que no se muestren las fechas por debajo del gráfico */
       },
     },
   };

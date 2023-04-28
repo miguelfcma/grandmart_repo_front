@@ -25,7 +25,8 @@ export function Navbar1({ onSearch }) {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
     //vaciarFavoritos();
-    // redirigir a la página de inicio de sesión o a la página principal
+    // redirigir a  la página principal
+    window.location.href = "/";
   };
 
   const categorias = [
