@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { FormularioDeResenaAdmin } from "./FormularioDeResenaAdmin";
+import { FormularioDeResenaCliente } from "./FormularioDeResenaCliente";
 import { useProductos } from "../../../ProductoComponents/ProductosContext/ProductoProvider";
 
-export function ResenaAdmin({ id_producto }) {
+export function ResenaCliente({ id_producto }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [review, setReview] = useState(null);
   const [mostrarFormulario, setMostrarFormulario] = useState(true);
@@ -55,7 +55,7 @@ export function ResenaAdmin({ id_producto }) {
         </div>
       )}
       {mostrarFormulario && (
-        <FormularioDeResenaAdmin
+        <FormularioDeResenaCliente
           id_producto={id_producto}
           onReviewSubmit={handleReviewSubmit}
         />

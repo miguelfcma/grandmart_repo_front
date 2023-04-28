@@ -13,20 +13,19 @@ import { RegistroProductoAdminPage2 } from "../pages/DashAdminPages/DashPages/Pr
 import { ServiciosPageAdmin } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin";
 import { ServicioDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin/ServicioDetallesAdminPage";
 import { UsuariosPageAdmin } from "../pages/DashAdminPages/DashPages/UsuariosPageAdmin";
-
-
 import { PedidosPageAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin";
-import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin";
 import { PedidoDetallesPagesAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin/PedidoDetallesPagesAdmin";
-import { CompraDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/CompraDetallesPageAdmin";
 import { PreguntasPageAdmin } from "../pages/DashAdminPages/DashPages/PreguntasPageAdmin";
 import { EstadisticasPageAdmin } from "../pages/DashAdminPages/DashPages/EstadisticasPageAdmin";
-import {OrdenesDeCompraPageAdmin} from "../pages/DashAdminPages/DashPages/OrdenesDeCompraPageAdmin";
+import { OrdenesDeCompraPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesDeCompraPageAdmin";
 import { OrdenDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesPageAdmin/OrdenDetallesPageAdmin";
-import { CompraOpinarProductoAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/CompraOpinarProductoAdmin";
+
 // Páginas de cliente
 import { CompraCarritoPage } from "../pages/HomePages/CarritoPage/CompraCarritoPage";
 import { DashClient } from "../pages/DashClientPages/DashClient";
+import { ComprasPageCliente } from "../pages/DashClientPages/DashPages/ComprasPageCliente/ComprasPageCliente";
+import { CompraDetallesPageCliente } from "../pages/DashClientPages/DashPages/ComprasPageCliente/CompraDetallesPageCliente";
+import { CompraOpinarProductoCliente } from "../pages/DashClientPages/DashPages/ComprasPageCliente/CompraOpinarProductoCliente";
 import { PedidosPageClient } from "../pages/DashClientPages/DashPages/PedidosPageClient";
 import { PerfilPageClient } from "../pages/DashClientPages/DashPages/PerfilPageClient";
 import { ProductoDetallesClientPage } from "../pages/DashClientPages/DashPages/ProductosPageCliente/ProductoDetallesClientPage";
@@ -84,7 +83,6 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           element={<CategoriasPageAdmin />}
         />
         <Route exact path="/dashAdmin/pedidos" element={<PedidosPageAdmin />} />
-        <Route exact path="/dashAdmin/compras" element={<ComprasPageAdmin />} />
         <Route
           exact
           path="/dashAdmin/productos"
@@ -100,7 +98,7 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashAdmin/preguntas"
           element={<PreguntasPageAdmin />}
         />
-         <Route
+        <Route
           exact
           path="/dashAdmin/estadisticas"
           element={<EstadisticasPageAdmin />}
@@ -115,17 +113,6 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashAdmin/pedidos/detalles/:id_orden"
           element={<PedidoDetallesPagesAdmin />}
         />
-        <Route
-          exact
-          path="/dashAdmin/compras/detalles/:id_orden"
-          element={<CompraDetallesPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/compras/opinar/:id_producto"
-          element={<CompraOpinarProductoAdmin />}
-        />
-        
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"
@@ -157,6 +144,7 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashAdmin/database-backup"
           element={<DatabaseBackupAdmin />}
         />
+
         {/* Rutas para cliente */}
         <Route exact path="/dashClient" element={<DashClient />} />
         <Route
@@ -184,11 +172,25 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashClient/servicios"
           element={<ServiciosPageClient />}
         />
-       
         <Route
           exact
           path="/dashClient/servicios/detalles/:id"
           element={<ServicioDetallesClientPage />}
+        />
+        <Route
+          exact
+          path="/dashClient/compras"
+          element={<ComprasPageCliente />}
+        />
+        <Route
+          exact
+          path="/dashClient/compras/detalles/:id_orden"
+          element={<CompraDetallesPageCliente />}
+        />
+        <Route
+          exact
+          path="/dashClient/compras/opinar/:id_producto"
+          element={<CompraOpinarProductoCliente />}
         />
         <Route
           exact

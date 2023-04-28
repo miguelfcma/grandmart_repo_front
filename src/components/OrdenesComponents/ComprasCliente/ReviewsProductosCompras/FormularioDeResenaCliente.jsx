@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useProductos } from "../../../ProductoComponents/ProductosContext/ProductoProvider";
 
-export function FormularioDeResenaAdmin({ id_producto, onReviewSubmit }) {
+export function FormularioDeResenaCliente({ id_producto, onReviewSubmit }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [titulo, setTitulo] = useState("");
   const [comentario, setComentario] = useState("");

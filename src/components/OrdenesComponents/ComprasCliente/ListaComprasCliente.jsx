@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
-import { ItemCompraAdmin } from "./ItemCompraAdmin";
+import { ItemCompraCliente } from "./ItemCompraCliente";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import "./ListaComprasAdmin.css";
+import "./ListaComprasCliente.css";
 
-export function ListaComprasAdmin() {
+export function ListaComprasCliente() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { obtenerOrdenesUsuario, ordenesUser } = useOrdenes();
 
@@ -30,7 +30,7 @@ export function ListaComprasAdmin() {
             {ordenesUser.map((orden) => (
               <Col key={orden.id} sm={12}>
                 <Card>
-                  <ItemCompraAdmin key={orden.id} orden={orden} />
+                  <ItemCompraCliente key={orden.id} orden={orden} />
                 </Card>
               </Col>
             ))}

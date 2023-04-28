@@ -58,6 +58,17 @@ export function SidebarCliente({ children }) {
             </Link>
           </li>
           <li>
+            <Link to="/dashClient/compras" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="shopping-bags"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Compras
+            </Link>
+          </li>
+          <li>
             <Link to="/dashClient/pedidos" className="separateIcon">
               <box-icon
                 name="package"
