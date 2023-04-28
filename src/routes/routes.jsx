@@ -23,6 +23,7 @@ import { PreguntasPageAdmin } from "../pages/DashAdminPages/DashPages/PreguntasP
 import { EstadisticasPageAdmin } from "../pages/DashAdminPages/DashPages/EstadisticasPageAdmin";
 import {OrdenesDeCompraPageAdmin} from "../pages/DashAdminPages/DashPages/OrdenesDeCompraPageAdmin";
 import { OrdenDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesPageAdmin/OrdenDetallesPageAdmin";
+import { CompraOpinarProductoAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/CompraOpinarProductoAdmin";
 // Páginas de cliente
 import { CompraCarritoPage } from "../pages/HomePages/CarritoPage/CompraCarritoPage";
 import { DashClient } from "../pages/DashClientPages/DashClient";
@@ -119,6 +120,12 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashAdmin/compras/detalles/:id_orden"
           element={<CompraDetallesPageAdmin />}
         />
+        <Route
+          exact
+          path="/dashAdmin/compras/opinar/:id_producto"
+          element={<CompraOpinarProductoAdmin />}
+        />
+        
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"

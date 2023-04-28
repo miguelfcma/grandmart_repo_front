@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
 
-export const createReview = async (data) => {
+export const createReviewRequest = async (data) => {
   try {
     const response = await axios.post(`${API_BASE_URL}producto-review/`, data);
     console.log({
@@ -18,7 +18,7 @@ export const createReview = async (data) => {
   }
 };
 
-export const deleteReviewById = async (id) => {
+export const deleteReviewByIdRequest = async (id) => {
   try {
     const response = await axios.delete(`${API_BASE_URL}producto-review/${id}`);
     console.log({
@@ -35,7 +35,7 @@ export const deleteReviewById = async (id) => {
   }
 };
 
-export const getReviewsByProductId = async (id_producto) => {
+export const getReviewsByProductIdRequest = async (id_producto) => {
   try {
     const response = await axios.get(`${API_BASE_URL}producto-review/${id_producto}`);
     console.log({
@@ -52,7 +52,7 @@ export const getReviewsByProductId = async (id_producto) => {
   }
 };
 
-export const updateReviewById = async (id, data) => {
+export const updateReviewByIdRequest = async (id, data) => {
   try {
     const response = await axios.put(`${API_BASE_URL}producto-review/${id}`, data);
     console.log({
@@ -69,7 +69,7 @@ export const updateReviewById = async (id, data) => {
   }
 };
 
-export const getAvgRatingByProductId = async (id_producto) => {
+export const getAvgRatingByProductIdRequest = async (id_producto) => {
   try {
     const response = await axios.get(`${API_BASE_URL}producto-review/${id_producto}/avg-rating`);
     console.log({
@@ -77,6 +77,23 @@ export const getAvgRatingByProductId = async (id_producto) => {
       message: response.data.message,
     });
     return response.data;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};
+
+export const getReviewByUserAndProductRequest = async (id_usuario, id_producto) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}producto-review/user/${id_usuario}/product/${id_producto}`);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
   } catch (error) {
     console.log({
       status: error.response.status,

@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
-import { Container, Row, Col, Button, Card, ListGroup,Image } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Card,
+  ListGroup,
+  Image,
+} from "react-bootstrap";
 import { useProductos } from "../../ProductoComponents/ProductosContext/ProductoProvider";
+import { useNavigate } from "react-router-dom";
+
+
 
 export function DetallesCompraAdmin({ id_orden }) {
   const { obtenerDetalleOrden, obtenerDireccionEnvioOrden } = useOrdenes();
-
+  const navigate = useNavigate();
   const { getImgPortadaProducto } = useProductos();
   const [orden, setOrden] = useState({
     id: null,
@@ -37,11 +48,10 @@ export function DetallesCompraAdmin({ id_orden }) {
         });
         setDireccionEnvio(data2.direccion_envio);
         setNuevoEstado(data.orden.estado_orden);
-  
 
         const promisesImagenes = data.detallesOrden.map(async (detalle) => {
           const url = await getImgPortadaProducto(detalle.producto.id);
-          console.log(url)
+      
           return url;
         });
         const urlsImagenes = await Promise.all(promisesImagenes);
@@ -54,12 +64,14 @@ export function DetallesCompraAdmin({ id_orden }) {
   }, []);
 
   const handleVerDetalles = (productoId) => {
-    // Lógica para mostrar los detalles del producto
+    navigate(`/productos/detalles/${productoId}`);
   };
 
   const handleOpinar = (productoId) => {
-    // Lógica para mostrar la opción de opinar sobre el producto
+    navigate(`/dashAdmin/compras/opinar/${productoId}`);
   };
+
+
 
   return (
     <Container className="detalles-orden-admin">
@@ -118,11 +130,19 @@ export function DetallesCompraAdmin({ id_orden }) {
                   <Card.Text>Calle 1: {direccionEnvio.calle1}</Card.Text>
                   <Card.Text>Calle 2: {direccionEnvio.calle2}</Card.Text>
                   <Card.Text>Colonia: {direccionEnvio.colonia}</Card.Text>
-                  <Card.Text>Descripción: {direccionEnvio.descripcion}</Card.Text>
-                  <Card.Text>Municipio/Alcaldía: {direccionEnvio.municipio_alcaldia}</Card.Text>
+                  <Card.Text>
+                    Descripción: {direccionEnvio.descripcion}
+                  </Card.Text>
+                  <Card.Text>
+                    Municipio/Alcaldía: {direccionEnvio.municipio_alcaldia}
+                  </Card.Text>
                   <Card.Text>Nombre INE: {direccionEnvio.nombre_ine}</Card.Text>
-                  <Card.Text>Número Exterior: {direccionEnvio.numeroExterior}</Card.Text>
-                  <Card.Text>Número Interior: {direccionEnvio.numeroInterior}</Card.Text>
+                  <Card.Text>
+                    Número Exterior: {direccionEnvio.numeroExterior}
+                  </Card.Text>
+                  <Card.Text>
+                    Número Interior: {direccionEnvio.numeroInterior}
+                  </Card.Text>
                   <Card.Text>Código Postal: {direccionEnvio.postal}</Card.Text>
                 </Col>
               </Row>

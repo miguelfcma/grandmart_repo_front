@@ -41,6 +41,14 @@ import {
 } from "../../../API/ProductosApiRest/favoritosProductos.api";
 
 import { ProductoContext } from "./ProductoContext";
+import {
+  createReviewRequest,
+  getReviewsByProductIdRequest,
+  deleteReviewByIdRequest,
+  updateReviewByIdRequest,
+  getAvgRatingByProductIdRequest,
+  getReviewByUserAndProductRequest
+} from "../../../API/ProductosApiRest/reviewsProducto.api";
 
 export const useProductos = () => {
   const context = useContext(ProductoContext);
@@ -284,7 +292,7 @@ export const ProductoContextProvider = ({ children }) => {
   }
   */
   async function agregarFavorito(id_usuario, id_producto) {
-    console.log("hola",id_usuario,id_producto)
+    console.log("hola", id_usuario, id_producto);
     try {
       const response = await agregarProductoAFavoritosRequest(
         id_usuario,
@@ -292,11 +300,10 @@ export const ProductoContextProvider = ({ children }) => {
       );
 
       if (response.status === 201) {
-  
         loadFavoritos(id_usuario);
-      } else  {
+      } else {
         setFavoritos([]);
-      } 
+      }
     } catch (error) {
       console.error(error);
     }
@@ -304,17 +311,14 @@ export const ProductoContextProvider = ({ children }) => {
 
   async function eliminarFavorito(id_usuario, id_producto) {
     try {
-      console.log("hola")
+      console.log("hola");
       const response = await eliminarProductoFavoritoRequest(
         id_usuario,
         id_producto
       );
-      if (response.status === 201) {
-  
+      if (response.status === 200) {
         loadFavoritos(id_usuario);
-      } else  {
-        setFavoritos([]);
-      } 
+      }
     } catch (error) {
       console.error(error);
     }
@@ -325,10 +329,10 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await obtenerFavoritosRequest(id_usuario);
 
       if (response.status === 200) {
-        console.log(response)
         setFavoritos(response.data.data);
       } else {
-        throw new Error("No se pudo obtener la lista de favorito");
+        setFavoritos([]);
+        console.log("No se pudo obtener la lista de favorito");
       }
     } catch (error) {
       console.error(error);
@@ -338,10 +342,7 @@ export const ProductoContextProvider = ({ children }) => {
 
   const createImagenesProductoEnbd = async (id_producto, imagenes) => {
     try {
-      const response = await createImagenesRequest(
-        id_producto,
-        imagenes
-      );
+      const response = await createImagenesRequest(id_producto, imagenes);
 
       if (response.status == 201) {
         return response.data;
@@ -541,6 +542,36 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  ///Reviews
+  const createReview = async (data) => {
+    try {
+      const response = await createReviewRequest(data);
+
+      if (response.status == 201) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getReviewByUserAndProduct = async (id_usuario, id_producto) => {
+    try {
+      const response = await getReviewByUserAndProductRequest(id_usuario, id_producto);
+   
+      if (response.status == 200) {
+
+        return response.data.review;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ProductoContext.Provider
       value={{
@@ -583,6 +614,9 @@ export const ProductoContextProvider = ({ children }) => {
         productosPreguntas,
         eliminarPreguntaProducto,
         crearRespuestaProducto,
+
+        createReview,
+        getReviewByUserAndProduct
       }}
     >
       {children}

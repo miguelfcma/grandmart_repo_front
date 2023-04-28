@@ -58,7 +58,7 @@ export function CardProductoGeneral({ producto,favoritos }) {
   }
 
   async function toggleFavorito() {
-    if (usuario && usuario.id) {
+    if (usuario) {
       if (esProductoFavorito) {
         try {
           const favorito = favoritos.find(
@@ -98,7 +98,7 @@ export function CardProductoGeneral({ producto,favoritos }) {
         <br></br>
         <div>${producto.precio}</div>
       </Link>
-      {usuario && usuario.id ? (
+   
         <button
           onClick={toggleFavorito}
           title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}
@@ -109,7 +109,7 @@ export function CardProductoGeneral({ producto,favoritos }) {
             color={esFavorito ? "red" : "black"}
           ></box-icon>
         </button>
-      ) : null}
+   
       <button onClick={agregarAlCarrito}>Agregar al carrito</button>
     </div>
   );

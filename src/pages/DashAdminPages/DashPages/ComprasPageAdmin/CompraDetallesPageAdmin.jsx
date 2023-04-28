@@ -10,6 +10,7 @@ export  function CompraDetallesPageAdmin() {
     return (
       <div className="dashboard-container">
       <SidebarAdmin />
+      <HeaderAdmin/>
       <div className="contenidoPages">
         <DetallesCompraAdmin id_orden={id_orden}/>
     </div>
