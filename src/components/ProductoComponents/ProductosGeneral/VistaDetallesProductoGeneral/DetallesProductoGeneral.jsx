@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 import { ReviewsProducto } from "../ReviewsProductoGeneral/ReviewsProducto";
 import "./DetallesProductoGeneral.css";
 import Card from "react-bootstrap/Card";
-import CardGroup from "react-bootstrap/CardGroup";
-import { PreguntasProductoComponenteCompletoGeneral } from "../PreguntasProductoGeneral/PreguntasProductoComponenteCompletoGeneral";
+import {PreguntasProductoComponenteCompletoGeneral} from "../PreguntasProductoGeneral/PreguntasProductoComponenteCompletoGeneral.jsx"
 import Button from "react-bootstrap/Button";
-import { agregarProductoAlCarritoRequest } from "../../../../API/ProductosApiRest/carritoProductos.api";
+
 
 export function DetallesProductoGeneral({ id }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -137,6 +136,7 @@ export function DetallesProductoGeneral({ id }) {
   }
 
   return (
+    <>
     <div className="contenedor">
       <div className="columna-izquierda">
         <br></br>
@@ -258,6 +258,10 @@ export function DetallesProductoGeneral({ id }) {
           </>
         )}
       </div>
+      
     </div>
+    <PreguntasProductoComponenteCompletoGeneral  id_producto={ id}/>
+      <ReviewsProducto id_producto={ id} />
+    </>
   );
 }

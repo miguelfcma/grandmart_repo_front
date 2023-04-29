@@ -572,6 +572,41 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  
+  const getReviewsByProductId = async (id_producto) => {
+    try {
+      const response = await getReviewsByProductIdRequest(
+        id_producto
+      );
+      console.log(response);
+      if (response.status == 200) {
+
+        return response.data.reviews;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getAvgRatingByProductId = async (id_producto) => {
+    try {
+      const response = await getAvgRatingByProductIdRequest(
+        id_producto
+      );
+      console.log(response);
+      if (response.status == 200) {
+
+        return response.data.avgRating;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <ProductoContext.Provider
       value={{
@@ -616,7 +651,9 @@ export const ProductoContextProvider = ({ children }) => {
         crearRespuestaProducto,
 
         createReview,
-        getReviewByUserAndProduct
+        getReviewByUserAndProduct,
+        getReviewsByProductId,
+        getAvgRatingByProductId
       }}
     >
       {children}

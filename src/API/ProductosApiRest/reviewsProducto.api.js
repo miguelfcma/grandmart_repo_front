@@ -42,7 +42,7 @@ export const getReviewsByProductIdRequest = async (id_producto) => {
       status: response.status,
       message: response.data.message,
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.log({
       status: error.response.status,
@@ -76,7 +76,7 @@ export const getAvgRatingByProductIdRequest = async (id_producto) => {
       status: response.status,
       message: response.data.message,
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.log({
       status: error.response.status,
