@@ -2,31 +2,10 @@ import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdm
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
 
 import { Bar, Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  BarElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler,
-} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, BarElement, LineElement, Title, Tooltip, Legend, Filler,} from "chart.js";
 import { useOrdenes } from "../../../components/OrdenesComponents/OrdenesContext/OrdenProvider";
 import { useEffect } from "react";
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  BarElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-);
+ChartJS.register( CategoryScale, LinearScale, PointElement, BarElement, LineElement, Title, Tooltip, Legend, Filler);
 
 export function EstadisticasPageAdmin() {
   const { obtenerTodasLasOrdenesConDetalles, ordenesAll } = useOrdenes();
