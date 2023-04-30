@@ -1,7 +1,6 @@
 import { SidebarCliente } from "../../../components/DashClientComponents/SidebarCliente";
 import { HeaderCliente } from "../../../components/DashClientComponents/HeaderCliente";
-import { CardUsuarioDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardUsuarioDomicilio";
-import "../DashClient.css";
+import { CardOpcionesPerfil } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardOpcionesPerfil";
 
 export function PerfilPageClient() {
   return (
@@ -9,7 +8,7 @@ export function PerfilPageClient() {
       <SidebarCliente/>
       <div className="contenidoPages">
       <HeaderCliente/>
-      <CardUsuarioDomicilio />
+      <CardOpcionesPerfil />
     </div>
     </div>
   );

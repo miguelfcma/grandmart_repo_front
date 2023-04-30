@@ -86,3 +86,42 @@ export const deleteUsuarioRequest = async (id) => {
     return error.response;
   }
 };
+
+
+
+/* Para contraseñas de usuarios */
+
+export const getContrasenaUsuarioByUserIdRequest = async (id_usuario) => {
+  try {
+    const response = await axios.get(API_BASE_URL + `contrasena-usuario/${id_usuario}`);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+      data: response.data
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};
+
+export const updateContrasenaUsuarioByUserIdRequest = async (id_usuario, contrasenaUsuario) => {
+  try {
+    const response = await axios.put(API_BASE_URL + `contrasena-usuario/${id_usuario}`, contrasenaUsuario);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};

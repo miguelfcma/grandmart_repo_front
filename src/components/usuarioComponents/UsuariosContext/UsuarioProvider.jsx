@@ -6,6 +6,9 @@ import {
   deleteUsuarioRequest,
   updateUsuarioRequest,
   getUsuarioLoginRequest,
+
+  getContrasenaUsuarioByUserIdRequest,
+  updateContrasenaUsuarioByUserIdRequest,
 } from "../../../API/UsuariosApiRest/usuarios.api";
 import {
   getDomicilioUsuarioByUserIdRequest,
@@ -28,6 +31,7 @@ export const useUsuarios = () => {
 export const UsuarioContextProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [domicilio, setDomicilio] = useState(null);
+  const [contrasena, setContrasena] =useState([]);
 
   async function loadUsuarios() {
     try {
@@ -157,6 +161,39 @@ export const UsuarioContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+
+  async function loadContrasena(id_usuario) {
+    try {
+      const response = await getContrasenaUsuarioByUserIdRequest(id_usuario);
+      if (response.status === 200) {
+
+        setDomicilio(response.data.data);
+      } else {
+        throw new Error("No se pudo obtener la contraseña del usuario");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const updateContrasenaUsuarioByUserId = async (id_usuario, contrasena) => {
+    try {
+      const response = await updateContrasenaUsuarioByUserIdRequest(
+        id_usuario,
+        contrasena
+      );
+      if (response.status == 200) {
+        loadContrasena(id_usuario)
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <UsuarioContext.Provider
       value={{
@@ -172,6 +209,10 @@ export const UsuarioContextProvider = ({ children }) => {
         updateDomicilioUsuarioByUserId,
         loadDomicilio,
         domicilio,
+
+        contrasena,
+        loadContrasena,
+        updateContrasenaUsuarioByUserId,
       }}
     >
       {children}

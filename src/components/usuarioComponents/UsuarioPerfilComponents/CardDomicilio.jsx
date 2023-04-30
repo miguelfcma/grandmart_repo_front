@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
-import { Modal } from "../../../components/ModalComponents/Modal";
+import { Modal } from "../../ModalComponents/Modal";
 import { FormUpdateUsuarioDomicilio } from "./FormUpdateUsuarioDomicilio";
 import { FormCreateUsuarioDomicilio } from "./FormCreateUsuarioDomicilio";
+import { SidebarCliente } from "../../DashClientComponents/SidebarCliente";
+import { HeaderCliente } from "../../DashClientComponents/HeaderCliente";
 
-export function CardUsuarioDomicilio() {
+export function CardDomicilio() {
   const { domicilio, loadDomicilio, deleteDomicilioUsuarioByUserId } = useUsuarios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -33,7 +35,10 @@ export function CardUsuarioDomicilio() {
 
 
   return (
-    <div>
+    <div className="dashboard-container">
+    <SidebarCliente/>
+    <div className="contenidoPages">
+    <HeaderCliente/>
       {domicilio ? (
         <div>
           <h2>{domicilio.nombre_ine}</h2>
@@ -62,6 +67,7 @@ export function CardUsuarioDomicilio() {
           <FormCreateUsuarioDomicilio onSubmit={handleDomicilioCreado} />
         </div>
       )}
+    </div>
     </div>
   );
 }

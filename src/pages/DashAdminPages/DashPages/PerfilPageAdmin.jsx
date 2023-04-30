@@ -1,6 +1,6 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
-import { CardUsuarioDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardUsuarioDomicilio";
+import { CardDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardDomicilio";
 import "../DashAdmin.css";
 
 export function PerfilPageAdmin() {
@@ -9,7 +9,7 @@ export function PerfilPageAdmin() {
       <SidebarAdmin />
       <div className="contenidoPages">
         <HeaderAdmin />
-      <CardUsuarioDomicilio />
+      <CardDomicilio />
     </div>
     </div>
   );

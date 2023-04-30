@@ -27,7 +27,10 @@ import { ComprasPageCliente } from "../pages/DashClientPages/DashPages/ComprasPa
 import { CompraDetallesPageCliente } from "../pages/DashClientPages/DashPages/ComprasPageCliente/CompraDetallesPageCliente";
 import { CompraOpinarProductoCliente } from "../pages/DashClientPages/DashPages/ComprasPageCliente/CompraOpinarProductoCliente";
 import { PedidosPageClient } from "../pages/DashClientPages/DashPages/PedidosPageClient";
+
 import { PerfilPageClient } from "../pages/DashClientPages/DashPages/PerfilPageClient";
+
+
 import { ProductoDetallesClientPage } from "../pages/DashClientPages/DashPages/ProductosPageCliente/ProductoDetallesClientPage";
 import { ProductosPageClient } from "../pages/DashClientPages/DashPages/ProductosPageClient";
 import { RegistroProductoClientPage1 } from "../pages/DashClientPages/DashPages/ProductosPageCliente/RegistroProductoClientPage1";
@@ -52,6 +55,9 @@ import { ServiciosDetallesPage } from "../pages/HomePages/Servicios-Pages/Servic
 //Página de categorias de home page
 import { CategoriasHomePage } from "../pages/HomePages/Categorias-pages/CategoriasHomePage";
 import { ServiciosPage } from "../pages/HomePages/Servicios-Pages/ServiciosPage";
+import { CardDomicilio } from "../components/usuarioComponents/UsuarioPerfilComponents/CardDomicilio";
+
+import CardContrasena from "../components/usuarioComponents/UsuarioPerfilComponents/CardContrasena";
 
 export function MyRoutes() {
   return (
@@ -198,6 +204,11 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           element={<PedidosPageClient />}
         />
         <Route exact path="/dashClient/perfil" element={<PerfilPageClient />} />
+
+        <Route exact path="/dashClient/perfil/domicilio" element={<CardDomicilio />} />
+
+        <Route exact path="/dashClient/perfil/contrasena" element={<CardContrasena />} />
+
         {/* Otras rutas */}
         <Route
           exact
