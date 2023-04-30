@@ -23,9 +23,7 @@ export function PreguntasProductoComponenteCompletoGeneral({ id_producto }) {
           actualizarPreguntas={actualizar}
         />
       </div>
-      <footer>
-        <p>Derechos Reservados © 2023 GrandMart</p>
-      </footer>
+ 
     </div>
   );
 }
