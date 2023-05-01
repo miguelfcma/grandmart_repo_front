@@ -29,7 +29,7 @@ export function CardProductoGeneral({ producto,favoritos }) {
       setUrlImagen(url);
     } catch (error) {
       // Manejar el error, si es necesario
-      console.error("Error obteniendo la URL de la imagen:", error);
+      console.error("Error obteniendo la URL de la imagen :", error);
     }
   }
 
@@ -106,11 +106,11 @@ export function CardProductoGeneral({ producto,favoritos }) {
           <box-icon
             type="solid"
             name="heart"
-            color={esFavorito ? "red" : "black"}
+            color={esFavorito ? "red" : "#fbf2f2"}
           ></box-icon>
         </button>
    
-      <button onClick={agregarAlCarrito}>Agregar al carrito</button>
+      <button onClick={agregarAlCarrito}><box-icon name='cart-add' type='solid' color='#fbf2f2' ></box-icon>Agregar al carrito</button>
     </div>
   );
   

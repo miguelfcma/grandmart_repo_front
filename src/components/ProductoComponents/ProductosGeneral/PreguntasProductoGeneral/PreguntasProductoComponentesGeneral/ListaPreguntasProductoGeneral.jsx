@@ -13,7 +13,11 @@ export function ListaPreguntasProductoGeneral({ id_producto, actualizarPreguntas
       const preguntasData = await getPreguntasByIdProducto(id_producto);
       setPreguntas(preguntasData || []);
     };
-    fetchPreguntas();
+    if (preguntas && preguntas.length > 0) {
+      // Aquí va el código de la función
+    }else{  fetchPreguntas();}
+    
+  
   }, [id_producto, actualizarPreguntas]);
 
   return (

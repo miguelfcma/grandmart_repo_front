@@ -1,10 +1,31 @@
 .preguntas-container {
+  background-color: #f5f5f5;
+  padding: 20px;
+}
 
-    padding: 20px;
-    border-radius: 5px;
-  }
-  
-  .titulo-preguntas {
-    color: #007bff; /* Color de texto azul */
-  }
-  
+.titulo-preguntas {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.boton-formulario {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.boton-formulario:hover {
+  background-color: #0062cc;
+}
+
+.boton-formulario:focus {
+  outline: none;
+}
+
+.boton-formulario:active {
+  background-color: #005cbf;
+}
+

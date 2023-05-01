@@ -8,6 +8,7 @@ import {
   deleteProductoRequest,
   updateProductoRequest,
   getProductosByUsuarioIdRequest,
+  getProductoByIdRequest
 } from "../../../API/ProductosApiRest/productos.api";
 
 import {
@@ -384,7 +385,23 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+  
+  const getProductoById= async (id_producto) => {
+    try {
+      const response = await getProductoByIdRequest(id_producto);
 
+      if (response.status === 200) {
+       return response.data
+      } else if (response.status === 404) {
+        console.log("No se pudo obtener producto");
+   return null
+      } else {
+        throw new Error("No se pudo obtener producto");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const deleteProducto = async (id) => {
     try {
       const response = await deleteProductoRequest(id);
@@ -612,6 +629,9 @@ export const ProductoContextProvider = ({ children }) => {
       value={{
         productosAll,
         productosUsuario,
+
+
+        getProductoById,
         loadProductos,
         loadProductosUsuario,
         deleteProducto,

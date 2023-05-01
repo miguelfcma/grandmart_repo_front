@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
+import { Container, Row, Col, Form, FormGroup, FormControl, FormLabel, Button } from 'react-bootstrap';
 
 export function ReviewsProducto({ id_producto }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -47,39 +48,43 @@ export function ReviewsProducto({ id_producto }) {
     }
     return stars;
   }
-
   return (
-    <div>
+    <Container>
       <h2>Reviews</h2>
-      <div className="stars">
-        {generateStars(avgRating).map((star, index) => (
-          <box-icon
-            key={index}
-            name={star.type === "half" ? "star-half" : "star"}
-            type={
-              star.type === "full" || star.type === "half" ? "solid" : "regular"
-            }
-            color="#ffc107"
-          />
-        ))}
-      </div>
-      <p>Calificación promedio: {avgRating} %</p>
-
-      <label>
-        Filtrar por calificación mínima:
-        <select
-          value={minStars}
-          onChange={(e) => setMinStars(Number(e.target.value))}
-        >
-          <option value={0}>Todas</option>
-          <option value={1}>1 estrella</option>
-          <option value={2}>2 estrellas</option>
-          <option value={3}>3 estrellas</option>
-          <option value={4}>4 estrellas</option>
-          <option value={5}>5 estrellas</option>
-        </select>
-      </label>
-
+      <Row>
+        <Col className="stars">
+          {generateStars(avgRating).map((star, index) => (
+            <box-icon
+              key={index}
+              name={star.type === "half" ? "star-half" : "star"}
+              type={
+                star.type === "full" || star.type === "half" ? "solid" : "regular"
+              }
+              color="#ffc107"
+            />
+          ))}
+        </Col>
+        <Col>
+          <p>Calificación promedio: {avgRating} %</p>
+          <Form inline>
+            <FormGroup>
+              <FormLabel>Filtrar por calificación mínima:</FormLabel>{' '}
+              <FormControl
+                as="select"
+                value={minStars}
+                onChange={(e) => setMinStars(Number(e.target.value))}
+              >
+                <option value={0}>Todas</option>
+                <option value={1}>1 estrella</option>
+                <option value={2}>2 estrellas</option>
+                <option value={3}>3 estrellas</option>
+                <option value={4}>4 estrellas</option>
+                <option value={5}>5 estrellas</option>
+              </FormControl>
+            </FormGroup>
+          </Form>
+        </Col>
+      </Row>
       <ul>
         {reviews
           .filter((review) => {
@@ -111,6 +116,6 @@ export function ReviewsProducto({ id_producto }) {
             </li>
           ))}
       </ul>
-    </div>
+    </Container>
   );
 }

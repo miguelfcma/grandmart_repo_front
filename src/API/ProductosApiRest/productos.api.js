@@ -74,3 +74,17 @@ export const getProductosByUsuarioIdRequest = async (id_usuario) => {
     return error.response;
   }
 };
+
+export const getProductoByIdRequest = async (id_producto) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}productos/${id_producto}`);
+
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};
