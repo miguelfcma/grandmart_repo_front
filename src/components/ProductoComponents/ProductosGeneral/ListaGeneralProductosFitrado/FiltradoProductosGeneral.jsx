@@ -4,14 +4,18 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useCategorias } from "../../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 
 export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
-  const { productosAll, loadProductos } = useProductos();
+  const { productosAll, loadProductos,favoritos,loadFavoritos  } = useProductos();
   const { categorias, loadCategorias } = useCategorias();
-
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
   useEffect(() => {
     loadProductos();
     loadCategorias();
   }, []);
-
+  useEffect(() => {
+    if (usuario && usuario.id) {
+      loadFavoritos(usuario.id);
+    }
+  }, []);
   function renderMain() {
     let filteredProducts = productosAll;
 
@@ -76,7 +80,7 @@ export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
                   flex: "1 0 300px" /* Se establece una flex-basis de 300px*/,
                 }}
               >
-                <CardProductoGeneral key={producto.id} producto={producto} />
+                <CardProductoGeneral key={producto.id} producto={producto} favoritos={favoritos} />
               </div>
             ))}
           </div>

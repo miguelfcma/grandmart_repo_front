@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function CardProductoGeneral({ producto,favoritos }) {
+  console.log(favoritos)
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
   const {

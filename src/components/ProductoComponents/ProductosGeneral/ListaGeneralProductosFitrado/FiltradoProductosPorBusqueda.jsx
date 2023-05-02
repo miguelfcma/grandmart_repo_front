@@ -5,14 +5,18 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useServicios } from "../../../ServicioComponents/ServiciosContext/ServicioProvider";
 
 export function FiltradoProductosPorBusqueda({ searchTerm }) {
-  const { productosAll, loadProductos } = useProductos();
+  const { productosAll, loadProductos,favoritos,loadFavoritos  } = useProductos();
   const { serviciosAll, loadServicios } = useServicios();
-
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
   useEffect(() => {
     loadProductos();
     loadServicios();
   }, []);
-
+  useEffect(() => {
+    if (usuario && usuario.id) {
+      loadFavoritos(usuario.id);
+    }
+  }, []);
   function renderMain() {
     let filteredProducts = productosAll;
     let filteredServicios = serviciosAll;
@@ -71,7 +75,7 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
                   alignItems: "stretch",
                 }}
               >
-                <CardProductoGeneral producto={producto} />
+                <CardProductoGeneral key={producto.id} producto={producto} favoritos={favoritos} />
               </div>
             ))}
             
