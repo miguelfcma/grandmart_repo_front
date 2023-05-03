@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 import "./SignupFormUsuario.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+
 
 export function SignupFormUsuario() {
   const { createUsuario } = useUsuarios();
@@ -57,105 +61,117 @@ export function SignupFormUsuario() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="nombre">
-          Nombre:
-          <input
-            type="text"
-            id="nombre"
-            value={nombre}
-            onChange={(event) => setNombre(event.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label htmlFor="apellidoPaterno">
-          Apellido Paterno:
-          <input
-            type="text"
-            id="apellidoPaterno"
-            value={apellidoPaterno}
-            onChange={(event) => setApellidoPaterno(event.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label htmlFor="apellidoMaterno">
-          Apellido Materno:
-          <input
-            type="text"
-            id="apellidoMaterno"
-            value={apellidoMaterno}
-            onChange={(event) => setApellidoMaterno(event.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label htmlFor="email">
-          Email:
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label htmlFor="sexo">
-          Sexo:
-          <select
-            id="sexo"
-            value={sexo}
-            onChange={(event) => setSexo(event.target.value)}
-            required
-          >
-            <option value="" defaultValue>
-              Selecciona una opción
-            </option>
-            <option value="M">Masculino</option>
-            <option value="F">Femenino</option>
-          </select>
-        </label>
-        <br />
-        <label htmlFor="fechaNacimiento">
-          Fecha de nacimiento:
-          <input
-            type="date"
-            id="fechaNacimiento"
-            value={fechaNacimiento}
-            onChange={(event) => setFechaNacimiento(event.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label htmlFor="telefono">
-          Teléfono:
-          <input
-            type="tel"
-            id="telefono"
-            value={telefono}
-            onChange={(event) => setTelefono(event.target.value)}
-            required
-          />
-        </label>
-        <br />
+      <nav className="navbar">
+        <div className="navbar-container">
+          <a href="/">
+            <img
+              alt="e-commerce"
+              src="https://firebasestorage.googleapis.com/v0/b/grandmart-51065.appspot.com/o/src%2Flogo.png?alt=media&token=6c393680-5c89-4708-a0d3-f8ffcb0fc379"
+            />
+          </a>
+        </div>
+      </nav>
+      <div className="main-content ">
+        <div className="signup-form-container">
+          <h2>Crear una cuenta</h2>
+          <Form onSubmit={handleSubmit} className="signup-form">
+            <Form.Group className="mb-3" controlId="nombre">
+              <Form.Label>Nombre:</Form.Label>
+   
+                <Form.Control
+                  type="text"
+                  value={nombre}
+                  placeholder="Nombre"
+                  onChange={(event) => setNombre(event.target.value)}
+                  required
+                />
+               
+             
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="apellidoPaterno">
+              <Form.Label>Apellido Paterno:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Apellido Paterno"
+                value={apellidoPaterno}
+                onChange={(event) => setApellidoPaterno(event.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="apellidoMaterno">
+              <Form.Label>Apellido Materno:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Apellido Materno"
+                value={apellidoMaterno}
+                onChange={(event) => setApellidoMaterno(event.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="email">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="sexo">
+              <Form.Label>Sexo:</Form.Label>
+              <Form.Select
+                value={sexo}
+                onChange={(event) => setSexo(event.target.value)}
+                required
+              >
+                <option value="" defaultValue>
+                  Selecciona una opción
+                </option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+              </Form.Select>
+            </Form.Group>
 
-        <label htmlFor="password">
-          Contraseña:
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
-        </label>
+            <Form.Group className="mb-3" controlId="fechaNacimiento">
+              <Form.Label>Fecha de nacimiento:</Form.Label>
+              <Form.Control
+                type="date"
+                value={fechaNacimiento}
+                onChange={(event) => setFechaNacimiento(event.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="telefono">
+              <Form.Label>Teléfono:</Form.Label>
+              <Form.Control
+                type="tel"
+                placeholder="Teléfono"
+                value={telefono}
+                onChange={(event) => setTelefono(event.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>Contraseña:</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Contraseña"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+              />
+            </Form.Group>
 
-        <br />
-        <br />
-        <button type="submit">Enviar</button>
-      </form>
+            <Button type="submit">Crear cuenta</Button>
+          </Form>
+        </div>
+        <Link to="/login" style={{ textDecoration: "none" }}>
+          <button className="back-button" type="button">
+            <span>Atrás</span>
+          </button>
+        </Link>
+      </div>
     </>
   );
 }

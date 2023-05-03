@@ -1,0 +1,30 @@
+.carga-container {
+  position: relative;
+}
+
+.carga-spinner {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-left-color: #b3d4ed;
+  
+  border-top-color: #51adf4;
+  border-right-color: #008ffd;
+  border-bottom-color: #ffffff;
+}
+.spinner-border {
+    border-width: 0.5rem;
+  }
+.carga-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-weight: bold;
+  text-transform: unset;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+}
+box-icon{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -100%);}
