@@ -3,20 +3,17 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export function CardProductoGeneral({ producto,favoritos }) {
-  console.log(favoritos)
+export function CardProductoGeneral({ producto, favoritos }) {
+  console.log(favoritos);
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
   const {
     getImgPortadaProducto,
     agregarFavorito,
     eliminarFavorito,
-  
-    
     agregarProductoAlCarrito,
   } = useProductos();
 
-  
   const [esFavorito, setEsFavorito] = useState(false);
   const esProductoFavorito = favoritos.some(
     (favorito) => favorito.id_producto === producto.id
@@ -39,7 +36,6 @@ export function CardProductoGeneral({ producto,favoritos }) {
     // Verificar si el producto está en favoritos y establecer el estado local en consecuencia
     setEsFavorito(esProductoFavorito);
   }, [producto.id, esProductoFavorito]);
-
 
   async function agregarAlCarrito() {
     if (usuario) {
@@ -99,20 +95,22 @@ export function CardProductoGeneral({ producto,favoritos }) {
         <br></br>
         <div>${producto.precio}</div>
       </Link>
-   
-        <button
-          onClick={toggleFavorito}
-          title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}
-        >
-          <box-icon
-            type="solid"
-            name="heart"
-            color={esFavorito ? "red" : "#fbf2f2"}
-          ></box-icon>
-        </button>
-   
-      <button onClick={agregarAlCarrito}><box-icon name='cart-add' type='solid' color='#fbf2f2' ></box-icon>Agregar al carrito</button>
+
+      <button
+        onClick={toggleFavorito}
+        title={esFavorito ? "Eliminar de favoritos" : "Agregar a favoritos"}
+      >
+        <box-icon
+          type="solid"
+          name="heart"
+          color={esFavorito ? "red" : "#fbf2f2"}
+        ></box-icon>
+      </button>
+
+      <button onClick={agregarAlCarrito}>
+        <box-icon name="cart-add" type="solid" color="#fbf2f2"></box-icon>
+        Agregar al carrito
+      </button>
     </div>
   );
-  
-      }
+}

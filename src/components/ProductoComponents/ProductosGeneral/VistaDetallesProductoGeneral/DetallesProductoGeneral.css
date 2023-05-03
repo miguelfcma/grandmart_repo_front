@@ -30,7 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: -330px;
+  margin-left: -190px;
 }
 
 .imagen-central-container {
@@ -69,7 +69,7 @@
   width: 630px;
   display: flex;
   flex-direction: column;
-  margin-left: -240px;
+  margin-left: -180px;
   margin-top: 10px;
 }
 
@@ -78,6 +78,7 @@
   font-size: 18px;
   line-height: 1.5;
   text-align: justify;
+  width: 550px;
 }
 
 .infoProductoTitulo {
@@ -147,3 +148,23 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   }
+
+
+
+
+
+* {box-sizing: border-box;}
+
+.img-magnifier-container {
+  position:relative;
+}
+
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 5%;
+  cursor: none;
+  /*Establecer el tamaño de la lupa:*/
+  width: 160px;
+  height: 160px;
+}

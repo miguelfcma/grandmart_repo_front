@@ -26,6 +26,7 @@ export function DetallesProductoGeneral({ id }) {
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0); //Para que se muestre el producto desde arriba de la página
     async function fetchData() {
       const productoEncontrado = await getProductoById(id);
 
