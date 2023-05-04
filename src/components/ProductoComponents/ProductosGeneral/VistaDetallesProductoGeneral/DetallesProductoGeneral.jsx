@@ -54,12 +54,11 @@ export function DetallesProductoGeneral({ id }) {
     }
     if (producto && producto.length > 0) {
       // Aquí va el código de la función
-    }else{
+    } else {
       fetchData();
     }
-    
   }, []);
-  
+
   const handleImagenHover = (url) => {
     setImagenSeleccionada(url);
   };
@@ -137,8 +136,7 @@ export function DetallesProductoGeneral({ id }) {
   return (
     <>
       <Container fluid className="contenedor">
-        
-      <Col xs={12} md={5} lg={4} className="columna-izquierda">
+        <Col xs={12} md={5} lg={4} className="columna-izquierda">
           <br></br>
           <br></br>
           <br></br>
@@ -169,38 +167,38 @@ export function DetallesProductoGeneral({ id }) {
           <br></br>
           <br></br>
           <br></br>
-         
+
           <Row>
-          {imagenSeleccionada === null ? (
-            <img
-              src={imagenPortada}
-              alt="Portada"
-              onMouseOver={() => handleImagenHover(imagenPortada)}
-              style={{ height: "450px", marginTop: "61px" }} // Ajustar ancho a tamaño de contenedor
-            />
-          ) : (
-            <div
-              className="imagen-central-container"
-              onMouseMove={(e) => handleMouseMove(e)}
-              onMouseLeave={() => handleMouseLeave()}
-            >
-              <img
-                src={imagenSeleccionada}
-                alt="Seleccionada"
-                className="imagen-central"
-              />
-              <div className="zoom-container" style={zoomStyle}>
+            {imagenSeleccionada === null ? (
+              <div className="imagen-central-container">
                 <img
-                  src={imagenSeleccionada}
-                  alt="Zoom"
-                  className="zoom-img"
-                  style={{ width: "100%", height: "100%" }}
+                  src={imagenPortada}
+                  alt="Portada"
+                  className="imagen-central"
                 />
               </div>
-            </div>
-          )}
+            ) : (
+              <div
+                className="imagen-central-container"
+                onMouseMove={(e) => handleMouseMove(e)}
+                onMouseLeave={() => handleMouseLeave()}
+              >
+                <img
+                  src={imagenSeleccionada}
+                  alt="Seleccionada"
+                  className="imagen-central"
+                />
+                <div className="zoom-container" style={zoomStyle}>
+                  <img
+                    src={imagenSeleccionada}
+                    alt="Zoom"
+                    className="zoom-img"
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                </div>
+              </div>
+            )}
           </Row>
-      
         </Col>
 
         <Col xs={8} lg={12} className="columna-derecha">
@@ -215,7 +213,7 @@ export function DetallesProductoGeneral({ id }) {
                   <Button
                     variant="primary"
                     size="lg"
-                    className="me-2"
+                    className="me-2 d-flex justify-content-center align-items-center"
                     onClick={agregarAlCarrito}
                   >
                     <box-icon name="cart-add"></box-icon>
@@ -223,6 +221,7 @@ export function DetallesProductoGeneral({ id }) {
                   <Button
                     variant="secondary"
                     size="lg"
+                    className="d-flex justify-content-center align-items-center"
                     onClick={toggleFavorito}
                     title={
                       esProductoFavorito
@@ -237,6 +236,7 @@ export function DetallesProductoGeneral({ id }) {
                     ></box-icon>
                   </Button>
                 </div>
+
                 <Card.Title>
                   <div className="infoProductoTitulo">{producto.nombre}</div>
                 </Card.Title>
@@ -251,33 +251,55 @@ export function DetallesProductoGeneral({ id }) {
                 <Card.Text>
                   <div className="infoProductoCaracteristicas">
                     <div className="separateIcon">
-                    <div >
-                      <box-icon name="star" style={{ verticalAlign: "middle" }}></box-icon> Marca: {producto.marca}
-                    </div>
-                    <div>
-                      <box-icon name="barcode" style={{ verticalAlign: "middle" }}></box-icon> Modelo:{" "}
-                      {producto.modelo}
-                    </div>
-                    <div>
-                      <box-icon name="palette" style={{ verticalAlign: "middle" }}></box-icon> Color:{" "}
-                      {producto.color}
-                    </div>
-                    <div>
-                      <box-icon name="shield-plus" style={{ verticalAlign: "middle" }}></box-icon> Estado:{" "}
-                      {producto.estado ? "Nuevo" : "Usado"}
-                    </div>
-                    <div>
-                      <box-icon name="category" style={{ verticalAlign: "middle" }}></box-icon> Categoría:{" "}
-                      {producto.categoria.nombre}
-                    </div>
-                    <div>
-                      <box-icon name="user-circle" style={{ verticalAlign: "middle" }}></box-icon> Vendido por:{" "}
-                      {producto.usuario.nombre}
-                    </div>
-                    <div>
-                      <box-icon name="package" style={{ verticalAlign: "middle" }}></box-icon> Cantidades
-                      disponibles: {producto.stock}
-                    </div>
+                      <div>
+                        <box-icon
+                          name="star"
+                          style={{ verticalAlign: "middle" }}
+                        ></box-icon>{" "}
+                        Marca: {producto.marca}
+                      </div>
+                      <div>
+                        <box-icon
+                          name="barcode"
+                          style={{ verticalAlign: "middle" }}
+                        ></box-icon>{" "}
+                        Modelo: {producto.modelo}
+                      </div>
+                      <div>
+                        <box-icon
+                          name="palette"
+                          style={{ verticalAlign: "middle" }}
+                        ></box-icon>{" "}
+                        Color: {producto.color}
+                      </div>
+                      <div>
+                        <box-icon
+                          name="shield-plus"
+                          style={{ verticalAlign: "middle" }}
+                        ></box-icon>{" "}
+                        Estado: {producto.estado ? "Nuevo" : "Usado"}
+                      </div>
+                      <div>
+                        <box-icon
+                          name="category"
+                          style={{ verticalAlign: "middle" }}
+                        ></box-icon>{" "}
+                        Categoría: {producto.categoria.nombre}
+                      </div>
+                      <div>
+                        <box-icon
+                          name="user-circle"
+                          style={{ verticalAlign: "middle" }}
+                        ></box-icon>{" "}
+                        Vendido por: {producto.usuario.nombre}
+                      </div>
+                      <div>
+                        <box-icon
+                          name="package"
+                          style={{ verticalAlign: "middle" }}
+                        ></box-icon>{" "}
+                        Cantidades disponibles: {producto.stock}
+                      </div>
                     </div>
                   </div>
                 </Card.Text>
@@ -294,7 +316,7 @@ export function DetallesProductoGeneral({ id }) {
             </>
           )}
         </Col>
-      </Container >
+      </Container>
       <PreguntasProductoComponenteCompletoGeneral id_producto={id} />
       <ReviewsProducto id_producto={id} />
     </>

@@ -11,9 +11,8 @@
   height: 595px;
   display: flex;
   flex-direction: column;
-  margin-left: 40px;
-  margin-top: -20px;
-  margin-left: 25px;
+  margin-top: -110px;
+  margin-left: -5px;
 }
 
 .imagen-producto {
@@ -22,6 +21,7 @@
   margin-bottom: 10px;
   border: 2px solid #aaaaaad0;
   cursor: pointer;
+  
 }
 
 .columna-central {
@@ -30,7 +30,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: -190px;
+  margin-left: -230px;
+  margin-top: -35px;
 }
 
 .imagen-central-container {
@@ -69,8 +70,8 @@
   width: 630px;
   display: flex;
   flex-direction: column;
-  margin-left: -180px;
-  margin-top: 10px;
+  margin-left: -270px;
+  margin-top: -85px;
 }
 
 .infoProducto {
@@ -78,7 +79,7 @@
   font-size: 18px;
   line-height: 1.5;
   text-align: justify;
-  width: 550px;
+  width: 640px;
 }
 
 .infoProductoTitulo {
@@ -105,9 +106,6 @@
 
 .btnCar{
   position: absolute;
-  margin-left: -550px;
-  margin-top: 600px;
-  max-width: 240px !important;
   background-color: #2961fa !important;
 }
 .btnCar:hover{
@@ -135,7 +133,7 @@
   font-size: 16px;
   cursor: pointer;
   margin-left: -85px;
-  margin-top: 80px;
+  margin-top: 15px;
   width: 100px;
   }    
   

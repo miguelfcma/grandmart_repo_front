@@ -107,10 +107,12 @@ export function CardProductoGeneral({ producto, favoritos }) {
         ></box-icon>
       </button>
 
+      <div className="separateIcon">
       <button onClick={agregarAlCarrito}>
-        <box-icon name="cart-add" type="solid" color="#fbf2f2"></box-icon>
+        <box-icon name="cart-add" type="solid" color="white" style={{ verticalAlign: "middle" }}></box-icon>
         Agregar al carrito
       </button>
+      </div>
     </div>
   );
 }
