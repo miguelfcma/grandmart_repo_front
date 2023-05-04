@@ -80,7 +80,7 @@ export function CarritoPay() {
     });
   };
   const crearOrdenDeCompra = async () => {
-    console.log("hola");
+    
     const response = await crearOrden({ id_usuario: usuario.id });
     limpiarCarrito();
   };

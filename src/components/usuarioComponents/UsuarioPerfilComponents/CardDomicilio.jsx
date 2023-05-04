@@ -36,9 +36,9 @@ export function CardDomicilio() {
 
   return (
     <div className="dashboard-container">
-    <SidebarCliente/>
+   
     <div className="contenidoPages">
-    <HeaderCliente/>
+
       {domicilio ? (
         <div>
           <h2>{domicilio.nombre_ine}</h2>
