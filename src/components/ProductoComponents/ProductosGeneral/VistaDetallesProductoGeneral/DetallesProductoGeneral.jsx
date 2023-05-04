@@ -250,32 +250,34 @@ export function DetallesProductoGeneral({ id }) {
                 </Card.Text>
                 <Card.Text>
                   <div className="infoProductoCaracteristicas">
-                    <div>
-                      <box-icon name="star"></box-icon> Marca: {producto.marca}
+                    <div className="separateIcon">
+                    <div >
+                      <box-icon name="star" style={{ verticalAlign: "middle" }}></box-icon> Marca: {producto.marca}
                     </div>
                     <div>
-                      <box-icon name="barcode"></box-icon> Modelo:{" "}
+                      <box-icon name="barcode" style={{ verticalAlign: "middle" }}></box-icon> Modelo:{" "}
                       {producto.modelo}
                     </div>
                     <div>
-                      <box-icon name="palette"></box-icon> Color:{" "}
+                      <box-icon name="palette" style={{ verticalAlign: "middle" }}></box-icon> Color:{" "}
                       {producto.color}
                     </div>
                     <div>
-                      <box-icon name="shield-plus"></box-icon> Estado:{" "}
+                      <box-icon name="shield-plus" style={{ verticalAlign: "middle" }}></box-icon> Estado:{" "}
                       {producto.estado ? "Nuevo" : "Usado"}
                     </div>
                     <div>
-                      <box-icon name="category"></box-icon> Categoría:{" "}
+                      <box-icon name="category" style={{ verticalAlign: "middle" }}></box-icon> Categoría:{" "}
                       {producto.categoria.nombre}
                     </div>
                     <div>
-                      <box-icon name="user-circle"></box-icon> Vendido por:{" "}
+                      <box-icon name="user-circle" style={{ verticalAlign: "middle" }}></box-icon> Vendido por:{" "}
                       {producto.usuario.nombre}
                     </div>
                     <div>
-                      <box-icon name="package"></box-icon> Cantidades
+                      <box-icon name="package" style={{ verticalAlign: "middle" }}></box-icon> Cantidades
                       disponibles: {producto.stock}
+                    </div>
                     </div>
                   </div>
                 </Card.Text>

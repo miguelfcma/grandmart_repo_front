@@ -230,17 +230,6 @@ export function SidebarAdmin() {
                   </Link>
                 </li>{" "}
                 <li>
-                  <Link to="/dashAdmin/compras" className="separateIcon">
-                    <box-icon
-                      type="solid"
-                      name="package"
-                      color="#ffffff"
-                      style={{ verticalAlign: "middle" }}
-                    ></box-icon>
-                    Compras
-                  </Link>
-                </li>
-                <li>
                   <Link to="/dashAdmin/ordenes" className="separateIcon">
                     <box-icon
                       type="solid"
