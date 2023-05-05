@@ -10,10 +10,14 @@ export function PreguntasProductoComponenteCompletoGeneral({ id_producto }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const usuarioExiste = usuario && usuario.id;
 
-  const actualizar = () => {
-    setActualizarPreguntas(!actualizarPreguntas);
-  };
+  const actualizarTrue = () => {
+    setActualizarPreguntas(true);
 
+  };
+  const actualizarFalse = () => {
+    setActualizarPreguntas(false);
+
+  };
   const toggleFormulario = () => {
     setMostrarFormulario(!mostrarFormulario);
   };
@@ -34,7 +38,7 @@ export function PreguntasProductoComponenteCompletoGeneral({ id_producto }) {
                 </Card.Footer>
               )} <FormNuevaPreguntaProductoGeneral
               id_producto={id_producto}
-              actualizarPreguntas={actualizar}
+              actualizarPreguntas={actualizarTrue}
             /></div>
              
             ) : (
@@ -50,7 +54,8 @@ export function PreguntasProductoComponenteCompletoGeneral({ id_producto }) {
       )}
       <Card.Body> <ListaPreguntasProductoGeneral
               id_producto={id_producto}
-              actualizarPreguntas={actualizar}
+              actualizarFalse={actualizarFalse}
+              actualizarPreguntas ={actualizarPreguntas}
             /></Card.Body>
                 </Card>
     </div>

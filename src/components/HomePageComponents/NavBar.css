@@ -334,10 +334,13 @@
 .eliminar-btn:hover {
   background-color: #cc0000;
 }
-
+.cart-actions{
+  margin: auto;
+  text-align: center
+}
 .btnpagar {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
   text-align: center;
   padding: 8px 15px;
   text-decoration: none;
@@ -346,8 +349,9 @@
   border-radius: 5px;
   border: none;
   margin-inline: 23px;
-  top: -35px;
-  right: -140px;
+margin-top: 5%;
+  
+
 }
 
 .btnpagar:hover {
@@ -357,4 +361,5 @@
 
 .btnpagar span {
   display: block;
+ 
 }

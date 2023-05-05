@@ -85,7 +85,7 @@ export function Carrito() {
             ))}
             <p>Total: ${getTotal()}</p>
             <div className="cart-actions">
-              <button onClick={vaciarCarritoCompleto}>Vaciar carrito</button>
+              <button className="btn-empty"onClick={vaciarCarritoCompleto}>Vaciar carrito</button>
 
               <Link
                 to="/resumen-compras"
@@ -93,7 +93,7 @@ export function Carrito() {
                 className="btnpagar"
                 type="button"
               >
-                <span>Pagar</span>
+                <span>Ver carrito de compra</span>
               </Link>
             </div>
           </>
