@@ -1,17 +1,15 @@
+
 @media (max-width: 768px) {
   .navbar-nav {
     flex-direction: column;
   }
-
   .navbar-nav .nav-item {
     margin-bottom: 0.5rem;
   }
-
   .navbar-nav .dropdown-menu {
     position: static;
     float: none;
   }
-
   .navbar-nav .dropdown-menu.show {
     margin-left: 0;
   }
@@ -22,29 +20,25 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   height: 60px;
   padding: 0 20px;
-  position: fixed !important;
-  /*La posición absoluta del navbar jamás cambiará */
-  top: 0;
-  /* Establece la parte superior en 0 */
+  position: fixed !important; /*La posición absoluta del navbar jamás cambiará */
+  top: 0; /* Establece la parte superior en 0 */
   right: 0;
-  width: 100%;
-  /* Establece el ancho en 100% para ocupar todo el ancho de la pantalla */
-  z-index: 1000;
-  /*Para que se muestre por encima del carrusel*/
-}
+  width: 100%; /* Establece el ancho en 100% para ocupar todo el ancho de la pantalla */
+  z-index: 1000; /*Para que se muestre por encima del carrusel*/
+  }
 
-.navbar .dropdown-menu {
-  background-color: #fff;
-}
-
-.navbar-container {
+  .navbar .dropdown-menu {
+    background-color: #fff;
+  }
+  
+  .navbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
   max-width: 1150px;
   margin: 0 auto;
-}
+  }
 
 .navbar-search {
   flex-basis: 32%;
@@ -52,7 +46,6 @@
   align-items: center;
   justify-content: center;
   top: -7px;
-  margin-bottom: 1.2rem;
   left: -15px;
 }
 
@@ -74,14 +67,14 @@
   padding: 8px 10px;
 }
 
-.elementosnavbar {
+.elementosnavbar{
   gap: 14px;
   font-weight: bold;
 }
 
-.menuresponsivo {
+.menuresponsivo{
   background-color: #1256a3;
-
+  
 }
 
 /* Este estilo sólo se aplicará al navbar cuando la pantalla se vea reducida */
@@ -90,15 +83,26 @@
     background-color: rgba(245, 245, 245, 0.979) !important;
     border-radius: 6px;
     margin-top: -2px;
-    overflow-y: auto;
-    /* para scroll vertical */
-    max-height: 270px;
-    /* la altura máxima del menu*/
+    overflow-y: auto; /* para scroll vertical */
+    max-height: 270px; /* la altura máxima del menu*/
   }
-
   .navbar-nav {
     margin-left: 20px;
     margin-right: 20px;
+  }
+  .cart-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+   
+    background-color: #fff;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: none;
+    z-index: 1;
+    width: 250px;
   }
 }
 
@@ -129,7 +133,7 @@
 }
 
 
-.iconuser {
+.iconuser{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,8 +161,7 @@
 
 .navbar-links a:hover {
   color: #1f1beb;
-  overflow: hidden;
-  /* evita que el texto desborde del contenedor */
+  overflow: hidden; /* evita que el texto desborde del contenedor */
 }
 
 .dropdown-content {
@@ -188,7 +191,7 @@
 }
 
 
-.iconuser {
+.iconuser{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,19 +202,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25px;
-  /* Ajusta el ancho del icono del carrito */
-  height: 25px;
-  /* Ajusta la altura del icono del carrito */
+  width: 25px; /* Ajusta el ancho del icono del carrito */
+  height: 25px; /* Ajusta la altura del icono del carrito */
   margin-right: 15px;
 }
 
 .cart-count {
   position: absolute;
-  top: -11px;
-  /* Ajusta la posición vertical del contador a tu gusto */
-  right: -8px;
-  /* Ajusta la posición horizontal del contador a tu gusto */
+  top: -11px; /* Ajusta la posición vertical del contador a tu gusto */
+  right: -8px; /* Ajusta la posición horizontal del contador a tu gusto */
   background-color: #f00;
   color: #fff;
   width: 20px;
@@ -281,8 +280,7 @@
   right: 0;
   padding: 8px;
   background-color: #ffffff;
-  border: 1px solid #ccc;
-  /* Color de contorno de contenedor */
+  border: 1px solid #ccc; /* Color de contorno de contenedor */
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   z-index: 1;
   width: 270px;
@@ -293,8 +291,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #ccc;
-  /* Linea divisora de productos */
+  border-bottom: 1px solid #ccc; /* Linea divisora de productos */
 }
 
 .favoritos-item a {
@@ -314,7 +311,7 @@
   visibility: hidden;
 }
 
-.favoritos-item:hover .eliminar-btn-container {
+.favoritos-item:hover .eliminar-btn-container{
   visibility: visible;
 }
 
@@ -334,12 +331,13 @@
 .eliminar-btn:hover {
   background-color: #cc0000;
 }
+
 .cart-actions{
   margin: auto;
   text-align: center
 }
-.btnpagar {
-  position: relative;
+.btnpagar{
+  position: flex;
   display: inline-flex;
   text-align: center;
   padding: 8px 15px;
@@ -349,17 +347,19 @@
   border-radius: 5px;
   border: none;
   margin-inline: 23px;
-margin-top: 5%;
-  
-
+  top: -35px;
+  right: -140px;
+  margin-top: 0.5rem;
 }
 
-.btnpagar:hover {
+.btnpagar:hover{
   color: #fff !important;
   background-color: #3e8e41;
 }
 
 .btnpagar span {
   display: block;
- 
 }
+
+
+
