@@ -213,15 +213,15 @@ export function DetallesProductoGeneral({ id }) {
                   <Button
                     variant="primary"
                     size="lg"
-                    className="me-2 d-flex justify-content-center align-items-center"
+                    className="me-2 d-flex justify-content-center align-items-center btnCar"
                     onClick={agregarAlCarrito}
                   >
-                    <box-icon name="cart-add"></box-icon>
+                    <box-icon name="cart-add" color="#ffffff"></box-icon>
                   </Button>
                   <Button
                     variant="secondary"
                     size="lg"
-                    className="d-flex justify-content-center align-items-center"
+                    className="d-flex justify-content-center align-items-center btnFav"
                     onClick={toggleFavorito}
                     title={
                       esProductoFavorito
@@ -231,7 +231,7 @@ export function DetallesProductoGeneral({ id }) {
                   >
                     <box-icon
                       type="solid"
-                      color={esProductoFavorito ? "red" : "#fbf2f2"}
+                      color={esProductoFavorito ? "#fa4141" : "#faf2f2"}
                       name="heart"
                     ></box-icon>
                   </Button>

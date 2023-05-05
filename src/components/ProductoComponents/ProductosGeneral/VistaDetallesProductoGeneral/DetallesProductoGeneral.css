@@ -11,8 +11,8 @@
   height: 595px;
   display: flex;
   flex-direction: column;
-  margin-top: -110px;
-  margin-left: -5px;
+  margin-top: -190px;
+  margin-left: -15px;
 }
 
 .imagen-producto {
@@ -21,7 +21,7 @@
   margin-bottom: 10px;
   border: 2px solid #aaaaaad0;
   cursor: pointer;
-  
+  border-radius: 10%;
 }
 
 .columna-central {
@@ -30,8 +30,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: -230px;
-  margin-top: -35px;
+  margin-left: -250px;
+  margin-top: -105px;
 }
 
 .imagen-central-container {
@@ -67,11 +67,11 @@
 
 
 .columna-derecha {
-  width: 630px;
+  width: 650px;
   display: flex;
   flex-direction: column;
-  margin-left: -270px;
-  margin-top: -85px;
+  margin-left: -290px;
+  margin-top: -170px;
 }
 
 .infoProducto {
@@ -79,7 +79,7 @@
   font-size: 18px;
   line-height: 1.5;
   text-align: justify;
-  width: 640px;
+  width: 670px;
 }
 
 .infoProductoTitulo {
@@ -105,7 +105,6 @@
 }
 
 .btnCar{
-  position: absolute;
   background-color: #2961fa !important;
 }
 .btnCar:hover{
@@ -113,33 +112,28 @@
 }
 
 .btnFav{
-  position: absolute;
-  margin-left: -285px;
-  margin-top: 600px;
-  max-width: 270px !important;
-  background-color: #d6dae2 !important;
-  color: #2961fa !important;
+  background-color: #c8e0ff !important;
 }
 .btnFav:hover{
-  background-color: #b6b6b6 !important;
+  background-color: #76b1ff !important;
 }
 
 .back-button3 {
   text-decoration: none;
-  background-color: white; 
+  background-color: white !important; 
   color: black !important;
   border: 2px solid #1c6bc3;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 18px !important;
   cursor: pointer;
-  margin-left: -85px;
+  margin-left: -30px;
   margin-top: 15px;
   width: 100px;
   }    
   
   .back-button3:hover {
   text-decoration: none;
-  background-color: #1c6bc3;
+  background-color: #1c6bc3 !important;
   color: white !important;
   border-radius: 5px;
   font-size: 16px;
