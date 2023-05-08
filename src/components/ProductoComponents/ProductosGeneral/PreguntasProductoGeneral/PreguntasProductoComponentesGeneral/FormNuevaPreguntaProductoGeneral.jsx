@@ -20,7 +20,6 @@ export function FormNuevaPreguntaProductoGeneral({id_producto,actualizarPregunta
       setError("La pregunta no puede estar vacía.");
       return;
     }
-
     try {
         console.log(pregunta)
       const res = await crearPreguntaProducto(pregunta);

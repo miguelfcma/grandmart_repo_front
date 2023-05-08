@@ -51,6 +51,12 @@ import {
   getReviewByUserAndProductRequest
 } from "../../../API/ProductosApiRest/reviewsProducto.api";
 
+import {
+  crearDenunciaProductoRequest,
+  getDenunciasByIdProductoRequest,
+  eliminarDenunciaProductoRequest
+} from "../../../API/ProductosApiRest/denunciasProducto.api";
+
 export const useProductos = () => {
   const context = useContext(ProductoContext);
   if (context === undefined) {
@@ -624,6 +630,56 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+
+  /////////////////////////////////////////////////////////////////
+
+  //Denuncias
+
+  const crearDenunciaProducto = async (data) => {
+    try {
+      const response = await crearPreguntaProductoRequest(data);
+
+      if (response.status == 201) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getDenunciasByIdProducto = async (data) => {
+    try {
+      const response = await getDenunciasByIdProductoRequest(data);
+      console.log(response);
+      if (response.status == 200) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const eliminarDenunciaProducto = async (id_denuncia) => {
+    try {
+      const response = await eliminarPreguntaProductoRequest(id_denuncia);
+      console.log(response);
+      if (response.status == 200) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
   return (
     <ProductoContext.Provider
       value={{
@@ -673,7 +729,12 @@ export const ProductoContextProvider = ({ children }) => {
         createReview,
         getReviewByUserAndProduct,
         getReviewsByProductId,
-        getAvgRatingByProductId
+        getAvgRatingByProductId,
+
+        crearDenunciaProducto,
+        getDenunciasByIdProducto,
+        eliminarDenunciaProducto,
+
       }}
     >
       {children}

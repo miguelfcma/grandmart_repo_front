@@ -1,0 +1,55 @@
+.background{
+  background-color: rgb(243, 242, 242);
+  width: 100%;
+  height: 790px;
+  margin-top: -50px;
+}
+
+.nueva-pregunta-container {
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .cardDenuncia{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    font-weight: bold;
+    height: 96vh;
+    margin-top: 65px !important;
+    width: 635px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .tituloDenuns {
+    font-size: 24px !important;
+    margin-top: 18px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .motivosDenuns{
+    text-align: justify;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    font-size: 17px !important;
+    font-family: Arial;
+  }
+
+  .detallesDenuns{
+    font-size: 15px !important;
+    font-weight: 450;
+    color:rgb(105, 105, 105);
+    text-align: justify;
+    margin-left: 50px !important;
+    margin-right: 40px !important;
+  }
+  
+  .footerDenuncia{
+    margin-top: 0px !important;
+    position:absolute;
+    width: 100%;
+  }

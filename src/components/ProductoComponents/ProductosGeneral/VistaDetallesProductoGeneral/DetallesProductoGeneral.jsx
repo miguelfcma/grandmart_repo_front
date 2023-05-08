@@ -319,6 +319,19 @@ export function DetallesProductoGeneral({ id }) {
       </Container>
       <PreguntasProductoComponenteCompletoGeneral id_producto={id} />
       <ReviewsProducto id_producto={id} />
+      <Card>
+        <Card.Header style={{ textAlign: "right" }}>
+          <Link
+            to={`/denuncia/producto/${id}`}
+            style={{
+              textDecoration: "none",
+              marginTop: "10px",
+            }}
+          >
+            Denunciar publicación
+          </Link>
+        </Card.Header>
+      </Card>
     </>
   );
 }

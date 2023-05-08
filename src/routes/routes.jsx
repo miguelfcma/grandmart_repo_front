@@ -30,7 +30,6 @@ import { PedidosPageClient } from "../pages/DashClientPages/DashPages/PedidosPag
 
 import { PerfilPageClient } from "../pages/DashClientPages/DashPages/PerfilPageClient";
 
-
 import { ProductoDetallesClientPage } from "../pages/DashClientPages/DashPages/ProductosPageCliente/ProductoDetallesClientPage";
 import { ProductosPageClient } from "../pages/DashClientPages/DashPages/ProductosPageClient";
 import { RegistroProductoClientPage1 } from "../pages/DashClientPages/DashPages/ProductosPageCliente/RegistroProductoClientPage1";
@@ -48,6 +47,8 @@ import { SignupPage } from "../pages/HomePages/Login-Signup-Pages/SignupPage";
 // Páginas de productos
 import { ProductosDetallesPage } from "../pages/HomePages/Productos-Pages/ProductosDetallesPage";
 import { ProductosByCategoriaPage } from "../pages/HomePages/Productos-Pages/ProductosByCategoriaPage";
+import { FormNuevaDenunciaProductoGeneral } from "../components/ProductoComponents/ProductosGeneral/DenunciasProductoGeneral/DenunciasProductoComponentesGeneral/FormNuevaDenunciaProductoGeneral";
+import { Form2NuevaDenunciaProductoGeneral } from "../components/ProductoComponents/ProductosGeneral/DenunciasProductoGeneral/DenunciasProductoComponentesGeneral/Form2NuevaDenunciaProductoGeneral";
 
 // Páginas de servicios
 import { ServiciosDetallesPage } from "../pages/HomePages/Servicios-Pages/ServiciosDetallesPage";
@@ -205,9 +206,17 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
         />
         <Route exact path="/dashClient/perfil" element={<PerfilPageClient />} />
 
-        <Route exact path="/dashClient/perfil/domicilio" element={<CardDomicilio />} />
+        <Route
+          exact
+          path="/dashClient/perfil/domicilio"
+          element={<CardDomicilio />}
+        />
 
-        <Route exact path="/dashClient/perfil/contrasena" element={<CardContrasena />} />
+        <Route
+          exact
+          path="/dashClient/perfil/contrasena"
+          element={<CardContrasena />}
+        />
 
         {/* Otras rutas */}
         <Route
@@ -219,6 +228,16 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           exact
           path="/productos/categoria/:id_categoria/:nombre_categoria"
           element={<ProductosByCategoriaPage />}
+        />
+        <Route
+          exact
+          path="/denuncia/producto/:id_producto"
+          element={<FormNuevaDenunciaProductoGeneral />}
+        />
+        <Route
+          exact
+          path="/denuncia/producto/:id_producto/detalles"
+          element={<Form2NuevaDenunciaProductoGeneral />}
         />
         <Route
           exact
