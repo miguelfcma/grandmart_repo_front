@@ -3,17 +3,22 @@ import { useProductos } from "../../../ProductosContext/ProductoProvider";
 import { Form, Button, Card } from "react-bootstrap";
 import "./Form2.css";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,useLocation,useNavigate  } from "react-router-dom";
 import { FooterHome } from "../../../../HomePageComponents/FooterHome";
 import InputGroup from "react-bootstrap/InputGroup";
 
-export function Form2NuevaDenunciaProductoGeneral({
-  id_producto, actualizarDenuncias }) {
+export function Form2NuevaDenunciaProductoGeneral() {
   window.scrollTo(0, 0); //Para que se muestre el producto desde arriba de la página
+
+  const navigate = useNavigate();
   const { crearDenunciaProducto } = useProductos();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-
-  const [descripcion, setDescripcion] = useState({
+  const location = useLocation();
+  const opcion = new URLSearchParams(location.search).get("opcion");
+ 
+  const { id_producto } = useParams();
+  const [formData, setFormData] = useState({
+    motivo:opcion,
     descripcion: "",
     id_producto: id_producto,
     id_usuario: usuario.id,
@@ -22,21 +27,26 @@ export function Form2NuevaDenunciaProductoGeneral({
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (descripcion.descripcion.trim() === "") {
+    if (formData.descripcion.trim() === "") {
       setError("La descripcion no puede estar vacía.");
       return;
     }
     try {
-      console.log(descripcion);
-      const res = await crearDenunciaProducto(descripcion);
-      setDescripcion({
+      console.log("data desde el formulario",formData);
+      const res = await crearDenunciaProducto(formData);
+      setFormData({
+        motivo:opcion,
         descripcion: "",
         id_producto: id_producto,
         id_usuario: usuario.id,
       });
-      actualizarDenuncias();
+      
       alert("La denuncia fue creada exitosamente.");
+
+      navigate(`/productos/detalles/${id_producto}`);
+
     } catch (error) {
+      console.error(error)
       alert("Ocurrió un error al crear la denuncia.");
     }
   };
@@ -71,9 +81,9 @@ export function Form2NuevaDenunciaProductoGeneral({
                   className="txtArea"
                   type="text"
                   placeholder="Escribe aquí los detalles de tu denuncia..."
-                  value={descripcion.descripcion}
+                  value={formData.descripcion}
                   onChange={(event) =>
-                    setDescripcion({ ...descripcion, descripcion: event.target.value })
+                    setFormData({ ...formData, descripcion: event.target.value })
                   }
                   required
                 />

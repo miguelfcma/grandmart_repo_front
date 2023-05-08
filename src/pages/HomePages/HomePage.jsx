@@ -13,7 +13,7 @@ export function HomePage() {
         <Navbar1 onSearch={handleSearch}/>
         
         <Content searchTerm={searchTerm} />
-        AnimacionCargaComponent
+        <AnimacionCargaComponent/>
       </>
     );
   }

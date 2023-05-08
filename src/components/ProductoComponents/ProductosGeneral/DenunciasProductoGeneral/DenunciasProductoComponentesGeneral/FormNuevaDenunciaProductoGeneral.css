@@ -38,6 +38,15 @@
     font-size: 17px !important;
     font-family: Arial;
   }
+  label.form-check-label {
+    text-align: justify;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    font-size: 17px !important;
+    font-family: Arial;
+    font-weight: normal;
+  }
+  
 
   .detallesDenuns{
     font-size: 15px !important;

@@ -637,8 +637,9 @@ export const ProductoContextProvider = ({ children }) => {
   //Denuncias
 
   const crearDenunciaProducto = async (data) => {
+    console.log("ddatos desde el provider",data)
     try {
-      const response = await crearPreguntaProductoRequest(data);
+      const response = await crearDenunciaProductoRequest(data);
 
       if (response.status == 201) {
         return response.data;

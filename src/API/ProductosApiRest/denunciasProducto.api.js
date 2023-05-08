@@ -5,7 +5,7 @@ export const crearDenunciaProductoRequest = async (data) => {
   try {
 
     const response = await axios.post(
-      `${API_BASE_URL}producto-denuncias`,
+      `${API_BASE_URL}buzon-denuncias`,
       data
     );
     console.log({

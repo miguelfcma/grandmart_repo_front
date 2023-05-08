@@ -4,17 +4,11 @@ import "./DenunciasProductoComponenteCompletoGeneral.css";
 import { linkADenunciaGenPro } from "./linkADenunciaGenPro";
 
 export function DenunciasProductoComponenteCompletoGeneral({ id_producto }) {
-  const [actualizarDenuncias, setActualizarDenuncias] = useState(false);
+  
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const usuarioExiste = usuario && usuario.id;
 
-  const actualizarTrue = () => {
-    setActualizarDenuncias(true);
-  };
-  const actualizarFalse = () => {
-    setActualizarDenuncias(false);
-  };
 
   return (
     <div>
