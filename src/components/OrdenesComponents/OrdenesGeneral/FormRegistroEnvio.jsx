@@ -76,159 +76,162 @@ const navigate = useNavigate()
   return (
     <>
       <Container className="divinfoenvio">
+        
         <div className="titulo-info-envio">
           Completa tu información de envío
         </div>
-        <Form onSubmit={handleSubmit}>
-          <Row>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="nombre_ine">
-                <Form.Label>Nombre INE:</Form.Label>
-                <OverlayTrigger
-                  placement="right"
-                  overlay={
-                    <Tooltip>
-                      Ingresa el nombre completo que aparece en tu INE.
-                    </Tooltip>
-                  }
-                >
-                  <Form.Control
+        <div className="formulario-info-envio">
+            <Form onSubmit={handleSubmit}>
+            <Row>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="nombre_ine">
+                    <Form.Label>Nombre INE:</Form.Label>
+                    <OverlayTrigger
+                    placement="right"
+                    overlay={
+                        <Tooltip>
+                        Ingresa el nombre completo que aparece en tu INE.
+                        </Tooltip>
+                    }
+                    >
+                    <Form.Control
+                        type="text"
+                        name="nombre_ine"
+                        value={DomicilioData.nombre_ine}
+                        onChange={handleChange}
+                    />
+                    </OverlayTrigger>
+                </Form.Group>
+                </Col>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="postal">
+                    <Form.Label>Código postal:</Form.Label>
+                    <Form.Control
                     type="text"
-                    name="nombre_ine"
-                    value={DomicilioData.nombre_ine}
+                    name="postal"
+                    value={DomicilioData.postal}
                     onChange={handleChange}
-                  />
-                </OverlayTrigger>
-              </Form.Group>
-            </Col>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="postal">
-                <Form.Label>Código postal:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="postal"
-                  value={DomicilioData.postal}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+                    />
+                </Form.Group>
+                </Col>
+            </Row>
 
-          <Row>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="estado">
-                <Form.Label>Estado:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="estado"
-                  value={DomicilioData.estado}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="municipio_alcaldia">
-                <Form.Label>Municipio o alcaldía:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="municipio_alcaldia"
-                  value={DomicilioData.municipio_alcaldia}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+            <Row>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="estado">
+                    <Form.Label>Estado:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name="estado"
+                    value={DomicilioData.estado}
+                    onChange={handleChange}
+                    />
+                </Form.Group>
+                </Col>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="municipio_alcaldia">
+                    <Form.Label>Municipio o alcaldía:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name="municipio_alcaldia"
+                    value={DomicilioData.municipio_alcaldia}
+                    onChange={handleChange}
+                    />
+                </Form.Group>
+                </Col>
+            </Row>
 
-          <Row>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="colonia">
-                <Form.Label>Colonia:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="colonia"
-                  value={DomicilioData.colonia}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="calle">
-                <Form.Label>Calle:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="calle"
-                  value={DomicilioData.calle}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="numeroExterior">
-                <Form.Label>Número exterior:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="numeroExterior"
-                  value={DomicilioData.numeroExterior}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="numeroInterior">
-                <Form.Label>Número interior:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="numeroInterior"
-                  value={DomicilioData.numeroInterior}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+            <Row>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="colonia">
+                    <Form.Label>Colonia:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name="colonia"
+                    value={DomicilioData.colonia}
+                    onChange={handleChange}
+                    />
+                </Form.Group>
+                </Col>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="calle">
+                    <Form.Label>Calle:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name="calle"
+                    value={DomicilioData.calle}
+                    onChange={handleChange}
+                    />
+                </Form.Group>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="numeroExterior">
+                    <Form.Label>Número exterior:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name="numeroExterior"
+                    value={DomicilioData.numeroExterior}
+                    onChange={handleChange}
+                    />
+                </Form.Group>
+                </Col>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="numeroInterior">
+                    <Form.Label>Número interior:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name="numeroInterior"
+                    value={DomicilioData.numeroInterior}
+                    onChange={handleChange}
+                    />
+                </Form.Group>
+                </Col>
+            </Row>
 
-          <Row>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="calle1">
-                <Form.Label>Entre calle 1:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="calle1"
-                  value={DomicilioData.calle1}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col xs={12} md={6}>
-              <Form.Group controlId="calle2">
-                <Form.Label>Entre calle 2:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="calle2"
-                  value={DomicilioData.calle2}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+            <Row>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="calle1">
+                    <Form.Label>Entre calle 1:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name="calle1"
+                    value={DomicilioData.calle1}
+                    onChange={handleChange}
+                    />
+                </Form.Group>
+                </Col>
+                <Col xs={12} md={6}>
+                <Form.Group controlId="calle2">
+                    <Form.Label>Entre calle 2:</Form.Label>
+                    <Form.Control
+                    type="text"
+                    name="calle2"
+                    value={DomicilioData.calle2}
+                    onChange={handleChange}
+                    />
+                </Form.Group>
+                </Col>
+            </Row>
 
-          <Form.Group controlId="descripcion">
-            <Form.Label>Descripción:</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              name="descripcion"
-              value={DomicilioData.descripcion}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <div className="botonDiv">
-            <Button className="btnContinuar" variant="primary" type="submit">
-              Continuar con la compra
-            </Button>
-          </div>
-        </Form>
+            <Form.Group controlId="descripcion">
+                <Form.Label>Descripción:</Form.Label>
+                <Form.Control
+                as="textarea"
+                rows={3}
+                name="descripcion"
+                value={DomicilioData.descripcion}
+                onChange={handleChange}
+                />
+            </Form.Group>
+            <div className="botonDiv">
+                <Button className="btnContinuar" variant="primary" type="submit">
+                Continuar con la compra
+                </Button>
+            </div>
+            </Form>
+            </div>
       </Container>
 
       <FooterHome />

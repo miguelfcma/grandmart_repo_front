@@ -73,7 +73,7 @@ export function StripeFormTarjetaComponent() {
   return (
     <Elements stripe={stripePromise}>
       <div className="container p-4">
-        <div className="row">
+        <div className="row-div">
           <div className="col-md-12">
             <CheckoutForm />
           </div>

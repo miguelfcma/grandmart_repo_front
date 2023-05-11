@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUsuarios } from "../../usuarioComponents/UsuariosContext/UsuarioProvider";
-import { Container, Row, Col, Table, Image, Button } from "react-bootstrap";
-
+import { Container, Row, Col, Button } from 'react-bootstrap';
 export function DetalleDeEnvio() {
   const { domicilio, loadDomicilio } = useUsuarios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));

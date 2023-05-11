@@ -1,24 +1,53 @@
 
 
   
-  .divinfoenvio{
+
+.divinfoenvio {
     display: flex;
-     
-      background-color: #ffffff !important;
-      font-weight: bold;
-      width: 635px;
-      margin-top: 30rem;
-      width: 100%;
-
+    font-weight: bold;
+    background-color: #ffffff !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
   }
-
+  
   .titulo-info-envio {
-    font-size: 24px !important;
-    margin-top: 18px !important;
-    margin-bottom: 20px !important;
-    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
   }
-.botonDiv{
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-}
+  
+  .formulario-info-envio {
+    width: 100%;
+  }
+  
+  .formulario-info-envio .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .formulario-info-envio .form-control {
+    border-radius: 0;
+  }
+  
+  .botonDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .btnContinuar {
+    background-color: #008CBA;
+    border-color: #008CBA;
+    border-radius: 0;
+    padding: 10px 30px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .btnContinuar:hover {
+    background-color: #0077B3;
+    border-color: #0077B3;
+  }
+  
