@@ -3,8 +3,6 @@ import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 import { Modal } from "../../ModalComponents/Modal";
 import { FormUpdateUsuarioDomicilio } from "./FormUpdateUsuarioDomicilio";
 import { FormCreateUsuarioDomicilio } from "./FormCreateUsuarioDomicilio";
-import { SidebarCliente } from "../../DashClientComponents/SidebarCliente";
-import { HeaderCliente } from "../../DashClientComponents/HeaderCliente";
 
 export function CardDomicilio() {
   const { domicilio, loadDomicilio, deleteDomicilioUsuarioByUserId } = useUsuarios();
@@ -26,14 +24,27 @@ export function CardDomicilio() {
     // Lógica para enviar el formulario
     handleCloseModal();
   }
-  function handleDomicilioCreado() {
-    loadDomicilio(usuario.id);
+  async function handleDomicilioCreado() {
+    await loadDomicilio(usuario.id);
   }
+  async function handleDeleteDomicilioUsuario() {
+    await deleteDomicilioUsuarioByUserId(usuario.id)
+  }
+
+
   useEffect(() => {
-    loadDomicilio(usuario.id);
+    const fetchData = async (userId) => {
+      try {
+        await loadDomicilio(userId);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (usuario && usuario.id) {
+      fetchData(usuario.id);
+    }
   }, []);
-
-
   return (
     <div className="dashboard-container">
    
@@ -59,7 +70,7 @@ export function CardDomicilio() {
             <FormUpdateUsuarioDomicilio initialDomicilio={domicilio} onSubmit={handleSubmit} />
             <button onClick={handleCloseModal}>Cerrar ventana</button>
           </Modal>
-          <button onClick={() => deleteDomicilioUsuarioByUserId(usuario.id)}>Eliminar</button>
+          <button onClick={handleDeleteDomicilioUsuario}>Eliminar</button>
         </div>
       ) : (
         <div>

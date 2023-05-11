@@ -1,6 +1,6 @@
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./CarritoPay.css";
 import { useOrdenes } from "../OrdenesComponents/OrdenesContext/OrdenProvider";
 
@@ -14,28 +14,25 @@ export function CarritoPay() {
     getImgPortadaProducto,
     limpiarCarrito,
   } = useProductos();
-  const { crearOrden } = useOrdenes();
+  const { crearOrden, verificacionDireccionEnvio } = useOrdenes();
 
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   // Estado local para almacenar las URLs de las imágenes de portada
   const [imgUrls, setImgUrls] = useState({});
-
+  const navigate = useNavigate();
   // Verificar si el usuario ha iniciado sesión antes de obtener el carrito de compras
   useEffect(() => {
-    const obtenerCarritoDeCompras = async (userId) => {
+    const fetchData = async (userId) => {
       try {
-        console.log(
-          "Obteniendo carrito de compras para el usuario con ID: ",
-          userId
-        );
+      await obtenerCarritoDeCompras(userId)
       } catch (error) {
         console.error(error);
       }
     };
 
     if (usuario && usuario.id) {
-      obtenerCarritoDeCompras(usuario.id);
+      fetchData(usuario.id);
     }
   }, []);
 
@@ -80,8 +77,15 @@ export function CarritoPay() {
     });
   };
   const crearOrdenDeCompra = async () => {
-    
-    const response = await crearOrden({ id_usuario: usuario.id });
+    const validation = await verificacionDireccionEnvio(usuario.id);
+    console.log(validation);
+    if (validation == false) {
+      navigate("/informacion-envio");
+    } else {
+      
+      navigate("/resumen-compras");
+    }
+    //const response = await crearOrden({ id_usuario: usuario.id });
     limpiarCarrito();
   };
   return (

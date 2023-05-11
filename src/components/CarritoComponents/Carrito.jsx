@@ -16,8 +16,16 @@ export function Carrito() {
 
   // Verificar si el usuario ha iniciado sesión antes de obtener el carrito de compras
   useEffect(() => {
+    const fetchData = async (userId) => {
+      try {
+      await obtenerCarritoDeCompras(userId)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     if (usuario && usuario.id) {
-      obtenerCarritoDeCompras(usuario.id);
+      fetchData(usuario.id);
     }
   }, []);
 
@@ -88,7 +96,7 @@ export function Carrito() {
               <button className="btn-empty"onClick={vaciarCarritoCompleto}>Vaciar carrito</button>
 
               <Link
-                to="/resumen-compras"
+                to="/carrito-compras"
                 style={{ textDecoration: "none" }}
                 className="btnpagar"
                 type="button"

@@ -135,8 +135,8 @@ export const UsuarioContextProvider = ({ children }) => {
     try {
       const response = await createDomicilioUsuarioRequest(domicilio);
       if (response.status == 201) {
-       
-        return true;
+
+        return response.data.data;
       } else {
         return false;
       }

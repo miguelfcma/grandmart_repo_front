@@ -1,0 +1,9 @@
+html, body {
+    height: 100%;
+    }
+    
+    .resumenComprasPage {
+    background-color: rgb(243, 242, 242) !important;
+    height: 100%;
+    min-height: 100vh;
+    }

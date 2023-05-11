@@ -1,0 +1,9 @@
+html, body {
+    height: 100%;
+    }
+    
+    .registroInformacionDeEnvioPage {
+    background-color: rgb(243, 242, 242) !important;
+    height: 100vh;
+   
+    }

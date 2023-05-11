@@ -1,0 +1,24 @@
+
+
+  
+  .divinfoenvio{
+    display: flex;
+     
+      background-color: #ffffff !important;
+      font-weight: bold;
+      width: 635px;
+      margin-top: 30rem;
+      width: 100%;
+
+  }
+
+  .titulo-info-envio {
+    font-size: 24px !important;
+    margin-top: 18px !important;
+    margin-bottom: 20px !important;
+    text-align: center;
+  }
+.botonDiv{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}

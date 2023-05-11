@@ -9,6 +9,7 @@ import {
   obtenerDireccionEnvioOrdenRequest,
   obtenerOrdenesUsuarioRequest,
   obtenerPedidosPorUsuarioRequest,
+  verificacionDireccionEnvioRequest,
 } from "../../../API/OrdenesApiRest/ordenes.api";
 
 export const useOrdenes = () => {
@@ -40,8 +41,7 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
 
-  
-  const obtenerPedidosPorUsuario= async (id_usuario) => {
+  const obtenerPedidosPorUsuario = async (id_usuario) => {
     try {
       const response = await obtenerPedidosPorUsuarioRequest(id_usuario);
 
@@ -56,7 +56,7 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
 
-  const obtenerOrdenesUsuario= async (id_usuario) => {
+  const obtenerOrdenesUsuario = async (id_usuario) => {
     try {
       const response = await obtenerOrdenesUsuarioRequest(id_usuario);
       console.log(response);
@@ -131,6 +131,19 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
 
+  const verificacionDireccionEnvio = async (id_usuario) => {
+    try {
+      const response = await verificacionDireccionEnvioRequest(id_usuario);
+      console.log(response.status);
+      if (response.status === 200) {
+        return response.data;
+      } else if (response.status === 400) {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <OrdenContext.Provider
       value={{
@@ -144,7 +157,7 @@ export const OrdenContextProvider = ({ children }) => {
         obtenerPedidosPorUsuario,
         obtenerOrdenesUsuario,
         pedidosUser,
-  
+        verificacionDireccionEnvio,
       }}
     >
       {children}

@@ -60,6 +60,11 @@ import { CardDomicilio } from "../components/usuarioComponents/UsuarioPerfilComp
 
 import CardContrasena from "../components/usuarioComponents/UsuarioPerfilComponents/CardContrasena";
 
+
+
+
+import { RegistroInformacionDeEnvioPage } from "../pages/HomePages/CarritoPage/RegistroInformacionDeEnvioPage";
+import { ResumenComprasPage } from "../pages/HomePages/CarritoPage/ResumenComprasPage";
 export function MyRoutes() {
   return (
     <Router>
@@ -71,6 +76,11 @@ export function MyRoutes() {
         <Route exact path="/blog" element={<BlogPage />} />
         <Route exact path="/categorias" element={<CategoriasHomePage />} />
         <Route exact path="/servicios" element={<ServiciosPage />} />
+        
+        
+        <Route exact path="/carrito-compras" element={<CompraCarritoPage />} />
+        <Route exact path="/resumen-compras" element={<ResumenComprasPage />} />
+        <Route exact path="/informacion-envio" element={<RegistroInformacionDeEnvioPage />} />
         {/* Rutas para administrador 
         
         
@@ -244,7 +254,7 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/servicios/detalles/:id"
           element={<ServiciosDetallesPage />}
         />
-        <Route exact path="/resumen-compras" element={<CompraCarritoPage />} />
+        
         <Route
           exact
           path="/login/recuperar-contrasena"

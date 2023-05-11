@@ -28,7 +28,7 @@ export function FormCreateUsuarioDomicilio({onSubmit}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createDomicilioUsuario(formData);
+      const domicilio = await createDomicilioUsuario(formData);
       setFormData({
         nombre_ine: "",
         postal: "",
@@ -41,7 +41,7 @@ export function FormCreateUsuarioDomicilio({onSubmit}) {
         calle1: "",
         calle2: "",
         descripcion: "",
-        id_usuario: "",
+        id_usuario:usuario.id,
       });
       onSubmit();
     } catch (error) {

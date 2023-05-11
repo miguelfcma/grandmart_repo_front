@@ -134,3 +134,22 @@ export const obtenerPedidosPorUsuarioRequest = async (id_usuario) => {
     return error.response;
   }
 };
+
+export const verificacionDireccionEnvioRequest = async (id_usuario) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}ordenes/verificacion-direccion-envio/${id_usuario}`
+    );
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};
