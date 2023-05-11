@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { useUsuarios } from "../../usuarioComponents/UsuariosContext/UsuarioProvider";
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button } from "react-bootstrap";
+import "./DetalleDeEnvio.css";
+import { Link } from "react-router-dom";
+
 export function DetalleDeEnvio() {
   const { domicilio, loadDomicilio } = useUsuarios();
+
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   useEffect(() => {
@@ -18,32 +22,63 @@ export function DetalleDeEnvio() {
       fetchData(usuario.id);
     }
   }, []);
-
   return (
-    <Container>
+    <Container className="domicilio-container">
       {domicilio ? (
         <div>
-          <h2>{domicilio.nombre_ine}</h2>
-          <p>Código postal: {domicilio.postal}</p>
-          <p>Estado: {domicilio.estado}</p>
-          <p>Municipio o alcaldía: {domicilio.municipio_alcaldia}</p>
-          <p>Colonia: {domicilio.colonia}</p>
-          <p>Calle: {domicilio.calle}</p>
-          <p>Número exterior: {domicilio.numeroExterior}</p>
-          <p>Número interior: {domicilio.numeroInterior}</p>
-          <p>Calle 1: {domicilio.calle1}</p>
-          <p>Calle 2: {domicilio.calle2}</p>
-          <p>Descripción: {domicilio.descripcion}</p>
+          <Row className="domicilio-row">
+            <Col className="domicilio-col">
+              <div >
+                <h6>Nombre y Apellido:</h6>
+                <p>{domicilio.nombre_ine}</p>
+              </div>
+              <div >
+                <div >
+                  <h6>Código Postal:</h6>
+                  <p>{domicilio.postal}</p>
+                </div>
+                <div >
+                  <h6>Estado:</h6>
+                  <p>{domicilio.estado}</p>
+                  <h6>Municipio o Alcaldía:</h6>
+                  <p>{domicilio.municipio_alcaldia}</p>
+                  <h6>Colonia:</h6>
+                  <p>{domicilio.colonia}</p>
+                  <h6>Calle:</h6>
+                  <p>{domicilio.calle}</p>
+                  <h6>Número Exterior:</h6>
+                  <p>{domicilio.numeroExterior}</p>
+                  <h6>Número Interior:</h6>
+                  <p>{domicilio.numeroInterior}</p>
+                  <h6>Calle 1:</h6>
+                  <p>{domicilio.calle1}</p>
+                  <h6>Calle 2:</h6>
+                  <p>{domicilio.calle2}</p>
+                  <h6>Descripción:</h6>
+                  <p>{domicilio.descripcion}</p>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <div className="cart-actions">
 
-          <button onClick="">Editar domicilio</button>
-
-           
+          <Link
+                    to={`/dashClient/perfil/domicilio`}
+                    style={{ textDecoration: "none" }}
+                    title={"Clic para ver más información del producto"}
+                  > 
+            <Button variant="primary" className="btn-editar-domicilio">
+              Editar domicilio
+            </Button>
+            </Link>
+          </div>
         </div>
       ) : (
-        <div>
-          <p>NO HAY DOMICILIO</p>
-          
-        </div>
+        <Row className="no-domicilio-row">
+          <Col className="no-domicilio-col">
+            <p className="no-domicilio-msg">NO HAY DOMICILIO</p>
+          </Col>
+        </Row>
       )}
     </Container>
   );

@@ -2,7 +2,7 @@ import { useProductos } from "../../ProductoComponents/ProductosContext/Producto
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Table, Image, Button } from "react-bootstrap";
-
+import "./DetalleDeProductos.css"
 export function DetalleDeProductos() {
   const { carrito, obtenerCarritoDeCompras, getImgPortadaProducto } =
     useProductos();
@@ -39,11 +39,10 @@ export function DetalleDeProductos() {
     });
   }, [carrito, imgUrls, getImgPortadaProducto]);
   return (
-    <Container>
-      <h1>Detalles de mi compra</h1>
+    <Container className="contenedor-productos-detalles">
+    
 
-      <div className="cart-table">
-        <Table>
+      <Table className="white-bg cart-table">
           <thead>
             <tr>
               <th>Producto</th>
@@ -94,20 +93,22 @@ export function DetalleDeProductos() {
                   <div></div>
                 ) : (
                   <>
-                    <Button variant="primary" className="mr-3">
-                      Continuar comprando
+                  <Link
+                    to={`/carrito-compras`}
+                    style={{ textDecoration: "none" }}
+                    title={"Clic para ver más información del producto"}
+                  >
+                    <Button variant="primary" className="btn-ver-carrito">
+                      Editar carrito de compra
                     </Button>
-                    <Button variant="primary" className="mr-3">
-                      Ver carrito de compra
-                    </Button>
-                    <Button variant="success">Proceder al pago</Button>
+                    </Link>
                   </>
                 )}
               </div>
             </>
           )}
         </div>
-      </div>
+
     </Container>
   );
 }

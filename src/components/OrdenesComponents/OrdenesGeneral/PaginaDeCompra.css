@@ -1,0 +1,11 @@
+.titulo-resumen-compras{
+    text-align: center;
+}
+.botones-resumen-compras-actions{
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+.btn-continuar-comprando {
+    margin-right: 1rem;
+  }

@@ -1,0 +1,122 @@
+.domicilio-container {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 4px;
+  }
+  
+  .domicilio-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .domicilio-col {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .nombre-seccion, .direccion-seccion {
+    margin-bottom: 20px;
+  }
+  
+  h6 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  p {
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .codigo-postal-seccion, .ubicacion-seccion {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ubicacion-seccion ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .ubicacion-seccion li {
+    margin-bottom: 5px;
+  }
+  
+  .no-domicilio-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  
+  .no-domicilio-col {
+    text-align: center;
+  }
+  
+  .no-domicilio-msg {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ccc;
+  }
+  .domicilio-container {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 4px;
+  }
+  
+  .domicilio-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .domicilio-col {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .nombre-seccion, .direccion-seccion {
+    margin-bottom: 20px;
+  }
+  
+
+  
+  .codigo-postal-seccion, .ubicacion-seccion {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ubicacion-seccion ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .ubicacion-seccion li {
+    margin-bottom: 5px;
+  }
+  
+  .no-domicilio-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  
+  .no-domicilio-col {
+    text-align: center;
+  }
+  
+  .no-domicilio-msg {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ccc;
+  }
+    
