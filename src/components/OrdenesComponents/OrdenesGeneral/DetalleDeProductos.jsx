@@ -2,7 +2,7 @@ import { useProductos } from "../../ProductoComponents/ProductosContext/Producto
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Table, Image, Button } from "react-bootstrap";
-import "./DetalleDeProductos.css"
+import "./DetalleDeProductos.css";
 export function DetalleDeProductos() {
   const { carrito, obtenerCarritoDeCompras, getImgPortadaProducto } =
     useProductos();
@@ -40,75 +40,77 @@ export function DetalleDeProductos() {
   }, [carrito, imgUrls, getImgPortadaProducto]);
   return (
     <Container className="contenedor-productos-detalles">
-    
+       <h1 style={{ textAlign: "center", color: "#333", fontSize: "28px", fontWeight: "bold" }}>Detalles de prodcutos</h1>
 
       <Table className="white-bg cart-table">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Precio</th>
-              <th>Cantidad</th>
-              <th>Subtotal</th>
-              <th></th>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {carrito.detalles.map((item) => (
+            <tr key={item.id_producto}>
+              <td>
+                <Link
+                  to={`/productos/detalles/${item.producto.id}`}
+                  style={{ textDecoration: "none" }}
+                  title={"Clic para ver más información del producto"}
+                >
+                  <h5>{item.producto.nombre}</h5>
+                  <Image
+                    className="card-producto-img2"
+                    src={imgUrls[item.producto.id] || ""}
+                  />{" "}
+                  {/* Usamos el estado local para obtener la imagen de portada */}
+                </Link>
+              </td>
+              <td className="prices">$ {item.producto.precio}</td>
+              <td className="cart-item-controls2">
+                <span className="prices">{item.cantidad}</span>
+              </td>
+              <td className="prices">
+                $ {item.producto.precio * item.cantidad}
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {carrito.detalles.map((item) => (
-              <tr key={item.id_producto}>
-                <td>
-                  <Link
-                    to={`/productos/detalles/${item.producto.id}`}
-                    style={{ textDecoration: "none" }}
-                    title={"Clic para ver más información del producto"}
-                  >
-                    <h5>{item.producto.nombre}</h5>
-                    <Image
-                      className="card-producto-img2"
-                      src={imgUrls[item.producto.id] || ""}
-                    />{" "}
-                    {/* Usamos el estado local para obtener la imagen de portada */}
-                  </Link>
-                </td>
-                <td className="prices">$ {item.producto.precio}</td>
-                <td className="cart-item-controls2">
-                  <span className="prices">{item.cantidad}</span>
-                </td>
-                <td className="prices">
-                  $ {item.producto.precio * item.cantidad}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <div className="cart-total">
-          <h3>Total: ${carrito.totalCantidad}</h3>
-        </div>
-        <div className="cart-actions">
-          {carrito.detalles.length === 0 ? (
-            <div></div>
-          ) : (
-            <>
-              <div className="cart-actions">
-                {carrito.detalles.length === 0 ? (
-                  <div></div>
-                ) : (
-                  <>
+          ))}
+        </tbody>
+      </Table>
+      <div className="cart-total">
+        <h3>Total: ${carrito.totalCantidad}</h3>
+      </div>
+      <div className="cart-actions">
+        {carrito.detalles.length === 0 ? (
+          <div></div>
+        ) : (
+          <>
+            <div className="cart-actions">
+              {carrito.detalles.length === 0 ? (
+                <div></div>
+              ) : (
+                <>
                   <Link
                     to={`/carrito-compras`}
                     style={{ textDecoration: "none" }}
                     title={"Clic para ver más información del producto"}
                   >
-                    <Button variant="primary" className="btn-ver-carrito">
+                    <Button
+                      variant="primary"
+                      className="btn-ver-carrito bg-secondary border-0"
+                    >
                       Editar carrito de compra
                     </Button>
-                    </Link>
-                  </>
-                )}
-              </div>
-            </>
-          )}
-        </div>
-
+                  </Link>
+                </>
+              )}
+            </div>
+          </>
+        )}
+      </div>
     </Container>
   );
 }

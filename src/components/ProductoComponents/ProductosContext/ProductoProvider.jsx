@@ -691,7 +691,7 @@ export const ProductoContextProvider = ({ children }) => {
 
       if (response.status === 200) {
         setProductosDenuncias(response.data);
-        console.log(response.data);
+
       } else {
         throw new Error("No se logró obtener las denuncias");
       }

@@ -33,11 +33,13 @@ export function PaginaDeCompra() {
     const validation = await verificacionDireccionEnvio(usuario.id);
     console.log(validation);
     if (validation == false ) {
+      alert("domicilio vacio")
       navigate("/informacion-envio");
     }else if(carrito.detalles.length === 0){
       alert("carrito vacio")
     } 
     else {
+       alert("carrito vacio")
       navigate("/qwqwqwqw");
     }
   };
@@ -48,8 +50,7 @@ export function PaginaDeCompra() {
 
       <DetalleDeProductos />
       <DetalleDeEnvio />
-      {/* <StripeFormTarjetaComponent /> */}
-
+      <StripeFormTarjetaComponent /> 
       <div className="botones-resumen-compras-actions">
         <Link
           to={`/`}

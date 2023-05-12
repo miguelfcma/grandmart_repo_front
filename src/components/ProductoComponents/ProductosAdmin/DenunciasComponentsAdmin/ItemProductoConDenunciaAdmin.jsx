@@ -16,11 +16,10 @@ export function ItemProductoConDenunciaAdmin({ producto }) {
   const handleToggleDenunciasVisible = () => {
     setDenunciasVisible(!denunciasVisible);
   };
-
   return (
     <Card key={producto.id}>
       <Card.Header>
-        <h2>{producto.nombre}</h2>
+        <h2>Nombre del producto: {producto.producto.nombre}</h2>
       </Card.Header>
       <Card.Body>
         <Button
@@ -34,17 +33,23 @@ export function ItemProductoConDenunciaAdmin({ producto }) {
         <Collapse in={denunciasVisible}>
           <ListGroup variant="flush" id="preguntas-collapse">
             {producto.denuncias.map((denuncia) => (
-              <ListGroup.Item key={denuncia.id}>
-                Denuncia: {denuncia.denuncia}
-                {/* Eliminar siempre visible */}
-                <Button
-                  variant="danger"
-                  onClick={() => handleEliminarDenuncia(denuncia.id)}
-                  style={{ marginLeft: "1rem" }}
-                >
-                  Eliminar denuncia
-                </Button>
-              </ListGroup.Item>
+              <div>
+                <ListGroup.Item>Motivo: {denuncia.motivo}</ListGroup.Item>
+                <ListGroup.Item>
+                  Descripción: {denuncia.descripcion}
+                </ListGroup.Item>
+                <ListGroup.Item>Fecha: {denuncia.fecha}</ListGroup.Item>
+                <ListGroup.Item>
+                  ID Usuario: {denuncia.id_usuario}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  ID Producto: {denuncia.id_producto}
+                </ListGroup.Item>
+                <ListGroup.Item>Creado en: {denuncia.createdAt}</ListGroup.Item>
+                <ListGroup.Item>
+                  Actualizado en: {denuncia.updatedAt}
+                </ListGroup.Item>
+              </div>
             ))}
           </ListGroup>
         </Collapse>

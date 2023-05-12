@@ -19,10 +19,27 @@ export function ListaProductoConDenunciasAdmin() {
     fetchData();
   }, []);
 
+  const denunciasPorProducto = productosDenuncias.reduce(
+    (resultado, denuncia) => {
+      const idProducto = denuncia.id_producto;
+      if (!resultado[idProducto]) {
+        resultado[idProducto] = {
+          producto: denuncia.producto,
+          denuncias: [],
+        };
+      }
+      resultado[idProducto].denuncias.push(denuncia);
+      return resultado;
+    },
+    {}
+  );
+  const denunciasPorProductoArray = Object.values(denunciasPorProducto);
+
+  console.log(denunciasPorProductoArray);
   return (
     <div>
       {/* Mostrar los productos con denuncias en tu componente */}
-      {productosDenuncias.map(producto => (
+      {denunciasPorProductoArray.map((producto) => (
         <ItemProductoConDenunciaAdmin key={producto.id} producto={producto} />
       ))}
     </div>
