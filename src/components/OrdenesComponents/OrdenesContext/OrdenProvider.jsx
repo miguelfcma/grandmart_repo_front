@@ -79,7 +79,7 @@ export const OrdenContextProvider = ({ children }) => {
         setOrdenesAll(response.data);
         console.log(response.data);
       } else {
-        throw new Error("No se obtener las ordenes");
+        throw new Error("No se logró obtener las ordenes");
       }
     } catch (error) {
       console.error(error);

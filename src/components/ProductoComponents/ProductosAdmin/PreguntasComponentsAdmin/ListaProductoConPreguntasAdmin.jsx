@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
-import {ItemProductoConPreguntaAdmin} from "./ItemProductoConPreguntaAdmin";
+import { ItemProductoConPreguntaAdmin } from "./ItemProductoConPreguntaAdmin";
 
 export function ListaProductoConPreguntasAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));

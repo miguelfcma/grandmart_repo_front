@@ -54,7 +54,9 @@ import {
 import {
   crearDenunciaProductoRequest,
   getDenunciasByIdProductoRequest,
-  eliminarDenunciaProductoRequest
+  getProductosConDenunciasByUsuarioIdRequest,
+  getTodasLasDenunciasRequest,
+  eliminarDenunciaProductoRequest,
 } from "../../../API/ProductosApiRest/denunciasProducto.api";
 
 export const useProductos = () => {
@@ -78,6 +80,7 @@ export const ProductoContextProvider = ({ children }) => {
     totalCantidad: 0, // Valor inicial correspondiente
   });
   const [productosPreguntas, setProductosPreguntas] = useState([]);
+  const [productosDenuncias, setProductosDenuncias] = useState([]);
 
   /////////////////////////////////////////////////////////////////
 
@@ -665,9 +668,41 @@ export const ProductoContextProvider = ({ children }) => {
     }
   };
 
+  const getProductosConDenunciasByUsuarioId = async (id_usuario) => {
+    try {
+      const response = await getProductosConDenunciasByUsuarioIdRequest(
+        id_usuario
+      );
+      console.log(response);
+      if (response.status == 200) {
+        setProductosDenuncias(response.data);
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const obtenerTodasLasDenuncias = async () => {
+    try {
+      const response = await getTodasLasDenunciasRequest();
+
+      if (response.status === 200) {
+        setProductosDenuncias(response.data);
+        console.log(response.data);
+      } else {
+        throw new Error("No se logró obtener las denuncias");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const eliminarDenunciaProducto = async (id_denuncia) => {
     try {
-      const response = await eliminarPreguntaProductoRequest(id_denuncia);
+      const response = await eliminarDenunciaProductoRequest(id_denuncia);
       console.log(response);
       if (response.status == 200) {
         return response.data;
@@ -733,7 +768,10 @@ export const ProductoContextProvider = ({ children }) => {
         getAvgRatingByProductId,
 
         crearDenunciaProducto,
+        obtenerTodasLasDenuncias,
         getDenunciasByIdProducto,
+        getProductosConDenunciasByUsuarioId,
+        productosDenuncias,
         eliminarDenunciaProducto,
 
       }}

@@ -111,6 +111,16 @@ export function SidebarAdmin() {
             </Link>
           </li>
           <li>
+            <Link to="/dashAdmin/denuncias" className="separateIcon">
+              <box-icon
+                name="comment-error"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Denuncias
+            </Link>
+          </li>
+          <li>
             <Link to="/dashAdmin/estadisticas" className="separateIcon">
               <box-icon
                 name="line-chart"
