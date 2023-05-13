@@ -60,13 +60,15 @@ export function ItemProductoConPreguntaAdmin({ producto }) {
           aria-controls="preguntas-collapse"
           aria-expanded={preguntasVisible}
         >
-          {preguntasVisible ? "Ocultar Preguntas" : "Mostrar Preguntas"}
+          {preguntasVisible ? "Ocultar preguntas" : "Mostrar preguntas"}&nbsp; (
+          {producto.preguntas.length})
         </Button>
         <Collapse in={preguntasVisible}>
           <ListGroup variant="flush" id="preguntas-collapse">
             {producto.preguntas.map((pregunta) => (
               <ListGroup.Item key={pregunta.id}>
-                Pregunta: {pregunta.pregunta}
+              <div style={{ fontWeight: "bold" }}>
+                Pregunta: </div>{pregunta.pregunta}
                 <Form.Group controlId={`respuesta-${pregunta.id}`}>
                   <Form.Control
                     type="text"

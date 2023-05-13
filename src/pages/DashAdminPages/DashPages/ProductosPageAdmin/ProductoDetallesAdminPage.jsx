@@ -1,15 +1,22 @@
 import { useProductos } from "../../../../components/ProductoComponents/ProductosContext/ProductoProvider";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
-import "./ProductoDetallesAdminPage.css";
+import { Link, useNavigate } from "react-router-dom";
 import { useCategorias } from "../../../../components/CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { SidebarAdmin } from "../../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../../components/DashAdminComponents/HeaderAdmin";
+import "./ProductoDetallesAdminPage.css";
+
 export function ProductoDetallesAdminPage() {
-  const { productosAll, getImgPortadaProducto, getProductImagesGaleria, loadProductos } = useProductos();
+  const {
+    productosAll,
+    getImgPortadaProducto,
+    getProductImagesGaleria,
+    loadProductos,
+  } = useProductos();
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const [producto, setProducto] = useState(null);
   const [imagen, setImagen] = useState(null);
@@ -41,13 +48,13 @@ export function ProductoDetallesAdminPage() {
   }, [productosAll, id, getImgPortadaProducto, getProductImagesGaleria]);
 
   return (
-    <div className="contenedor-producto"  style={{ marginLeft: '200px' }}>
-      <HeaderAdmin/>
+    <div className="contenedor-producto" style={{ marginLeft: "200px" }}>
+      <HeaderAdmin />
       <SidebarAdmin />
       {producto ? (
         <>
           <div className="info-producto">
-            <div>ID: {producto.id}</div>
+            <div>ID producto: {producto.id}</div>
             <div>Nombre: {producto.nombre}</div>
             <div>Precio: ${producto.precio}</div>
             <div>Stock: {producto.stock}</div>
@@ -58,33 +65,40 @@ export function ProductoDetallesAdminPage() {
             <div>Estado: {producto.estado ? "Nuevo" : "Usado"}</div>
             <div>
               Categoría:{" "}
-              {categorias.find((categoria) => categoria.id === producto.id_categoria)?.nombre}
+              {
+                categorias.find(
+                  (categoria) => categoria.id === producto.id_categoria
+                )?.nombre
+              }
             </div>
+            <div>Publicado por usuario con ID: {producto.id_usuario}</div>
           </div>
 
-          {imagen && (
-            <img
-              className="info-producto-img"
-              src={imagen}
-              alt={producto.nombre}
-            />
-          )}
-          <div className="galeria">
-            {imagenes &&
-              imagenes.map((imagen) => (
-                <img key={imagen.id} src={imagen.url} alt={imagen.id} />
-              ))}
-          </div>
+            <div className="galeria">
+              {imagen && (
+                <img
+                  className="galeria-img"
+                  src={imagen}
+                  alt={producto.nombre}
+                />
+              )}
+              {imagenes &&
+                imagenes.map((imagen) => (
+                  <img
+                    key={imagen.id}
+                    src={imagen.url}
+                    alt={imagen.id}
+                    className="galeria-img"
+                  />
+                ))}
+            </div>
         </>
       ) : (
         <div>No se encontró el producto</div>
       )}
-
-      <Link to="/dashAdmin/productos" style={{ textDecoration: "none" }}>
-        <button className="back-button" type="button">
-          <span>Atrás</span>
-        </button>
-      </Link>
+      <button onClick={() => window.history.back()} className="back-buttonp">
+        Atrás
+      </button>
     </div>
   );
 }

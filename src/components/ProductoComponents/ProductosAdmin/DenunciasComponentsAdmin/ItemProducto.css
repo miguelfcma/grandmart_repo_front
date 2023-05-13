@@ -1,0 +1,10 @@
+.lineagruesa {
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    color: #838383;
+  }
+.items{
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap !important;
+}

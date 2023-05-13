@@ -1,14 +1,21 @@
 import { useProductos } from "../../../../components/ProductoComponents/ProductosContext/ProductoProvider";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
-import "./ProductoDetallesClientPage.css";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { HeaderCliente} from "../../../../components/DashClientComponents/HeaderCliente";
+import { SidebarCliente } from "../../../../components/DashClientComponents/SidebarCliente";
 import { useCategorias } from "../../../../components/CategoriaComponents/CategoriasContext/CategoriaProvider";
+import "./ProductoDetallesClientPage.css";
 
 export function ProductoDetallesClientPage() {
-  const { productosAll, getImgPortadaProducto, getProductImagesGaleria, loadProductos } = useProductos();
+  const {
+    productosAll,
+    getImgPortadaProducto,
+    getProductImagesGaleria,
+    loadProductos,
+  } = useProductos();
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const [producto, setProducto] = useState(null);
   const [imagen, setImagen] = useState(null);
@@ -40,7 +47,9 @@ export function ProductoDetallesClientPage() {
   }, [productosAll, id, getImgPortadaProducto, getProductImagesGaleria]);
 
   return (
-    <div className="contenedor-producto">
+    <div className="contenedor-producto" style={{ marginLeft: "200px" }}>
+      <HeaderCliente />
+      <SidebarCliente />
       {producto ? (
         <>
           <div className="info-producto">
@@ -55,21 +64,28 @@ export function ProductoDetallesClientPage() {
             <div>Estado: {producto.estado ? "Nuevo" : "Usado"}</div>
             <div>
               Categoría:{" "}
-              {categorias.find((categoria) => categoria.id === producto.id_categoria)?.nombre}
+              {
+                categorias.find(
+                  (categoria) => categoria.id === producto.id_categoria
+                )?.nombre
+              }
             </div>
           </div>
 
-          {imagen && (
-            <img
-              className="info-producto-img"
-              src={imagen}
-              alt={producto.nombre}
-            />
-          )}
           <div className="galeria">
+            {imagen && (
+              <img className="galeria-img"
+              src={imagen}
+              alt={producto.nombre} />
+            )}
             {imagenes &&
               imagenes.map((imagen) => (
-                <img key={imagen.id} src={imagen.url} alt={imagen.id} />
+                <img
+                  key={imagen.id}
+                  src={imagen.url}
+                  alt={imagen.id}
+                  className="galeria-img"
+                />
               ))}
           </div>
         </>
@@ -77,11 +93,9 @@ export function ProductoDetallesClientPage() {
         <div>No se encontró el producto</div>
       )}
 
-      <Link to="/dashClient/productos" style={{ textDecoration: "none" }}>
-        <button className="back-button" type="button">
-          <span>Atrás</span>
-        </button>
-      </Link>
+      <button onClick={() => window.history.back()} className="back-buttonp">
+        Atrás
+      </button>
     </div>
   );
 }

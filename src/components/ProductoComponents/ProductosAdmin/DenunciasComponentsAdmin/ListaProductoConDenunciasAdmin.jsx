@@ -38,7 +38,7 @@ export function ListaProductoConDenunciasAdmin() {
   console.log(denunciasPorProductoArray);
   return (
     <div>
-      {/* Mostrar los productos con denuncias en tu componente */}
+      {/* Mostrar los productos con denuncias en componente */}
       {denunciasPorProductoArray.map((producto) => (
         <ItemProductoConDenunciaAdmin key={producto.id} producto={producto} />
       ))}
