@@ -11,7 +11,8 @@ export function ListaProductoConDenunciasAdmin() {
     const fetchData = async () => {
       try {
         // Llamar a la función obtenerTodasLasDenuncias para obtener los productos con denuncias
-        await obtenerTodasLasDenuncias(usuario.id);
+        await obtenerTodasLasDenuncias(usuario.id, usuario.id_usuario);
+        // El segundo parámetro es para el ID del usuario propietario
       } catch (error) {
         console.error(error);
       }
@@ -40,7 +41,7 @@ export function ListaProductoConDenunciasAdmin() {
     <div>
       {/* Mostrar los productos con denuncias en componente */}
       {denunciasPorProductoArray.map((producto) => (
-        <ItemProductoConDenunciaAdmin key={producto.id} producto={producto} />
+        <ItemProductoConDenunciaAdmin key={producto.id} producto={producto}/>
       ))}
     </div>
   );

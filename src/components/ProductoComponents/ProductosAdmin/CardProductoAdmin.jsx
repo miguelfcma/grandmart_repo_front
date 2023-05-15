@@ -62,7 +62,7 @@ export function CardProductoAdmin({ producto }) {
         style={{ textDecoration: "none" }}
       >
         <div>ID: {producto.id}</div>
-        <div>Nombre: {producto.nombre}</div>
+        <div>{producto.nombre}</div>
         <img
           className="card-producto-img"
           src={urlImagen}

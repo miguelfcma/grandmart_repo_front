@@ -57,7 +57,7 @@ export function Navbar1({ onSearch }) {
         <Navbar.Brand href="/">
           <img
             alt="e-commerce"
-            src="https://firebasestorage.googleapis.com/v0/b/grandmart-51065.appspot.com/o/src%2Flogo.png?alt=media&token=6c393680-5c89-4708-a0d3-f8ffcb0fc379"
+            src="https://firebasestorage.googleapis.com/v0/b/grandmart-51065.appspot.com/o/productos%2Fa98db80d-beeb-448c-8436-b68ac075f17b_e5e9d693-002a-46b3-ad55-b0daccb40dc6?alt=media&token=5fc4d809-bee7-40ec-b07a-23cf1c4bb452"
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

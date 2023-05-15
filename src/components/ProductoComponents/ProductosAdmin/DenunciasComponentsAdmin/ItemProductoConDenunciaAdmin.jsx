@@ -4,20 +4,20 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import "./ItemProducto.css";
 import { Link } from "react-router-dom";
 
-export function ItemProductoConDenunciaAdmin({ producto }) {
+export function ItemProductoConDenunciaAdmin({ producto , idUsuarioPropietario}) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { eliminarDenunciaProductoRequest } = useProductos();
   const [denunciasVisible, setDenunciasVisible] = useState(false);
 
   const handleEliminarDenuncia = (denunciaId) => {
-    // Aquí puedes manejar la lógica para eliminar la pregunta
-    // por ejemplo, mediante una API
     console.log("Denuncia eliminada con la denunciaId:", denunciaId);
   };
 
   const handleToggleDenunciasVisible = () => {
     setDenunciasVisible(!denunciasVisible);
   };
+
+  console.log(producto);
   return (
     <Card key={producto.id}>
       <Card.Header>
@@ -25,7 +25,7 @@ export function ItemProductoConDenunciaAdmin({ producto }) {
           to={`/dashAdmin/productos/detalles/${producto.producto.id}`}
           style={{ textDecoration: "none" }}
         >
-          <h2>{producto.producto.nombre}</h2>
+          <h2>ID: {producto.producto.id} - {producto.producto.nombre}</h2>
         </Link>
       </Card.Header>
       <Card.Body>
@@ -61,6 +61,10 @@ export function ItemProductoConDenunciaAdmin({ producto }) {
                   <div style={{ fontWeight: "bold" }}>ID Producto: </div>
                   &nbsp;&nbsp;
                   <div>{denuncia.id_producto}</div>
+                </ListGroup.Item>
+                <ListGroup.Item className="items">
+                  <div style={{ fontWeight: "bold" }}>ID del propietario de la publicación: </div>&nbsp;&nbsp;
+                  <div>{/* ID USUARIO PROPIETARIO */}</div>
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
                   <div style={{ fontWeight: "bold" }}>Realizada: </div>
