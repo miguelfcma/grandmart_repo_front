@@ -54,4 +54,7 @@
   .card-usuario button:hover {
     background-color: #0062cc;
   }
-  
+
+  .bordeFiltro{
+    border: 1px solid #007bff !important;
+  }

@@ -40,7 +40,6 @@ export function UsuariosPageAdmin() {
         Nuevo registro
       </button>
       <ListUsuarios />
-
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <FormUsuario onSubmit={handleSubmit} />
         <button onClick={handleCloseModal}>Cerrar ventana</button>

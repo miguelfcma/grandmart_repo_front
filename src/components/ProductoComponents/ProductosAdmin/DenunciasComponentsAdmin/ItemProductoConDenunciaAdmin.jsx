@@ -4,7 +4,7 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import "./ItemProducto.css";
 import { Link } from "react-router-dom";
 
-export function ItemProductoConDenunciaAdmin({ producto , idUsuarioPropietario}) {
+export function ItemProductoConDenunciaAdmin({ producto }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { eliminarDenunciaProductoRequest } = useProductos();
   const [denunciasVisible, setDenunciasVisible] = useState(false);
@@ -25,7 +25,9 @@ export function ItemProductoConDenunciaAdmin({ producto , idUsuarioPropietario})
           to={`/dashAdmin/productos/detalles/${producto.producto.id}`}
           style={{ textDecoration: "none" }}
         >
-          <h2>ID: {producto.producto.id} - {producto.producto.nombre}</h2>
+          <h2>
+            ID: {producto.producto.id} - {producto.producto.nombre}
+          </h2>
         </Link>
       </Card.Header>
       <Card.Body>
@@ -43,6 +45,10 @@ export function ItemProductoConDenunciaAdmin({ producto , idUsuarioPropietario})
             {producto.denuncias.map((denuncia) => (
               <div className="lineagruesa">
                 <ListGroup.Item className="items">
+                  <div style={{ fontWeight: "bold" }}>ID de denuncia: </div>&nbsp;&nbsp;
+                  <div>{denuncia.id}</div>
+                </ListGroup.Item>
+                <ListGroup.Item className="items">
                   <div style={{ fontWeight: "bold" }}>Motivo: </div>&nbsp;&nbsp;
                   <div>{denuncia.motivo}</div>
                 </ListGroup.Item>
@@ -55,7 +61,7 @@ export function ItemProductoConDenunciaAdmin({ producto , idUsuarioPropietario})
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
                   <div style={{ fontWeight: "bold" }}>Por: </div>&nbsp;&nbsp;
-                  <div>{denuncia.id_usuario}</div>
+                  <div> ID: {denuncia.usuario.id} - {denuncia.usuario.nombre} {denuncia.usuario.apellidoPaterno } {denuncia.usuario.apellidoMaterno} </div>
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
                   <div style={{ fontWeight: "bold" }}>ID Producto: </div>
@@ -63,8 +69,11 @@ export function ItemProductoConDenunciaAdmin({ producto , idUsuarioPropietario})
                   <div>{denuncia.id_producto}</div>
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
-                  <div style={{ fontWeight: "bold" }}>ID del propietario de la publicación: </div>&nbsp;&nbsp;
-                  <div>{/* ID USUARIO PROPIETARIO */}</div>
+                  <div style={{ fontWeight: "bold" }}>
+                    Propietario de la publicación:{" "}
+                  </div>
+                  &nbsp;&nbsp;
+                  <div> ID: {denuncia.usuarioProducto.id} - {denuncia.usuarioProducto.nombre} {denuncia.usuarioProducto.apellidoPaterno} {denuncia.usuarioProducto.apellidoMaterno}</div>
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
                   <div style={{ fontWeight: "bold" }}>Realizada: </div>
