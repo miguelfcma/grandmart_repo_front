@@ -20,25 +20,45 @@
   }
   
 
+/* Estilos de la tabla */
+.tabla-lista-categorias table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tabla-lista-categorias  {
+  height: 500px; /* Establece una altura fija para el contenedor */
+  overflow: auto; /* Habilita la barra de desplazamiento cuando sea necesario */
+  
+}
+.tabla-lista-categorias th, .tabla-lista-categorias td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
 
-  .tabla-categorias {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  .tabla-categorias th,
-  .tabla-categorias td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .tabla-categorias th {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .tabla-categorias tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
+.tabla-lista-categorias th {
+  background-color: #f2f2f2;
+}
+
+/* Estilos de los botones */
+.tabla-lista-categorias .btn-acciones-categoria {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tabla-lista-categorias .btn-acciones-categoria button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tabla-lista-categorias .btn-acciones-categoria .btn-editar {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+.tabla-lista-categorias .btn-acciones-categoria .btn-eliminar {
+  background-color: #f44336;
+  color: #fff;
+}

@@ -1,6 +1,11 @@
 .tabla-ordenes {
     width: 100%;
     border-collapse: collapse;
+ 
+  }
+  .table-container {
+    height: 500px; /* Establece una altura fija para el contenedor */
+    overflow: auto; /* Habilita la barra de desplazamiento cuando sea necesario */
   }
   
   .tabla-ordenes th,

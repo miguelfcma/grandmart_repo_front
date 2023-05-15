@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
 import { ItemOrdenAdmin } from "./ItemOrdenAdmin";
 import { FiltroOrdenesAdmin } from "./FiltroOrdenesAdmin";
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./ListaOrdenesAdmin.css";
 import { generarReporteExcel } from "../../GeneracionDeReportes/generarReporteExcel";
 
@@ -28,11 +28,10 @@ export function ListaOrdenesAdmin() {
     fetchData();
   }, []);
 
-
   const generarReporte = () => {
     // Array de atributos que deseas incluir en el reporte
     const atributosExcluir = ["updatedAt"];
-  
+
     generarReporteExcel(ordenesFiltradasReporte, atributosExcluir);
   };
   function renderMain() {
@@ -42,17 +41,18 @@ export function ListaOrdenesAdmin() {
         orden.id_usuario.toString().includes(filtroUsuario) &&
         orden.id.toString().includes(filtroOrden) &&
         orden.estado_orden.includes(filtroEstadoOrden) &&
-        (filtroFechaInicio === "" || new Date(orden.createdAt) >= new Date(filtroFechaInicio)) &&
-        (filtroFechaFin === "" || new Date(orden.createdAt) <= new Date(filtroFechaFin))
+        (filtroFechaInicio === "" ||
+          new Date(orden.createdAt) >= new Date(filtroFechaInicio)) &&
+        (filtroFechaFin === "" ||
+          new Date(orden.createdAt) <= new Date(filtroFechaFin))
     );
-    if(ordenesFiltradasReporte.length != ordenesFiltradas.length){
-      setOrdenesFiltradasReporte(ordenesFiltradas)
+    if (ordenesFiltradasReporte.length != ordenesFiltradas.length) {
+      setOrdenesFiltradasReporte(ordenesFiltradas);
     }
 
     if (ordenesFiltradas.length === 0) {
       return <h1>No hay órdenes registradas</h1>;
     } else {
-     
       return ordenesFiltradas.map((orden) => (
         <ItemOrdenAdmin key={orden.id} orden={orden} />
       ));
@@ -78,22 +78,24 @@ export function ListaOrdenesAdmin() {
       <Button onClick={generarReporte} className="btn-generar-reporte">
         Generar Reporte
       </Button>
-      <div className="list-ordenes">
-        <table className="tabla-ordenes">
-          <thead>
-            <tr>
-              <th>ID de Orden</th>
-              <th>Estado de Orden</th>
-              <th>ID de Usuario</th>
-              <th>Fecha de Creación</th>
-              {/* <th>Fecha de Actualización</th> */}
-              <th>Fecha de Entrega</th>
-              <th>Total</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>{renderMain()}</tbody>
-        </table>
+      <div className="table-container">
+        <div className="list-ordenes">
+          <table className="tabla-ordenes">
+            <thead>
+              <tr>
+                <th>ID de Orden</th>
+                <th>Estado de Orden</th>
+                <th>ID de Usuario</th>
+                <th>Fecha de Creación</th>
+                {/* <th>Fecha de Actualización</th> */}
+                <th>Fecha de Entrega</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>{renderMain()}</tbody>
+          </table>
+        </div>
       </div>
     </>
   );

@@ -32,7 +32,8 @@ export const OrdenContextProvider = ({ children }) => {
       const response = await crearOrdenRequest(data);
 
       if (response.status === 201) {
-        console.log(response.data);
+
+        return response.data;
       } else {
         throw new Error("No se pudo crear la orden");
       }

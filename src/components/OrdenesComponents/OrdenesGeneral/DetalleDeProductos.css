@@ -1,18 +1,15 @@
+.contenedor-productos-detalles {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 1rem;
 
-
-.contenedor-productos-detalles{
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: 4px;
+  max-height: auto;
+  overflow-y: auto;
+  /* Habilita la barra de desplazamiento vertical */
 }
+
 .white-bg {
-    background-color: #fff;
-  }
-  @media screen and (max-width: 767px) {
-    .cart-table td, .cart-table th {
-      display: block;
-      width: 100%;
-      text-align: center;
-    }
-  }
+  background-color: #fff;
+}
+

@@ -40,42 +40,44 @@ export function ListCategorias() {
   return (
     <>
       <h2 className="titulo">Lista de categorias:</h2>
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Categoría Padre</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {categorias.map((categoria) => (
-            <tr key={categoria.id}>
-              <td>{categoria.id}</td>
-              <td>{categoria.nombre}</td>
-              <td>{categoria.id_parent || "-"}</td>
-              <td>
-                <Button
-                  variant="primary"
-                  onClick={() => handleOpenModal(categoria)}
-                >
-                  Editar
-                </Button>
-              </td>
-              <td>
-                <Button
-                  variant="danger"
-                  onClick={() => deleteCategoria(categoria.id)}
-                >
-                  Eliminar
-                </Button>
-              </td>
+      <div class="tabla-lista-categorias">
+        <Table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Categoría Padre</th>
+              <th>Botones de acción</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {categorias.map((categoria) => (
+              <tr key={categoria.id}>
+                <td>{categoria.id}</td>
+                <td>{categoria.nombre}</td>
+                <td>{categoria.id_parent || "-"}</td>
+                <td>
+                  <div class="btn-acciones-categoria">
+                    <Button
+                      variant="primary"
+                      onClick={() => handleOpenModal(categoria)}
+                    >
+                      Editar
+                    </Button>
+
+                    <Button
+                      variant="danger"
+                      onClick={() => deleteCategoria(categoria.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {categoriaSeleccionada && (
           <FormCategoria

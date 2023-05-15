@@ -27,19 +27,7 @@ export function PaginaDeCompra() {
       fetchData(usuario.id);
     }
   }, []);
-  const procederConPago = async () => {
-    const validation = await verificacionDireccionEnvio(usuario.id);
-    console.log(validation);
-    if (validation == false) {
-      alert("domicilio vacio");
-      navigate("/informacion-envio");
-    } else if (carrito.detalles.length === 0) {
-      alert("carrito vacio");
-    } else {
-      alert("carrito vacio");
-      navigate("/qwqwqwqw");
-    }
-  };
+  
   const [detallesCarrito, setDetallesCarrito] = useState({
     descripcion: "",
     total: ""
@@ -58,7 +46,7 @@ export function PaginaDeCompra() {
       <DetalleDeProductos enviarDetallesCarrito={recibirDetallesCarrito} />
 
       <DetalleDeEnvio />
-      <StripeFormTarjetaComponent detallesCarrito={detallesCarrito}/>
+      <StripeFormTarjetaComponent detallesCarrito={detallesCarrito} carrito={carrito}/>
       <div className="botones-resumen-compras-actions">
         <Link
           to={`/`}
@@ -69,13 +57,7 @@ export function PaginaDeCompra() {
             Continuar comprando
           </Button>
         </Link>
-        <Button
-          className="btn-pagar-final"
-          variant="success"
-          onClick={procederConPago}
-        >
-          Proceder al pago
-        </Button>
+       
       </div>
     </div>
   );
