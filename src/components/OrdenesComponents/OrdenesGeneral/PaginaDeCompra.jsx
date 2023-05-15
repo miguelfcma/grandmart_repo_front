@@ -6,15 +6,13 @@ import "./PaginaDeCompra.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
 import { useProductos } from "../../ProductoComponents/ProductosContext/ProductoProvider";
-import { useEffect } from "react";
-
+import { useEffect,useState } from "react";
 
 export function PaginaDeCompra() {
   const navigate = useNavigate();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { verificacionDireccionEnvio } = useOrdenes();
-  const { carrito, obtenerCarritoDeCompras } =
-  useProductos();
+  const { carrito, obtenerCarritoDeCompras } = useProductos();
 
   useEffect(() => {
     const fetchData = async (userId) => {
@@ -32,25 +30,35 @@ export function PaginaDeCompra() {
   const procederConPago = async () => {
     const validation = await verificacionDireccionEnvio(usuario.id);
     console.log(validation);
-    if (validation == false ) {
-      alert("domicilio vacio")
+    if (validation == false) {
+      alert("domicilio vacio");
       navigate("/informacion-envio");
-    }else if(carrito.detalles.length === 0){
-      alert("carrito vacio")
-    } 
-    else {
-       alert("carrito vacio")
+    } else if (carrito.detalles.length === 0) {
+      alert("carrito vacio");
+    } else {
+      alert("carrito vacio");
       navigate("/qwqwqwqw");
     }
   };
+  const [detallesCarrito, setDetallesCarrito] = useState({
+    descripcion: "",
+    total: ""
+  });
+  
+  // Función para recibir los detalles del carrito desde el componente hijo
+  const recibirDetallesCarrito = (detalles) => {
+    setDetallesCarrito(detalles);
 
+  };
+  
   return (
     <div>
       <h1 className="titulo-resumen-compras">Detalles de mi compra</h1>
 
-      <DetalleDeProductos />
+      <DetalleDeProductos enviarDetallesCarrito={recibirDetallesCarrito} />
+
       <DetalleDeEnvio />
-      <StripeFormTarjetaComponent /> 
+      <StripeFormTarjetaComponent detallesCarrito={detallesCarrito}/>
       <div className="botones-resumen-compras-actions">
         <Link
           to={`/`}

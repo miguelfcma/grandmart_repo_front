@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Table, Image, Button } from "react-bootstrap";
 import "./DetalleDeProductos.css";
-export function DetalleDeProductos() {
+export function DetalleDeProductos({ enviarDetallesCarrito }) {
   const { carrito, obtenerCarritoDeCompras, getImgPortadaProducto } =
     useProductos();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -14,6 +14,8 @@ export function DetalleDeProductos() {
     const fetchData = async (userId) => {
       try {
         await obtenerCarritoDeCompras(userId);
+        
+
       } catch (error) {
         console.error(error);
       }
@@ -37,10 +39,32 @@ export function DetalleDeProductos() {
         obtenerUrlImagenAsync(item.producto.id);
       }
     });
+
+
+    const totalCarrito = carrito.totalCantidad;
+        const descripcionProductos = carrito.detalles
+          .map((item) => item.producto.nombre)
+          .join(", ");
+          
+
+          const detallesCarrito = {
+            descripcion: descripcionProductos,
+            total: totalCarrito
+          };
+          enviarDetallesCarrito(detallesCarrito);
   }, [carrito, imgUrls, getImgPortadaProducto]);
   return (
     <Container className="contenedor-productos-detalles">
-       <h1 style={{ textAlign: "center", color: "#333", fontSize: "28px", fontWeight: "bold" }}>Detalles de prodcutos</h1>
+      <h1
+        style={{
+          textAlign: "center",
+          color: "#333",
+          fontSize: "28px",
+          fontWeight: "bold",
+        }}
+      >
+        Detalles de la compra
+      </h1>
 
       <Table className="white-bg cart-table">
         <thead>
