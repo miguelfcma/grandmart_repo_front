@@ -24,9 +24,12 @@ export function ItemProductoConPreguntaAdmin({ producto }) {
     });
   };
 
-  const handleSubmitRespuesta = async(id_pregunta, respuesta) => {
+  const handleSubmitRespuesta = async (id_pregunta, respuesta) => {
     try {
-        await crearRespuestaProducto(usuario.id, id_pregunta, {respuesta: respuesta})
+      await crearRespuestaProducto(usuario.id, id_pregunta, { respuesta });
+      setRespuestas((prevRespuestas) => {
+        return prevRespuestas.filter((r) => r.preguntaId !== id_pregunta);
+      });
     } catch (error) {
       console.error(error);
     }
@@ -38,102 +41,90 @@ export function ItemProductoConPreguntaAdmin({ producto }) {
     console.log("Pregunta eliminada con la preguntaId:", preguntaId);
   };
 
-  const handleEditarRespuesta = (preguntaId) => {
-    // Aquí puedes manejar la lógica para editar la respuesta
-    // por ejemplo, mostrando un modal o una ventana de edición
-    console.log("Editar respuesta de la preguntaId:", preguntaId);
-  };
-
   const handleTogglePreguntasVisible = () => {
     setPreguntasVisible(!preguntasVisible);
   };
 
+  const preguntasSinRespuesta = producto.preguntas.filter(
+    (pregunta) => pregunta.respuesta === null
+  );
+
+  console.log("Preguntas sin respuesta:", preguntasSinRespuesta);
+
   return (
-    <Card key={producto.id}>
-      <Card.Header>
-        <h2>{producto.nombre}</h2>
-      </Card.Header>
-      <Card.Body>
-        <Button
-          variant="primary"
-          onClick={handleTogglePreguntasVisible}
-          aria-controls="preguntas-collapse"
-          aria-expanded={preguntasVisible}
-        >
-          {preguntasVisible ? "Ocultar preguntas" : "Mostrar preguntas"}&nbsp; (
-          {producto.preguntas.length})
-        </Button>
-        <Collapse in={preguntasVisible}>
-          <ListGroup variant="flush" id="preguntas-collapse">
-            {producto.preguntas.map((pregunta) => (
-              <ListGroup.Item key={pregunta.id}>
-              <div style={{ fontWeight: "bold" }}>
-                Pregunta: </div>{pregunta.pregunta}
-                <Form.Group controlId={`respuesta-${pregunta.id}`}>
-                  <Form.Control
-                    type="text"
-                    placeholder="Respuesta"
-                    value={
-                      respuestas.find((r) => r.preguntaId === pregunta.id)
-                        ?.respuesta || ""
-                    }
-                    onChange={(e) =>
-                      handleRespuestaChange(pregunta.id, e.target.value)
-                    }
-                  />
-                </Form.Group>
-                {/* Eliminar siempre visible */}
-                <Button
-                  variant="danger"
-                  onClick={() => handleEliminarPregunta(pregunta.id)}
-                  style={{ marginLeft: "1rem" }}
-                >
-                  Eliminar Pregunta
-                </Button>
-                {respuestas.find((r) => r.preguntaId === pregunta.id)
-                  ?.respuesta !== null ? (
-                  <>
-                    <Button
-                      variant="success"
-                      onClick={() => handleEditarRespuesta(pregunta.id)}
-                      style={{ marginLeft: "1rem" }}
-                    >
-                      Editar Respuesta
-                    </Button>
-                    <Button
-                      variant="primary"
-                      onClick={() =>
-                        handleSubmitRespuesta(
-                          pregunta.id,
-                          respuestas.find((r) => r.preguntaId === pregunta.id)
-                            ?.respuesta
-                        )
-                      }
-                      style={{ marginLeft: "1rem" }}
-                    >
-                      Enviar Respuesta
-                    </Button>
-                  </>
-                ) : (
-                  <Button
-                    variant="primary"
-                    onClick={() =>
-                      handleSubmitRespuesta(
-                        pregunta.id,
-                        respuestas.find((r) => r.preguntaId === pregunta.id)
-                          ?.respuesta
-                      )
-                    }
-                    style={{ marginLeft: "1rem" }}
-                  >
-                    Enviar Respuesta
-                  </Button>
-                )}
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Collapse>
-      </Card.Body>
-    </Card>
+    <div>
+      <React.Fragment>
+        {preguntasSinRespuesta.length > 0 ? (
+          <Card key={producto.id}>
+            <Card.Header>
+              <h2>{producto.producto.nombre}</h2>
+            </Card.Header>
+            <Card.Body>
+              <Button
+                variant="primary"
+                onClick={handleTogglePreguntasVisible}
+                aria-controls="preguntas-collapse"
+                aria-expanded={preguntasVisible}
+              >
+                {preguntasVisible ? "Ocultar preguntas" : "Mostrar preguntas"}
+                &nbsp; ({preguntasSinRespuesta.length})
+              </Button>
+              <Collapse in={preguntasVisible}>
+                <ListGroup variant="flush" id="preguntas-collapse">
+                  {preguntasSinRespuesta.map((pregunta) => (
+                    <ListGroup.Item key={pregunta.id}>
+                      <div style={{ fontWeight: "bold" }}>Pregunta: </div>
+                      {pregunta.pregunta}
+                      <Form.Group controlId={`respuesta-${pregunta.id}`}>
+                        <Form.Control
+                          type="text"
+                          placeholder="Respuesta"
+                          value={
+                            respuestas.find((r) => r.preguntaId === pregunta.id)
+                              ?.respuesta || ""
+                          }
+                          onChange={(e) =>
+                            handleRespuestaChange(pregunta.id, e.target.value)
+                          }
+                        />
+                      </Form.Group>
+                      {/* Eliminar siempre visible */}
+                      <Button
+                        variant="danger"
+                        onClick={() => handleEliminarPregunta(pregunta.id)}
+                        style={{ marginLeft: "1rem" }}
+                      >
+                        Eliminar Pregunta
+                      </Button>
+                      {respuestas.find((r) => r.preguntaId === pregunta.id)
+                        ?.respuesta !== null ? (
+                        <Button
+                          variant="primary"
+                          onClick={() =>
+                            handleSubmitRespuesta(
+                              pregunta.id,
+                              respuestas.find(
+                                (r) => r.preguntaId === pregunta.id
+                              )?.respuesta
+                            )
+                          }
+                          style={{ marginLeft: "1rem" }}
+                        >
+                          Enviar Respuesta
+                        </Button>
+                      ) : (
+                        <p></p>
+                      )}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Collapse>
+            </Card.Body>
+          </Card>
+        ) : (
+          <p>Respondidas</p>
+        )}
+      </React.Fragment>
+    </div>
   );
 }

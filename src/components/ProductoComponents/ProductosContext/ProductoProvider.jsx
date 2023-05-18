@@ -56,8 +56,10 @@ import {
   getDenunciasByIdProductoRequest,
   getProductosConDenunciasByUsuarioIdRequest,
   getTodasLasDenunciasRequest,
+  actualizarDenunciaARevisada,
   eliminarDenunciaProductoRequest,
 } from "../../../API/ProductosApiRest/denunciasProducto.api";
+
 
 export const useProductos = () => {
   const context = useContext(ProductoContext);
@@ -700,11 +702,28 @@ export const ProductoContextProvider = ({ children }) => {
     }
   };
 
+  const actualizarDenunciaRevisada = async (id_denuncia, data) => {
+    console.log(id_denuncia + data);
+    try{
+      const response = await actualizarDenunciaARevisada(id_denuncia, data);
+
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        throw new Error("No se obtener las ordenes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const eliminarDenunciaProducto = async (id_denuncia) => {
     try {
       const response = await eliminarDenunciaProductoRequest(id_denuncia);
       console.log(response);
       if (response.status == 200) {
+        obtenerTodasLasDenuncias(); /*Volver a cargar las denuncias */
         return response.data;
       } else {
         return null;
@@ -715,7 +734,7 @@ export const ProductoContextProvider = ({ children }) => {
   };
 
 
-
+  
   return (
     <ProductoContext.Provider
       value={{
@@ -772,6 +791,7 @@ export const ProductoContextProvider = ({ children }) => {
         getDenunciasByIdProducto,
         getProductosConDenunciasByUsuarioId,
         productosDenuncias,
+        actualizarDenunciaRevisada,
         eliminarDenunciaProducto,
 
       }}

@@ -10,9 +10,6 @@ export function ListaPreguntasProductoGeneral({
   actualizarPreguntas
 }) {
 
-
-
-  
   const { getPreguntasByIdProducto } = useProductos();
   const [preguntas, setPreguntas] = useState([]);
 

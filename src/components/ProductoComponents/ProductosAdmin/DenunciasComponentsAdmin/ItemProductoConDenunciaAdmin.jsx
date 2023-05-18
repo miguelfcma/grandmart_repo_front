@@ -1,23 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, ListGroup, Form, Button, Collapse } from "react-bootstrap";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 import "./ItemProducto.css";
 import { Link } from "react-router-dom";
+import { actualizarDenunciaARevisada } from "../../../../API/ProductosApiRest/denunciasProducto.api";
 
-export function ItemProductoConDenunciaAdmin({ producto }) {
+export function ItemProductoConDenunciaAdmin({ producto, onDeleteDenuncia }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { eliminarDenunciaProductoRequest } = useProductos();
   const [denunciasVisible, setDenunciasVisible] = useState(false);
-
-  const handleEliminarDenuncia = (denunciaId) => {
-    console.log("Denuncia eliminada con la denunciaId:", denunciaId);
-  };
 
   const handleToggleDenunciasVisible = () => {
     setDenunciasVisible(!denunciasVisible);
   };
 
-  console.log(producto);
+  const handleRevisarDenuncia = (denunciaId) => {
+    console.log("Valor de denunciaId:", denunciaId);
+    actualizarDenunciaARevisada(denunciaId);
+  }
+
+  const handleEliminarDenuncia = async (denunciaId) => {
+    try{
+      onDeleteDenuncia(denunciaId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Card key={producto.id}>
       <Card.Header>
@@ -40,12 +48,21 @@ export function ItemProductoConDenunciaAdmin({ producto }) {
           {denunciasVisible ? "Ocultar denuncias" : "Mostrar denuncias"}&nbsp; (
           {producto.denuncias.length})
         </Button>
+        <br></br>
+        <br></br>
         <Collapse in={denunciasVisible}>
           <ListGroup variant="flush" id="preguntas-collapse">
             {producto.denuncias.map((denuncia) => (
               <div className="lineagruesa">
+                <Button
+                  className="btnRevisada"
+                  onClick={() => handleRevisarDenuncia(denuncia.id)}
+                >
+                  Revisada
+                </Button>
                 <ListGroup.Item className="items">
-                  <div style={{ fontWeight: "bold" }}>ID de denuncia: </div>&nbsp;&nbsp;
+                  <div style={{ fontWeight: "bold" }}>ID de denuncia: </div>
+                  &nbsp;&nbsp;
                   <div>{denuncia.id}</div>
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
@@ -60,8 +77,20 @@ export function ItemProductoConDenunciaAdmin({ producto }) {
                   </div>
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
-                  <div style={{ fontWeight: "bold" }}>Por: </div>&nbsp;&nbsp;
-                  <div> ID: {denuncia.usuario.id} - {denuncia.usuario.nombre} {denuncia.usuario.apellidoPaterno } {denuncia.usuario.apellidoMaterno} </div>
+                  <div style={{ fontWeight: "bold" }}>Revisada: </div>
+                  &nbsp;&nbsp;
+                  <div style={{ textAlign: "justify" }}>
+                    {denuncia.revisar}
+                  </div>
+                </ListGroup.Item>
+                <ListGroup.Item className="items">
+                  <div style={{ fontWeight: "bold" }}>Por ID: </div>&nbsp;&nbsp;
+                  <div>
+                    {" "}
+                    {denuncia.usuario.id} - {denuncia.usuario.nombre}{" "}
+                    {denuncia.usuario.apellidoPaterno}{" "}
+                    {denuncia.usuario.apellidoMaterno}{" "}
+                  </div>
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
                   <div style={{ fontWeight: "bold" }}>ID Producto: </div>
@@ -70,16 +99,28 @@ export function ItemProductoConDenunciaAdmin({ producto }) {
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
                   <div style={{ fontWeight: "bold" }}>
-                    Propietario de la publicación:{" "}
+                    Propietario de la publicación ID:{" "}
                   </div>
                   &nbsp;&nbsp;
-                  <div> ID: {denuncia.usuarioProducto.id} - {denuncia.usuarioProducto.nombre} {denuncia.usuarioProducto.apellidoPaterno} {denuncia.usuarioProducto.apellidoMaterno}</div>
+                  <div>
+                    {" "}
+                    {denuncia.usuarioProducto.id} -{" "}
+                    {denuncia.usuarioProducto.nombre}{" "}
+                    {denuncia.usuarioProducto.apellidoPaterno}{" "}
+                    {denuncia.usuarioProducto.apellidoMaterno}
+                  </div>
                 </ListGroup.Item>
                 <ListGroup.Item className="items">
                   <div style={{ fontWeight: "bold" }}>Realizada: </div>
                   &nbsp;&nbsp;
                   <div>{denuncia.createdAt}</div>
                 </ListGroup.Item>
+                <Button
+                  className="btnEliminar"
+                  onClick={() => handleEliminarDenuncia(denuncia.id)}
+                >
+                  Eliminar
+                </Button>
               </div>
             ))}
           </ListGroup>

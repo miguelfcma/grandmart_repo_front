@@ -4,7 +4,17 @@ import { ItemProductoConDenunciaAdmin } from "./ItemProductoConDenunciaAdmin";
 
 export function ListaProductoConDenunciasAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { obtenerTodasLasDenuncias, productosDenuncias } = useProductos();
+  const { obtenerTodasLasDenuncias, productosDenuncias, eliminarDenunciaProducto } = useProductos();
+
+  const onDeleteDenuncia = async (denunciaId) => {
+    // Lógica que se ejecuta en el componente padre
+    try{
+      await eliminarDenunciaProducto(denunciaId);
+      console.log("Ejecutando la función en el componente padre");
+    } catch(error){
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     // Definir una función asincrónica dentro del useEffect para utilizar await
@@ -18,7 +28,7 @@ export function ListaProductoConDenunciasAdmin() {
       }
     };
     fetchData();
-  }, []);
+  }, [onDeleteDenuncia]);
 
   const denunciasPorProducto = productosDenuncias.reduce(
     (resultado, denuncia) => {
@@ -40,9 +50,20 @@ export function ListaProductoConDenunciasAdmin() {
   return (
     <div>
       {/* Mostrar los productos con denuncias en componente */}
-      {denunciasPorProductoArray.map((producto) => (
-        <ItemProductoConDenunciaAdmin key={producto.id} producto={producto}/>
-      ))}
+      {denunciasPorProductoArray.length > 0 ? (
+        denunciasPorProductoArray.map((producto) => (
+          <ItemProductoConDenunciaAdmin
+            key={producto.id}
+            producto={producto}
+            onDeleteDenuncia={onDeleteDenuncia}
+          />
+        ))
+      ) : (
+        <p>
+          <br></br>
+          <h2>No hay denuncias registradas.</h2>
+        </p>
+      )}
     </div>
   );
 }

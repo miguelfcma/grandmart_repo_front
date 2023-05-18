@@ -8,3 +8,11 @@
     align-items: center;
     flex-wrap: wrap !important;
 }
+
+.btnRevisada{
+  position: absolute;
+  right: 19px;
+  z-index: 1;
+  background-color: rgb(63, 180, 79) !important;
+  margin-top: 1.9px;
+}

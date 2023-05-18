@@ -20,6 +20,7 @@ export function Form2NuevaDenunciaProductoGeneral() {
   const [formData, setFormData] = useState({
     motivo:opcion,
     descripcion: "",
+    revisar: 0,
     id_producto: id_producto,
     id_usuario: usuario.id,
   });

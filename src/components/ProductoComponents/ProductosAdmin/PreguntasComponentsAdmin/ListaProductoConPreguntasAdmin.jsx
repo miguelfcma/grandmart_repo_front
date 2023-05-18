@@ -19,12 +19,28 @@ export function ListaProductoConPreguntasAdmin() {
     fetchData();
   }, []);
 
+  const preguntasSinResponder = Object.values(productosPreguntas).reduce(
+    (preguntas, producto) => {
+      const todasRespondidas = producto.preguntas.every(
+        pregunta => pregunta.respuesta !== null
+      );
+      if (!todasRespondidas) {
+        preguntas.push(producto);
+      }
+      return preguntas;
+    },
+    []
+  );
+  
   return (
     <div>
-      {/* Mostrar los productos con preguntas en tu componente */}
-      {productosPreguntas.map(producto => (
-        <ItemProductoConPreguntaAdmin key={producto.id} producto={producto} />
-      ))}
+      {preguntasSinResponder.length > 0 ? (
+        preguntasSinResponder.map(producto => (
+          <ItemProductoConPreguntaAdmin key={producto.id} producto={producto}/>
+        ))
+      ) : (
+        <h2>No hay preguntas por responder.</h2>
+      )}
     </div>
   );
 }

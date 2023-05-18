@@ -44,27 +44,7 @@ export const getDenunciasByIdProductoRequest = async (id_producto) => {
 export const eliminarDenunciaProductoRequest = async (idDenuncia) => {
   try {
     const response = await axios.delete(
-      `${API_BASE_URL}producto-denuncias/${idDenuncia}`
-    );
-    console.log({
-      status: response.status,
-      message: response.data.message,
-    });
-    return response;
-  } catch (error) {
-    console.log({
-      status: error.response.status,
-      message: error.response.data.message,
-    });
-    return error.response;
-  }
-};
-
-export const actualizarDenunciaProductoRequest = async (idDenuncia, data) => {
-  try {
-    const response = await axios.put(
-      `${API_BASE_URL}producto-denuncias/${idDenuncia}`,
-      data
+      `${API_BASE_URL}producto-denuncias/eliminar/${idDenuncia}`
     );
     console.log({
       status: response.status,
@@ -117,3 +97,23 @@ export const getTodasLasDenunciasRequest = async () => {
       return error.response;
     }
   };
+
+export const actualizarDenunciaARevisada = async (id_denuncia, data) => {
+  try{
+    const response = await axios.put(
+      `${API_BASE_URL}producto-denuncias/actualizar/${id_denuncia}`,
+      data
+    );
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+}

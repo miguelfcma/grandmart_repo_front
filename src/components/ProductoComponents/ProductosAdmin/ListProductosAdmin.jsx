@@ -24,8 +24,9 @@ export function ListProductosAdmin() {
           producto.descripcion.toLowerCase().includes(filtroLowerCase) ||
           producto.marca.toLowerCase().includes(filtroLowerCase) ||
           producto.modelo.toLowerCase().includes(filtroLowerCase) ||
+          `${producto.id} ${producto.nombre}`.toLowerCase().includes(filtroLowerCase) ||
           `${producto.id} - ${producto.nombre}`.toLowerCase().includes(filtroLowerCase) ||
-          `${producto.id} ${producto.nombre} `.toLowerCase().includes(filtroLowerCase) ||
+          `${producto.id}-${producto.nombre} `.toLowerCase().includes(filtroLowerCase) ||
           `${producto.nombre} ${producto.marca}`.toLowerCase().includes(filtroLowerCase) ||
           `${producto.nombre} ${producto.modelo}`.toLowerCase().includes(filtroLowerCase) ||
           `${producto.marca} ${producto.modelo}`.toLowerCase().includes(filtroLowerCase)
