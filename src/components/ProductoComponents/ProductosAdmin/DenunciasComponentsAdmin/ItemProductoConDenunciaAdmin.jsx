@@ -87,13 +87,6 @@ export function ItemProductoConDenunciaAdmin({ producto, onDeleteDenuncia }) {
                       </div>
                     </ListGroup.Item>
                     <ListGroup.Item className="items">
-                      <div style={{ fontWeight: "bold" }}>Revisada: </div>
-                      &nbsp;&nbsp;
-                      <div style={{ textAlign: "justify" }}>
-                        {denuncia.revisar}
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="items">
                       <div style={{ fontWeight: "bold" }}>Por ID: </div>
                       &nbsp;&nbsp;
                       <div>
