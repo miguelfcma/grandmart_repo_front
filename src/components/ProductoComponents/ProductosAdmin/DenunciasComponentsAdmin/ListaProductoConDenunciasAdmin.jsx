@@ -30,28 +30,27 @@ export function ListaProductoConDenunciasAdmin() {
     fetchData();
   }, [onDeleteDenuncia]);
 
-  const denunciasPorProducto = productosDenuncias.reduce(
-    (resultado, denuncia) => {
-      const idProducto = denuncia.id_producto;
-      if (!resultado[idProducto]) {
-        resultado[idProducto] = {
-          producto: denuncia.producto,
-          denuncias: [],
-        };
-      }
-      resultado[idProducto].denuncias.push(denuncia);
-      return resultado;
-    },
-    {}
+  const denunciasPorProducto = productosDenuncias.reduce((resultado, denuncia) => {
+    const idProducto = denuncia.id_producto;
+    if (!resultado[idProducto]) {
+      resultado[idProducto] = {
+        producto: denuncia.producto,
+        denuncias: [],
+      };
+    }
+    resultado[idProducto].denuncias.push(denuncia);
+    return resultado;
+  }, {});
+  
+  const denunciasSinRevisar = Object.values(denunciasPorProducto).filter(
+    (producto) =>
+      producto.denuncias.some((denuncia) => denuncia.revisar === false)
   );
-  const denunciasPorProductoArray = Object.values(denunciasPorProducto);
-
-  console.log(denunciasPorProductoArray);
+  
   return (
     <div>
-      {/* Mostrar los productos con denuncias en componente */}
-      {denunciasPorProductoArray.length > 0 ? (
-        denunciasPorProductoArray.map((producto) => (
+      {denunciasSinRevisar.length > 0 ? (
+        denunciasSinRevisar.map((producto) => (
           <ItemProductoConDenunciaAdmin
             key={producto.id}
             producto={producto}
@@ -59,10 +58,7 @@ export function ListaProductoConDenunciasAdmin() {
           />
         ))
       ) : (
-        <p>
-          <br></br>
-          <h2>No hay denuncias registradas.</h2>
-        </p>
+          <h2>No hay denuncias por revisar por ahora.</h2>
       )}
     </div>
   );
