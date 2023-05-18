@@ -15,7 +15,7 @@ import "./DetallesOrdenAdmin.css";
 export function DetallesOrdenAdmin({ id_orden }) {
   const {
     obtenerDetalleOrden,
-    actualizarEstadoOrden,
+  
     obtenerDireccionEnvioOrden,
   } = useOrdenes();
   const [orden, setOrden] = useState({
@@ -27,10 +27,9 @@ export function DetallesOrdenAdmin({ id_orden }) {
     fechaEntrega: null,
     detallesOrden: [],
   });
-  const [nuevoEstado, setNuevoEstado] = useState("");
+
   const [direccionEnvio, setDireccionEnvio] = useState(null);
-  const [estadoModificable, setEstadoModificable] = useState(true);
-  const [mostrarAdvertencia, setMostrarAdvertencia] = useState(false); // Agregar nueva variable de estado para mostrar advertencia
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,45 +55,15 @@ export function DetallesOrdenAdmin({ id_orden }) {
     fetchData();
   }, []);
 
-  const handleEstadoChange = (estado) => {
-    setNuevoEstado(estado);
-    if (estado === "entregado" || estado === "cancelado") {
-      setEstadoModificable(false);
-      setMostrarAdvertencia(true); // Mostrar advertencia al cambiar a "Entregado" o "Cancelado"
-    } else {
-      setEstadoModificable(true);
-      setMostrarAdvertencia(false); // Ocultar advertencia al cambiar a otro estado
-    }
-  };
+  
 
-  const actualizarEstado = async () => {
-    try {
-      const ordenActualizada = await actualizarEstadoOrden(id_orden, { estado_orden: nuevoEstado });
-      setOrden({ ...orden, estado_orden: ordenActualizada.estado_orden,  ordenActualizada: ordenActualizada.fechaEntrega});
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
-  const estados = [
-    "pendiente",
-    "en proceso",
-    "enviado",
-    "entregado",
-    "cancelado",
-  ];
 
   return (
     <Container className="detalles-orden-admin">
-      {orden && (
+
         <div>
-           {mostrarAdvertencia && (
-        <Alert variant="danger">
-          No se puede modificar el estado de la orden una vez que esté en estado
-          de "entregado" o "cancelado".
-        </Alert>
-      )}
-          <h1 className="orden-titulo">Orden:</h1>
+         <h1 className="orden-titulo">Orden:</h1>
           <Row className="orden-row">
             <Col md={4}>
               <p>ID: {orden.id}</p>
@@ -107,47 +76,15 @@ export function DetallesOrdenAdmin({ id_orden }) {
                 Fecha de Creación:{" "}
                 {new Date(orden.createdAt).toLocaleDateString()}
               </p>
-              <p className="fecha-actualizacion">
-                Fecha de Entrega:{" "}
-                {orden.fechaEntrega ? new Date(orden.fechaEntrega).toLocaleDateString() : '-'}
-              </p>
+             
+             
             </Col>
-            <Col md={4}>
-              {" "}
-              <DropdownButton
-                variant="info"
-                title={nuevoEstado || orden.estado_orden}
-                id="estadoDropdown"
-                disabled={
-                  orden.estado_orden === "entregado" ||
-                  orden.estado_orden === "cancelado"
-                }
-              >
-                {estados.map((estado, index) => (
-                  <Dropdown.Item
-                    key={index}
-                    active={estado === nuevoEstado}
-                    onClick={() => handleEstadoChange(estado)}
-                  >
-                    {estado}
-                  </Dropdown.Item>
-                ))}
-              </DropdownButton>
-            </Col>
-            <Col mb md={4}>
-              <Button
-                variant="info"
-                onClick={actualizarEstado}
-                disabled={!nuevoEstado}
-              >
-                Actualizar Estado
-              </Button>
-            </Col>
+            
           </Row>
 
     
         </div>
-      )}
+
 
       {orden.detallesOrden.length > 0 && (
         <div>
@@ -178,9 +115,10 @@ export function DetallesOrdenAdmin({ id_orden }) {
               ))}
             </tbody>
           </Table>
+          <h1 className="detalles-orden-titulo">Detalles del envío:</h1>
           {direccionEnvio && (
             <div>
-              <h1 className="detalles-orden-titulo">Detalles del envío:</h1>
+              
               <Row className="orden-row">
                 <Col md={4}>
                   <p>ID: {direccionEnvio.id}</p>

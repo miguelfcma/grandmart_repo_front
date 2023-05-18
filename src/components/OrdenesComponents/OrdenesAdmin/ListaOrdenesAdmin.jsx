@@ -87,8 +87,7 @@ export function ListaOrdenesAdmin() {
                 <th>Estado de Orden</th>
                 <th>ID de Usuario</th>
                 <th>Fecha de Creación</th>
-                {/* <th>Fecha de Actualización</th> */}
-                <th>Fecha de Entrega</th>
+           
                 <th>Total</th>
                 <th></th>
               </tr>

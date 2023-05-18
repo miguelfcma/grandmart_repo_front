@@ -20,7 +20,7 @@ export function ItemOrdenAdmin({ orden }) {
       <td className={`estado-${estado_orden.toLowerCase()}`}>{estado_orden}</td>
       <td>{id_usuario}</td>
       <td>{new Date(createdAt).toLocaleDateString()}</td>
-      <td>{fechaEntrega ? new Date(fechaEntrega).toLocaleDateString() : ''}</td>
+    
 
       {/* <td>{new Date(updatedAt).toLocaleDateString()}</td> */}
       <td>{total}</td>
