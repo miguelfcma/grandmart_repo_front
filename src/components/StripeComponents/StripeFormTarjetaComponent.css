@@ -1,31 +1,49 @@
+.formulario-compra {
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 5px;
+}
 
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
+.descripcion-compra {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.detalle-total-pago {
+  font-size: 1rem;
+  color: #555;
+}
+
+.label-tarjeta {
+  font-size: 1rem;
   font-weight: bold;
-  text-align: center;
+  color: #333;
+}
+
+.input-tarjeta {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.boton-comprar {
+  background-color: #28a745;
   color: #fff;
-  background-color: #007bff;
+  font-size: 1rem;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.btn:hover {
-  background-color: #0062cc;
+.boton-comprar:hover {
+  background-color: #218838;
 }
 
-/* Estilos para el input del formulario */
-.StripeElement {
-  background-color: #fff;
-  padding: 10px 12px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease-in-out;
-}
-
-.StripeElement--focus {
-  box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.4);
+.boton-comprar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
