@@ -62,13 +62,18 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
 
             console.log(response);
             elements.getElement(CardElement).clear();
+            navigate("/");
           } catch (error) {
+            alert(
+              "Ocurrió un error al procesar el pago. Por favor, verifica los datos de tu tarjeta e intenta nuevamente."
+            );
             console.log("Error al crear la orden:", error);
           }
 
           setTimeout(() => {
             setLoading(false);
           }, 1000);
+          
         } else {
           throw new Error(error.message);
         }
@@ -80,6 +85,7 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
       } finally {
         setLoading(false);
       }
+      
     }
   };
 

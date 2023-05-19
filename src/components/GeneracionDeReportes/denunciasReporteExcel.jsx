@@ -24,7 +24,7 @@ export const denunciasReporteExcel = (datos, atributosExcluir) => {
     // Renombrar la columna "createdAt" a "Fecha de Creación"
     datosSinAtributos.forEach((dato) => {
       if (dato.hasOwnProperty("createdAt")) {
-        dato["FechaCreacion"] = dato["createdAt"];
+        dato["Fecha Creacion"] = dato["createdAt"];
         delete dato["createdAt"];
       }
     });

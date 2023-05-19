@@ -25,13 +25,13 @@ export function ListaProductoConDenunciasAdmin() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await obtenerTodasLasDenuncias(usuario.id, usuario.id_usuario);
+        await obtenerTodasLasDenuncias();
       } catch (error) {
         console.error(error);
       }
     };
     fetchData();
-  }, [onDeleteDenuncia]);
+  }, []);
 
   //Obtiene todos los productos que tienen denuncias y almacena las denuncias
   const denunciasPorProducto = productosDenuncias.reduce(
@@ -76,15 +76,47 @@ export function ListaProductoConDenunciasAdmin() {
   const mostrarTodasLasDenuncias = () => {
     setMostrarContenido("lista3");
   };
-  
 
   const generarReporte = () => {
     console.log(denunciasPorProducto);
+
+    const formattedData = Object.values(denunciasPorProducto).map(
+      (productoDenuncia) => {
+        const { producto, denuncias } = productoDenuncia;
+        return denuncias.map((denuncia) => {
+          const {
+            id,
+            motivo,
+            descripcion,
+            revisar,
+            createdAt,
+            updatedAt,
+            usuario,
+            usuarioProducto,
+          } = denuncia;
+          return {
+            "ID Producto": producto.id,
+            "Nombre Producto": producto.nombre,
+            "ID Usuario": producto.id_usuario,
+            "ID Denuncia": id,
+            "Motivo": motivo,
+            "Descripción": descripcion,
+            "Revisar": revisar,
+            "Fecha Creación": createdAt,
+            "Fecha Actualización": updatedAt,
+            "ID Usuario Denunciante": usuario.id,
+            "Nombre Usuario Demandante": usuario.nombre,
+            "Apellido Paterno Demandante": usuario.apellidoPaterno,
+            "Apellido Materno Demandante": usuario.apellidoMaterno,
+            "Nombre Usuario Propietario": usuarioProducto.nombre,
+          };
+        });
+      })
+      .flat();
+    console.log(formattedData);
     const atributosExcluir = ["updatedAt"];
-    denunciasReporteExcel(denunciasPorProducto, atributosExcluir);
+    denunciasReporteExcel(formattedData, atributosExcluir);
   };
-  
-  
 
   //Estado para mostrar el contenido del botón seleccionado
   const [mostrarContenido, setMostrarContenido] = useState("lista1"); // Por defecto se mostrarán las denuncias pendientes por revisar
@@ -120,12 +152,11 @@ export function ListaProductoConDenunciasAdmin() {
         </div>
       )}
       {denunciasSinRevisar.length === 0 && mostrarContenido === "lista1" && (
-        <div><br></br>
-        <h2>No hay denuncias por revisar en este momento.</h2>
+        <div>
+          <br></br>
+          <h2>No hay denuncias por revisar en este momento.</h2>
         </div>
       )}
-
-
 
       {mostrarContenido === "lista2" && denunciasRevisadas.length > 0 && (
         <div>
@@ -140,16 +171,18 @@ export function ListaProductoConDenunciasAdmin() {
         </div>
       )}
       {denunciasRevisadas.length === 0 && mostrarContenido === "lista2" && (
-        <div><br></br>
-        <h2>Aún no hay denuncias revisadas.</h2>
+        <div>
+          <br></br>
+          <h2>Aún no hay denuncias revisadas.</h2>
         </div>
       )}
 
-
-
-      {mostrarContenido === "lista3" && Object.keys(denunciasPorProducto).length > 0 && (
+      {mostrarContenido === "lista3" &&
+        Object.keys(denunciasPorProducto).length > 0 && (
           <div>
-            <div className="tituloListas">Lista de todas las denuncias registradas: </div>
+            <div className="tituloListas">
+              Lista de todas las denuncias registradas:{" "}
+            </div>
             <div>
               <button onClick={generarReporte}>Generar reporte</button>
             </div>
@@ -163,9 +196,11 @@ export function ListaProductoConDenunciasAdmin() {
             ))}
           </div>
         )}
-        {Object.keys(denunciasPorProducto).length === 0 && mostrarContenido === "lista3" && (
-          <div><br></br>
-          <h2>No hay denuncias registradas por ahora.</h2>
+      {Object.keys(denunciasPorProducto).length === 0 &&
+        mostrarContenido === "lista3" && (
+          <div>
+            <br></br>
+            <h2>No hay denuncias registradas por ahora.</h2>
           </div>
         )}
     </div>
