@@ -1,3 +1,13 @@
+.tituloListas{
+  font-size: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tituloCard{
+  font-size: 28px;
+}
+
 .lineagruesa {
     border-bottom-width: 5px;
     border-bottom-style: solid;
@@ -9,10 +19,46 @@
     flex-wrap: wrap !important;
 }
 
-.btnRevisada{
-  position: absolute;
-  right: 19px;
-  z-index: 1;
+.contBotones {
+  text-align: center;
+}
+
+.btnEliminar {
+  margin-top: 10px;  /* Agrega espacio de 10px arriba del botón Eliminar */
+  margin-right: 100px !important;
+  margin-bottom: 10px; /* Agrega espacio de 10px debajo del botón Eliminar */
+}
+
+.btnRevisada {
   background-color: rgb(63, 180, 79) !important;
-  margin-top: 1.9px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+
+/* -------- Estilos para los botones de filtros de denuncias -------- */
+
+.contenedorBotones {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.btn1,
+.btn2,
+.btn3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #3fa6bd;
+  margin-right: 50px;
+}
+
+.btn1:hover,
+.btn2:hover,
+.btn3:hover {
+  background-color: #277999;
 }

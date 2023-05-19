@@ -555,7 +555,7 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-
+  
   const crearRespuestaProducto = async (id_usuario, id_pregunta, data) => {
     try {
       const response = await crearRespuestaProductoRequest(id_pregunta, data);
@@ -732,8 +732,6 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-
-
   
   return (
     <ProductoContext.Provider

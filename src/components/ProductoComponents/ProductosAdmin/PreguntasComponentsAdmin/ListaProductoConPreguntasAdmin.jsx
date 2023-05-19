@@ -4,7 +4,17 @@ import { ItemProductoConPreguntaAdmin } from "./ItemProductoConPreguntaAdmin";
 
 export function ListaProductoConPreguntasAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { getProductosConPreguntasByUsuarioId, productosPreguntas } = useProductos();
+  const { getProductosConPreguntasByUsuarioId, productosPreguntas, eliminarPreguntaProducto } = useProductos();
+
+  const onDeletePregunta = async (preguntaId) => {
+    // Lógica que se ejecuta en el componente padre
+    try{
+      await eliminarPreguntaProducto(preguntaId);
+      console.log("Ejecutando la función en el componente padre");
+    } catch(error){
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     // Definir una función asincrónica dentro del useEffect para utilizar await
@@ -17,7 +27,7 @@ export function ListaProductoConPreguntasAdmin() {
       }
     };
     fetchData();
-  }, []);
+  }, [onDeletePregunta]);
 
   const preguntasSinResponder = Object.values(productosPreguntas).reduce(
     (preguntas, producto) => {
@@ -36,7 +46,10 @@ export function ListaProductoConPreguntasAdmin() {
     <div>
       {preguntasSinResponder.length > 0 ? (
         preguntasSinResponder.map(producto => (
-          <ItemProductoConPreguntaAdmin key={producto.id} producto={producto}/>
+          <ItemProductoConPreguntaAdmin key={producto.id} 
+          producto={producto}
+          onDeletePregunta={onDeletePregunta}
+          />
         ))
       ) : (
         <h2>No hay preguntas por responder.</h2>

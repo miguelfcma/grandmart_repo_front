@@ -29,11 +29,12 @@ export function ListaOrdenesAdmin() {
   }, []);
 
   const generarReporte = () => {
-    // Array de atributos que deseas incluir en el reporte
+    // Array de atributos que se desea incluir en el reporte
     const atributosExcluir = ["updatedAt"];
 
     generarReporteExcel(ordenesFiltradasReporte, atributosExcluir);
   };
+
   function renderMain() {
     // Filtrar las órdenes en base a los criterios de filtro ingresados por el usuario
     const ordenesFiltradas = ordenesAll.filter(

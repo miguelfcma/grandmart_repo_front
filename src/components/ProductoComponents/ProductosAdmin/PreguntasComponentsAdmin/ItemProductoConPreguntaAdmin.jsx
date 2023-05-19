@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Card, ListGroup, Form, Button, Collapse } from "react-bootstrap";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
+import { Link } from "react-router-dom";
+import "./ItemProductoPregunta.css";
 
-export function ItemProductoConPreguntaAdmin({ producto }) {
+export function ItemProductoConPreguntaAdmin({ producto, onDeletePregunta }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { crearRespuestaProducto, eliminarPreguntaProductoRequest } =
-    useProductos();
+  const { crearRespuestaProducto } = useProductos();
   const [respuestas, setRespuestas] = useState([]);
   const [preguntasVisible, setPreguntasVisible] = useState(false);
 
@@ -36,9 +37,11 @@ export function ItemProductoConPreguntaAdmin({ producto }) {
   };
 
   const handleEliminarPregunta = (preguntaId) => {
-    // Aquí puedes manejar la lógica para eliminar la pregunta
-    // por ejemplo, mediante una API
-    console.log("Pregunta eliminada con la preguntaId:", preguntaId);
+    try {
+      onDeletePregunta(preguntaId);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleTogglePreguntasVisible = () => {
@@ -57,7 +60,14 @@ export function ItemProductoConPreguntaAdmin({ producto }) {
         {preguntasSinRespuesta.length > 0 ? (
           <Card key={producto.id}>
             <Card.Header>
-              <h2>{producto.producto.nombre}</h2>
+            <Link
+              to={`/dashAdmin/productos/detalles/${producto.producto.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <h2>
+                ID: {producto.producto.id} - {producto.producto.nombre}
+              </h2>
+            </Link>
             </Card.Header>
             <Card.Body>
               <Button
@@ -73,48 +83,90 @@ export function ItemProductoConPreguntaAdmin({ producto }) {
                 <ListGroup variant="flush" id="preguntas-collapse">
                   {preguntasSinRespuesta.map((pregunta) => (
                     <ListGroup.Item key={pregunta.id}>
-                      <div style={{ fontWeight: "bold" }}>Pregunta: </div>
+                      <div
+                        style={{
+                          display: "inline-block",
+                          fontWeight: "bold",
+                          marginRight: "10px",
+                        }}
+                      >
+                        Pregunta:{" "}
+                      </div>
                       {pregunta.pregunta}
                       <Form.Group controlId={`respuesta-${pregunta.id}`}>
-                        <Form.Control
-                          type="text"
-                          placeholder="Respuesta"
-                          value={
-                            respuestas.find((r) => r.preguntaId === pregunta.id)
-                              ?.respuesta || ""
-                          }
-                          onChange={(e) =>
-                            handleRespuestaChange(pregunta.id, e.target.value)
-                          }
-                        />
-                      </Form.Group>
-                      {/* Eliminar siempre visible */}
-                      <Button
-                        variant="danger"
-                        onClick={() => handleEliminarPregunta(pregunta.id)}
-                        style={{ marginLeft: "1rem" }}
-                      >
-                        Eliminar Pregunta
-                      </Button>
-                      {respuestas.find((r) => r.preguntaId === pregunta.id)
-                        ?.respuesta !== null ? (
-                        <Button
-                          variant="primary"
-                          onClick={() =>
-                            handleSubmitRespuesta(
-                              pregunta.id,
+                        <div className="respuesta-container">
+                          <span className="respuesta-label">Respuesta:</span>
+                          <Form.Control
+                            type="text"
+                            placeholder="Escribir una respuesta..."
+                            value={
                               respuestas.find(
                                 (r) => r.preguntaId === pregunta.id
-                              )?.respuesta
-                            )
-                          }
+                              )?.respuesta || ""
+                            }
+                            onChange={(e) =>
+                              handleRespuestaChange(pregunta.id, e.target.value)
+                            }
+                            className="respuesta-input"
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault(); // Evita que haya un salto de línea en el input
+                                handleSubmitRespuesta(
+                                  pregunta.id,
+                                  respuestas.find(
+                                    (r) => r.preguntaId === pregunta.id
+                                  )?.respuesta
+                                );
+                              }
+                            }}
+                          />
+                          {respuestas.find((r) => r.preguntaId === pregunta.id)
+                            ?.respuesta ? (
+                            <Button
+                              className="btnEnviarRespuesta"
+                              onClick={() =>
+                                handleSubmitRespuesta(
+                                  pregunta.id,
+                                  respuestas.find(
+                                    (r) => r.preguntaId === pregunta.id
+                                  )?.respuesta
+                                )
+                              }
+                              style={{ marginLeft: "1rem" }}
+                            >
+                              Enviar
+                            </Button>
+                          ) : (
+                            <Button
+                              className="btnEnviarRespuesta"
+                              onClick={() =>
+                                handleSubmitRespuesta(
+                                  pregunta.id,
+                                  respuestas.find(
+                                    (r) => r.preguntaId === pregunta.id
+                                  )?.respuesta
+                                )
+                              }
+                              style={{ marginLeft: "1rem" }}
+                              disabled
+                            >
+                              Enviar
+                            </Button>
+                          )}
+                        </div>
+                      </Form.Group>
+
+                      {/* Eliminar siempre visible */}
+                      <div className="contBotones">
+                        <Button
+                          variant="danger"
+                          className="btnEliminar"
+                          onClick={() => handleEliminarPregunta(pregunta.id)}
                           style={{ marginLeft: "1rem" }}
                         >
-                          Enviar Respuesta
+                          Eliminar pregunta
                         </Button>
-                      ) : (
-                        <p></p>
-                      )}
+                      </div>
                     </ListGroup.Item>
                   ))}
                 </ListGroup>
@@ -125,6 +177,7 @@ export function ItemProductoConPreguntaAdmin({ producto }) {
           <p>Respondidas</p>
         )}
       </React.Fragment>
+      <br></br>
     </div>
   );
 }
