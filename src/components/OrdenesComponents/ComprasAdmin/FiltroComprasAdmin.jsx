@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
-export function FiltroComprasCliente({ filtroUsuario, setFiltroUsuario, filtroEstadoOrden, setFiltroEstadoOrden, filtroFechaInicio, setFiltroFechaInicio, filtroFechaFin, setFiltroFechaFin, filtroOrden, setFiltroOrden }) {
+export function FiltroComprasAdmin({ filtroUsuario, setFiltroUsuario, filtroEstadoOrden, setFiltroEstadoOrden, filtroFechaInicio, setFiltroFechaInicio, filtroFechaFin, setFiltroFechaFin, filtroOrden, setFiltroOrden }) {
   return (
     <Container>
       <Row>

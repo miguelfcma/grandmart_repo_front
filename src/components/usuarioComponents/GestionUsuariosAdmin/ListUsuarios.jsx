@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CardUsuario } from "./CardUsuario";
 import "./ListUsuarios.css";
-import { useUsuarios } from "./UsuariosContext/UsuarioProvider";
+import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 
 export function ListUsuarios() {
   const { usuarios, loadUsuarios } = useUsuarios();

@@ -4,7 +4,7 @@ import { Container, Row, Col, Button, Card, ListGroup,Image } from "react-bootst
 import { useProductos } from "../../ProductoComponents/ProductosContext/ProductoProvider";
 import { useNavigate } from "react-router-dom";
 
-export function DetallesCompraCliente({ id_orden }) {
+export function DetallesCompraAdmin({ id_orden }) {
   const { obtenerDetalleOrden, obtenerDireccionEnvioOrden } = useOrdenes();
 
   const navigate = useNavigate();

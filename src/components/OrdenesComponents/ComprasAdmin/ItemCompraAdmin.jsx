@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom"; // Importar useNavigate y Link para la navegación
 import { FaEye } from "react-icons/fa"; // Importar el icono de ojo
-import "./ItemCompraCliente.css";
+import "./ItemCompraAdmin.css";
 import { Card } from "react-bootstrap";
-export function ItemCompraCliente({ orden }) {
+export function ItemCompraAdmin({ orden }) {
   const {
     id,
     total,

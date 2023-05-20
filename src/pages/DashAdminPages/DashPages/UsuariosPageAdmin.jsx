@@ -1,7 +1,7 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
-import { FormUsuario } from "../../../components/usuarioComponents/FormUsuario";
-import { ListUsuarios } from "../../../components/usuarioComponents/ListUsuarios";
+import { FormUsuario } from "../../../components/usuarioComponents/GestionUsuariosAdmin/FormUsuario";
+import { ListUsuarios } from "../../../components/usuarioComponents/GestionUsuariosAdmin/ListUsuarios";
 import { Modal } from "../../../components/ModalComponents/Modal";
 import { useEffect, useState } from "react";
 import "../DashAdmin.css";

@@ -71,14 +71,14 @@ export function CardProductoAdmin({ producto }) {
         <div>Precio: ${producto.precio}</div>
       </Link>
 
-      <button className="card-producto" onClick={handleOpenModal}>
+      <button className="btn-admin-producto" onClick={handleOpenModal}>
         Editar producto
       </button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <FormUpdateProductoAdmin onSubmit={handleSubmit} producto={producto} />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
-      <button className="card-producto" onClick={handleEliminarProducto}>
+      <button className="btn-admin-producto" onClick={handleEliminarProducto}>
         Eliminar producto
       </button>
     </div>

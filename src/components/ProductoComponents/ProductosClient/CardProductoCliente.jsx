@@ -76,14 +76,14 @@ export function CardProductoCliente({ producto }) {
         <div>Precio: ${producto.precio}</div>
       </Link>
 
-      <button className="card-producto" onClick={handleOpenModal}>
+      <button className="btn-cliente-producto" onClick={handleOpenModal}>
         Editar producto
       </button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <FormUpdateProductoCliente onSubmit={handleSubmit} producto={producto} />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
-      <button className="card-producto" onClick={handleEliminarProducto}>
+      <button className="btn-cliente-producto" onClick={handleEliminarProducto}>
         Eliminar producto
       </button>
     </div>

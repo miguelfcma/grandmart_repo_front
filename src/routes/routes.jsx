@@ -13,21 +13,21 @@ import { RegistroProductoAdminPage2 } from "../pages/DashAdminPages/DashPages/Pr
 import { ServiciosPageAdmin } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin";
 import { ServicioDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin/ServicioDetallesAdminPage";
 import { UsuariosPageAdmin } from "../pages/DashAdminPages/DashPages/UsuariosPageAdmin";
-import { VentasPageAdmin } from "../pages/DashAdminPages/DashPages/VentasPageAdmin"
-import { PedidoDetallesPagesAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin/PedidoDetallesPagesAdmin";
+import { VentasPageAdmin } from "../pages/DashAdminPages/DashPages/VentasPageAdmin";
 import { PreguntasPageAdmin } from "../pages/DashAdminPages/DashPages/PreguntasPageAdmin";
 import { EstadisticasPageAdmin } from "../pages/DashAdminPages/DashPages/EstadisticasPageAdmin";
 import { OrdenesDeCompraPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesDeCompraPageAdmin";
 import { OrdenDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesPageAdmin/OrdenDetallesPageAdmin";
 import { DenunciasPageAdmin } from "../pages/DashAdminPages/DashPages/DenunciasPageAdmin";
-
+import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/ComprasPageAdmin";
 // Páginas de cliente
 import { CompraCarritoPage } from "../pages/HomePages/CarritoPage/CompraCarritoPage";
 import { DashClient } from "../pages/DashClientPages/DashClient";
+
 import { ComprasPageCliente } from "../pages/DashClientPages/DashPages/ComprasPageCliente/ComprasPageCliente";
 import { CompraDetallesPageCliente } from "../pages/DashClientPages/DashPages/ComprasPageCliente/CompraDetallesPageCliente";
 import { CompraOpinarProductoCliente } from "../pages/DashClientPages/DashPages/ComprasPageCliente/CompraOpinarProductoCliente";
-import { PedidosPageClient } from "../pages/DashClientPages/DashPages/PedidosPageClient";
+import { VentasPageCliente } from "../pages/DashClientPages/DashPages/VentasPageCliente";
 import { PerfilPageClient } from "../pages/DashClientPages/DashPages/PerfilPageClient";
 import { ProductoDetallesClientPage } from "../pages/DashClientPages/DashPages/ProductosPageCliente/ProductoDetallesClientPage";
 import { ProductosPageClient } from "../pages/DashClientPages/DashPages/ProductosPageClient";
@@ -55,13 +55,12 @@ import { ServiciosDetallesPage } from "../pages/HomePages/Servicios-Pages/Servic
 //Página de categorias de home page
 import { CategoriasHomePage } from "../pages/HomePages/Categorias-pages/CategoriasHomePage";
 import { ServiciosPage } from "../pages/HomePages/Servicios-Pages/ServiciosPage";
-import { CardDomicilio } from "../components/usuarioComponents/UsuarioPerfilComponents/CardDomicilio";
+import { CardDomicilio } from "../components/usuarioComponents/UsuarioPerfilComponentsCliente/CardDomicilio";
 
-import CardContrasena from "../components/usuarioComponents/UsuarioPerfilComponents/CardContrasena";
+import CardContrasena from "../components/usuarioComponents/UsuarioPerfilComponentsCliente/CardContrasena";
 
 import { RegistroInformacionDeEnvioPage } from "../pages/HomePages/CarritoPage/RegistroInformacionDeEnvioPage";
 import { ResumenComprasPage } from "../pages/HomePages/CarritoPage/ResumenComprasPage";
-
 
 export function MyRoutes() {
   return (
@@ -74,7 +73,6 @@ export function MyRoutes() {
         <Route exact path="/blog" element={<BlogPage />} />
         <Route exact path="/categorias" element={<CategoriasHomePage />} />
         <Route exact path="/servicios" element={<ServiciosPage />} />
-
         <Route exact path="/carrito-compras" element={<CompraCarritoPage />} />
         <Route exact path="/resumen-compras" element={<ResumenComprasPage />} />
         <Route
@@ -82,7 +80,6 @@ export function MyRoutes() {
           path="/informacion-envio"
           element={<RegistroInformacionDeEnvioPage />}
         />
-    
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
         <Route
           exact
@@ -120,11 +117,12 @@ export function MyRoutes() {
           path="/dashAdmin/ordenes/detalles/:id_orden"
           element={<OrdenDetallesPageAdmin />}
         />
+        <Route exact path="/dashAdmin/compras" element={<ComprasPageAdmin />} />
         {/* <Route
           exact
           path="/dashAdmin/pedidos/detalles/:id_orden"
           element={<PedidoDetallesPagesAdmin />}
-        /> */}
+        />  */}
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"
@@ -161,7 +159,6 @@ export function MyRoutes() {
           path="/dashAdmin/denuncias"
           element={<DenunciasPageAdmin />}
         />
-
         {/* Rutas para cliente */}
         <Route exact path="/dashClient" element={<DashClient />} />
         <Route
@@ -201,6 +198,11 @@ export function MyRoutes() {
         />
         <Route
           exact
+          path="/dashClient/ventas"
+          element={<VentasPageCliente />}
+        />
+        <Route
+          exact
           path="/dashClient/compras/detalles/:id_orden"
           element={<CompraDetallesPageCliente />}
         />
@@ -211,23 +213,20 @@ export function MyRoutes() {
         />
         <Route
           exact
-          path="/dashClient/pedidos"
-          element={<PedidosPageClient />}
+          path="/dashClient/ventas"
+          element={<VentasPageCliente />}
         />
         <Route exact path="/dashClient/perfil" element={<PerfilPageClient />} />
-
         <Route
           exact
           path="/dashClient/perfil/domicilio"
           element={<CardDomicilio />}
         />
-
         <Route
           exact
           path="/dashClient/perfil/contrasena"
           element={<CardContrasena />}
         />
-
         {/* Otras rutas */}
         <Route
           exact
@@ -254,7 +253,6 @@ export function MyRoutes() {
           path="/servicios/detalles/:id"
           element={<ServiciosDetallesPage />}
         />
-
         <Route
           exact
           path="/login/recuperar-contrasena"
