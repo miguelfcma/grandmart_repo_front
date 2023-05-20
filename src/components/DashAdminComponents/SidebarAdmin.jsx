@@ -113,11 +113,11 @@ export function SidebarAdmin() {
           <li>
             <Link to="/dashAdmin/preguntas" className="separateIcon">
               <box-icon
-                name="question-mark"
+                name="comment"
                 color="#ffffff"
                 style={{ verticalAlign: "middle" }}
               ></box-icon>
-              Preguntas
+              Preguntas/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Opiniones
             </Link>
           </li>
           <li>
@@ -151,7 +151,6 @@ export function SidebarAdmin() {
             </Link>
           </li>
         </ul>
-        <br></br>
         <div className="user-options">
           <Link
             to="/"
@@ -284,11 +283,21 @@ export function SidebarAdmin() {
                 <li>
                   <Link to="/dashAdmin/preguntas" className="separateIcon">
                     <box-icon
-                      name="question-mark"
+                      name="comment"
                       color="#ffffff"
                       style={{ verticalAlign: "middle" }}
                     ></box-icon>
-                    Preguntas
+                    Preguntas / Opiniones
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashAdmin/denuncias" className="separateIcon">
+                    <box-icon
+                      name="comment-error"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Denuncias
                   </Link>
                 </li>
                 <li>

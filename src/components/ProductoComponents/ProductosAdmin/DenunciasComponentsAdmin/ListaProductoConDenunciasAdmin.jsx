@@ -61,6 +61,9 @@ export function ListaProductoConDenunciasAdmin() {
       producto.denuncias.some((denuncia) => denuncia.revisar === true)
   );
 
+  //Estado para mostrar el contenido del botón seleccionado
+  const [mostrarContenido, setMostrarContenido] = useState("lista1"); // Por defecto se mostrarán las denuncias pendientes por revisar
+
   //Constantes para los 3 botones de opciones:
   const mostrarDenunciasNoRevisadas = () => {
     setMostrarContenido("lista1");
@@ -69,9 +72,6 @@ export function ListaProductoConDenunciasAdmin() {
   const mostrarDenunciasRevisadas = () => {
     setMostrarContenido("lista2");
   };
-
-  /*Estado para almacenar los datos de la lista 3:  */
-  const [lista3Data, setLista3Data] = useState([]);
 
   const mostrarTodasLasDenuncias = () => {
     setMostrarContenido("lista3");
@@ -174,8 +174,6 @@ export function ListaProductoConDenunciasAdmin() {
     return count;
   };
 
-  //Estado para mostrar el contenido del botón seleccionado
-  const [mostrarContenido, setMostrarContenido] = useState("lista1"); // Por defecto se mostrarán las denuncias pendientes por revisar
 
   return (
     <div>

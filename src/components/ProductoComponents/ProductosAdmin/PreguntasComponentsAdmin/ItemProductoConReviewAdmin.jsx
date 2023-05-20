@@ -4,7 +4,7 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { Link } from "react-router-dom";
 import "./ItemProductoPregunta.css";
 
-export function ItemProductoConPreguntaAdmin({ producto, onDeletePregunta }) {
+export function ItemProductoConReviewAdmin({ producto, onDeletePregunta }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { crearRespuestaProducto } = useProductos();
   const [respuestas, setRespuestas] = useState([]);
