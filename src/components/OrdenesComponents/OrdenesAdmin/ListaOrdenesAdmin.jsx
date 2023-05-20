@@ -4,7 +4,7 @@ import { ItemOrdenAdmin } from "./ItemOrdenAdmin";
 import { FiltroOrdenesAdmin } from "./FiltroOrdenesAdmin";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./ListaOrdenesAdmin.css";
-import { generarReporteExcel } from "../../GeneracionDeReportes/generarReporteExcel";
+import { ordenesReporteExcel } from "../../GeneracionDeReportes/ordenesReporteExcel";
 
 export function ListaOrdenesAdmin() {
   // Utilizar el hook useOrdenes para acceder al contexto y las funciones relacionadas con las órdenes
@@ -32,7 +32,7 @@ export function ListaOrdenesAdmin() {
     // Array de atributos que se desea incluir en el reporte
     const atributosExcluir = ["updatedAt"];
 
-    generarReporteExcel(ordenesFiltradasReporte, atributosExcluir);
+    ordenesReporteExcel(ordenesFiltradasReporte, atributosExcluir);
   };
 
   function renderMain() {

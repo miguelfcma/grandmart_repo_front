@@ -1,6 +1,6 @@
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
-
+import moment from "moment"; /*Formatear fechas y horas */
 
 export const denunciasReporteExcel = (datos, atributosExcluir) => {
     // Verificar si no hay datos disponibles
@@ -20,12 +20,17 @@ export const denunciasReporteExcel = (datos, atributosExcluir) => {
       });
       return datoSinAtributos;
     });
-  
-    // Renombrar la columna "createdAt" a "Fecha de Creación"
+
+
+    // Transformar los valores de atributos que sean fechas
+    const formatoFecha = "DD/MM/YYYY - HH:MM:SS"; // Formato de fecha deseado
     datosSinAtributos.forEach((dato) => {
-      if (dato.hasOwnProperty("createdAt")) {
-        dato["Fecha Creacion"] = dato["createdAt"];
-        delete dato["createdAt"];
+      for (const atributo in dato) {
+        if (dato.hasOwnProperty(atributo)) {
+          if (moment.utc(dato[atributo], moment.ISO_8601, true).isValid()) {
+            dato[atributo] = moment.utc(dato[atributo]).format(formatoFecha);
+          }
+        }
       }
     });
   

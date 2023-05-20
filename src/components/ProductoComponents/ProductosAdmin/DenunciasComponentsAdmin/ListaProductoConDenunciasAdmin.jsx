@@ -80,8 +80,8 @@ export function ListaProductoConDenunciasAdmin() {
   const generarReporte = () => {
     console.log(denunciasPorProducto);
 
-    const formattedData = Object.values(denunciasPorProducto).map(
-      (productoDenuncia) => {
+    const formattedData = Object.values(denunciasPorProducto)
+      .map((productoDenuncia) => {
         const { producto, denuncias } = productoDenuncia;
         return denuncias.map((denuncia) => {
           const {
@@ -94,28 +94,84 @@ export function ListaProductoConDenunciasAdmin() {
             usuario,
             usuarioProducto,
           } = denuncia;
+
+          const nombreDenunciante = `${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`;
+          const nombrePropietario = `${usuarioProducto.nombre} ${usuarioProducto.apellidoPaterno} ${usuarioProducto.apellidoMaterno}`;
+
           return {
-            "ID Producto": producto.id,
-            "Nombre Producto": producto.nombre,
-            "ID Usuario": producto.id_usuario,
-            "ID Denuncia": id,
+            "ID  de denuncia": id,
             "Motivo": motivo,
             "Descripción": descripcion,
-            "Revisar": revisar,
-            "Fecha Creación": createdAt,
-            "Fecha Actualización": updatedAt,
-            "ID Usuario Denunciante": usuario.id,
-            "Nombre Usuario Demandante": usuario.nombre,
-            "Apellido Paterno Demandante": usuario.apellidoPaterno,
-            "Apellido Materno Demandante": usuario.apellidoMaterno,
-            "Nombre Usuario Propietario": usuarioProducto.nombre,
+            "ID denunciante": usuario.id,
+            "Nombre denunciante": nombreDenunciante,
+            "ID Producto": producto.id,
+            "Nombre Producto": producto.nombre,
+            "ID propietario": producto.id_usuario,
+            "Nombre propietario": nombrePropietario,
+            "Revisada": revisar ? "SI" : "NO",
+            "Fecha creación": createdAt,
+            "Fecha actualización": updatedAt,
           };
         });
       })
       .flat();
+
+    // Ordenar los datos por el ID de denuncias de menor a mayor
+    formattedData.sort((a, b) => a["ID  de denuncia"] - b["ID  de denuncia"]);
+
+    // Calcular el motivo de denuncia más recurrente y su cantidad
+    const motivoDenunciaRecurrente =
+      obtenerMotivoDenunciaRecurrente(formattedData);
+    const cantidadDenunciasMotivoRecurrente = contarDenunciasPorMotivo(
+      formattedData,
+      motivoDenunciaRecurrente
+    );
+
+    // Agregar el campo extra al objeto
+    formattedData.push({
+      "Motivo más recurrente": motivoDenunciaRecurrente,
+      "Denuncias con este motivo":
+        cantidadDenunciasMotivoRecurrente,
+    });
+
     console.log(formattedData);
     const atributosExcluir = ["updatedAt"];
     denunciasReporteExcel(formattedData, atributosExcluir);
+  };
+
+  // Función para obtener el motivo de denuncia más recurrente
+  const obtenerMotivoDenunciaRecurrente = (data) => {
+    const motivoFrecuenteMap = {};
+    let maxCount = 0;
+    let motivoFrecuente = "";
+
+    data.forEach((item) => {
+      const motivo = item["Motivo"];
+      if (motivoFrecuenteMap[motivo]) {
+        motivoFrecuenteMap[motivo]++;
+      } else {
+        motivoFrecuenteMap[motivo] = 1;
+      }
+      if (motivoFrecuenteMap[motivo] > maxCount) {
+        maxCount = motivoFrecuenteMap[motivo];
+        motivoFrecuente = motivo;
+      }
+    });
+
+    return motivoFrecuente;
+  };
+
+  // Función para contar las denuncias por motivo
+  const contarDenunciasPorMotivo = (data, motivo) => {
+    let count = 0;
+
+    data.forEach((item) => {
+      if (item["Motivo"] === motivo) {
+        count++;
+      }
+    });
+
+    return count;
   };
 
   //Estado para mostrar el contenido del botón seleccionado
@@ -184,7 +240,8 @@ export function ListaProductoConDenunciasAdmin() {
               Lista de todas las denuncias registradas:{" "}
             </div>
             <div>
-              <button onClick={generarReporte}>Generar reporte</button>
+              <button onClick={generarReporte} className="btnReporte">
+              <box-icon style={{marginRight: "5px"}}  color="white" name='file'></box-icon>Generar reporte (.xlsx)</button>
             </div>
             <br></br>
             {Object.values(denunciasPorProducto).map((producto) => (

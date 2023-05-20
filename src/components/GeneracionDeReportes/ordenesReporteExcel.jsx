@@ -2,7 +2,7 @@ import * as XLSX from "xlsx";
 import FileSaver from "file-saver";
 import moment from "moment";
 
-export const generarReporteExcel = (datos, atributosExcluir) => {
+export const ordenesReporteExcel = (datos, atributosExcluir) => {
   // Excluir los atributos del arreglo de objetos
   const datosSinAtributos = datos.map((dato) => {
     const datoSinAtributos = { ...dato };
