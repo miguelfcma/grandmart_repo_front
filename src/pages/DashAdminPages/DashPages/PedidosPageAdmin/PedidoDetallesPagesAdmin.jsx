@@ -1,7 +1,7 @@
 import { SidebarAdmin } from "../../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../../components/DashAdminComponents/HeaderAdmin";
 import { useParams } from "react-router-dom";
-import { ListaPedidosAdmin } from "../../../../components/OrdenesComponents/PedidosAdmin/ListaPedidosAdmin";
+import { ListaVentasAdmin } from "../../../../components/OrdenesComponents/VentasAdmin/ListaVentasAdmin";
 
 export  function PedidoDetallesPagesAdmin() {
     const { id_orden } = useParams();

@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
-import { ItemPedidoAdmin } from "./ItemPedidoAdmin";
+import { ItemVentaAdmin } from "./ItemVentaAdmin";
 import { Container, Row, Col } from "react-bootstrap";
 
-export function ListaPedidosAdmin() {
+export function ListaVentasAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { obtenerPedidosPorUsuario, pedidosUser } = useOrdenes();
+  const { obtenerVentasPorUsuarioId, ventasUser } = useOrdenes();
 
   useEffect(() => {
     // Definir una función asincrónica dentro del useEffect para utilizar await
     const fetchData = async () => {
       try {
-        await obtenerPedidosPorUsuario(usuario.id);
+        await obtenerVentasPorUsuarioId(usuario.id);
       } catch (error) {
         console.error(error);
       }
@@ -20,15 +20,15 @@ export function ListaPedidosAdmin() {
   }, []);
 
   function renderMain() {
-    if (pedidosUser.length === 0) {
-      return <h1>No hay pedidos registrados</h1>;
+    if (ventasUser.length === 0) {
+      return <h1>No hay ventas registradas aún</h1>;
     } else {
       return (
         <Container>
           <Row>
-            {pedidosUser.map((pedido) => (
-              <Col key={pedido.id} sm={12} >
-                <ItemPedidoAdmin pedido={pedido} />
+            {ventasUser.map((venta) => (
+              <Col key={venta.id} sm={12} >
+                <ItemVentaAdmin venta={venta} />
               </Col>
             ))}
           </Row>

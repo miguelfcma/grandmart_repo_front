@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import React from "react";
 import { Favoritos } from "../FavoritosComponents/Favoritos";
 import { Carrito } from "../CarritoComponents/Carrito";
@@ -14,19 +13,19 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-
+import { Link, useNavigate } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 
 export function Navbar1({ onSearch }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-
+  const navigate = useNavigate();
   //const { vaciarFavoritos } = useProductos();
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
     //vaciarFavoritos();
     // redirigir a  la página principal
-    window.location.href = "/";
+    navigate("/") ;
   };
 
   const categorias = [

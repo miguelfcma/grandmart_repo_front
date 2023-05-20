@@ -1,14 +1,14 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
-import { ListaPedidosAdmin } from "../../../components/OrdenesComponents/PedidosAdmin/ListaPedidosAdmin";
+import { ListaVentasAdmin } from "../../../components/OrdenesComponents/VentasAdmin/ListaVentasAdmin";
 
-export function PedidosPageAdmin() {
+export function VentasPageAdmin() {
   return (
     <div className="dashboard-container">
       <SidebarAdmin />
       <div className="contenidoPages">
         <HeaderAdmin />
-        <ListaPedidosAdmin/>
+        <ListaVentasAdmin/>
       </div>
     </div>
   );

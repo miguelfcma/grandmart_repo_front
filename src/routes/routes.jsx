@@ -13,7 +13,7 @@ import { RegistroProductoAdminPage2 } from "../pages/DashAdminPages/DashPages/Pr
 import { ServiciosPageAdmin } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin";
 import { ServicioDetallesAdminPage } from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin/ServicioDetallesAdminPage";
 import { UsuariosPageAdmin } from "../pages/DashAdminPages/DashPages/UsuariosPageAdmin";
-import { PedidosPageAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin";
+import { VentasPageAdmin } from "../pages/DashAdminPages/DashPages/VentasPageAdmin"
 import { PedidoDetallesPagesAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin/PedidoDetallesPagesAdmin";
 import { PreguntasPageAdmin } from "../pages/DashAdminPages/DashPages/PreguntasPageAdmin";
 import { EstadisticasPageAdmin } from "../pages/DashAdminPages/DashPages/EstadisticasPageAdmin";
@@ -82,13 +82,7 @@ export function MyRoutes() {
           path="/informacion-envio"
           element={<RegistroInformacionDeEnvioPage />}
         />
-        {/* Rutas para administrador 
-        
-        
-        import { PedidosPageAdmin } from "../pages/DashAdminPages/DashPages/PedidosPageAdmin";
-import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin";
-        
-        */}
+    
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
         <Route
           exact
@@ -100,7 +94,7 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashAdmin/categorias"
           element={<CategoriasPageAdmin />}
         />
-        <Route exact path="/dashAdmin/pedidos" element={<PedidosPageAdmin />} />
+        <Route exact path="/dashAdmin/ventas" element={<VentasPageAdmin />} />
         <Route
           exact
           path="/dashAdmin/productos"
@@ -126,11 +120,11 @@ import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageA
           path="/dashAdmin/ordenes/detalles/:id_orden"
           element={<OrdenDetallesPageAdmin />}
         />
-        <Route
+        {/* <Route
           exact
           path="/dashAdmin/pedidos/detalles/:id_orden"
           element={<PedidoDetallesPagesAdmin />}
-        />
+        /> */}
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"

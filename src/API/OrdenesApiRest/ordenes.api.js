@@ -38,9 +38,9 @@ export const obtenerTodasLasOrdenesConDetallesRequest = async () => {
 };
 
 // Función para obtener las órdenes de un usuario
-export const obtenerOrdenesUsuarioRequest = async (id_usuario) => {
+export const obtenerComprasPorIdUsuarioRequest = async (id_usuario) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}ordenes/usuario/${id_usuario}`);
+    const response = await axios.get(`${API_BASE_URL}compras/${id_usuario}`);
     console.log({
       status: response.status,
       message: response.data.message,
@@ -100,7 +100,7 @@ export const obtenerDetalleOrdenRequest = async (id_orden) => {
 export const obtenerDireccionEnvioOrdenRequest = async (id_orden) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}ordenes/direccion/${id_orden}`
+      `${API_BASE_URL}envio/${id_orden}`
     );
     console.log({
       status: response.status,
@@ -116,10 +116,10 @@ export const obtenerDireccionEnvioOrdenRequest = async (id_orden) => {
   }
 };
 
-export const obtenerPedidosPorUsuarioRequest = async (id_usuario) => {
+export const obtenerVentasPorUsuarioRequest = async (id_usuario) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}ordenes/pedidos/${id_usuario}`
+      `${API_BASE_URL}ventas/${id_usuario}`
     );
     console.log({
       status: response.status,
@@ -138,7 +138,7 @@ export const obtenerPedidosPorUsuarioRequest = async (id_usuario) => {
 export const verificacionDireccionEnvioRequest = async (id_usuario) => {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}ordenes/verificacion-direccion-envio/${id_usuario}`
+      `${API_BASE_URL}direccion/verificacion/${id_usuario}`
     );
     console.log({
       status: response.status,

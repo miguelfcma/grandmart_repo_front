@@ -10,13 +10,13 @@ export function RegistroProductoAdminPage2() {
     <div className="dashboard-container">
       <SidebarAdmin />
       <div className="contenidoPages">
-        <a href="/dashAdmin">
+        <Link to="/dashAdmin">
           <img
             alt="e-commerce"
             src="../src/components/HomePageComponents/logo.png"
           />
           <br></br>
-        </a>
+        </Link>
         <FormImgProductoAdmin idProducto={idProducto} />
       </div>
     </div>

@@ -1,5 +1,5 @@
 
-export  function DetallesPedidoAdmin() {
+export  function ItemPagoAdmin() {
   return (
     <div>
       

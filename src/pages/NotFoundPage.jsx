@@ -1,4 +1,3 @@
-
 const styles = {
   container: {
     display: "flex",
@@ -19,17 +18,24 @@ const styles = {
     fontSize: "2rem",
     color: "#666",
   },
+  logo: {
+    width: "200px",
+    height: "auto",
+    marginBottom: "20px",
+  },
 };
 
 export function NotFoundPage() {
-  
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>404 Not Found</h1>
-      <p style={styles.message}>The page you are looking for does not exist.</p>
-      <button onClick={() => window.history.back()}>
-      Regresar
-    </button>
+      <h1 style={styles.title}>404 No encontrado</h1>
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/grandmart-51065.appspot.com/o/src%2Flogo.png?alt=media&token=6c393680-5c89-4708-a0d3-f8ffcb0fc379"
+        style={styles.logo}
+        alt="Logo"
+      ></img>
+      <p style={styles.message}>La página que estás buscando no existe.</p>
+      <button onClick={() => window.history.back()}>Regresar</button>
     </div>
   );
 }

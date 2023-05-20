@@ -15,7 +15,7 @@ import "./DetallesOrdenAdmin.css";
 export function DetallesOrdenAdmin({ id_orden }) {
   const {
     obtenerDetalleOrden,
-  
+
     obtenerDireccionEnvioOrden,
   } = useOrdenes();
   const [orden, setOrden] = useState({
@@ -29,13 +29,13 @@ export function DetallesOrdenAdmin({ id_orden }) {
   });
 
   const [direccionEnvio, setDireccionEnvio] = useState(null);
-
+  const [infoEnvio, setInfoEnvio] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await obtenerDetalleOrden(id_orden);
         const data2 = await obtenerDireccionEnvioOrden(id_orden);
-
+        console.log(data2);
         setOrden({
           id: data.orden.id,
           total: data.orden.total,
@@ -45,8 +45,8 @@ export function DetallesOrdenAdmin({ id_orden }) {
           fechaEntrega: data.orden.fechaEntrega,
           detallesOrden: data.detallesOrden,
         });
+        setInfoEnvio(data2.envio);
         setDireccionEnvio(data2.direccion_envio);
-        setNuevoEstado(data.orden.estado_orden);
         setEstadoModificable(true);
       } catch (error) {
         console.error(error);
@@ -55,36 +55,25 @@ export function DetallesOrdenAdmin({ id_orden }) {
     fetchData();
   }, []);
 
-  
-
-
-
   return (
     <Container className="detalles-orden-admin">
-
-        <div>
-         <h1 className="orden-titulo">Orden:</h1>
-          <Row className="orden-row">
-            <Col md={4}>
-              <p>ID: {orden.id}</p>
-              <p>Total: {orden.total}</p>
-              <p>Estado: {orden.estado_orden}</p>
-              <p>ID Usuario: {orden.id_usuario}</p>
-            </Col>
-            <Col md={4}>
-              <p className="fecha-creacion">
-                Fecha de Creación:{" "}
-                {new Date(orden.createdAt).toLocaleDateString()}
-              </p>
-             
-             
-            </Col>
-            
-          </Row>
-
-    
-        </div>
-
+      <div>
+        <h1 className="orden-titulo">Orden:</h1>
+        <Row className="orden-row">
+          <Col md={4}>
+            <p>ID: {orden.id}</p>
+            <p>Total: {orden.total}</p>
+            <p>Estado: {orden.estado_orden}</p>
+            <p>ID Usuario: {orden.id_usuario}</p>
+          </Col>
+          <Col md={4}>
+            <p className="fecha-creacion">
+              Fecha de Creación:{" "}
+              {new Date(orden.createdAt).toLocaleDateString()}
+            </p>
+          </Col>
+        </Row>
+      </div>
 
       {orden.detallesOrden.length > 0 && (
         <div>
@@ -115,10 +104,22 @@ export function DetallesOrdenAdmin({ id_orden }) {
               ))}
             </tbody>
           </Table>
+
+          <div>
+        <h1 className="infoEnvio-titulo">Envío:</h1>
+        <Row className="orden-row">
+          <Col md={4}>
+            <p>ID: {infoEnvio.id}</p>
+            <p>Estado: {infoEnvio.estado}</p>
+       
+          </Col>
+        
+        </Row>
+      </div>
+
           <h1 className="detalles-orden-titulo">Detalles del envío:</h1>
           {direccionEnvio && (
             <div>
-              
               <Row className="orden-row">
                 <Col md={4}>
                   <p>ID: {direccionEnvio.id}</p>
@@ -138,7 +139,6 @@ export function DetallesOrdenAdmin({ id_orden }) {
           )}
         </div>
       )}
-     
     </Container>
   );
 }

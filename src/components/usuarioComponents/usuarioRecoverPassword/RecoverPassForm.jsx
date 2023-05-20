@@ -32,12 +32,12 @@ export function RecoverPassForm() {
     <div>
       <nav className="navbar">
         <div className="navbar-container">
-          <a href="/">
+          <Link to="/">
             <img
               alt="e-commerce"
               src="https://firebasestorage.googleapis.com/v0/b/grandmart-51065.appspot.com/o/src%2Flogo.png?alt=media&token=6c393680-5c89-4708-a0d3-f8ffcb0fc379"
             />
-          </a>
+          </Link>
         </div>
       </nav>
       <div className="login-form-container">

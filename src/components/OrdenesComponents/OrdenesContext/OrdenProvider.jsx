@@ -7,8 +7,8 @@ import {
   obtenerDetalleOrdenRequest,
   actualizarEstadoOrdenRequest,
   obtenerDireccionEnvioOrdenRequest,
-  obtenerOrdenesUsuarioRequest,
-  obtenerPedidosPorUsuarioRequest,
+  obtenerComprasPorIdUsuarioRequest,
+  obtenerVentasPorUsuarioRequest,
   verificacionDireccionEnvioRequest,
 } from "../../../API/OrdenesApiRest/ordenes.api";
 
@@ -25,7 +25,7 @@ export const useOrdenes = () => {
 export const OrdenContextProvider = ({ children }) => {
   const [ordenesAll, setOrdenesAll] = useState([]);
   const [ordenesUser, setOrdenesUser] = useState([]);
-  const [pedidosUser, setPedidosUser] = useState([]);
+  const [ventasUser, setVentasUser] = useState([]);
 
   const crearOrden = async (data) => {
     try {
@@ -42,13 +42,13 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
 
-  const obtenerPedidosPorUsuario = async (id_usuario) => {
+  const obtenerVentasPorUsuarioId = async (id_usuario) => {
     try {
-      const response = await obtenerPedidosPorUsuarioRequest(id_usuario);
+      const response = await obtenerVentasPorUsuarioRequest(id_usuario);
 
       if (response.status === 200) {
-        setPedidosUser(response.data.productosPedidos);
-        console.log(response.data.productosPedidos);
+        setVentasUser(response.data);
+     
       } else {
         throw new Error("No se obtener las ordenes");
       }
@@ -57,9 +57,9 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
 
-  const obtenerOrdenesUsuario = async (id_usuario) => {
+  const obtenerComprasPorIdUsuario = async (id_usuario) => {
     try {
-      const response = await obtenerOrdenesUsuarioRequest(id_usuario);
+      const response = await obtenerComprasPorIdUsuarioRequest(id_usuario);
       console.log(response);
       if (response.status === 200) {
         setOrdenesUser(response.data);
@@ -107,7 +107,7 @@ export const OrdenContextProvider = ({ children }) => {
       const response = await obtenerDireccionEnvioOrdenRequest(id_orden);
 
       if (response.status === 200) {
-        console.log(response.data);
+     
         return response.data;
       } else {
         throw new Error("No se obtener las ordenes");
@@ -155,9 +155,9 @@ export const OrdenContextProvider = ({ children }) => {
         obtenerDetalleOrden,
         actualizarEstadoOrden,
         obtenerDireccionEnvioOrden,
-        obtenerPedidosPorUsuario,
-        obtenerOrdenesUsuario,
-        pedidosUser,
+        obtenerVentasPorUsuarioId,
+        obtenerComprasPorIdUsuario,
+        ventasUser,
         verificacionDireccionEnvio,
       }}
     >

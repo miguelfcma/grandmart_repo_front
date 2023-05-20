@@ -1,0 +1,32 @@
+/* DetallesOrdenCliente.css */
+
+.detalles-orden-admin {
+    margin-top: 30px;
+  }
+  
+  .orden-titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .orden-row {
+    margin-bottom: 30px;
+  }
+  
+  .detalles-orden-titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .detalles-orden-table {
+    font-size: 14px;
+  }
+  
+  .detalles-orden-table th,
+  .detalles-orden-table td {
+    vertical-align: middle;
+  }
+  
+  
