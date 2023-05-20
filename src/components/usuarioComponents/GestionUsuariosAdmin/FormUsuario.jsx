@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./FormUsuario.css";
-import { useUsuarios } from "./UsuariosContext/UsuarioProvider";
-
+import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 
 export function FormUsuario  ({ onSubmit, initialUsuario =null })  {
   const {createUsuario, updateUsuario} = useUsuarios();

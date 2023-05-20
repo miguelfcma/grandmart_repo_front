@@ -1,6 +1,6 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
-import { CardDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponentsCliente/CardDomicilio";
+import { CardDomicilio } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardDomicilio";
 import "../DashAdmin.css";
 
 export function PerfilPageAdmin() {

@@ -55,6 +55,9 @@ import { ServiciosDetallesPage } from "../pages/HomePages/Servicios-Pages/Servic
 //Página de categorias de home page
 import { CategoriasHomePage } from "../pages/HomePages/Categorias-pages/CategoriasHomePage";
 import { ServiciosPage } from "../pages/HomePages/Servicios-Pages/ServiciosPage";
+import { CardDomicilio } from "../components/usuarioComponents/UsuarioPerfilComponents/CardDomicilio";
+
+import CardContrasena from "../components/usuarioComponents/UsuarioPerfilComponents/CardContrasena";
 
 import { RegistroInformacionDeEnvioPage } from "../pages/HomePages/CarritoPage/RegistroInformacionDeEnvioPage";
 import { ResumenComprasPage } from "../pages/HomePages/CarritoPage/ResumenComprasPage";

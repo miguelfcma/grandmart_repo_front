@@ -32,7 +32,8 @@ export function ListaProductoConPreguntasAdmin() {
     };
     fetchData();
   }, []);
-
+  console.log("Hola puto")
+  console.log(productosPreguntas);
   const preguntasSinResponder = Object.values(productosPreguntas).reduce(
     (preguntas, producto) => {
       const todasRespondidas = producto.preguntas.every(
@@ -111,8 +112,6 @@ export function ListaProductoConPreguntasAdmin() {
         </div>
       )}
 
-
-
       {mostrarContenido === "lista2" && preguntasRespondidas.length > 0 && (
         <div>
           <div className="tituloListas">Lista de preguntas respondidas:</div>
@@ -131,9 +130,6 @@ export function ListaProductoConPreguntasAdmin() {
           <h2>No hay preguntas respondidas en este momento.</h2>
         </div>
       )}
-
-
-      
     </div>
   );
 }

@@ -1,12 +1,11 @@
 import "./CardUsuario.css";
-import { useUsuarios } from "./UsuariosContext/UsuarioProvider";
-import {Modal} from "../ModalComponents/Modal";
+import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
+import { Modal } from "../../ModalComponents/Modal";
 import { FormUsuario } from "./FormUsuario";
-import { useEffect,useState } from "react";
-
+import { useEffect, useState } from "react";
 
 export function CardUsuario({ usuario }) {
-  const{ deleteUsuario} = useUsuarios()
+  const { deleteUsuario } = useUsuarios();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function handleOpenModal() {
@@ -15,7 +14,6 @@ export function CardUsuario({ usuario }) {
 
   function handleCloseModal() {
     setIsModalOpen(false);
-
   }
 
   function handleSubmit() {
@@ -23,10 +21,9 @@ export function CardUsuario({ usuario }) {
     handleCloseModal();
   }
 
-  
   return (
     <div className="card-usuario">
-        <div>Id: {usuario.id}</div>
+      <div>Id: {usuario.id}</div>
       <div>Nombre: {usuario.nombre}</div>
       <div>Apellido Paterno: {usuario.apellidoPaterno}</div>
       <div>Apellido Materno: {usuario.apellidoMaterno}</div>
@@ -34,12 +31,17 @@ export function CardUsuario({ usuario }) {
       <div>
         Tipo Usuario: {usuario.tipoUsuario ? "Usuario admin" : "Usuario común"}
       </div>
-      <button className="card-usuario" onClick={handleOpenModal}>Editar usuario</button>
+      <button className="card-usuario" onClick={handleOpenModal}>
+        Editar usuario
+      </button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <FormUsuario onSubmit={handleSubmit} initialUsuario={usuario}/>
+        <FormUsuario onSubmit={handleSubmit} initialUsuario={usuario} />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
-      <button className="card-usuario" onClick={() => deleteUsuario(usuario.id)}>
+      <button
+        className="card-usuario"
+        onClick={() => deleteUsuario(usuario.id)}
+      >
         Eliminar usuario
       </button>
     </div>

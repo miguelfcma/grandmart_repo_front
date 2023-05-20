@@ -1,6 +1,6 @@
 import { SidebarCliente } from "../../../components/DashClientComponents/SidebarCliente";
 import { HeaderCliente } from "../../../components/DashClientComponents/HeaderCliente";
-import { CardOpcionesPerfil } from "../../../components/usuarioComponents/UsuarioPerfilComponentsCliente/CardOpcionesPerfil";
+import { CardOpcionesPerfil } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardOpcionesPerfil";
 
 export function PerfilPageClient() {
   return (
