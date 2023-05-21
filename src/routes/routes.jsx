@@ -55,12 +55,19 @@ import { ServiciosDetallesPage } from "../pages/HomePages/Servicios-Pages/Servic
 //Página de categorias de home page
 import { CategoriasHomePage } from "../pages/HomePages/Categorias-pages/CategoriasHomePage";
 import { ServiciosPage } from "../pages/HomePages/Servicios-Pages/ServiciosPage";
-import { CardDomicilio } from "../components/usuarioComponents/UsuarioPerfilComponents/CardDomicilio";
-
-import CardContrasena from "../components/usuarioComponents/UsuarioPerfilComponents/CardContrasena";
 
 import { RegistroInformacionDeEnvioPage } from "../pages/HomePages/CarritoPage/RegistroInformacionDeEnvioPage";
 import { ResumenComprasPage } from "../pages/HomePages/CarritoPage/ResumenComprasPage";
+//Paginas de perfil de admin
+import { DatosPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/DatosPerfilPageAdmin";
+import { DomicilioPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/DomicilioPerfilPageAdmin";
+import { SeguridadPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/SeguridadPerfilPageAdmin";
+import { TarjetaPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/TarjetaPerfilPageAdmin";
+//Paginas de perfil de cliente
+import { DatosPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/DatosPerfilPageCliente";
+import { DomicilioPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/DomicilioPerfilPageCliente";
+import { SeguridadPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/SeguridadPerfilPageCliente";
+import { TarjetaPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/TarjetaPerfilPageCliente";
 
 export function MyRoutes() {
   return (
@@ -148,7 +155,30 @@ export function MyRoutes() {
           path="/dashAdmin/servicios/detalles/:id"
           element={<ServicioDetallesAdminPage />}
         />
+
+        {/*RUTAS DE PERFIL DE ADMINISTRADOR */}
         <Route exact path="/dashAdmin/perfil" element={<PerfilPageAdmin />} />
+        <Route
+          exact
+          path="/dashAdmin/perfil/datos"
+          element={<DatosPerfilPageAdmin />}
+        />
+        <Route
+          exact
+          path="/dashAdmin/perfil/seguridad"
+          element={<SeguridadPerfilPageAdmin />}
+        />
+        <Route
+          exact
+          path="/dashAdmin/perfil/tarjeta"
+          element={<TarjetaPerfilPageAdmin />}
+        />
+        <Route
+          exact
+          path="/dashAdmin/perfil/domicilio"
+          element={<DomicilioPerfilPageAdmin />}
+        />
+
         <Route
           exact
           path="/dashAdmin/database-backup"
@@ -196,11 +226,7 @@ export function MyRoutes() {
           path="/dashClient/compras"
           element={<ComprasPageCliente />}
         />
-        <Route
-          exact
-          path="/dashClient/ventas"
-          element={<VentasPageCliente />}
-        />
+
         <Route
           exact
           path="/dashClient/compras/detalles/:id_orden"
@@ -216,17 +242,13 @@ export function MyRoutes() {
           path="/dashClient/ventas"
           element={<VentasPageCliente />}
         />
+
+        {/*RUTAS DE PERFIL DE CLIENTES */}
         <Route exact path="/dashClient/perfil" element={<PerfilPageClient />} />
-        <Route
-          exact
-          path="/dashClient/perfil/domicilio"
-          element={<CardDomicilio />}
-        />
-        <Route
-          exact
-          path="/dashClient/perfil/contrasena"
-          element={<CardContrasena />}
-        />
+        <Route exact path="/dashClient/perfil/domicilio" element={<DomicilioPerfilPageCliente/>} />
+        <Route exact path="/dashClient/perfil/datos" element={<DatosPerfilPageCliente/>} />
+        <Route exact path="/dashClient/perfil/tarjeta" element={<TarjetaPerfilPageCliente/>} />
+        <Route exact path="/dashClient/perfil/seguridad" element={<SeguridadPerfilPageCliente/>} />
         {/* Otras rutas */}
         <Route
           exact

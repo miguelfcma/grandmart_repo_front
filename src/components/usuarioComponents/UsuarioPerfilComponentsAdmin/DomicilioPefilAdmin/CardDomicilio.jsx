@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
-import { Modal } from "../../ModalComponents/Modal";
+import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
+import { Modal } from "../../../ModalComponents/Modal";
 import { FormUpdateUsuarioDomicilio } from "./FormUpdateUsuarioDomicilio";
 import { FormCreateUsuarioDomicilio } from "./FormCreateUsuarioDomicilio";
 
