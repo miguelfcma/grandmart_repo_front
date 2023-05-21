@@ -78,14 +78,14 @@ export function Carrito() {
                   <p>Precio: ${item.producto.precio}</p>
                 </div>
                 <div className="cart-item-controls">
-                  <button onClick={() => incrementarCantidadItemCarrito(item)}>
+                  <button className="btnMas" onClick={() => incrementarCantidadItemCarrito(item)}>
                     +
                   </button>
                   <span>{item.cantidad}</span>
-                  <button onClick={() => decrementarCantidadItemCarrito(item)}>
+                  <button className="btnMenos" onClick={() => decrementarCantidadItemCarrito(item)}>
                     -
                   </button>
-                  <button onClick={() => eliminarItemCarrito(item)}>
+                  <button className="btnDelete" onClick={() => eliminarItemCarrito(item)}>
                     Eliminar
                   </button>
                 </div>
@@ -101,7 +101,7 @@ export function Carrito() {
                 className="btnpagar"
                 type="button"
               >
-                <span>Ver carrito de compra</span>
+                <span>Ver carrito</span>
               </Link>
             </div>
           </>

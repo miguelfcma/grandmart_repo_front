@@ -32,8 +32,8 @@ export function ListaProductoConPreguntasAdmin() {
     };
     fetchData();
   }, []);
-  console.log("Hola puto")
-  console.log(productosPreguntas);
+
+
   const preguntasSinResponder = Object.values(productosPreguntas).reduce(
     (preguntas, producto) => {
       const todasRespondidas = producto.preguntas.every(
@@ -50,16 +50,17 @@ export function ListaProductoConPreguntasAdmin() {
   //Filtro para preguntas respondidas
   const preguntasRespondidas = Object.values(productosPreguntas).reduce(
     (preguntas, producto) => {
-      const todasRespondidas = producto.preguntas.every(
+      const preguntasRespondidas = producto.preguntas.filter(
         (pregunta) => pregunta.respuesta !== null
       );
-      if (todasRespondidas) {
-        preguntas.push(producto);
+      if (preguntasRespondidas.length > 0) {
+        preguntas.push({ ...producto, preguntas: preguntasRespondidas });
       }
       return preguntas;
     },
     []
   );
+  
 
   //Estado para mostrar el contenido del botón seleccionado
   const [mostrarContenido, setMostrarContenido] = useState("lista1"); // Por defecto se mostrarán las preguntas pendientes por responder
