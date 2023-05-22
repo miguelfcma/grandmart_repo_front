@@ -1,6 +1,6 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
-import { ListaProductoConPreguntasAdmin } from "../../../components/ProductoComponents/ProductosAdmin/PreguntasComponentsAdmin/ListaProductoConPreguntasAdmin";
+import { ListaProductoConPreguntasYReviewsAdmin } from "../../../components/ProductoComponents/ProductosAdmin/PreguntasReviewsAdmin/ListaProductoConPreguntasYReviewsAdmin";
 
 export function PreguntasPageAdmin() {
   return (
@@ -8,7 +8,7 @@ export function PreguntasPageAdmin() {
       <SidebarAdmin />
       <div className="contenidoPages">
         <HeaderAdmin />
-        <ListaProductoConPreguntasAdmin/>
+        <ListaProductoConPreguntasYReviewsAdmin/>
       </div>
     </div>
   );

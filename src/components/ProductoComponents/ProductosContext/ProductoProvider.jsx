@@ -46,9 +46,8 @@ import {
   createReviewRequest,
   getReviewsByProductIdRequest,
   deleteReviewByIdRequest,
-  updateReviewByIdRequest,
+  getProductosConReviewsByUsuarioIdRequest,
   getAvgRatingByProductIdRequest,
-  getReviewByUserAndProductRequest
 } from "../../../API/ProductosApiRest/reviewsProducto.api";
 
 import {
@@ -82,6 +81,7 @@ export const ProductoContextProvider = ({ children }) => {
     totalCantidad: 0, // Valor inicial correspondiente
   });
   const [productosPreguntas, setProductosPreguntas] = useState([]);
+  const [productosReviews, setProductosReviews] = useState([]);
   const [productosDenuncias, setProductosDenuncias] = useState([]);
 
   /////////////////////////////////////////////////////////////////
@@ -571,7 +571,7 @@ export const ProductoContextProvider = ({ children }) => {
     }
   };
 
-  ///Reviews
+  /// Reviews ///////////
   const createReview = async (data) => {
     try {
       const response = await createReviewRequest(data);
@@ -585,24 +585,8 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-
-  const getReviewByUserAndProduct = async (id_usuario, id_producto) => {
-    try {
-      const response = await getReviewByUserAndProductRequest(id_usuario, id_producto);
-   
-      if (response.status == 200) {
-
-        return response.data.review;
-      } else {
-        return null;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   
-  const getReviewsByProductId = async (id_producto) => {
+  const getReviewsPorProductId = async (id_producto) => {
     try {
       const response = await getReviewsByProductIdRequest(
         id_producto
@@ -611,6 +595,37 @@ export const ProductoContextProvider = ({ children }) => {
       if (response.status == 200) {
 
         return response.data.reviews;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getProductosConReviewsByUsuarioId = async (id_usuario) => {
+    try {
+      const response = await getProductosConReviewsByUsuarioIdRequest(
+        id_usuario
+      );
+      console.log(response);
+      if (response.status == 200) {
+        setProductosReviews(response.data);
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const eliminarReviewProducto = async (id_pregunta) => {
+    try {
+      const response = await deleteReviewByIdRequest(id_pregunta);
+      console.log(response);
+      if (response.status == 200) {
+        return response.data;
       } else {
         return null;
       }
@@ -635,6 +650,7 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+  
 
 
   /////////////////////////////////////////////////////////////////
@@ -780,8 +796,10 @@ export const ProductoContextProvider = ({ children }) => {
         crearRespuestaProducto,
 
         createReview,
-        getReviewByUserAndProduct,
-        getReviewsByProductId,
+        getReviewsPorProductId,
+        getProductosConReviewsByUsuarioId,
+        productosReviews,
+        eliminarReviewProducto,
         getAvgRatingByProductId,
 
         crearDenunciaProducto,

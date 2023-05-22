@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { ItemProductoConPreguntaAdmin } from "./ItemProductoConPreguntaAdmin";
+import { ItemProductoConReviewAdmin } from "./ItemProductoConReviewAdmin";
 
-export function ListaProductoConPreguntasAdmin() {
+export function ListaProductoConPreguntasYReviewsAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const {
     getProductosConPreguntasByUsuarioId,
     productosPreguntas,
     eliminarPreguntaProducto,
+
+    getProductosConReviewsByUsuarioId,
+    productosReviews,
+    eliminarReviewProducto,
   } = useProductos();
 
   const onDeletePregunta = async (preguntaId) => {
@@ -21,20 +26,22 @@ export function ListaProductoConPreguntasAdmin() {
   };
 
   useEffect(() => {
-    // Definir una función asincrónica dentro del useEffect para utilizar await
     const fetchData = async () => {
       try {
-        // Llamar a la función getProductosConPreguntasByUsuarioId para obtener los productos con preguntas
         await getProductosConPreguntasByUsuarioId(usuario.id);
+        await getProductosConReviewsByUsuarioId(usuario.id);
       } catch (error) {
         console.error(error);
       }
     };
+  
     fetchData();
   }, []);
+  
 
-
-  const preguntasSinResponder = Object.values(productosPreguntas).reduce(
+  //Filtro para preguntas sin responder
+  const preguntasSinResponder =
+  productosPreguntas && Object.values(productosPreguntas).reduce(
     (preguntas, producto) => {
       const todasRespondidas = producto.preguntas.every(
         (pregunta) => pregunta.respuesta !== null
@@ -48,7 +55,8 @@ export function ListaProductoConPreguntasAdmin() {
   );
 
   //Filtro para preguntas respondidas
-  const preguntasRespondidas = Object.values(productosPreguntas).reduce(
+  const preguntasRespondidas =
+  productosPreguntas && Object.values(productosPreguntas).reduce(
     (preguntas, producto) => {
       const preguntasRespondidas = producto.preguntas.filter(
         (pregunta) => pregunta.respuesta !== null
@@ -60,7 +68,31 @@ export function ListaProductoConPreguntasAdmin() {
     },
     []
   );
-  
+
+
+
+  const onDeleteReview = async (reviewId) => {
+    // Lógica que se ejecuta en el componente padre
+    try {
+      await eliminarReviewProducto(reviewId);
+      console.log("Ejecutando la función en el componente padre");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //Función para mostrar las opiniones sobre los productos que el administrador vende:
+  const reviewsPorProducto = productosReviews.reduce((resultado, review) => {
+    const idProducto = review.id_producto;
+    if (!resultado[idProducto]) {
+      resultado[idProducto] = {
+        producto: review.producto,
+        reviews: [],
+      };
+    }
+    resultado[idProducto].reviews.push(review);
+    return resultado;
+  }, {});
 
   //Estado para mostrar el contenido del botón seleccionado
   const [mostrarContenido, setMostrarContenido] = useState("lista1"); // Por defecto se mostrarán las preguntas pendientes por responder
@@ -94,6 +126,8 @@ export function ListaProductoConPreguntasAdmin() {
         </button>
       </div>
 
+
+
       {mostrarContenido === "lista1" && preguntasSinResponder.length > 0 && (
         <div>
           <div className="tituloListas">Lista de preguntas sin responder: </div>
@@ -113,6 +147,8 @@ export function ListaProductoConPreguntasAdmin() {
         </div>
       )}
 
+
+
       {mostrarContenido === "lista2" && preguntasRespondidas.length > 0 && (
         <div>
           <div className="tituloListas">Lista de preguntas respondidas:</div>
@@ -131,6 +167,32 @@ export function ListaProductoConPreguntasAdmin() {
           <h2>No hay preguntas respondidas en este momento.</h2>
         </div>
       )}
+
+
+      {mostrarContenido === "lista3" &&
+        Object.keys(reviewsPorProducto).length > 0 && (
+          <div>
+            <div className="tituloListas">
+              Lista de todos los reviews registrados:{" "}
+            </div>
+            {Object.values(reviewsPorProducto).map((producto) => (
+              <ItemProductoConReviewAdmin
+              key={producto.id}
+              producto={producto}
+              onDeleteReview={onDeleteReview} // Agrega esta línea
+            />
+            ))}
+          </div>
+        )}
+      {Object.keys(reviewsPorProducto).length === 0 &&
+        mostrarContenido === "lista3" && (
+          <div>
+            <br></br>
+            <h2>No hay reviews registrados por ahora.</h2>
+          </div>
+        )}
+
+
     </div>
   );
 }
