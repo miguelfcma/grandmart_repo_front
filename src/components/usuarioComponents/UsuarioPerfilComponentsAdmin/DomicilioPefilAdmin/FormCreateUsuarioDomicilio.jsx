@@ -1,15 +1,25 @@
-import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
-import { useState, useEffect } from "react";
+import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
+import { useState } from "react";
 
-export function FormUpdateUsuarioDomicilio({ onSubmit, initialDomicilio }) {
+export function FormCreateUsuarioDomicilio({onSubmit}) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { updateDomicilioUsuarioByUserId } = useUsuarios();
+  const { createDomicilioUsuario } = useUsuarios();
 
-  const [formData, setFormData] = useState(initialDomicilio);
 
-  useEffect(() => {
-    setFormData(initialDomicilio);
-  }, [initialDomicilio]);
+  const [formData, setFormData] = useState({
+    nombre_ine: "",
+    postal: "",
+    estado: "",
+    municipio_alcaldia: "",
+    colonia: "",
+    calle: "",
+    numeroExterior: "",
+    numeroInterior: "",
+    calle1: "",
+    calle2: "",
+    descripcion: "",
+    id_usuario: usuario.id,
+  });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,7 +28,21 @@ export function FormUpdateUsuarioDomicilio({ onSubmit, initialDomicilio }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateDomicilioUsuarioByUserId(usuario.id,formData);
+      const domicilio = await createDomicilioUsuario(formData);
+      setFormData({
+        nombre_ine: "",
+        postal: "",
+        estado: "",
+        municipio_alcaldia: "",
+        colonia: "",
+        calle: "",
+        numeroExterior: "",
+        numeroInterior: "",
+        calle1: "",
+        calle2: "",
+        descripcion: "",
+        id_usuario:usuario.id,
+      });
       onSubmit();
     } catch (error) {
       console.error(error);
@@ -132,7 +156,7 @@ export function FormUpdateUsuarioDomicilio({ onSubmit, initialDomicilio }) {
           type="text"
           name="calle2"
           value={formData.calle2}
-          onChange={handleChange}
+          onChange={(e) => setFormData({ ...formData, calle2: e.target.value })}
           required
         />
       </label>
@@ -142,11 +166,13 @@ export function FormUpdateUsuarioDomicilio({ onSubmit, initialDomicilio }) {
           type="text"
           name="descripcion"
           value={formData.descripcion}
-          onChange={handleChange}
+          onChange={(e) =>
+            setFormData({ ...formData, descripcion: e.target.value })
+          }
           required
         />
       </label>
-      <button type="submit">Actualizar Domicilio</button>
+      <button type="submit">Crear Domicilio</button>
     </form>
   );
 }

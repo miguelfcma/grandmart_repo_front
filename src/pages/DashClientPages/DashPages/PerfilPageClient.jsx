@@ -1,15 +1,14 @@
 import { SidebarCliente } from "../../../components/DashClientComponents/SidebarCliente";
 import { HeaderCliente } from "../../../components/DashClientComponents/HeaderCliente";
-import { CardOpcionesPerfil } from "../../../components/usuarioComponents/UsuarioPerfilComponents/CardOpcionesPerfil";
-
+import { CardOpcionesPerfilCliente } from "../../../components/usuarioComponents/UsuarioPerfilComponentsCliente/CardOpcionesPerfilCliente";
 export function PerfilPageClient() {
   return (
     <div className="dashboard-container">
-      <SidebarCliente/>
+      <SidebarCliente />
       <div className="contenidoPages">
-      <HeaderCliente/>
-      <CardOpcionesPerfil />
-    </div>
+        <HeaderCliente />
+        <CardOpcionesPerfilCliente />
+      </div>
     </div>
   );
 }

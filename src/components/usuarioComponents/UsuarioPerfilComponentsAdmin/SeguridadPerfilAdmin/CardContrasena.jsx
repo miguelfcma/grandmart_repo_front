@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
-import ContrasenaUpdate from "./ContrasenaUpdate";
-import { SidebarCliente } from "../../DashClientComponents/SidebarCliente";
-import { HeaderCliente } from "../../DashClientComponents/HeaderCliente";
+import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
+import { ContrasenaUpdate } from "./ContrasenaUpdate";
 import { Form, Button, Card } from "react-bootstrap";
 
-export default function CardContrasena() {
+export  function CardContrasena() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { contrasena, loadContrasena, updateContrasenaUsuarioByUserId } = useUsuarios();
   const [newPassword, setNewPassword] = useState("");
@@ -31,10 +29,7 @@ export default function CardContrasena() {
   };
 
   return (
-    <div className="dashboard-container">
-      <SidebarCliente />
-      <div className="contenidoPages">
-        <HeaderCliente />
+    
         <div>
           {!showUpdateForm && (
             <Form onSubmit={handleSubmit}>
@@ -64,7 +59,6 @@ export default function CardContrasena() {
             />
           )}
         </div>
-      </div>
-    </div>
+
   );
 }
