@@ -5,14 +5,28 @@ import { Modal } from "../../../ModalComponents/Modal";
 import { FormUpdateTarjeta } from "./FormUpdateTarjeta";
 import { FormCreateTarjeta } from "./FormCreateTarjeta";
 
-
 export function CardTarjeta() {
-  const { info_bancaria, load_info_bancaria, delete_info_bancaria } =
-    useUsuarios();
+  const {info_bancaria,  obtener_info_bancaria, delete_info_bancaria } = useUsuarios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-
+ 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  
+  
+  useEffect(() => {
+    const cargar_info_bancaria = async (userId) => {
+      try {
+      await obtener_info_bancaria(userId);
+  
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    if (usuario && usuario.id) {
+      cargar_info_bancaria(usuario.id);
+    }
+  }, []);
+  
   function handleOpenModal() {
     setIsModalOpen(true);
   }
@@ -21,40 +35,30 @@ export function CardTarjeta() {
     setIsModalOpen(false);
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     // Lógica para enviar el formulario
     handleCloseModal();
+    await cargar_info_bancaria(usuario.id);
+    
   }
   async function handleTarjetaCreada() {
-    await load_info_bancaria(usuario.id);
+    await obtener_info_bancaria(usuario.id);
   }
   async function handleDeleteTarjeta() {
     await delete_info_bancaria(usuario.id);
+  
   }
 
-  useEffect(() => {
-    const fetchData = async (userId) => {
-      try {
-        await load_info_bancaria(userId);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    if (usuario && usuario.id) {
-      fetchData(usuario.id);
-    }
-  }, []);
   return (
     <div className="dashboard-container">
       <div className="contenidoPages">
         {info_bancaria ? (
           <div>
-
-            <p>Nombre del titular de la cuenta: {info_bancaria.postal}</p>
-            <p>Banco: {info_bancaria.estado}</p>
-            <p>Número de cuenta: {info_bancaria.municipio_alcaldia}</p>
-            
+            <p>
+              Nombre del titular de la cuenta: {info_bancaria.nombre_titular}
+            </p>
+            <p>Banco: {info_bancaria.banco}</p>
+            <p>Número de cuenta: {info_bancaria.numero_cuenta}</p>
 
             <button onClick={handleOpenModal}>Editar domicilio</button>
 

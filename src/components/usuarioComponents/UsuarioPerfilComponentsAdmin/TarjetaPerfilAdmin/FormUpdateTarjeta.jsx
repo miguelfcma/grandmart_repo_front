@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 export function FormUpdateTarjeta({ onSubmit, info_bancaria_inicial }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { update_info_bancaria } = useUsuarios();
+  const { actualizar_info_bancaria } = useUsuarios();
 
   const [formData, setFormData] = useState(info_bancaria_inicial);
 
@@ -18,7 +18,7 @@ export function FormUpdateTarjeta({ onSubmit, info_bancaria_inicial }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await update_info_bancaria(usuario.id,formData);
+      await actualizar_info_bancaria(usuario.id,formData);
       onSubmit();
     } catch (error) {
       console.error(error);
@@ -31,7 +31,7 @@ export function FormUpdateTarjeta({ onSubmit, info_bancaria_inicial }) {
         Nombre titular:
         <input
           type="text"
-          name="nombre_ine"
+          name="nombre_titular"
           value={formData.nombre_titular}
           onChange={handleChange}
         />

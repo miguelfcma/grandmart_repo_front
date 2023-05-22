@@ -9,6 +9,10 @@ import {
   actualizarContrasenaUsuarioRequest,
   obtenerInfoPerfilRequest,
   actualizarPerfilUsuarioRequest,
+  createCuentaBancariaRequest,
+  getCuentaBancariaByUserIdRequest,
+  updateCuentaBancariaByUserIdRequest,
+  deleteCuentaBancariaByUserIdRequest,
 } from "../../../API/UsuariosApiRest/usuarios.api";
 import {
   getDomicilioUsuarioByUserIdRequest,
@@ -30,7 +34,7 @@ export const useUsuarios = () => {
 export const UsuarioContextProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [domicilio, setDomicilio] = useState(null);
-
+  const [info_bancaria, setInfo_bancaria] = useState(null);
   const obtenerInfoPerfil = async (id_usuario) => {
     try {
       const response = await obtenerInfoPerfilRequest(id_usuario);
@@ -84,6 +88,7 @@ export const UsuarioContextProvider = ({ children }) => {
       if (response.status === 200) {
         setDomicilio(response.data.data);
       } else {
+        setDomicilio(null)
         throw new Error("No se pudo obtener la dirección del usuario");
       }
     } catch (error) {
@@ -146,20 +151,7 @@ export const UsuarioContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-
-  const deleteDomicilioUsuarioByUserId = async (id_usuario) => {
-    try {
-      const response = await deleteDomicilioUsuarioByUserIdRequest(id_usuario);
-      if (response.status === 204) {
-        loadDomicilio(id_usuario);
-        return true;
-      } else {
-        throw new Error("No se pudo eliminar la dirección del usuario");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  ////////////////////////////////////////////////
 
   const createDomicilioUsuario = async (domicilio) => {
     try {
@@ -207,6 +199,89 @@ export const UsuarioContextProvider = ({ children }) => {
     }
   };
 
+  const deleteDomicilioUsuarioByUserId = async (id_usuario) => {
+    try {
+      const response = await deleteDomicilioUsuarioByUserIdRequest(id_usuario);
+      if (response.status === 204) {
+        loadDomicilio(id_usuario);
+        return true;
+      } else {
+        throw new Error("No se pudo eliminar la dirección del usuario");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  ///////////////////
+  const obtener_info_bancaria = async (id_usuario) => {
+    try {
+      const response = await getCuentaBancariaByUserIdRequest(id_usuario);
+
+      // Verifica el estado de la respuesta
+      if (response.status === 200) {
+        const data = response.data;
+
+        setInfo_bancaria(data); // Retorna los datos del perfil obtenidos
+      } else {
+        setInfo_bancaria(null);
+        throw new Error("Error al obtener la información bancaria");
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  const delete_info_bancaria = async (id_usuario) => {
+    try {
+      const response = await deleteCuentaBancariaByUserIdRequest(id_usuario);
+      if (response.status === 200) {
+        obtener_info_bancaria(id_usuario);
+        return true;
+      } else {
+        throw new Error(
+          "No se pudo eliminar la información bancaria del usuario"
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  const create_info_bancaria = async (data) => {
+    try {
+      const response = await createCuentaBancariaRequest(data);
+      if (response.status === 201) {
+        obtener_info_bancaria(data.usuario_id);
+        return response.data;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  const actualizar_info_bancaria = async (id_usuario, data) => {
+    try {
+      const response = await updateCuentaBancariaByUserIdRequest(
+        id_usuario,
+        data
+      );
+      if (response.status === 200) {
+        obtener_info_bancaria(id_usuario);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   return (
     <UsuarioContext.Provider
       value={{
@@ -227,6 +302,12 @@ export const UsuarioContextProvider = ({ children }) => {
 
         obtenerInfoPerfil,
         actualizarPerfilUsuario,
+
+        obtener_info_bancaria,
+        delete_info_bancaria,
+        create_info_bancaria,
+        actualizar_info_bancaria,
+        info_bancaria,
       }}
     >
       {children}
