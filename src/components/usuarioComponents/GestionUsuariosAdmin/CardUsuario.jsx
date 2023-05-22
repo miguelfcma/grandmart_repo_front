@@ -29,7 +29,14 @@ export function CardUsuario({ usuario }) {
       <div>Apellido Materno: {usuario.apellidoMaterno}</div>
       <div>email: {usuario.email}</div>
       <div>
-        Tipo Usuario: {usuario.tipoUsuario ? "Usuario admin" : "Usuario común"}
+        Tipo Usuario:{" "}
+        {usuario.tipoUsuario === 0
+          ? "Usuario cliente"
+          : usuario.tipoUsuario === 1
+          ? "Usuario admin"
+          : usuario.tipoUsuario === 2
+          ? "Usuario repartidor"
+          : "Tipo de usuario desconocido"}
       </div>
       <button className="card-usuario" onClick={handleOpenModal}>
         Editar usuario

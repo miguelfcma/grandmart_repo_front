@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
-import { ContrasenaUpdate } from "./ContrasenaUpdate";
+
 import { Form, Button, Card } from "react-bootstrap";
 
 export  function CardContrasena() {
@@ -52,12 +52,7 @@ export  function CardContrasena() {
               <Button type="submit">Actualizar contraseña</Button>
             </Form>
           )}
-          {showUpdateForm && (
-            <ContrasenaUpdate
-              onSubmit={handleUpdateSubmit}
-              initialContrasena={newPassword}
-            />
-          )}
+         
         </div>
 
   );

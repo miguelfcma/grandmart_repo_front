@@ -19,13 +19,13 @@ import InputGroup from "react-bootstrap/InputGroup";
 export function Navbar1({ onSearch }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
-  //const { vaciarFavoritos } = useProductos();
-  const handleLogout = () => {
+  const { cerrarSesionProductos } = useProductos();
+  const  handleLogout =  () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
-    //vaciarFavoritos();
+     cerrarSesionProductos();
     // redirigir a  la página principal
-    navigate("/") ;
+    navigate("/");
   };
 
   const categorias = [
@@ -126,7 +126,7 @@ export function Navbar1({ onSearch }) {
             </Nav.Link>
             {usuario ? (
               <NavDropdown title={usuario.nombre} id="collasible-nav-dropdown">
-                {usuario.tipoUsuario === true ? (
+                {usuario.tipoUsuario === 1 ? (
                   <NavDropdown.Item as={Link} to="/dashAdmin">
                     <box-icon
                       name="user"
@@ -134,13 +134,25 @@ export function Navbar1({ onSearch }) {
                     ></box-icon>{" "}
                     Administración
                   </NavDropdown.Item>
-                ) : (
+                ) : usuario.tipoUsuario === 0 ? (
                   <NavDropdown.Item as={Link} to="/dashClient">
                     <box-icon
                       name="user"
                       style={{ verticalAlign: "middle" }}
                     ></box-icon>{" "}
                     Mi cuenta
+                  </NavDropdown.Item>
+                ) : usuario.tipoUsuario === 2 ? (
+                  <NavDropdown.Item as={Link} to="/dashRepartidor">
+                    <box-icon
+                      name="user"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>{" "}
+                    Repartidor
+                  </NavDropdown.Item>
+                ) : (
+                  <NavDropdown.Item>
+                    Tipo de usuario desconocido
                   </NavDropdown.Item>
                 )}
                 <NavDropdown.Divider />

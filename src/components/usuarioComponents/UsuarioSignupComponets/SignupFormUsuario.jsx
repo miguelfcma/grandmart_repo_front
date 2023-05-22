@@ -33,7 +33,7 @@ export function SignupFormUsuario() {
       fechaNacimiento: fechaNacimiento,
       telefono: telefono,
       password: password,
-      tipoUsuario: tipoUsuario,
+      tipoUsuario: 0,
     };
 
     try {

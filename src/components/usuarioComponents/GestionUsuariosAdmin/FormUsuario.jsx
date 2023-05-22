@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./FormUsuario.css";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 
-export function FormUsuario  ({ onSubmit, initialUsuario =null })  {
-  const {createUsuario, updateUsuario} = useUsuarios();
+export function FormUsuario({ onSubmit, initialUsuario = null }) {
+  const { createUsuario, updateUsuario } = useUsuarios();
 
   const [nombre, setNombre] = useState("");
   const [apellidoPaterno, setApellidoPaterno] = useState("");
@@ -52,7 +52,7 @@ export function FormUsuario  ({ onSubmit, initialUsuario =null })  {
       } else {
         status = await updateUsuario(initialUsuario.id, formData);
       }
-      console.log(status)
+      console.log(status);
       if (status == true) {
         setNombre("");
         setApellidoPaterno("");
@@ -65,7 +65,9 @@ export function FormUsuario  ({ onSubmit, initialUsuario =null })  {
         setTipoUsuario("");
         onSubmit();
       } else {
-        window.alert("Ha ocurrido un error al procesar la solicitud. Inténtelo de nuevo más tarde.");
+        window.alert(
+          "Ha ocurrido un error al procesar la solicitud. Inténtelo de nuevo más tarde."
+        );
       }
     } catch (error) {
       console.error(error);
@@ -128,13 +130,12 @@ export function FormUsuario  ({ onSubmit, initialUsuario =null })  {
             onChange={(event) => setSexo(event.target.value)}
             required
           >
-            <option value="" defaultValue>
-              Selecciona una opción
-            </option>
+            <option value="">Selecciona una opción</option>
             <option value="M">Masculino</option>
             <option value="F">Femenino</option>
           </select>
         </label>
+
         <br />
         <label htmlFor="fechaNacimiento">
           Fecha de nacimiento:
@@ -158,17 +159,20 @@ export function FormUsuario  ({ onSubmit, initialUsuario =null })  {
           />
         </label>
         <br />
-        {initialUsuario ? <div></div> :  <label htmlFor="password">
-          Contraseña:
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
-        </label>}
-       
+        {initialUsuario ? (
+          <div></div>
+        ) : (
+          <label htmlFor="password">
+            Contraseña:
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+          </label>
+        )}
 
         <br />
         <label htmlFor="tipoUsuario">
@@ -176,19 +180,21 @@ export function FormUsuario  ({ onSubmit, initialUsuario =null })  {
           <select
             id="tipoUsuario"
             value={tipoUsuario}
-            onChange={(event) => setTipoUsuario(event.target.value === "true")}
+            onChange={(event) => setTipoUsuario(Number(event.target.value))}
             required
           >
             <option value="" defaultValue>
               Selecciona una opción
             </option>
-            <option value="true">Administrador</option>
-            <option value="false">Usuario regular</option>
+            <option value="1">Administrador</option>
+            <option value="0">Usuario cliente</option>
+            <option value="2">Repartidor</option>
           </select>
         </label>
+
         <br />
         <button type="submit">Enviar</button>
       </form>
     </>
   );
-};
+}

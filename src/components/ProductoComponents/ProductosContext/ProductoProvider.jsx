@@ -8,7 +8,7 @@ import {
   deleteProductoRequest,
   updateProductoRequest,
   getProductosByUsuarioIdRequest,
-  getProductoByIdRequest
+  getProductoByIdRequest,
 } from "../../../API/ProductosApiRest/productos.api";
 
 import {
@@ -59,7 +59,6 @@ import {
   eliminarDenunciaProductoRequest,
 } from "../../../API/ProductosApiRest/denunciasProducto.api";
 
-
 export const useProductos = () => {
   const context = useContext(ProductoContext);
   if (context === undefined) {
@@ -83,6 +82,21 @@ export const ProductoContextProvider = ({ children }) => {
   const [productosPreguntas, setProductosPreguntas] = useState([]);
   const [productosReviews, setProductosReviews] = useState([]);
   const [productosDenuncias, setProductosDenuncias] = useState([]);
+  // Vaciar todo el carrito
+  function cerrarSesionProductos() {
+    setCarrito({
+      idCarrito: null, // Valor inicial correspondiente
+      id_usuario: null, // Valor inicial correspondiente
+      detalles: [], // Valor inicial correspondiente
+      totalCantidad: 0, // Valor inicial correspondiente
+    });
+    setFavoritos([]);
+    setProductosUsuario([]);
+    setProductosPreguntas([]);
+    setProductosDenuncias([]);
+    setProductosReviews([]);
+  }
+  
 
   /////////////////////////////////////////////////////////////////
 
@@ -396,16 +410,16 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-  
-  const getProductoById= async (id_producto) => {
+
+  const getProductoById = async (id_producto) => {
     try {
       const response = await getProductoByIdRequest(id_producto);
 
       if (response.status === 200) {
-       return response.data
+        return response.data;
       } else if (response.status === 404) {
         console.log("No se pudo obtener producto");
-   return null
+        return null;
       } else {
         throw new Error("No se pudo obtener producto");
       }
@@ -555,7 +569,7 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-  
+
   const crearRespuestaProducto = async (id_usuario, id_pregunta, data) => {
     try {
       const response = await crearRespuestaProductoRequest(id_pregunta, data);
@@ -585,15 +599,12 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-  
+
   const getReviewsPorProductId = async (id_producto) => {
     try {
-      const response = await getReviewsByProductIdRequest(
-        id_producto
-      );
+      const response = await getReviewsByProductIdRequest(id_producto);
       console.log(response);
       if (response.status == 200) {
-
         return response.data.reviews;
       } else {
         return null;
@@ -636,12 +647,9 @@ export const ProductoContextProvider = ({ children }) => {
 
   const getAvgRatingByProductId = async (id_producto) => {
     try {
-      const response = await getAvgRatingByProductIdRequest(
-        id_producto
-      );
+      const response = await getAvgRatingByProductIdRequest(id_producto);
       console.log(response);
       if (response.status == 200) {
-
         return response.data.avgRating;
       } else {
         return null;
@@ -650,15 +658,13 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-  
-
 
   /////////////////////////////////////////////////////////////////
 
   //Denuncias
 
   const crearDenunciaProducto = async (data) => {
-    console.log("ddatos desde el provider",data)
+    console.log("ddatos desde el provider", data);
     try {
       const response = await crearDenunciaProductoRequest(data);
 
@@ -709,7 +715,6 @@ export const ProductoContextProvider = ({ children }) => {
 
       if (response.status === 200) {
         setProductosDenuncias(response.data);
-
       } else {
         throw new Error("No se logró obtener las denuncias");
       }
@@ -720,7 +725,7 @@ export const ProductoContextProvider = ({ children }) => {
 
   const actualizarDenunciaRevisada = async (id_denuncia, data) => {
     console.log(id_denuncia + data);
-    try{
+    try {
       const response = await actualizarDenunciaARevisada(id_denuncia, data);
 
       if (response.status === 200) {
@@ -732,7 +737,7 @@ export const ProductoContextProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   const eliminarDenunciaProducto = async (id_denuncia) => {
     try {
@@ -748,13 +753,12 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-  
+
   return (
     <ProductoContext.Provider
       value={{
         productosAll,
         productosUsuario,
-
 
         getProductoById,
         loadProductos,
@@ -810,6 +814,7 @@ export const ProductoContextProvider = ({ children }) => {
         actualizarDenunciaRevisada,
         eliminarDenunciaProducto,
 
+        cerrarSesionProductos,
       }}
     >
       {children}

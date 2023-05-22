@@ -18,11 +18,16 @@ export function LoginFormUsuario() {
         alert("Acceso denegado");
         console.log("Acceso denegado");
       } else {
-        if (response.usuario.tipoUsuario == true) {
+        if (response.usuario.tipoUsuario === 1) {
           navigate("/dashAdmin");
+        } else if (response.usuario.tipoUsuario === 2) {
+          navigate("/dashRepartidor");
+        } else if (response.usuario.tipoUsuario === 0) {
+          navigate("/dashClient");
         } else {
           navigate("/");
         }
+        
         localStorage.setItem("token", response.token);
         localStorage.setItem("usuario", JSON.stringify(response.usuario));
         
