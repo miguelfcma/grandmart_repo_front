@@ -619,9 +619,10 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await getProductosConReviewsByUsuarioIdRequest(
         id_usuario
       );
-      console.log(response);
+
       if (response.status == 200) {
         setProductosReviews(response.data);
+  
         return response.data;
       } else {
         return null;

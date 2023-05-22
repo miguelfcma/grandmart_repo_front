@@ -89,15 +89,15 @@ export const deleteUsuarioRequest = async (id) => {
 
 
 
-/* Para contraseñas de usuarios */
 
-export const getContrasenaUsuarioByUserIdRequest = async (id_usuario) => {
+////
+
+export const obtenerInfoPerfilRequest = async (id_usuario) => {
   try {
-    const response = await axios.get(API_BASE_URL + `contrasena-usuario/${id_usuario}`);
+    const response = await axios.get(API_BASE_URL + `usuario-perfil/${id_usuario}`);
     console.log({
       status: response.status,
       message: response.data.message,
-      data: response.data
     });
     return response;
   } catch (error) {
@@ -109,9 +109,26 @@ export const getContrasenaUsuarioByUserIdRequest = async (id_usuario) => {
   }
 };
 
-export const updateContrasenaUsuarioByUserIdRequest = async (id_usuario, contrasenaUsuario) => {
+export const actualizarPerfilUsuarioRequest = async (id_usuario, data) => {
   try {
-    const response = await axios.put(API_BASE_URL + `contrasena-usuario/${id_usuario}`, contrasenaUsuario);
+    const response = await axios.put(API_BASE_URL + `usuario-perfil/${id_usuario}`, data);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    throw error.response.data;
+  }
+};
+
+export const actualizarContrasenaUsuarioRequest = async (id_usuario, data) => {
+  try {
+    const response = await axios.put(API_BASE_URL + `contrasena-usuario-actualizar/${id_usuario}`, data);
     console.log({
       status: response.status,
       message: response.data.message,

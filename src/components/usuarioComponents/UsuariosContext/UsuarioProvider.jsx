@@ -6,9 +6,9 @@ import {
   deleteUsuarioRequest,
   updateUsuarioRequest,
   getUsuarioLoginRequest,
-
-  getContrasenaUsuarioByUserIdRequest,
-  updateContrasenaUsuarioByUserIdRequest,
+  actualizarContrasenaUsuarioRequest,
+  obtenerInfoPerfilRequest,
+  actualizarPerfilUsuarioRequest,
 } from "../../../API/UsuariosApiRest/usuarios.api";
 import {
   getDomicilioUsuarioByUserIdRequest,
@@ -16,7 +16,6 @@ import {
   createDomicilioUsuarioRequest,
   updateDomicilioUsuarioByUserIdRequest,
 } from "../../../API/UsuariosApiRest/domicilioUsuario.api";
-
 
 import { UsuarioContext } from "./UsuarioContext";
 
@@ -31,7 +30,40 @@ export const useUsuarios = () => {
 export const UsuarioContextProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [domicilio, setDomicilio] = useState(null);
-  const [contrasena, setContrasena] =useState([]);
+
+  const obtenerInfoPerfil = async (id_usuario) => {
+    try {
+      const response = await obtenerInfoPerfilRequest(id_usuario);
+
+      // Verifica el estado de la respuesta
+      if (response.status === 200) {
+        const data = response.data;
+        return data; // Retorna los datos del perfil obtenidos
+      } else {
+        throw new Error("Error al obtener la información del perfil");
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  const actualizarPerfilUsuario = async (id_usuario, data) => {
+    try {
+      // Realiza una solicitud para actualizar el perfil del usuario
+      const response = await actualizarPerfilUsuarioRequest(id_usuario, data);
+
+      // Verifica el estado de la respuesta
+      if (response.status === 200) {
+        return true;
+      } else {
+        throw new Error("Error al actualizar el perfil del usuario");
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
   async function loadUsuarios() {
     try {
@@ -50,7 +82,6 @@ export const UsuarioContextProvider = ({ children }) => {
     try {
       const response = await getDomicilioUsuarioByUserIdRequest(id_usuario);
       if (response.status === 200) {
-
         setDomicilio(response.data.data);
       } else {
         throw new Error("No se pudo obtener la dirección del usuario");
@@ -120,9 +151,8 @@ export const UsuarioContextProvider = ({ children }) => {
     try {
       const response = await deleteDomicilioUsuarioByUserIdRequest(id_usuario);
       if (response.status === 204) {
-        loadDomicilio(id_usuario)
+        loadDomicilio(id_usuario);
         return true;
- 
       } else {
         throw new Error("No se pudo eliminar la dirección del usuario");
       }
@@ -135,7 +165,6 @@ export const UsuarioContextProvider = ({ children }) => {
     try {
       const response = await createDomicilioUsuarioRequest(domicilio);
       if (response.status == 201) {
-
         return response.data.data;
       } else {
         return false;
@@ -152,7 +181,7 @@ export const UsuarioContextProvider = ({ children }) => {
         domicilio
       );
       if (response.status == 200) {
-        loadDomicilio(id_usuario)
+        loadDomicilio(id_usuario);
         return true;
       } else {
         return false;
@@ -162,29 +191,13 @@ export const UsuarioContextProvider = ({ children }) => {
     }
   };
 
-
-  async function loadContrasena(id_usuario) {
+  const actualizarContrasenaUsuario = async (id_usuario, data) => {
     try {
-      const response = await getContrasenaUsuarioByUserIdRequest(id_usuario);
-      if (response.status === 200) {
-
-        setDomicilio(response.data.data);
-      } else {
-        throw new Error("No se pudo obtener la contraseña del usuario");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const updateContrasenaUsuarioByUserId = async (id_usuario, contrasena) => {
-    try {
-      const response = await updateContrasenaUsuarioByUserIdRequest(
+      const response = await actualizarContrasenaUsuarioRequest(
         id_usuario,
-        contrasena
+        data
       );
       if (response.status == 200) {
-        loadContrasena(id_usuario)
         return true;
       } else {
         return false;
@@ -203,16 +216,17 @@ export const UsuarioContextProvider = ({ children }) => {
         createUsuario,
         updateUsuario,
         loginUsuario,
-        
+
         deleteDomicilioUsuarioByUserId,
         createDomicilioUsuario,
         updateDomicilioUsuarioByUserId,
         loadDomicilio,
         domicilio,
 
-        contrasena,
-        loadContrasena,
-        updateContrasenaUsuarioByUserId,
+        actualizarContrasenaUsuario,
+
+        obtenerInfoPerfil,
+        actualizarPerfilUsuario,
       }}
     >
       {children}

@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
+
 export function FormEditarPerfil({
   onSubmit,
   nombre,
@@ -8,6 +11,9 @@ export function FormEditarPerfil({
   telefono,
   sexo,
 }) {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  const { actualizarPerfilUsuario } = useUsuarios();
   const [formulario, setFormulario] = useState({
     nombre,
     apellidoPaterno,
@@ -32,8 +38,9 @@ export function FormEditarPerfil({
     const fechaActual = new Date();
     const fechaNacimientoDate = new Date(fechaNacimiento);
     const edadMinima = 18;
-  
-    let edadCalculada = fechaActual.getFullYear() - fechaNacimientoDate.getFullYear();
+
+    let edadCalculada =
+      fechaActual.getFullYear() - fechaNacimientoDate.getFullYear();
     if (
       fechaActual.getMonth() < fechaNacimientoDate.getMonth() ||
       (fechaActual.getMonth() === fechaNacimientoDate.getMonth() &&
@@ -41,10 +48,10 @@ export function FormEditarPerfil({
     ) {
       edadCalculada--;
     }
-  
+
     return edadCalculada >= edadMinima;
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateTelefono(formulario.telefono)) {
       console.log("El número de teléfono no es válido");
@@ -54,7 +61,15 @@ export function FormEditarPerfil({
       console.log("Debes tener al menos 18 años para enviar el formulario");
       return;
     }
-    console.log(formulario);
+
+    try {
+      await actualizarPerfilUsuario(usuario.id, formulario);
+      console.log("Perfil de usuario actualizado correctamente");
+      onSubmit();
+    } catch (error) {
+      console.error("Error al actualizar el perfil del usuario:", error);
+      // Manejar el error de actualización del perfil
+    }
   };
 
   return (

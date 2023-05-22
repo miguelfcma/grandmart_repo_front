@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [reviewsVisible, setReviewsVisible] = useState(false);
+  
 
+  console.log(producto);
   const handleToggleReviewsVisible = () => {
     setReviewsVisible(!reviewsVisible);
   };
@@ -47,14 +49,13 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
             <Collapse in={reviewsVisible}>
               <ListGroup variant="flush" id="preguntas-collapse">
                 {producto.reviews.map((review) => {
-                  console.log("me cago en la puta",review);
+                  console.log("Holas",review);
                   return (
                     <div className="lineagruesa">
                       <ListGroup.Item key={review.id} className="items">
                         <div style={{ fontWeight: "bold" }}>ID de review: </div>
                         &nbsp;&nbsp;
                         <div>{review.id}</div>
-                        {console.log("Valor de review.id:", review.id)}
                       </ListGroup.Item>
                       <ListGroup.Item className="items">
                         <div style={{ fontWeight: "bold" }}>Título: </div>
@@ -71,7 +72,7 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
                       <ListGroup.Item className="items">
                         <div style={{ fontWeight: "bold" }}>ID Producto: </div>
                         &nbsp;&nbsp;
-                        <div>{review.producto.id}</div>
+                        {/* <div>{review.producto.id}</div> */}
                       </ListGroup.Item>
                       <ListGroup.Item className="items">
                         <div style={{ fontWeight: "bold" }}>Realizada: </div>

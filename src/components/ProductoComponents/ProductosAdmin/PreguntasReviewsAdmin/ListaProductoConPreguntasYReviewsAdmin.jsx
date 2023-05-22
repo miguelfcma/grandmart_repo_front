@@ -82,6 +82,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
   };
 
   //Función para mostrar las opiniones sobre los productos que el administrador vende:
+  /*
   const reviewsPorProducto = productosReviews.reduce((resultado, review) => {
     const idProducto = review.id_producto;
     if (!resultado[idProducto]) {
@@ -93,7 +94,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
     resultado[idProducto].reviews.push(review);
     return resultado;
   }, {});
-
+*/
   //Estado para mostrar el contenido del botón seleccionado
   const [mostrarContenido, setMostrarContenido] = useState("lista1"); // Por defecto se mostrarán las preguntas pendientes por responder
 
@@ -170,12 +171,12 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
 
 
       {mostrarContenido === "lista3" &&
-        Object.keys(reviewsPorProducto).length > 0 && (
+        productosReviews.length > 0 && (
           <div>
             <div className="tituloListas">
               Lista de todos los reviews registrados:{" "}
             </div>
-            {Object.values(reviewsPorProducto).map((producto) => (
+            {productosReviews.map((producto) => (
               <ItemProductoConReviewAdmin
               key={producto.id}
               producto={producto}
@@ -184,7 +185,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
             ))}
           </div>
         )}
-      {Object.keys(reviewsPorProducto).length === 0 &&
+      {productosReviews.length === 0 &&
         mostrarContenido === "lista3" && (
           <div>
             <br></br>
