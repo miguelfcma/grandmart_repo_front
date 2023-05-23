@@ -13,7 +13,7 @@ import {
   Container,
   FormGroup,
   FormCheck,
-  FormControl
+  FormControl,
 } from "react-bootstrap";
 import "./FormRegistroEnvio.css";
 
@@ -21,7 +21,8 @@ export function FormRegistroEnvio() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { createDomicilioUsuario } = useUsuarios();
   const navigate = useNavigate();
-  
+  const [descripcionCounter, setDescripcionCounter] = useState(150);
+
   const [DomicilioData, setDomicilioData] = useState({
     nombre_ine: "",
     postal: "",
@@ -38,9 +39,40 @@ export function FormRegistroEnvio() {
   });
 
   const handleChange = (e) => {
-    setDomicilioData({ ...DomicilioData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "postal" && !/^\d+$/.test(value)) {
+      return; // Si no es un número, no actualizamos el estado
+    }
+    if (name === "numeroExterior" && !/^\d+$/.test(value)) {
+      return; // Si no es un número, no actualizamos el estado
+    }
+    if (name === "descripcion") {
+      const remainingCharacters = 150 - value.length;
+      setDescripcionCounter(remainingCharacters);
+      setDomicilioData({ ...DomicilioData, [name]: value });
+    }
+
+    setDomicilioData({ ...DomicilioData, [name]: value });
   };
-  
+
+  const handlePostalBlur = (e) => {
+    const { name, value } = e.target;
+
+    // Validar si el campo es el número postal
+    if (name === "postal") {
+      let formattedValue = value;
+      // Si no es un número, no actualizamos el estado
+      if (!/^\d+$/.test(value)) {
+        return;
+      }
+      // Rellenar con ceros si el número no tiene 5 dígitos
+      formattedValue = value.padStart(5, "0");
+
+      setDomicilioData({ ...DomicilioData, [name]: formattedValue });
+    }
+  };
+
   const handleNumeroExteriorChange = (e) => {
     const { checked, value } = e.target;
     const numeroExterior = checked ? "SN" : "";
@@ -82,21 +114,59 @@ export function FormRegistroEnvio() {
       console.error(error);
     }
   };
-
+  const estados = [
+    "Aguascalientes",
+    "Baja California",
+    "Baja California Sur",
+    "Campeche",
+    "Chiapas",
+    "Chihuahua",
+    "Coahuila",
+    "Colima",
+    "Distrito Federal",
+    "Durango",
+    "Estado De México",
+    "Guanajuato",
+    "Guerrero",
+    "Hidalgo",
+    "Jalisco",
+    "Michoacán",
+    "Morelos",
+    "Nayarit",
+    "Nuevo León",
+    "Oaxaca",
+    "Puebla",
+    "Querétaro",
+    "Quintana Roo",
+    "San Luis Potosí",
+    "Sinaloa",
+    "Sonora",
+    "Tabasco",
+    "Tamaulipas",
+    "Tlaxcala",
+    "Veracruz",
+    "Yucatán",
+    "Zacatecas",
+  ];
   return (
     <>
       <Container className="divinfoenvio">
-        <div className="titulo-info-envio">Completa tu información de envío</div>
+        <div className="titulo-info-envio">
+          Completa tu información de envío
+        </div>
         <div className="formulario-info-envio">
           <Form onSubmit={handleSubmit}>
             <Row>
               <Col xs={12} md={6}>
                 <Form.Group controlId="nombre_ine">
-                  <Form.Label>Nombre INE:</Form.Label>
+                  <Form.Label>Nombre y apellido:</Form.Label>
                   <OverlayTrigger
                     placement="right"
                     overlay={
-                      <Tooltip>Ingresa el nombre completo que aparece en tu INE.</Tooltip>
+                      <Tooltip>
+                        Ingresa el nombre completo tal cual figure en el INE o
+                        IFE.
+                      </Tooltip>
                     }
                   >
                     <Form.Control
@@ -117,6 +187,8 @@ export function FormRegistroEnvio() {
                     name="postal"
                     value={DomicilioData.postal}
                     onChange={handleChange}
+                    onBlur={handlePostalBlur} // Agrega el evento onBlur
+                    maxLength={5}
                     required
                   />
                 </Form.Group>
@@ -128,17 +200,24 @@ export function FormRegistroEnvio() {
                 <Form.Group controlId="estado">
                   <Form.Label>Estado:</Form.Label>
                   <Form.Control
-                    type="text"
+                    as="select"
                     name="estado"
                     value={DomicilioData.estado}
                     onChange={handleChange}
                     required
-                  />
+                  >
+                    <option value="">Seleccionar estado...</option>
+                    {estados.map((estado) => (
+                      <option key={estado} value={estado}>
+                        {estado}
+                      </option>
+                    ))}
+                  </Form.Control>
                 </Form.Group>
               </Col>
               <Col xs={12} md={6}>
                 <Form.Group controlId="municipio_alcaldia">
-                  <Form.Label>Municipio o alcaldía:</Form.Label>
+                  <Form.Label>Municipio/Alcaldía:</Form.Label>
                   <Form.Control
                     type="text"
                     name="municipio_alcaldia"
@@ -176,7 +255,7 @@ export function FormRegistroEnvio() {
                 </Form.Group>
               </Col>
             </Row>
-            
+
             <Row>
               <Col xs={12} md={6}>
                 <FormGroup>
@@ -192,17 +271,22 @@ export function FormRegistroEnvio() {
                   <FormControl
                     type="text"
                     name="numeroExterior"
-                    value={DomicilioData.numeroExterior !== "SN" ? DomicilioData.numeroExterior : "SN"}
+                    value={
+                      DomicilioData.numeroExterior !== "SN"
+                        ? DomicilioData.numeroExterior
+                        : "SN"
+                    }
                     onChange={handleChange}
                     disabled={DomicilioData.numeroExterior === "SN"}
                     required={!DomicilioData.numeroExterior === "SN"}
                   />
                 </FormGroup>
               </Col>
-              </Row><Row>
+            </Row>
+            <Row>
               <Col xs={12} md={6}>
                 <Form.Group controlId="numeroInterior">
-                  <Form.Label>Número interior:</Form.Label>
+                  <Form.Label>Nº interior/Depto (opcional):</Form.Label>
                   <Form.Control
                     type="text"
                     name="numeroInterior"
@@ -216,6 +300,7 @@ export function FormRegistroEnvio() {
 
             <Row>
               <Col xs={12} md={6}>
+                <Form.Label>¿Entre qué calles está? (opcional):</Form.Label>
                 <Form.Group controlId="calle1">
                   <Form.Label>Entre calle 1:</Form.Label>
                   <Form.Control
@@ -240,16 +325,19 @@ export function FormRegistroEnvio() {
             </Row>
 
             <Form.Group controlId="descripcion">
-              <Form.Label>Descripción:</Form.Label>
+              <Form.Label>
+                Indicaciones adicionales de esta dirección:
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
                 name="descripcion"
                 value={DomicilioData.descripcion}
                 onChange={handleChange}
+                maxLength={150}
               />
+              <div>Caracteres restantes: {descripcionCounter}</div>
             </Form.Group>
-            
             <div className="botonDiv">
               <Button className="btnContinuar" variant="primary" type="submit">
                 Continuar con la compra
