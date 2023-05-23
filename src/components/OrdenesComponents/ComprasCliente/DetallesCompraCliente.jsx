@@ -63,7 +63,7 @@ export function DetallesCompraCliente({ id_orden }) {
   };
 
   return (
-    <Container className="detalles-orden-admin">
+    <Container className="detalles-orden-Repartidor">
       {orden.detallesOrden.length > 0 && (
         <div>
           <h1 className="detalles-orden-titulo">Detalles de la compra:</h1>

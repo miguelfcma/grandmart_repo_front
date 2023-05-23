@@ -1,0 +1,65 @@
+.tabla-ordenes {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-ordenes th,
+.tabla-ordenes td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-ordenes th {
+    background-color: #f2f2f2;
+}
+
+.tabla-ordenes tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabla-ordenes tr:hover {
+    background-color: #f5f5f5;
+}
+
+.estado-pendiente {
+    background-color: #ffcccb;
+}
+
+.estado-enviado {
+    background-color: #87ceeb;
+}
+
+.estado-enproceso {
+    background-color: #ffd700;
+}
+
+.estado-entregado {
+    background-color: #90ee90;
+}
+
+.estado-cancelado {
+    background-color: #f13a31;
+}
+
+.btn-ver-detalles {
+    background-color: #007bff;
+    /* Color de fondo del botón */
+    color: #fff;
+    /* Color del texto del botón */
+    border: none;
+    /* Sin borde */
+    padding: 0.5rem 1rem;
+    /* Espaciado interno del botón */
+    border-radius: 4px;
+    /* Bordes redondeados del botón */
+    cursor: pointer;
+    /* Cambiar el cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease;
+    /* Transición suave del color de fondo */
+}
+
+.btn-ver-detalles:hover {
+    background-color: #0056b3;
+    /* Color de fondo del botón al pasar sobre él */
+}
