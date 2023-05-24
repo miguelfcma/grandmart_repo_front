@@ -234,7 +234,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
           {preguntasSinResponder.length > 0 &&
             mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
               <div className="tituloListas">
-                Lista de preguntas sin responder:
+                Lista de preguntas de sus productos sin responder:
               </div>
             )}
           {preguntasSinResponder.map((producto) => (
@@ -249,7 +249,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       {preguntasSinResponder.length === 0 && mostrarContenido === "lista1" && (
         <div>
           <br />
-          <h2>No hay preguntas por responder en este momento.</h2>
+          <h2>No hay preguntas de sus productos por responder en este momento.</h2>
         </div>
       )}
 
@@ -274,7 +274,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
           {preguntasRespondidas.length > 0 &&
             mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
               <div className="tituloListas">
-                Lista de preguntas respondidas:
+                Lista de preguntas de sus productos respondidas:
               </div>
             )}
 
@@ -290,7 +290,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       {preguntasRespondidas.length === 0 && mostrarContenido === "lista2" && (
         <div>
           <br />
-          <h2>No hay preguntas respondidas en este momento.</h2>
+          <h2>No hay preguntas de sus productos respondidas en este momento.</h2>
         </div>
       )}
 
@@ -315,7 +315,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
           {preguntasSinResponderServicios.length > 0 &&
             mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
               <div className="tituloListas">
-                Lista de preguntas sin responder:
+                Lista de preguntas  de sus servicios sin responder:
               </div>
             )}
 
@@ -332,7 +332,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
         mostrarContenido === "lista3" && (
           <div>
             <br />
-            <h2>No hay preguntas por responder en este momento.</h2>
+            <h2>No hay preguntas de sus servicios por responder en este momento.</h2>
           </div>
         )}
 
@@ -351,7 +351,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
           {preguntasRespondidasServicios.length > 0 &&
             mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
               <div className="tituloListas">
-                Lista de preguntas respondidas:
+                Lista de preguntas de sus servicios respondidas:
               </div>
             )}
 
@@ -368,7 +368,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
         mostrarContenido === "lista4" && (
           <div>
             <br />
-            <h2>No hay preguntas respondidas en este momento.</h2>
+            <h2>No hay preguntas de sus servicios respondidas en este momento.</h2>
           </div>
         )}
 
@@ -439,7 +439,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       {productosTodasReviews.length === 0 && mostrarContenido === "lista7" && (
           <div>
             <br />
-            <h2>No hay reviews regitrados en el sistema en este momento.</h2>
+            <h2>No hay reviews registrados en el sistema en este momento.</h2>
           </div>
         )}
 
