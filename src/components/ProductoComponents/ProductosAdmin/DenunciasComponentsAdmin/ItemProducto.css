@@ -46,8 +46,7 @@
 }
 
 .btn1,
-.btn2,
-.btn3 {
+.btn2{
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
@@ -56,12 +55,25 @@
   background-color: #3fa6bd;
   margin-right: 50px;
 }
-
 .btn1:hover,
-.btn2:hover,
-.btn3:hover {
+.btn2:hover{
   background-color: #277999;
 }
+
+.btn3{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  margin-left: 135px;
+  background-color: #28aa63;
+}
+.btn3:hover{
+  background-color: #1d7043;
+}
+
+
 
 .btnReporte{
   border-radius: 5px;

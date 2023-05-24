@@ -48,6 +48,7 @@ import {
   deleteReviewByIdRequest,
   getProductosConReviewsByUsuarioIdRequest,
   getAvgRatingByProductIdRequest,
+  getTodasLasreviewsRequest
 } from "../../../API/ProductosApiRest/reviewsProducto.api";
 
 import {
@@ -81,7 +82,9 @@ export const ProductoContextProvider = ({ children }) => {
   });
   const [productosPreguntas, setProductosPreguntas] = useState([]);
   const [productosReviews, setProductosReviews] = useState([]);
+  const [productosTodasReviews, setProductosTodasReviews] = useState([]);
   const [productosDenuncias, setProductosDenuncias] = useState([]);
+  
   // Vaciar todo el carrito
   function cerrarSesionProductos() {
     setCarrito({
@@ -95,6 +98,7 @@ export const ProductoContextProvider = ({ children }) => {
     setProductosPreguntas([]);
     setProductosDenuncias([]);
     setProductosReviews([]);
+    setProductosTodasReviews([]);
   }
   
 
@@ -632,6 +636,22 @@ export const ProductoContextProvider = ({ children }) => {
     }
   };
 
+
+  const obtenerTodasLasReviews = async () => {
+    try {
+      const response = await getTodasLasreviewsRequest();
+
+      if (response.status === 200) {
+        setProductosTodasReviews(response.data);
+      } else {
+        throw new Error("No se lograron obtener las reviews");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   const eliminarReviewProducto = async (id_pregunta) => {
     try {
       const response = await deleteReviewByIdRequest(id_pregunta);
@@ -805,6 +825,8 @@ export const ProductoContextProvider = ({ children }) => {
         getProductosConReviewsByUsuarioId,
         productosReviews,
         eliminarReviewProducto,
+        obtenerTodasLasReviews,
+        productosTodasReviews,
         getAvgRatingByProductId,
 
         crearDenunciaProducto,

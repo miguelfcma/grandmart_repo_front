@@ -156,3 +156,23 @@ export const getProductosConReviewsByUsuarioIdRequest = async (id_usuario) => {
     return error.response;
   }
 };
+
+
+export const getTodasLasreviewsRequest = async () => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}productos-reviews-todas/`
+      );
+      console.log({
+        status: response.status,
+        message: response.data.message,
+      });
+      return response;
+    } catch (error) {
+      console.log({
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+      return error.response;
+    }
+  };

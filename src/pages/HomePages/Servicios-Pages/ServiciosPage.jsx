@@ -1,5 +1,6 @@
 import { ListServiciosGeneral } from "../../../components/ServicioComponents/ServiciosGeneral/ListaGeneralServicios/ListServiciosGeneral";
 import { Navbar1 } from "../../../components/HomePageComponents/NavBar";
+import {FooterHome} from "../../../components/HomePageComponents/FooterHome";
 
 export function ServiciosPage() {
   return (
@@ -10,6 +11,7 @@ export function ServiciosPage() {
       <div style={{ paddingLeft: "30px", paddingRight: "45px"}}>
       <ListServiciosGeneral />
       </div>
+      <FooterHome/>
     </div>
   );
 }

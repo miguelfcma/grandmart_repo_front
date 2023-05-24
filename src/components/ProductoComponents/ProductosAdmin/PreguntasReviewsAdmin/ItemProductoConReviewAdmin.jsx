@@ -20,6 +20,7 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
     }
   };
 
+  
   return (
     <div>
       <React.Fragment>
@@ -49,7 +50,6 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
             <Collapse in={reviewsVisible}>
               <ListGroup variant="flush" id="preguntas-collapse">
                 {producto.reviews.map((review) => {
-                  console.log("Holas",review);
                   return (
                     <div className="lineagruesa">
                       <ListGroup.Item key={review.id} className="items">
@@ -70,21 +70,15 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
                         </div>
                       </ListGroup.Item>
                       <ListGroup.Item className="items">
-                        <div style={{ fontWeight: "bold" }}>ID Producto: </div>
+                        <div style={{ fontWeight: "bold" }}>Calificación:</div>
                         &nbsp;&nbsp;
-                        {/* <div>{review.producto.id}</div> */}
+                        <div>{review.calificacion}</div>
                       </ListGroup.Item>
                       <ListGroup.Item className="items">
                         <div style={{ fontWeight: "bold" }}>Realizada: </div>
                         &nbsp;&nbsp;
                         <div>{review.createdAt}</div>
                       </ListGroup.Item>
-                      <ListGroup.Item className="items">
-                        <div style={{ fontWeight: "bold" }}>Calificación:</div>
-                        &nbsp;&nbsp;
-                        <div>{review.calificacion}</div>
-                      </ListGroup.Item>
-
                       <div className="contBotones">
                         <Button
                           variant="danger"

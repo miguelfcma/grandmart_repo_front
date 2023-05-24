@@ -52,14 +52,12 @@ export function PreguntasProductoComponenteCompletoGeneral({ id_producto }) {
       ) : (
         <p>Debe iniciar sesión realizar una pregunta</p>
       )}
-      <Card.Body> 
-        <ListaPreguntasProductoGeneral
+      <Card.Body> <ListaPreguntasProductoGeneral
               id_producto={id_producto}
               actualizarFalse={actualizarFalse}
               actualizarPreguntas ={actualizarPreguntas}
-          />
-        </Card.Body>
-      </Card>
+            /></Card.Body>
+                </Card>
     </div>
   );
 }

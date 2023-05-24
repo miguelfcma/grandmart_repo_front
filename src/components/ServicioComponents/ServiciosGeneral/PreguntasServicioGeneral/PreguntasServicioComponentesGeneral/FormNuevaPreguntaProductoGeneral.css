@@ -1,0 +1,14 @@
+.nueva-pregunta-container {
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .btn-azul {
+    background-color: #007bff; /* Color de fondo azul */
+    border: none;
+  }
+  
+  .btn-azul:hover {
+    background-color: #0056b3; /* Color de fondo azul oscuro al pasar el cursor */
+  }
+  

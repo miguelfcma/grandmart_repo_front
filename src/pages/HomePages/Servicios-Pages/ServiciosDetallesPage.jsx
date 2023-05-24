@@ -4,6 +4,7 @@ import { Navbar1 } from "../../../components/HomePageComponents/NavBar";
 
 export function ServiciosDetallesPage() {
   const { id } = useParams();
+  
   return (
     <div style={{ paddingTop: "80px" }} >
       <Navbar1 />

@@ -16,7 +16,6 @@ export function ListaProductoConDenunciasAdmin() {
     // Lógica que se ejecuta en el componente padre
     try {
       await eliminarDenunciaProducto(denunciaId);
-      console.log("Ejecutando la función en el componente padre");
     } catch (error) {
       console.log(error);
     }
@@ -179,15 +178,15 @@ export function ListaProductoConDenunciasAdmin() {
     <div>
       <div className="contenedorBotones">
         <button className="btn1" onClick={mostrarDenunciasNoRevisadas}>
-          Mostrar denuncias sin revisar{" "}
+          Mostrar denuncias sin revisar de sus productos{" "}
         </button>
         <br></br>
         <button className="btn2" onClick={mostrarDenunciasRevisadas}>
-          Mostrar denuncias revisadas
+          Mostrar denuncias revisadas de sus productos
         </button>
         <br></br>
         <button className="btn3" onClick={mostrarTodasLasDenuncias}>
-          Mostrar todas las denuncias registradas
+          Mostrar todas las denuncias del sistema
         </button>
       </div>
 

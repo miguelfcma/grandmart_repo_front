@@ -5,7 +5,7 @@ import {
   createServicioRequest,
   deleteServicioRequest,
   updateServicioRequest,
-  getServiciosByUsuarioIdRequest
+  getServiciosByUsuarioIdRequest,
 } from "../../../API/ServiciosApiRest/servicios.api";
 
 import { 
@@ -15,12 +15,14 @@ import {
   getAllImagesServicioRequest,
 } from "../../../API/ServiciosApiRest/imagenServicio.api";
 
-/* 
+
 import {
-  crearPreguntaProductoRequest,
-  getPreguntasByIdProductoRequest,
-} from "../../../API/ProductosApiRest/preguntasProducto.api";
-*/
+  crearPreguntaServicioRequest,
+  getPreguntasByIdServicioRequest,
+  crearRespuestaServicioRequest,
+  getServiciosConPreguntasByUsuarioIdRequest,
+  eliminarPreguntaServicioRequest
+} from "../../../API/ServiciosApiRest/preguntasServicio.api";
 
 import { ServicioContext } from "./ServicioContext";
 
@@ -34,9 +36,11 @@ export const useServicios = () => {
   return context;
 };
 
+
 export const ServicioContextProvider = ({ children }) => {
   const [serviciosAll, setServiciosAll] = useState([]);
   const [serviciosUsuario, setServiciosUsuario] = useState([]);
+  const [serviciosPreguntas, setServiciosPreguntas] = useState([]);
 
   async function loadServicios() {
     try {
@@ -170,6 +174,83 @@ export const ServicioContextProvider = ({ children }) => {
     }
   };
 
+    //Preguntas
+
+    const crearPreguntaServicio = async (data) => {
+      try {
+        const response = await crearPreguntaServicioRequest(data);
+        if (response.status == 201) {
+          return response.data;
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const getPreguntasByIdServicio = async (data) => {
+      try {
+        const response = await getPreguntasByIdServicioRequest(data);
+        console.log(response);
+        if (response.status == 200) {
+          return response.data;
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const getServiciosConPreguntasByUsuarioId = async (id_usuario) => {
+      try {
+        const response = await getServiciosConPreguntasByUsuarioIdRequest(
+          id_usuario
+        );
+        console.log(response);
+        if (response.status == 200) {
+          setServiciosPreguntas(response.data);
+          return response.data;
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const crearRespuestaServicio = async (id_usuario, id_pregunta, data) => {
+      try {
+        const response = await crearRespuestaServicioRequest(id_pregunta, data);
+        console.log(response);
+        if (response.status == 200) {
+          await getServiciosConPreguntasByUsuarioId(id_usuario);
+          return response.data;
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
+    const eliminarPreguntaServicio = async (id_pregunta) => {
+      try {
+        const response = await eliminarPreguntaServicioRequest(id_pregunta);
+        console.log(response);
+        if (response.status == 200) {
+          return response.data;
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
 
   return (
     <ServicioContext.Provider
@@ -185,6 +266,14 @@ export const ServicioContextProvider = ({ children }) => {
         createImagenesServicioEnbd,
         getImgPortadaServicio,
         getAllImagesServicio,
+
+        crearPreguntaServicio,
+        getPreguntasByIdServicio,
+        getServiciosConPreguntasByUsuarioId,
+        crearRespuestaServicio,
+        serviciosPreguntas,
+        eliminarPreguntaServicio,
+
       }}
     >
       {children}

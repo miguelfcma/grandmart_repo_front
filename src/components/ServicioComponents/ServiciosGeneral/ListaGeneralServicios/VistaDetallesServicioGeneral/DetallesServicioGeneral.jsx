@@ -1,16 +1,12 @@
 import { useServicios } from "../../../ServiciosContext/ServicioProvider";
 import { useEffect, useState } from "react";
+import { PreguntasServicioComponenteCompletoGeneral } from "../../PreguntasServicioGeneral/PreguntasServicioComponenteCompletoGeneral";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-
-/* import { ReviewsServicio } from "../ReviewsServicioGeneral/ReviewsServicio"; 
-
-import { PreguntasServicioComponenteCompletoGeneral } from "../PreguntasServicioGeneral/PreguntasServicioComponenteCompletoGeneral";
-
-*/
-
+import { Link, useNavigate } from "react-router-dom";
 import "./DetallesServicioGeneral.css";
 
-export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario }) {
+
+export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario}) {
   const {
     serviciosAll,
     getImgPortadaServicio,
@@ -28,6 +24,7 @@ export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario }
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0); //Para que se muestre el producto desde arriba de la página
     const servicioEncontrado = serviciosAll.find(
       (prod) => prod.id === parseInt(id)
     );
@@ -45,8 +42,6 @@ export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario }
       cargarImagen();
     }
   }, [serviciosAll, id, getImgPortadaServicio, getAllImagesServicio]);
-
-
 
   const handleImagenHover = (url) => {
     setImagenSeleccionada(url);
@@ -82,14 +77,6 @@ export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario }
           <br />
           <br />
           <div className="imagen-container">
-            {imagenPortada && (
-              <img
-                src={imagenPortada}
-                alt="Portada"
-                className="imagen-producto"
-                onMouseOver={() => handleImagenHover(imagenPortada)}
-              />
-            )}
             {imagenes &&
               imagenes.map((imagen) => (
                 <img
@@ -107,7 +94,6 @@ export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario }
           <br />
           <br />
           <br />
-  
           <Row>
             {imagenSeleccionada === null ? (
               <div className="imagen-central-container">
@@ -140,7 +126,7 @@ export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario }
             )}
           </Row>
         </Col>
-  
+
         <Col xs={8} lg={12} className="columna-derecha">
           <br />
           <br />
@@ -149,27 +135,36 @@ export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario }
           {servicio && (
             <Col>
               <Card className="infoProducto">
-                <div className="d-flex justify-content-end position-absolute top-0 end-0 p-2"></div>
-  
                 <Card.Title>
-                  <div className="infoProductoTitulo">{servicio.nombre}</div>
+                  <div className="infoProductoTitulo">{servicio.titulo}</div>
                 </Card.Title>
                 <Card.Title>
                   <div className="infoProductoPrecio">${servicio.precio}</div>
-                  <br />
-  
-                  <div className="infoProductoDescripcion">{servicio.descripcion}</div>
-                  <br />
-  
-                  <div className="infoProductoCaracteristicas">
-                    <div>Categoría: {servicio.categoria.nombre}</div>
-                    <div>Servicio publicado por: {servicio.usuario.nombre}</div>
-                  </div>
                 </Card.Title>
+                <div className="infoProductoDescripcion">
+                  {servicio.descripcion}
+                </div>
+                <br />
+                <div className="infoProductoCaracteristicas">
+                  <div className="separateIcon">
+                    <div>
+                      <box-icon
+                        name="category"
+                        style={{ verticalAlign: "middle" }}
+                      ></box-icon>{" "}
+                      Categoría: {servicio.categoria.nombre}
+                    </div>
+                    <div>
+                      <box-icon
+                        name="user-circle"
+                        style={{ verticalAlign: "middle" }}
+                      ></box-icon>{" "}
+                      Servicio publicado por: {servicio.usuario.nombre}
+                    </div>
+                  </div>
+                </div>
               </Card>
-  
               <br />
-  
               <Button
                 onClick={() => window.history.back()}
                 className="back-button3"
@@ -180,6 +175,20 @@ export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario }
           )}
         </Col>
       </Container>
+      <PreguntasServicioComponenteCompletoGeneral id_servicio={id} />
+      <Card>
+        <Card.Header style={{ textAlign: "right" }}>
+          <Link
+            to={`/denuncia/servicio/${id}`}
+            style={{
+              textDecoration: "none",
+              marginTop: "10px",
+            }}
+          >
+            Denunciar publicación
+          </Link>
+        </Card.Header>
+      </Card>
     </>
   );
-}  
+}
