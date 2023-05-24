@@ -53,16 +53,16 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
           const amountInCents = Math.round(detallesCarrito.total * 100);
 
           try {
-            const response = await crearOrden({
+            const orden = await crearOrden({
               id_card: id,
               amount: amountInCents,
               description: detallesCarrito.descripcion,
               id_usuario: usuario.id,
             });
 
-            console.log(response);
+     
             elements.getElement(CardElement).clear();
-            navigate("/");
+            navigate(`/final-compras/${orden.id}`); // Redirige a la página "/final-compras" con el ID de la orden en el URL
           } catch (error) {
             alert(
               "Ocurrió un error al procesar el pago. Por favor, verifica los datos de tu tarjeta e intenta nuevamente."
@@ -73,7 +73,6 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
           setTimeout(() => {
             setLoading(false);
           }, 1000);
-          
         } else {
           throw new Error(error.message);
         }
@@ -85,7 +84,6 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
       } finally {
         setLoading(false);
       }
-      
     }
   };
 

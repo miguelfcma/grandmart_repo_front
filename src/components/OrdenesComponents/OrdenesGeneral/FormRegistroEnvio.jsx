@@ -82,12 +82,7 @@ export function FormRegistroEnvio() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Comprobar si alguno de los campos está vacío
-    if (Object.values(DomicilioData).some((value) => value === "")) {
-      alert("Por favor completa todos los campos.");
-      return;
-    }
-
+ 
     try {
       const domicilio = await createDomicilioUsuario(DomicilioData);
 
@@ -267,6 +262,7 @@ export function FormRegistroEnvio() {
                     name="numeroExterior"
                     checked={DomicilioData.numeroExterior === "SN"}
                     onChange={handleNumeroExteriorChange}
+                    required
                   />
                   <FormControl
                     type="text"
@@ -292,7 +288,7 @@ export function FormRegistroEnvio() {
                     name="numeroInterior"
                     value={DomicilioData.numeroInterior}
                     onChange={handleChange}
-                    required
+                   
                   />
                 </Form.Group>
               </Col>

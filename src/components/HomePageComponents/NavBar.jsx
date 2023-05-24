@@ -20,10 +20,10 @@ export function Navbar1({ onSearch }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
   const { cerrarSesionProductos } = useProductos();
-  const  handleLogout =  () => {
+  const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
-     cerrarSesionProductos();
+    cerrarSesionProductos();
     // redirigir a  la página principal
     navigate("/");
   };
@@ -112,10 +112,10 @@ export function Navbar1({ onSearch }) {
               </NavDropdown.Item>
             </NavDropdown>
 
-            <Nav.Link as={Link} to="/blog">
+            <Nav.Link as={Link} to={usuario ? "/blog" : "/login"}>
               Blog
             </Nav.Link>
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={Link} to="/contacto">
               Contacto
             </Nav.Link>
             <Nav.Link>

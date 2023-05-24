@@ -86,9 +86,13 @@ export function DetalleDeEnvio() {
           </Row>
           <div className="cart-actions">
             <Link
-              to={`/dashClient/perfil/domicilio`}
-              style={{ textDecoration: "none" }}
-              title={"Clic para ver más información del producto"}
+             to={
+              usuario.tipoUsuario === 1
+                ? "/dashAdmin/perfil/domicilio"
+                : usuario.tipoUsuario === 0
+                ? "/dashClient/perfil/domicilio"
+                : "/"
+            }
             >
               <Button
                 variant="primary"

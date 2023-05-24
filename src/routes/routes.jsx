@@ -39,6 +39,7 @@ import { ServicioDetallesClientPage } from "../pages/DashClientPages/DashPages/S
 // Páginas de inicio de sesión y registro
 import { BlogPage } from "../pages/HomePages/Blog-Pages/BlogPage";
 import { HomePage } from "../pages/HomePages/HomePage";
+import { ContactoPage } from "../pages/HomePages/Contacto-pages/ContactoPage";
 import { LoginPage } from "../pages/HomePages/Login-Signup-Pages/LoginPage";
 import { RecovPassPage } from "../pages/HomePages/Login-Signup-Pages/RecovPassPage";
 import { SignupPage } from "../pages/HomePages/Login-Signup-Pages/SignupPage";
@@ -72,6 +73,8 @@ import { TarjetaPerfilPageCliente } from "../pages/DashClientPages/DashPages/Per
 import { DashRepartidor } from "../pages/DashRepartidorPages/DashRepartidor";
 import { OrdenesDeCompraPageRepartidor } from "../pages/DashRepartidorPages/DashPages/OrdenesDeCompraPageRepartidor";
 import { OrdenDetallesPageRepartidor } from "../pages/DashRepartidorPages/DashPages/OrdenesPageRepartidor/OrdenDetallesPageRepartidor";
+import { ComprasFinalPage } from "../pages/HomePages/CarritoPage/ComprasFinalPage";
+
 export function MyRoutes() {
   return (
     <Router>
@@ -79,6 +82,7 @@ export function MyRoutes() {
         {/* Rutas para la página de inicio y autenticación */}
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/contacto" element={<ContactoPage />} />
         <Route exact path="/signup" element={<SignupPage />} />
         <Route exact path="/blog" element={<BlogPage />} />
         <Route exact path="/categorias" element={<CategoriasHomePage />} />
@@ -90,6 +94,7 @@ export function MyRoutes() {
           path="/informacion-envio"
           element={<RegistroInformacionDeEnvioPage />}
         />
+        <Route exact path="/final-compras/:id" element={<ComprasFinalPage />} />
         <Route exact path="/dashAdmin" element={<DashAdmin />} />
         <Route
           exact
