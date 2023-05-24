@@ -20,6 +20,8 @@ import { OrdenesDeCompraPageAdmin } from "../pages/DashAdminPages/DashPages/Orde
 import { OrdenDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/OrdenesPageAdmin/OrdenDetallesPageAdmin";
 import { DenunciasPageAdmin } from "../pages/DashAdminPages/DashPages/DenunciasPageAdmin";
 import { ComprasPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/ComprasPageAdmin";
+import { CompraDetallesPageAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/CompraDetallesPageAdmin";
+import { CompraOpinarProductoAdmin } from "../pages/DashAdminPages/DashPages/ComprasPageAdmin/CompraOpinarProductoAdmin";
 // Páginas de cliente
 import { CompraCarritoPage } from "../pages/HomePages/CarritoPage/CompraCarritoPage";
 import { DashClient } from "../pages/DashClientPages/DashClient";
@@ -134,11 +136,17 @@ export function MyRoutes() {
         />
 
         <Route exact path="/dashAdmin/compras" element={<ComprasPageAdmin />} />
-        {/* <Route
+
+        <Route
           exact
-          path="/dashAdmin/pedidos/detalles/:id_orden"
-          element={<PedidoDetallesPagesAdmin />}
-        />  */}
+          path="/dashAdmin/compras/detalles/:id_orden"
+          element={<CompraDetallesPageAdmin />}
+        />
+        <Route
+          exact
+          path="/dashAdmin/compras/opinar/:id_producto"
+          element={<CompraOpinarProductoAdmin />}
+        />
         <Route
           exact
           path="/dashAdmin/productos/registro-producto"

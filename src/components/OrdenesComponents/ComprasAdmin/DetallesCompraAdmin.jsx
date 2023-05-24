@@ -5,7 +5,7 @@ import { useProductos } from "../../ProductoComponents/ProductosContext/Producto
 import { useNavigate } from "react-router-dom";
 
 export function DetallesCompraAdmin({ id_orden }) {
-  const { obtenerDetalleOrden, obtenerDireccionEnvioOrden } = useOrdenes();
+  const { obtenerDetalleOrden, obtenerDireccionEnvioOrden, cancelarOrdenDeCompra} = useOrdenes();
 
   const navigate = useNavigate();
   const { getImgPortadaProducto } = useProductos();
@@ -18,7 +18,7 @@ export function DetallesCompraAdmin({ id_orden }) {
     fechaEntrega: null,
     detallesOrden: [],
   });
-  const [nuevoEstado, setNuevoEstado] = useState("");
+
   const [direccionEnvio, setDireccionEnvio] = useState(null);
   const [urlImagenes, setUrlImagenes] = useState([]);
 
@@ -38,7 +38,6 @@ export function DetallesCompraAdmin({ id_orden }) {
           detallesOrden: data.detallesOrden,
         });
         setDireccionEnvio(data2.direccion_envio);
-        setNuevoEstado(data.orden.estado_orden);
 
         const promisesImagenes = data.detallesOrden.map(async (detalle) => {
           const url = await getImgPortadaProducto(detalle.producto.id);
@@ -60,6 +59,16 @@ export function DetallesCompraAdmin({ id_orden }) {
 
   const handleOpinar = (productoId) => {
     navigate(`/dashClient/compras/opinar/${productoId}`);
+  };
+
+
+  const handleCancelarOrdenDeCompra = async () => {
+    try {
+      await cancelarOrdenDeCompra(orden.id);
+
+    } catch (error) {
+      console.error("Error al eliminar orden", error);
+    }
   };
 
   return (
@@ -131,6 +140,9 @@ export function DetallesCompraAdmin({ id_orden }) {
           )}
         </div>
       )}
+      <Button variant="danger" onClick={handleCancelarOrdenDeCompra}>
+        Cancelar orden de compra
+      </Button>
     </Container>
   );
 }

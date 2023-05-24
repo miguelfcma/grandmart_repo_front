@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
 import {
   Container,
@@ -11,11 +12,12 @@ import {
   Alert, // Agregar el componente de Alert de Bootstrap
 } from "react-bootstrap";
 import "./DetallesOrdenRepartidor.css";
+import { useNavigate } from "react-router-dom";
 
 export function DetallesOrdenRepartidor({ id_orden }) {
   const {
     obtenerDetalleOrden,
-
+    cambiarEstadoEnvio,
     obtenerDireccionEnvioOrden,
   } = useOrdenes();
   const [orden, setOrden] = useState({
@@ -27,7 +29,7 @@ export function DetallesOrdenRepartidor({ id_orden }) {
     fechaEntrega: null,
     detallesOrden: [],
   });
-
+  const navigate = useNavigate();
   const [direccionEnvio, setDireccionEnvio] = useState(null);
   const [infoEnvio, setInfoEnvio] = useState(null);
   useEffect(() => {

@@ -19,7 +19,7 @@ export function ItemCompraAdmin({ orden }) {
     // Función de manejo de evento para ver detalles del pedido
     console.log("Ver más detalles del pedido: ", orden);
     // Navegar a la página de detalles del pedido, puedes modificar la URL según tu estructura de rutas
-    navigate(`/dashClient/compras/detalles/${id}`);
+    navigate(`/dashAdmin/compras/detalles/${id}`);
   };
 
   return (

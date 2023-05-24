@@ -5,7 +5,7 @@ import { useProductos } from "../../ProductoComponents/ProductosContext/Producto
 import { useNavigate } from "react-router-dom";
 
 export function DetallesCompraCliente({ id_orden }) {
-  const { obtenerDetalleOrden, obtenerDireccionEnvioOrden } = useOrdenes();
+  const { obtenerDetalleOrden, obtenerDireccionEnvioOrden ,cancelarOrdenDeCompra} = useOrdenes();
 
   const navigate = useNavigate();
   const { getImgPortadaProducto } = useProductos();

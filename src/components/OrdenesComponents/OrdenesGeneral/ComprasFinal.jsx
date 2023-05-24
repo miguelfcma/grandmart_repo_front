@@ -12,7 +12,7 @@ export function ComprasFinal({ id_orden }) {
     return whatsappLink;
   }
 
-  const phoneNumber = "1234567890"; // Reemplaza esto con el número de teléfono de la persona encargada de la paquetería
+  const phoneNumber = "527353424868"; // Reemplaza esto con el número de teléfono de la persona encargada de la paquetería
   const whatsappLink = generateWhatsAppLink(phoneNumber, text);
 
   return (

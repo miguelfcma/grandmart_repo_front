@@ -11,12 +11,15 @@ import {
   Alert, // Agregar el componente de Alert de Bootstrap
 } from "react-bootstrap";
 import "./DetallesOrdenAdmin.css";
-
+import { useNavigate } from "react-router-dom";
 export function DetallesOrdenAdmin({ id_orden }) {
+  const navigate = useNavigate();
   const {
     obtenerDetalleOrden,
-
+    cambiarEstadoOrden,
+    cambiarEstadoEnvio,
     obtenerDireccionEnvioOrden,
+    eliminarOrden,
   } = useOrdenes();
   const [orden, setOrden] = useState({
     id: null,
@@ -30,30 +33,88 @@ export function DetallesOrdenAdmin({ id_orden }) {
 
   const [direccionEnvio, setDireccionEnvio] = useState(null);
   const [infoEnvio, setInfoEnvio] = useState(null);
+  const cargarDetalleOrden = async () => {
+    try {
+      const data = await obtenerDetalleOrden(id_orden);
+
+      setOrden({
+        id: data.orden.id,
+        total: data.orden.total,
+        estado_orden: data.orden.estado_orden,
+        id_usuario: data.orden.id_usuario,
+        createdAt: data.orden.createdAt,
+        fechaEntrega: data.orden.fechaEntrega,
+        detallesOrden: data.detallesOrden,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const cargarDireccionEnvioOrden = async () => {
+    try {
+      const data2 = await obtenerDireccionEnvioOrden(id_orden);
+
+      setInfoEnvio(data2.envio);
+      setDireccionEnvio(data2.direccion_envio);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await obtenerDetalleOrden(id_orden);
-        const data2 = await obtenerDireccionEnvioOrden(id_orden);
-        console.log(data2);
-        setOrden({
-          id: data.orden.id,
-          total: data.orden.total,
-          estado_orden: data.orden.estado_orden,
-          id_usuario: data.orden.id_usuario,
-          createdAt: data.orden.createdAt,
-          fechaEntrega: data.orden.fechaEntrega,
-          detallesOrden: data.detallesOrden,
-        });
-        setInfoEnvio(data2.envio);
-        setDireccionEnvio(data2.direccion_envio);
-        setEstadoModificable(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
+    cargarDetalleOrden();
+    cargarDireccionEnvioOrden();
   }, []);
+
+  const [opcionSeleccionadaOrden, setOpcionSeleccionadaOrden] = useState("");
+  const opcionesOrden = ["Completado", "Cancelado", "Pendiente"];
+  const handleCambioOpcionOrden = (e) => {
+    setOpcionSeleccionadaOrden(e.target.value);
+  };
+  const handleCambiarEstadoOrden = async () => {
+    try {
+      await cambiarEstadoOrden(orden.id, {
+        nuevoEstado: opcionSeleccionadaOrden,
+      });
+      fetchData();
+      console.log("Estado de orden cambiado correctamente.");
+    } catch (error) {
+      console.error("Error al cambiar el estado de la orden:", error);
+    }
+  };
+
+  const [opcionSeleccionadaEnvio, setOpcionSeleccionadaEnvio] = useState("");
+  const opcionesEnvio = [
+    "Pendiente",
+    "En tránsito",
+    "Entregado",
+    "Retrasado",
+    "Devuelto",
+    "Cancelado",
+  ];
+  const handleCambioOpcionEnvio = (e) => {
+    setOpcionSeleccionadaEnvio(e.target.value);
+  };
+  const handleCambiarEstadoEnvio = async () => {
+    console.log(opcionSeleccionadaEnvio);
+    try {
+      await cambiarEstadoEnvio(infoEnvio.id, {
+        nuevoEstado: opcionSeleccionadaEnvio,
+      });
+      console.log("Estado de envío cambiado correctamente.");
+    } catch (error) {
+      console.error("Error al cambiar el estado del envío:", error);
+    }
+  };
+
+  const handleEliminarOrden = async () => {
+    try {
+      await eliminarOrden(orden.id);
+      navigate("/dashAdmin/ordenes");
+    } catch (error) {
+      console.error("Error al eliminar orden", error);
+    }
+  };
 
   return (
     <Container className="detalles-orden-admin">
@@ -72,6 +133,25 @@ export function DetallesOrdenAdmin({ id_orden }) {
               {new Date(orden.createdAt).toLocaleDateString()}
             </p>
           </Col>
+          <div>
+            <select
+              value={opcionSeleccionadaOrden}
+              onChange={handleCambioOpcionOrden}
+            >
+              <option value="">Seleccione un estado</option>
+              {opcionesOrden.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={handleCambiarEstadoOrden}
+              disabled={!opcionSeleccionadaOrden}
+            >
+              Cambiar Estado de Orden
+            </button>
+          </div>
         </Row>
       </div>
 
@@ -104,19 +184,36 @@ export function DetallesOrdenAdmin({ id_orden }) {
               ))}
             </tbody>
           </Table>
-
-          <div>
-        <h1 className="infoEnvio-titulo">Envío:</h1>
-        <Row className="orden-row">
-          <Col md={4}>
-            <p>ID: {infoEnvio.id}</p>
-            <p>Estado: {infoEnvio.estado}</p>
-       
-          </Col>
-        
-        </Row>
-      </div>
-
+          {infoEnvio && (
+            <div>
+              <h1 className="infoEnvio-titulo">Envío:</h1>
+              <Row className="orden-row">
+                <Col md={4}>
+                  <p>ID: {infoEnvio.id}</p>
+                  <p>Estado: {infoEnvio.estado}</p>
+                </Col>
+                <div>
+                  <select
+                    value={opcionSeleccionadaEnvio}
+                    onChange={handleCambioOpcionEnvio}
+                  >
+                    <option value="">Seleccione un estado</option>
+                    {opcionesEnvio.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    onClick={handleCambiarEstadoEnvio}
+                    disabled={!opcionSeleccionadaEnvio}
+                  >
+                    Cambiar Estado de Orden
+                  </button>
+                </div>
+              </Row>
+            </div>
+          )}
           <h1 className="detalles-orden-titulo">Detalles del envío:</h1>
           {direccionEnvio && (
             <div>
@@ -139,6 +236,9 @@ export function DetallesOrdenAdmin({ id_orden }) {
           )}
         </div>
       )}
+      <Button variant="danger" onClick={handleEliminarOrden}>
+        Eliminar Orden
+      </Button>
     </Container>
   );
 }

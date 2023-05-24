@@ -5,11 +5,14 @@ import {
   crearOrdenRequest,
   obtenerTodasLasOrdenesConDetallesRequest,
   obtenerDetalleOrdenRequest,
-  actualizarEstadoOrdenRequest,
   obtenerDireccionEnvioOrdenRequest,
   obtenerComprasPorIdUsuarioRequest,
   obtenerVentasPorUsuarioRequest,
   verificacionDireccionEnvioRequest,
+  cambiarEstadoOrdenRequest,
+  cambiarEstadoEnvioRequest,
+  cancelarOrdenRequest,
+  eliminarOrdenRequest,
 } from "../../../API/OrdenesApiRest/ordenes.api";
 
 export const useOrdenes = () => {
@@ -32,7 +35,6 @@ export const OrdenContextProvider = ({ children }) => {
       const response = await crearOrdenRequest(data);
 
       if (response.status === 201) {
-
         return response.data;
       } else {
         throw new Error("No se pudo crear la orden");
@@ -48,7 +50,6 @@ export const OrdenContextProvider = ({ children }) => {
 
       if (response.status === 200) {
         setVentasUser(response.data);
-     
       } else {
         throw new Error("No se obtener las ordenes");
       }
@@ -107,22 +108,7 @@ export const OrdenContextProvider = ({ children }) => {
       const response = await obtenerDireccionEnvioOrdenRequest(id_orden);
 
       if (response.status === 200) {
-     
-        return response.data;
-      } else {
-        throw new Error("No se obtener las ordenes");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const actualizarEstadoOrden = async (id_orden, data) => {
-    console.log(id_orden + data);
-    try {
-      const response = await actualizarEstadoOrdenRequest(id_orden, data);
-
-      if (response.status === 200) {
-        console.log(response.data);
+  
         return response.data;
       } else {
         throw new Error("No se obtener las ordenes");
@@ -145,6 +131,64 @@ export const OrdenContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  const cambiarEstadoOrden = async (id_orden, data) => {
+    try {
+      const response = await cambiarEstadoOrdenRequest(id_orden, data);
+
+      if (response.status === 200) {
+        return response;
+      } else {
+        throw new Error("No se obtener las ordenes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const cambiarEstadoEnvio = async (id_envio, data) => {
+    try {
+      const response = await cambiarEstadoEnvioRequest(id_envio, data);
+
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        throw new Error("No se obtener las ordenes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const cancelarOrdenDeCompra = async (id_orden) => {
+    try {
+      const response = await cancelarOrdenRequest(id_orden);
+
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        throw new Error("No se obtener las ordenes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const eliminarOrden = async (id_orden) => {
+    try {
+      const response = await eliminarOrdenRequest(id_orden);
+
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        throw new Error("No se obtener las ordenes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <OrdenContext.Provider
       value={{
@@ -153,12 +197,17 @@ export const OrdenContextProvider = ({ children }) => {
         ordenesAll,
         ordenesUser,
         obtenerDetalleOrden,
-        actualizarEstadoOrden,
+
         obtenerDireccionEnvioOrden,
         obtenerVentasPorUsuarioId,
         obtenerComprasPorIdUsuario,
         ventasUser,
         verificacionDireccionEnvio,
+
+        cambiarEstadoOrden,
+        cambiarEstadoEnvio,
+        cancelarOrdenDeCompra,
+        eliminarOrden,
       }}
     >
       {children}

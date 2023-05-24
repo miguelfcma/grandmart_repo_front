@@ -2,7 +2,7 @@ import { SidebarAdmin } from "../../../../components/DashAdminComponents/Sidebar
 import { HeaderAdmin } from "../../../../components/DashAdminComponents/HeaderAdmin";
 import { useParams } from "react-router-dom";
 import { DetallesCompraAdmin } from "../../../../components/OrdenesComponents/ComprasAdmin/DetallesCompraAdmin";
-import "../../DashClient.css";
+import "../../DashAdmin.css";
 
 export  function CompraDetallesPageAdmin() {
     const { id_orden } = useParams();
