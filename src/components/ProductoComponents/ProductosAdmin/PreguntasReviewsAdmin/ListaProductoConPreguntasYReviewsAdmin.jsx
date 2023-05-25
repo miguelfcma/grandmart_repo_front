@@ -126,7 +126,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       return preguntas;
     }, []);
 
-    console.log("preguntasSinResponderServicios", preguntasSinResponderServicios);
+  console.log("preguntasSinResponderServicios", preguntasSinResponderServicios);
 
   const preguntasRespondidasServicios =
     serviciosPreguntas &&
@@ -243,7 +243,9 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       {preguntasSinResponder.length === 0 && mostrarContenido === "lista1" && (
         <div>
           <br />
-          <h2>No hay preguntas de sus productos por responder en este momento.</h2>
+          <h2>
+            No hay preguntas de sus productos por responder en este momento.
+          </h2>
         </div>
       )}
 
@@ -284,7 +286,9 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       {preguntasRespondidas.length === 0 && mostrarContenido === "lista2" && (
         <div>
           <br />
-          <h2>No hay preguntas de sus productos respondidas en este momento.</h2>
+          <h2>
+            No hay preguntas de sus productos respondidas en este momento.
+          </h2>
         </div>
       )}
 
@@ -309,7 +313,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
           {preguntasSinResponderServicios.length > 0 &&
             mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
               <div className="tituloListas">
-                Lista de preguntas  de sus servicios sin responder:
+                Lista de preguntas de sus servicios sin responder:
               </div>
             )}
 
@@ -326,7 +330,9 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
         mostrarContenido === "lista3" && (
           <div>
             <br />
-            <h2>No hay preguntas de sus servicios por responder en este momento.</h2>
+            <h2>
+              No hay preguntas de sus servicios por responder en este momento.
+            </h2>
           </div>
         )}
 
@@ -334,11 +340,17 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
         <div>
           <br></br>
           <div className="linea"> </div>
-          <button className="btnPSR" onClick={mostrarPreguntasServiciosNoRespondidas}>
+          <button
+            className="btnPSR"
+            onClick={mostrarPreguntasServiciosNoRespondidas}
+          >
             Preguntas sin responder
           </button>
 
-          <button className="btnPR" onClick={mostrarPreguntasServiciosRespondidas}>
+          <button
+            className="btnPR"
+            onClick={mostrarPreguntasServiciosRespondidas}
+          >
             Preguntas respondidas
           </button>
 
@@ -362,7 +374,9 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
         mostrarContenido === "lista4" && (
           <div>
             <br />
-            <h2>No hay preguntas de sus servicios respondidas en este momento.</h2>
+            <h2>
+              No hay preguntas de sus servicios respondidas en este momento.
+            </h2>
           </div>
         )}
 
@@ -378,7 +392,8 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
             Mostrar los reviews de todos los productos del sistema
           </button>
 
-          {productosReviews.length > 0 && mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
+          {productosReviews.length > 0 &&
+            mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
               <div className="tituloListas">
                 Lista de reviews acerca de sus productos:
               </div>
@@ -392,7 +407,8 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
           ))}
         </div>
       )}
-      {mostrarReviewsProductos.length === 0 && mostrarContenido === "lista5" && (
+      {mostrarReviewsProductos.length === 0 &&
+        mostrarContenido === "lista5" && (
           <div>
             <br />
             <h2>No hay reviews acerca de sus productos en este momento.</h2>
@@ -410,11 +426,21 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
           <button className="btnRPS" onClick={mostrarOpinionesSistema}>
             Mostrar los reviews de todos los productos del sistema
           </button>
-          {productosTodasReviews.length > 0 && mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
+          {productosTodasReviews.length > 0 &&
+            mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
               <div className="tituloListas">
                 Lista de todas las reviews del sistema:
               </div>
             )}
+          <button>
+            <box-icon
+              style={{ marginRight: "5px" }}
+              color="white"
+              name="file"
+            ></box-icon>
+            Generar reporte (.xlsx)
+          </button>
+          <br></br>
           {productosTodasReviews.map((producto) => (
             <ItemProductoConReviewAdmin
               key={producto.id}
@@ -425,16 +451,11 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
         </div>
       )}
       {productosTodasReviews.length === 0 && mostrarContenido === "lista6" && (
-          <div>
-            <br />
-            <h2>No hay reviews registrados en el sistema en este momento.</h2>
-          </div>
-        )}
-
-
-
-
-
+        <div>
+          <br />
+          <h2>No hay reviews registrados en el sistema en este momento.</h2>
+        </div>
+      )}
     </div>
   );
 }

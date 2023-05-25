@@ -5,7 +5,7 @@ import "./ItemProducto.css";
 import { Link } from "react-router-dom";
 import { actualizarDenunciaARevisadaServicio } from "../../../../API/ServiciosApiRest/denunciasServicio.api";
 
-export function ItemServicioConDenunciaAdmin({ servicio, onDeleteDenuncia }) {
+export function ItemServicioConDenunciaAdmin({ servicio, onDeleteDenunciaServicio }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [denunciasVisible, setDenunciasVisible] = useState(false);
 
@@ -20,7 +20,7 @@ export function ItemServicioConDenunciaAdmin({ servicio, onDeleteDenuncia }) {
 
   const handleEliminarDenuncia = async (denunciaId) => {
     try {
-      onDeleteDenuncia(denunciaId);
+      onDeleteDenunciaServicio(denunciaId);
     } catch (error) {
       console.error(error);
     }
