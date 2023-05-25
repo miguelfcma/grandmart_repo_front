@@ -604,7 +604,7 @@ export const ProductoContextProvider = ({ children }) => {
     }
   };
 
-  const getReviewsPorProductId = async (id_producto) => {
+  const getReviewsByProductId = async (id_producto) => {
     try {
       const response = await getReviewsByProductIdRequest(id_producto);
       console.log(response);
@@ -821,7 +821,7 @@ export const ProductoContextProvider = ({ children }) => {
         crearRespuestaProducto,
 
         createReview,
-        getReviewsPorProductId,
+        getReviewsByProductId,
         getProductosConReviewsByUsuarioId,
         productosReviews,
         eliminarReviewProducto,

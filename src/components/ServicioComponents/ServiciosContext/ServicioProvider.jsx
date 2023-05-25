@@ -26,7 +26,13 @@ import {
 } from "../../../API/ServiciosApiRest/preguntasServicio.api";
 
 import { 
-  crearDenunciaServicioRequest 
+  crearDenunciaServicioRequest,
+  getDenunciasByIdServicioRequest,
+  getServiciosConDenunciasByUsuarioIdRequest,
+  getTodasLasDenunciasRequestServicio,
+  actualizarDenunciaARevisadaServicio,
+  eliminarDenunciaServicioRequest
+
 } from "../../../API/ServiciosApiRest/denunciasServicio.api";
 
 import { ServicioContext } from "./ServicioContext";
@@ -46,6 +52,8 @@ export const ServicioContextProvider = ({ children }) => {
   const [serviciosAll, setServiciosAll] = useState([]);
   const [serviciosUsuario, setServiciosUsuario] = useState([]);
   const [serviciosPreguntas, setServiciosPreguntas] = useState([]);
+  const [serviciosDenuncias, setServiciosDenuncias] = useState([]);
+  
 
   async function loadServicios() {
     try {
@@ -291,6 +299,83 @@ export const ServicioContextProvider = ({ children }) => {
     }
   };
 
+  const getDenunciasByIdServicio = async (data) => {
+    try {
+      const response = await getDenunciasByIdServicioRequest(data);
+      console.log(response);
+      if (response.status == 200) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getServiciosConDenunciasByUsuarioId = async (id_usuario) => {
+    try {
+      const response = await getServiciosConDenunciasByUsuarioIdRequest(
+        id_usuario
+      );
+      console.log(response);
+      if (response.status == 200) {
+        setServiciosDenuncias(response.data);
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const obtenerTodasLasDenunciasServicios = async () => {
+    try {
+      const response = await getTodasLasDenunciasRequestServicio();
+
+      if (response.status === 200) {
+        setServiciosDenuncias(response.data);
+      } else {
+        throw new Error("No se logró obtener las denuncias");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const actualizarDenunciaRevisadaServicio = async (id_denuncia, data) => {
+    console.log(id_denuncia + data);
+    try {
+      const response = await actualizarDenunciaARevisadaServicio(id_denuncia, data);
+
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        throw new Error("No se obtener las ordenes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const eliminarDenunciaServicio = async (id_denuncia) => {
+    try {
+      const response = await eliminarDenunciaServicioRequest(id_denuncia);
+      console.log(response);
+      if (response.status == 200) {
+        obtenerTodasLasDenunciasServicios(); /*Volver a cargar las denuncias */
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
 
   return (
     <ServicioContext.Provider
@@ -316,6 +401,12 @@ export const ServicioContextProvider = ({ children }) => {
         eliminarPreguntaServicio,
 
         crearDenunciaServicio,
+        getDenunciasByIdServicio,
+        serviciosDenuncias,
+        getServiciosConDenunciasByUsuarioId,
+        obtenerTodasLasDenunciasServicios,
+        actualizarDenunciaRevisadaServicio,
+        eliminarDenunciaServicio,
 
       }}
     >
