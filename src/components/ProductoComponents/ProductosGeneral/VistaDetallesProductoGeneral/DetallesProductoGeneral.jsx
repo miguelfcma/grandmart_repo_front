@@ -9,6 +9,23 @@ import { Link, useNavigate } from "react-router-dom";
 export function DetallesProductoGeneral({ id }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 768); // el ancho de pantalla del celular
+    }
+
+    handleResize(); // Verificar inicialmente al cargar la página
+
+    window.addEventListener("resize", handleResize); // Verificar al cambiar el tamaño de la ventana
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Eliminar el evento al desmontar el componente
+    };
+  }, []);
+
   const {
     getProductoById,
     getImgPortadaProducto,
@@ -90,7 +107,6 @@ export function DetallesProductoGeneral({ id }) {
           id_producto: producto.id,
           cantidad: 1,
         });
-        setCarritoTexto("Agregado en tu carrito");
       } catch (error) {
         // Manejar el error, si es necesario
         console.error("Error agregando producto al carrito:", error);
@@ -135,20 +151,11 @@ export function DetallesProductoGeneral({ id }) {
 
   return (
     <>
-      <Container fluid className="contenedor">
-        <Col xs={12} md={5} lg={4} className="columna-izquierda">
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <div className="imagen-container">
+      {isMobile ? (
+        <div className="vistapCel">
+          <div className="galeria">
             {imagenPortada && (
-              <img
-                src={imagenPortada}
-                alt="Portada"
-                className="imagen-producto"
-                onMouseOver={() => handleImagenHover(imagenPortada)}
-              />
+              <img className="galeria-img" src={imagenPortada} alt="Portada" />
             )}
             {imagenes &&
               imagenes.map((imagen) => (
@@ -156,59 +163,13 @@ export function DetallesProductoGeneral({ id }) {
                   key={imagen.id}
                   src={imagen.url}
                   alt={imagen.id}
-                  className="imagen-producto"
-                  onMouseOver={() => handleImagenHover(imagen.url)}
+                  className="galeria-img"
                 />
               ))}
           </div>
-        </Col>
-        <Col xs={12} md={7} lg={8} className="columna-central">
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-
-          <Row>
-            {imagenSeleccionada === null ? (
-              <div className="imagen-central-container">
-                <img
-                  src={imagenPortada}
-                  alt="Portada"
-                  className="imagen-central"
-                />
-              </div>
-            ) : (
-              <div
-                className="imagen-central-container"
-                onMouseMove={(e) => handleMouseMove(e)}
-                onMouseLeave={() => handleMouseLeave()}
-              >
-                <img
-                  src={imagenSeleccionada}
-                  alt="Seleccionada"
-                  className="imagen-central"
-                />
-                <div className="zoom-container" style={zoomStyle}>
-                  <img
-                    src={imagenSeleccionada}
-                    alt="Zoom"
-                    className="zoom-img"
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                </div>
-              </div>
-            )}
-          </Row>
-        </Col>
-
-        <Col xs={8} lg={12} className="columna-derecha">
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           {producto && (
             <>
-              <Card className="infoProducto">
+              <Card className="infoProducto vistaCel">
                 <div className="d-flex justify-content-end position-absolute top-0 end-0 p-2">
                   <Button
                     variant="primary"
@@ -304,19 +265,195 @@ export function DetallesProductoGeneral({ id }) {
                   </div>
                 </Card.Text>
               </Card>
-              <br></br>
-
-              <Button
-                onClick={() => window.history.back()}
-                className="back-button3"
-              >
-                Atrás
-              </Button>
-              <br></br>
             </>
           )}
-        </Col>
-      </Container>
+        </div>
+      ) : (
+        <Container fluid className="contenedor">
+          <Col xs={12} md={5} lg={4} className="columna-izquierda">
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <div className="imagen-container">
+              {imagenPortada && (
+                <img
+                  src={imagenPortada}
+                  alt="Portada"
+                  className="imagen-producto"
+                  onMouseOver={() => handleImagenHover(imagenPortada)}
+                />
+              )}
+              {imagenes &&
+                imagenes.map((imagen) => (
+                  <img
+                    key={imagen.id}
+                    src={imagen.url}
+                    alt={imagen.id}
+                    className="imagen-producto"
+                    onMouseOver={() => handleImagenHover(imagen.url)}
+                  />
+                ))}
+            </div>
+          </Col>
+          <Col xs={12} md={7} lg={8} className="columna-central">
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+
+            <Row>
+              {imagenSeleccionada === null ? (
+                <div className="imagen-central-container">
+                  <img
+                    src={imagenPortada}
+                    alt="Portada"
+                    className="imagen-central"
+                  />
+                </div>
+              ) : (
+                <div
+                  className="imagen-central-container"
+                  onMouseMove={(e) => handleMouseMove(e)}
+                  onMouseLeave={() => handleMouseLeave()}
+                >
+                  <img
+                    src={imagenSeleccionada}
+                    alt="Seleccionada"
+                    className="imagen-central"
+                  />
+                  <div className="zoom-container" style={zoomStyle}>
+                    <img
+                      src={imagenSeleccionada}
+                      alt="Zoom"
+                      className="zoom-img"
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  </div>
+                </div>
+              )}
+            </Row>
+          </Col>
+
+          <Col xs={8} lg={12} className="columna-derecha">
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            {producto && (
+              <>
+                <Card className="infoProducto">
+                  <div className="d-flex justify-content-end position-absolute top-0 end-0 p-2">
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      className="me-2 d-flex justify-content-center align-items-center btnCar"
+                      onClick={agregarAlCarrito}
+                    >
+                      <box-icon name="cart-add" color="#ffffff"></box-icon>
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="lg"
+                      className="d-flex justify-content-center align-items-center btnFav"
+                      onClick={toggleFavorito}
+                      title={
+                        esProductoFavorito
+                          ? "Eliminar de favoritos"
+                          : "Agregar a favoritos"
+                      }
+                    >
+                      <box-icon
+                        type="solid"
+                        color={esProductoFavorito ? "#fa4141" : "#faf2f2"}
+                        name="heart"
+                      ></box-icon>
+                    </Button>
+                  </div>
+
+                  <Card.Title>
+                    <div className="infoProductoTitulo">{producto.nombre}</div>
+                  </Card.Title>
+                  <Card.Title>
+                    <div className="infoProductoPrecio">
+                      $ {producto.precio}
+                    </div>
+                  </Card.Title>
+                  <Card.Text>
+                    <div className="infoProductoDescripcion">
+                      {producto.descripcion}
+                    </div>
+                  </Card.Text>
+                  <Card.Text>
+                    <div className="infoProductoCaracteristicas">
+                      <div className="separateIcon">
+                        <div>
+                          <box-icon
+                            name="star"
+                            style={{ verticalAlign: "middle" }}
+                          ></box-icon>{" "}
+                          Marca: {producto.marca}
+                        </div>
+                        <div>
+                          <box-icon
+                            name="barcode"
+                            style={{ verticalAlign: "middle" }}
+                          ></box-icon>{" "}
+                          Modelo: {producto.modelo}
+                        </div>
+                        <div>
+                          <box-icon
+                            name="palette"
+                            style={{ verticalAlign: "middle" }}
+                          ></box-icon>{" "}
+                          Color: {producto.color}
+                        </div>
+                        <div>
+                          <box-icon
+                            name="shield-plus"
+                            style={{ verticalAlign: "middle" }}
+                          ></box-icon>{" "}
+                          Estado: {producto.estado ? "Nuevo" : "Usado"}
+                        </div>
+                        <div>
+                          <box-icon
+                            name="category"
+                            style={{ verticalAlign: "middle" }}
+                          ></box-icon>{" "}
+                          Categoría: {producto.categoria.nombre}
+                        </div>
+                        <div>
+                          <box-icon
+                            name="user-circle"
+                            style={{ verticalAlign: "middle" }}
+                          ></box-icon>{" "}
+                          Vendido por: {producto.usuario.nombre}
+                        </div>
+                        <div>
+                          <box-icon
+                            name="package"
+                            style={{ verticalAlign: "middle" }}
+                          ></box-icon>{" "}
+                          Cantidades disponibles: {producto.stock}
+                        </div>
+                      </div>
+                    </div>
+                  </Card.Text>
+                </Card>
+                <br></br>
+
+                <Button
+                  onClick={() => window.history.back()}
+                  className="back-button3"
+                >
+                  Atrás
+                </Button>
+                <br></br>
+              </>
+            )}
+          </Col>
+        </Container>
+      )}
       <PreguntasProductoComponenteCompletoGeneral id_producto={id} />
       <ReviewsProducto id_producto={id} />
       <Card>

@@ -43,4 +43,58 @@
         position:absolute;
         width: 100%;
       }
-    
+
+
+/* Si se visualiza desde un celular */ 
+@media screen and (max-width: 480px) {
+  .background2{
+    background-color: rgb(243, 242, 242) !important;
+    width: 100% !important;
+    height: 570px !important;
+    margin-top: -48px !important;
+  }
+
+    .cardDenuncia2{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff !important;
+      font-weight: bold;
+      height: 76vh !important;
+      margin-top: 130px !important;
+      width: 345px !important;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .tituloDenuns2 {
+        font-size: 24px !important;
+        margin-top: 18px !important;
+        margin-bottom: 20px !important;
+        margin-left: 20px !important;
+        margin-right: 10px !important;
+    }
+
+    .txtDenuns{
+        font-size: 17px !important;
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+        margin-left: 30px !important;
+        margin-right: 10px !important;
+    }
+
+    .txtArea{
+        max-width: 330px !important;
+        max-height: 240px !important;
+        margin-left: 20px !important;
+        margin-right: 20px !important;
+    }
+
+    .footerDenuncia2{
+        margin-top: 0px !important;
+        position:absolute;
+        width: 100%;
+      }
+}

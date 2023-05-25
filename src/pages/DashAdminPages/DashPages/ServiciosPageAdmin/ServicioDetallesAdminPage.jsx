@@ -8,7 +8,12 @@ import { SidebarAdmin } from "../../../../components/DashAdminComponents/Sidebar
 import { HeaderAdmin } from "../../../../components/DashAdminComponents/HeaderAdmin";
 
 export function ServicioDetallesAdminPage() {
-  const { serviciosAll, getImgPortadaServicio, getAllImagesServicio, loadServicios } = useServicios();
+  const {
+    serviciosAll,
+    getImgPortadaServicio,
+    getAllImagesServicio,
+    loadServicios,
+  } = useServicios();
   const { id } = useParams();
 
   const [servicio, setServicio] = useState(null);
@@ -22,6 +27,7 @@ export function ServicioDetallesAdminPage() {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0); //Para que se muestre el producto desde arriba de la página
     const servicioEncontrado = serviciosAll.find(
       (prod) => prod.id === parseInt(id)
     );
@@ -41,44 +47,46 @@ export function ServicioDetallesAdminPage() {
   }, [serviciosAll, id, getImgPortadaServicio, getAllImagesServicio]);
 
   return (
-    <div className="contenedor-producto"  style={{ marginLeft: '200px' }}>
-      <HeaderAdmin/>
+    <div className="contenedor-producto" style={{ marginLeft: "200px" }}>
+      <HeaderAdmin />
       <SidebarAdmin />
       {servicio ? (
         <>
           <div className="info-producto">
-          <div>ID: {servicio.id}</div>
-            <div>Titulo: {servicio.titulo}</div>
+            <div>ID servicio: {servicio.id}</div>
+            <div>Título: {servicio.titulo}</div>
             <div>Descripción: {servicio.descripcion}</div>
             <div>
               Categoría:{" "}
-              {categorias.find((categoria) => categoria.id === servicio.id_categoria)?.nombre}
+              {
+                categorias.find(
+                  (categoria) => categoria.id === servicio.id_categoria
+                )?.nombre
+              }
             </div>
           </div>
 
-          {imagen && (
-            <img
-              className="info-producto-img"
-              src={imagen}
-              alt={servicio.nombre}
-            />
-          )}
           <div className="galeria">
+            {imagen && (
+              <img className="galeria-img" src={imagen} alt={servicio.titulo} />
+            )}
             {imagenes &&
               imagenes.map((imagen) => (
-                <img key={imagen.id} src={imagen.url} alt={imagen.id} />
+                <img
+                  key={imagen.id}
+                  src={imagen.url}
+                  alt={imagen.id}
+                  className="galeria-img"
+                />
               ))}
           </div>
         </>
       ) : (
         <div>No se encontró el servicio</div>
       )}
-
-      <Link to="/dashAdmin/servicios" style={{ textDecoration: "none" }}>
-        <button className="back-button" type="button">
-          <span>Atrás</span>
-        </button>
-      </Link>
+      <button onClick={() => window.history.back()} className="back-buttonp">
+        Atrás
+      </button>
     </div>
   );
 }

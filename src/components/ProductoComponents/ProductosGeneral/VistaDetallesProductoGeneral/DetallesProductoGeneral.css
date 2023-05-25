@@ -161,3 +161,30 @@
   width: 160px;
   height: 160px;
 }
+
+
+/* Si se visualiza desde un celular */
+@media screen and (max-width: 480px) {
+  .vistapCel{
+    margin-top: -110px;
+  }
+  
+  .infoProducto {
+    width: 95%;
+    margin-top: 5px !important;
+    margin-left: 5px;
+  }
+  
+  .infoProductoTitulo {
+    max-width: 80% !important;
+  }
+  
+  .back-button3 {
+    margin-left: 0;
+  }
+  
+  .vistaCel {
+    margin-top: -100px;
+  }
+  
+  }

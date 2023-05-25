@@ -24,6 +24,7 @@ export function ProductoDetallesAdminPage() {
   const { categorias, loadCategorias } = useCategorias();
 
   useEffect(() => {
+    window.scrollTo(0, 0); //Para que se muestre el producto desde arriba de la página
     loadCategorias();
     loadProductos();
   }, []);

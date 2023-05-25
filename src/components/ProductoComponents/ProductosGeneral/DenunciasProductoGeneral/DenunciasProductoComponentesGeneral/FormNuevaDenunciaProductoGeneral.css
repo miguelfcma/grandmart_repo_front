@@ -1,4 +1,4 @@
-.background{
+.background {
   background-color: rgb(243, 242, 242);
   width: 100%;
   height: 790px;
@@ -6,59 +6,104 @@
 }
 
 .nueva-pregunta-container {
-    padding: 10px;
-    border-radius: 5px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.cardDenuncia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+  font-weight: bold;
+  height: 96vh;
+  margin-top: 65px !important;
+  width: 635px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tituloDenuns {
+  font-size: 24px !important;
+  margin-top: 18px !important;
+  margin-bottom: 20px !important;
+}
+
+.motivosDenuns {
+  text-align: justify;
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+  font-size: 17px !important;
+  font-family: Arial;
+}
+
+label.form-check-label {
+  text-align: justify;
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+  font-size: 17px !important;
+  font-family: Arial;
+  font-weight: normal;
+}
+
+.detallesDenuns {
+  font-size: 15px !important;
+  font-weight: 450;
+  color: rgb(105, 105, 105);
+  text-align: justify;
+  margin-left: 50px !important;
+  margin-right: 40px !important;
+}
+
+.footerDenuncia {
+  margin-top: 0px !important;
+  position: absolute;
+  width: 100%;
+}
+
+/* Si se visualiza desde un celular */ 
+@media screen and (max-width: 480px) {
+  .background {
+    background-color: rgb(243, 242, 242);
+    width: 100%;
+    height: 1090px !important;
+    margin-top: -2px !important;
   }
 
-  .cardDenuncia{
+  .cardDenuncia {
     display: flex;
+    flex-direction: column; /* Cambio la dirección de la flexbox a columna */
     justify-content: center;
     align-items: center;
     background-color: #f4f4f4;
     font-weight: bold;
-    height: 96vh;
-    margin-top: 65px !important;
-    width: 635px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: auto !important; /* Cambio el valor de altura a 100vh para ocupar toda la pantalla */
+    padding: 10px; /* Añado un espacio interno para evitar que el contenido se acerque demasiado a los bordes */
+    box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
+    width: 53vh !important;
+    margin-top: 170px !important;
   }
-
+  
   .tituloDenuns {
-    font-size: 24px !important;
-    margin-top: 18px !important;
-    margin-bottom: 20px !important;
-  }
-
-  .motivosDenuns{
-    text-align: justify;
-    margin-left: 20px !important;
-    margin-right: 20px !important;
-    font-size: 17px !important;
-    font-family: Arial;
-  }
-  label.form-check-label {
-    text-align: justify;
-    margin-left: 20px !important;
-    margin-right: 20px !important;
-    font-size: 17px !important;
-    font-family: Arial;
-    font-weight: normal;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: left !important; /* Centra el texto */
   }
   
-
-  .detallesDenuns{
-    font-size: 15px !important;
-    font-weight: 450;
-    color:rgb(105, 105, 105);
+  .motivosDenuns,
+  label.form-check-label,
+  .detallesDenuns {
+    font-size: 17px;
+    font-family: Arial;
     text-align: justify;
-    margin-left: 50px !important;
-    margin-right: 40px !important;
   }
   
-  .footerDenuncia{
-    margin-top: 0px !important;
-    position:absolute;
+  .footerDenuncia {
+    margin-top: 20px; /* Añade un espacio entre el contenido principal y el pie de página */
     width: 100%;
+    text-align: center; /* Centra el contenido del pie de página */
   }
+  
+}
