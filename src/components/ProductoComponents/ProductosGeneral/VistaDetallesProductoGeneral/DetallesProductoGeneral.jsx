@@ -265,6 +265,13 @@ export function DetallesProductoGeneral({ id }) {
                   </div>
                 </Card.Text>
               </Card>
+              <br></br>
+              <Button
+                  onClick={() => window.history.back()}
+                  className="back-button3"
+                >
+                  Atrás
+                </Button>
             </>
           )}
         </div>

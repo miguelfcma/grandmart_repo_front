@@ -180,7 +180,9 @@
   }
   
   .back-button3 {
-    margin-left: 0;
+    margin-right: 30px !important;
+    margin-left: 135px !important;
+    margin-bottom: 20px !important;
   }
   
   .vistaCel {
