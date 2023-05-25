@@ -38,14 +38,14 @@ export const crearRespuestaServicioRequest = async (idPregunta, respuesta) => {
 };
 
 // Función para obtener todas las preguntas asociadas a un servicio
-export const getPreguntasByIdServicioRequest = async (idServicio) => {
+export const getPreguntasByIdServicioRequest = async (id_servicio) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}servicio-preguntas/servicio/${idServicio}`);
+    const response = await axios.get(`${API_BASE_URL}servicio-preguntas/servicio/${id_servicio}`);
     console.log({
       status: response.status,
       message: response.data.message,
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.log({
       status: error.response.status,

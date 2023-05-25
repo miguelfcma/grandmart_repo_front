@@ -12,8 +12,7 @@ export function FormNuevaPreguntaServicioGeneral({id_servicio,actualizarPregunta
     id_servicio: id_servicio,
     id_usuario: usuario.id,
   });
-
-  console.log("este es el idservicio", id_servicio);
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 

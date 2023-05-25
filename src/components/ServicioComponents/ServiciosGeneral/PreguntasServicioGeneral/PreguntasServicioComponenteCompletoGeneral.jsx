@@ -60,6 +60,7 @@ export function PreguntasServicioComponenteCompletoGeneral({ id_servicio }) {
             actualizarFalse={actualizarFalse}
             actualizarPreguntas={actualizarPreguntas}
           />
+          
         </Card.Body>
       </Card>
     </div>

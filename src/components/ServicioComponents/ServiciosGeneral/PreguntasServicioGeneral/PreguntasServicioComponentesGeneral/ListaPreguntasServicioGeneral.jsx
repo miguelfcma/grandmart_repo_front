@@ -16,6 +16,7 @@ export function ListaPreguntasServicioGeneral({
   useEffect(() => {
     const fetchPreguntas = async () => {
       const preguntasData = await getPreguntasByIdServicio(id_servicio);
+      console.log("Este es el arreglo de preguntas de servicio:",preguntasData);
       setPreguntas(preguntasData || []);
     };
 
@@ -29,6 +30,8 @@ export function ListaPreguntasServicioGeneral({
       fetchPreguntas();
     }
   }, [id_servicio,actualizarPreguntas]);
+
+  
 
   return (
     <Container>

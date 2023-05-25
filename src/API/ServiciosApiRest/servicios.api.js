@@ -87,3 +87,17 @@ export const getServiciosByUsuarioIdRequest = async (id_usuario) => {
     return error.response;
   }
 };
+
+export const getServicioByIdRequest = async (id_servicio) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}servicios/${id_servicio}`);
+
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};

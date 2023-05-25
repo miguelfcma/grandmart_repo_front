@@ -6,6 +6,7 @@ import {
   deleteServicioRequest,
   updateServicioRequest,
   getServiciosByUsuarioIdRequest,
+  getServicioByIdRequest
 } from "../../../API/ServiciosApiRest/servicios.api";
 
 import { 
@@ -78,6 +79,23 @@ export const ServicioContextProvider = ({ children }) => {
         return true;
       } else {
         return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getServicioById = async (id_servicio) => {
+    try {
+      const response = await getServicioByIdRequest(id_servicio);
+
+      if (response.status === 200) {
+        return response.data;
+      } else if (response.status === 404) {
+        console.log("No se pudo obtener servicio");
+        return null;
+      } else {
+        throw new Error("No se pudo obtener servicio");
       }
     } catch (error) {
       console.error(error);
@@ -259,6 +277,7 @@ export const ServicioContextProvider = ({ children }) => {
         serviciosUsuario,
         loadServicios,
         loadServiciosUsuario,
+        getServicioById,
         deleteServicio,
         createServicio,
         updateServicio,

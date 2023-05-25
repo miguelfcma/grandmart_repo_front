@@ -126,6 +126,8 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       return preguntas;
     }, []);
 
+    console.log("preguntasSinResponderServicios", preguntasSinResponderServicios);
+
   const preguntasRespondidasServicios =
     serviciosPreguntas &&
     Object.values(serviciosPreguntas).reduce((preguntas, servicio) => {
@@ -149,6 +151,9 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       console.log(error);
     }
   };
+
+  
+console.log("preguntasRespondidasServicios", preguntasRespondidasServicios);
 
   const mostrarPreguntasProductosNoRespondidas = () => {
     setMostrarContenido("lista1");

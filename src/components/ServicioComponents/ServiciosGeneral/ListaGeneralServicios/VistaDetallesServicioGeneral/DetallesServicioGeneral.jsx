@@ -6,7 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "./DetallesServicioGeneral.css";
 
 
-export function DetallesServicioGeneral({ id, nombre_categoria, nombre_usuario}) {
+export function DetallesServicioGeneral({ id }) {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const navigate = useNavigate();
   const {
     serviciosAll,
     getImgPortadaServicio,
