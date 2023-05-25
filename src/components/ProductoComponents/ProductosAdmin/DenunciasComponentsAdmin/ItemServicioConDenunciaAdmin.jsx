@@ -45,7 +45,7 @@ export function ItemServicioConDenunciaAdmin({ servicio, onDeleteDenuncia }) {
               style={{ textDecoration: "none" }}
             >
               <div className="tituloCard">
-                ID: {servicio.servicio.id} - {servicio.servicio.nombre}
+                ID: {servicio.servicio.id} - {servicio.servicio.titulo}
               </div>
             </Link>
           </Card.Header>
@@ -151,7 +151,7 @@ export function ItemServicioConDenunciaAdmin({ servicio, onDeleteDenuncia }) {
               style={{ textDecoration: "none" }}
             >
               <div className="tituloCard">
-                ID: {servicio.servicio.id} - {servicio.servicio.nombre}
+                ID: {servicio.servicio.id} - {servicio.servicio.titulo}
               </div>
             </Link>
           </Card.Header>

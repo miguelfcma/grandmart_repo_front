@@ -73,8 +73,6 @@
   background-color: #1d7043;
 }
 
-
-
 .btnReporte{
   border-radius: 5px;
   background-color: #468e9e;
@@ -83,4 +81,23 @@
 }
 .btnReporte:hover{
   background-color: #2a6780;
+}
+
+.btnPSRS, .btnPRS{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #8f74f0;
+}
+.btnPSRS{
+  margin-right: 20px;
+}
+.btnPRS{
+  margin-left: 480px;
+}
+
+.btnPSRS:hover, .btnPRS:hover {
+  background-color: #5743a1;
 }

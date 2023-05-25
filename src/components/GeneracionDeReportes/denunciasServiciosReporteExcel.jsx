@@ -2,7 +2,7 @@ import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 import moment from "moment"; /*Formatear fechas y horas */
 
-export const denunciasReporteExcel = (datos, atributosExcluir) => {
+export const denunciasServiciosReporteExcel = (datos, atributosExcluir) => {
     // Verificar si no hay datos disponibles
     if (!datos || Object.keys(datos).length === 0) {
       console.log("No hay datos disponibles para generar el reporte.");
@@ -37,13 +37,13 @@ export const denunciasReporteExcel = (datos, atributosExcluir) => {
     // Crear el libro de trabajo, hoja de cálculo y agregar los datos
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(datosSinAtributos); // Pasar directamente datosSinAtributos
-    XLSX.utils.book_append_sheet(workbook, worksheet, "ReporteDenunciasProductos");
+    XLSX.utils.book_append_sheet(workbook, worksheet, "ReporteDenunciasServicios");
   
     // Generar el archivo Excel y guardarlo
     const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
     const blob = new Blob([excelBuffer], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
     });
-    FileSaver.saveAs(blob, "reporteDeDenunciasProductos.xlsx");
+    FileSaver.saveAs(blob, "reporteDeDenunciasServicios.xlsx");
   };
   

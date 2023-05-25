@@ -26,7 +26,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
     eliminarPreguntaServicio,
   } = useServicios();
 
-  const [mostrarTitulo, setMostrarTitulo] = useState(false); // Agrega el estado para controlar la visibilidad del título
+  const [mostrarTitulo, setMostrarTitulo] = useState(false); // Agregamos el estado para controlar la visibilidad del título
 
   const onDeletePregunta = async (preguntaId) => {
     try {
@@ -152,9 +152,6 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
     }
   };
 
-  
-console.log("preguntasRespondidasServicios", preguntasRespondidasServicios);
-
   const mostrarPreguntasProductosNoRespondidas = () => {
     setMostrarContenido("lista1");
     setMostrarTitulo(1);
@@ -182,16 +179,8 @@ console.log("preguntasRespondidasServicios", preguntasRespondidasServicios);
     setMostrarTitulo(1);
   };
 
-  /*
-  const mostrarOpinionesServiciosPropios = () => {
-    setMostrarContenido("lista6");
-    setMostrarReviewsProductos(true);
-    cargarProductosConReviewsByUsuario();
-  };
-  */
-
   const mostrarOpinionesSistema = () => {
-    setMostrarContenido("lista7");
+    setMostrarContenido("lista6");
     cargarTodasLasReviews();
     setMostrarTitulo(1);
   };
@@ -214,7 +203,7 @@ console.log("preguntasRespondidasServicios", preguntasRespondidasServicios);
         </button>
         <br />
         <button className="bton3" onClick={mostrarOpinionesProductosPropios}>
-          Mostrar reviews de productos y servicios{" "}
+          Mostrar reviews de productos{" "}
         </button>
       </div>
 
@@ -385,12 +374,8 @@ console.log("preguntasRespondidasServicios", preguntasRespondidasServicios);
             Mostrar los reviews de sus productos
           </button>
 
-          <button className="btnRPP">
-            Mostrar los reviews de sus servicios
-          </button>
-
           <button className="btnRPS" onClick={mostrarOpinionesSistema}>
-            Mostrar todas las reviews del sistema
+            Mostrar los reviews de todos los productos del sistema
           </button>
 
           {productosReviews.length > 0 && mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
@@ -414,18 +399,16 @@ console.log("preguntasRespondidasServicios", preguntasRespondidasServicios);
           </div>
         )}
 
-      {mostrarContenido === "lista7" && (
+      {mostrarContenido === "lista6" && (
         <div>
           <br></br>
           <div className="linea"> </div>
           <button className="btnRPP" onClick={mostrarOpinionesProductosPropios}>
             Mostrar los reviews de sus productos
           </button>
-          <button className="btnRPP">
-            Mostrar los reviews de sus servicios
-          </button>
+
           <button className="btnRPS" onClick={mostrarOpinionesSistema}>
-            Mostrar todas las reviews del sistema
+            Mostrar los reviews de todos los productos del sistema
           </button>
           {productosTodasReviews.length > 0 && mostrarTitulo === 1 && ( // Mostrar el título solo cuando es verdadero
               <div className="tituloListas">
@@ -441,7 +424,7 @@ console.log("preguntasRespondidasServicios", preguntasRespondidasServicios);
           ))}
         </div>
       )}
-      {productosTodasReviews.length === 0 && mostrarContenido === "lista7" && (
+      {productosTodasReviews.length === 0 && mostrarContenido === "lista6" && (
           <div>
             <br />
             <h2>No hay reviews registrados en el sistema en este momento.</h2>

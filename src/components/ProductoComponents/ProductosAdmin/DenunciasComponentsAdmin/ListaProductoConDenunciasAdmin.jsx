@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
+import { useServicios } from "../../../ServicioComponents/ServiciosContext/ServicioProvider";
 import { ItemProductoConDenunciaAdmin } from "./ItemProductoConDenunciaAdmin";
+import { ItemServicioConDenunciaAdmin } from "./ItemServicioConDenunciaAdmin";
 import "./ItemProducto.css";
 import { denunciasReporteExcel } from "../../../GeneracionDeReportes/denunciasReporteExcel";
+import { denunciasServiciosReporteExcel } from "../../../GeneracionDeReportes/denunciasServiciosReporteExcel";
 
 export function ListaProductoConDenunciasAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -11,6 +14,11 @@ export function ListaProductoConDenunciasAdmin() {
     productosDenuncias,
     eliminarDenunciaProducto,
   } = useProductos();
+  const {
+    obtenerTodasLasDenunciasServicios,
+    serviciosDenuncias,
+    eliminarDenunciaServicio,
+  } = useServicios();
 
   const onDeleteDenuncia = async (denunciaId) => {
     // Lógica que se ejecuta en el componente padre
@@ -25,6 +33,7 @@ export function ListaProductoConDenunciasAdmin() {
     const fetchData = async () => {
       try {
         await obtenerTodasLasDenuncias();
+        await obtenerTodasLasDenunciasServicios();
       } catch (error) {
         console.error(error);
       }
@@ -61,20 +70,9 @@ export function ListaProductoConDenunciasAdmin() {
   );
 
   //Estado para mostrar el contenido del botón seleccionado
-  const [mostrarContenido, setMostrarContenido] = useState("lista1"); // Por defecto se mostrarán las denuncias pendientes por revisar
+  const [mostrarContenido, setMostrarContenido] = useState(false);
 
-  //Constantes para los 3 botones de opciones:
-  const mostrarDenunciasNoRevisadas = () => {
-    setMostrarContenido("lista1");
-  };
-
-  const mostrarDenunciasRevisadas = () => {
-    setMostrarContenido("lista2");
-  };
-
-  const mostrarTodasLasDenuncias = () => {
-    setMostrarContenido("lista3");
-  };
+  const [mostrarTitulo, setMostrarTitulo] = useState(false); // Agrega el estado para controlar la visibilidad del título
 
   const generarReporte = () => {
     console.log(denunciasPorProducto);
@@ -99,15 +97,15 @@ export function ListaProductoConDenunciasAdmin() {
 
           return {
             "ID  de denuncia": id,
-            "Motivo": motivo,
-            "Descripción": descripcion,
+            Motivo: motivo,
+            Descripción: descripcion,
             "ID denunciante": usuario.id,
             "Nombre denunciante": nombreDenunciante,
             "ID Producto": producto.id,
             "Nombre Producto": producto.nombre,
             "ID propietario": producto.id_usuario,
             "Nombre propietario": nombrePropietario,
-            "Revisada": revisar ? "SI" : "NO",
+            Revisada: revisar ? "SI" : "NO",
             "Fecha creación": createdAt,
             "Fecha actualización": updatedAt,
           };
@@ -129,8 +127,7 @@ export function ListaProductoConDenunciasAdmin() {
     // Agregar el campo extra al objeto
     formattedData.push({
       "Motivo más recurrente": motivoDenunciaRecurrente,
-      "Denuncias con este motivo":
-        cantidadDenunciasMotivoRecurrente,
+      "Denuncias con este motivo": cantidadDenunciasMotivoRecurrente,
     });
 
     console.log(formattedData);
@@ -173,16 +170,181 @@ export function ListaProductoConDenunciasAdmin() {
     return count;
   };
 
+  //Obtiene todos los servicios que tienen denuncias y almacena las denuncias
+  const denunciasPorServicio = serviciosDenuncias.reduce(
+    (resultado, denuncia) => {
+      const idServicio = denuncia.id_servicio;
+      if (!resultado[idServicio]) {
+        resultado[idServicio] = {
+          servicio: denuncia.servicio,
+          denuncias: [],
+        };
+      }
+      resultado[idServicio].denuncias.push(denuncia);
+      return resultado;
+    },
+    {}
+  );
+
+  //Es un filtro para almacenar únicamente las denuncias que no han sido revisadas
+  const denunciasSinRevisarServicios = Object.values(
+    denunciasPorServicio
+  ).filter((servicio) =>
+    servicio.denuncias.some((denuncia) => denuncia.revisar === false)
+  );
+
+  //Es un filtro para almacenar únicamente las denuncias que ya han sido revisadas
+  const denunciasRevisadasServicios = Object.values(
+    denunciasPorServicio
+  ).filter((servicio) =>
+    servicio.denuncias.some((denuncia) => denuncia.revisar === true)
+  );
+
+  //Reporte denuncias para servicios
+  const generarReporteServicios = () => {
+    console.log(denunciasPorServicio);
+
+    const formattedData = Object.values(denunciasPorServicio)
+      .map((servicioDenuncia) => {
+        const { servicio, denuncias } = servicioDenuncia;
+        return denuncias.map((denuncia) => {
+          const {
+            id,
+            motivo,
+            descripcion,
+            revisar,
+            createdAt,
+            updatedAt,
+            usuario,
+            usuarioServicio,
+          } = denuncia;
+
+          const nombreDenunciante = `${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`;
+          const nombrePropietario = `${usuarioServicio.nombre} ${usuarioServicio.apellidoPaterno} ${usuarioServicio.apellidoMaterno}`;
+
+          return {
+            "ID  de denuncia": id,
+            Motivo: motivo,
+            Descripción: descripcion,
+            "ID denunciante": usuario.id,
+            "Nombre denunciante": nombreDenunciante,
+            "ID Servicio": servicio.id,
+            "Título Servicio": servicio.titulo,
+            "ID propietario": servicio.id_usuario,
+            "Nombre propietario": nombrePropietario,
+            Revisada: revisar ? "SI" : "NO",
+            "Fecha creación": createdAt,
+            "Fecha actualización": updatedAt,
+          };
+        });
+      })
+      .flat();
+
+    // Ordenar los datos por el ID de denuncias de menor a mayor
+    formattedData.sort((a, b) => a["ID  de denuncia"] - b["ID  de denuncia"]);
+
+    // Calcular el motivo de denuncia más recurrente y su cantidad
+    const motivoDenunciaRecurrente =
+      obtenerMotivoDenunciaRecurrenteServicio(formattedData);
+    const cantidadDenunciasMotivoRecurrente = contarDenunciasPorMotivoServicio(
+      formattedData,
+      motivoDenunciaRecurrente
+    );
+
+    // Agregar el campo extra al objeto
+    formattedData.push({
+      "Motivo más recurrente": motivoDenunciaRecurrente,
+      "Denuncias con este motivo": cantidadDenunciasMotivoRecurrente,
+    });
+
+    console.log(formattedData);
+    const atributosExcluir = ["updatedAt"];
+    denunciasServiciosReporteExcel(formattedData, atributosExcluir);
+  };
+
+  // Función para obtener el motivo de denuncia más recurrente
+  const obtenerMotivoDenunciaRecurrenteServicio = (data) => {
+    const motivoFrecuenteMap = {};
+    let maxCount = 0;
+    let motivoFrecuente = "";
+
+    data.forEach((item) => {
+      const motivo = item["Motivo"];
+      if (motivoFrecuenteMap[motivo]) {
+        motivoFrecuenteMap[motivo]++;
+      } else {
+        motivoFrecuenteMap[motivo] = 1;
+      }
+      if (motivoFrecuenteMap[motivo] > maxCount) {
+        maxCount = motivoFrecuenteMap[motivo];
+        motivoFrecuente = motivo;
+      }
+    });
+
+    return motivoFrecuente;
+  };
+
+  // Función para contar las denuncias por motivo
+  const contarDenunciasPorMotivoServicio = (data, motivo) => {
+    let count = 0;
+
+    data.forEach((item) => {
+      if (item["Motivo"] === motivo) {
+        count++;
+      }
+    });
+
+    return count;
+  };
+
+  const onDeleteDenunciaServicio = async (preguntaId) => {
+    try {
+      await eliminarDenunciaServicio(preguntaId);
+      console.log("Ejecutando la función en el componente padre");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const mostrarDenunciasNoRevisadas = () => {
+    setMostrarContenido("lista1");
+    setMostrarTitulo(1);
+  };
+
+  const mostrarDenunciasRevisadas = () => {
+    setMostrarContenido("lista2");
+    setMostrarTitulo(1);
+  };
+
+  const mostrarDenunciasNoRevisadasServicios = () => {
+    setMostrarContenido("lista3");
+    setMostrarTitulo(1);
+  };
+
+  const mostrarDenunciasRevisadasServicios = () => {
+    setMostrarContenido("lista4");
+    setMostrarTitulo(1);
+  };
+
+  const mostrarTodasLasDenuncias = () => {
+    setMostrarContenido("lista5");
+    setMostrarTitulo(1);
+  };
+
+  const mostrarTodasLasDenunciasServicios = () => {
+    setMostrarContenido("lista6");
+    setMostrarTitulo(1);
+  };
 
   return (
     <div>
       <div className="contenedorBotones">
         <button className="btn1" onClick={mostrarDenunciasNoRevisadas}>
-          Mostrar denuncias sin revisar de sus productos{" "}
+          Mostrar denuncias de los productos{" "}
         </button>
         <br></br>
-        <button className="btn2" onClick={mostrarDenunciasRevisadas}>
-          Mostrar denuncias revisadas de sus productos
+        <button className="btn2" onClick={mostrarDenunciasNoRevisadasServicios}>
+          Mostrar denuncias de los servicios
         </button>
         <br></br>
         <button className="btn3" onClick={mostrarTodasLasDenuncias}>
@@ -192,9 +354,23 @@ export function ListaProductoConDenunciasAdmin() {
 
       <br></br>
 
-      {mostrarContenido === "lista1" && denunciasSinRevisar.length > 0 && (
+      {mostrarContenido === "lista1" && (
         <div>
-          <div className="tituloListas">Lista de denuncias sin revisar: </div>
+          <br></br>
+          <div className="linea"> </div>
+          <button className="btnPSR" onClick={mostrarDenunciasNoRevisadas}>
+            Denuncias sin revisar
+          </button>
+
+          <button className="btnPR" onClick={mostrarDenunciasRevisadas}>
+            Denuncias revisadas
+          </button>
+
+          {denunciasSinRevisar.length > 0 && mostrarTitulo === 1 && (
+            <div className="tituloListas">
+              Lista de denuncias sin revisar de productos:
+            </div>
+          )}
           {denunciasSinRevisar.map((producto) => (
             <ItemProductoConDenunciaAdmin
               key={producto.id}
@@ -207,13 +383,27 @@ export function ListaProductoConDenunciasAdmin() {
       {denunciasSinRevisar.length === 0 && mostrarContenido === "lista1" && (
         <div>
           <br></br>
-          <h2>No hay denuncias por revisar en este momento.</h2>
+          <h2>No hay denuncias de productos por revisar en este momento.</h2>
         </div>
       )}
 
-      {mostrarContenido === "lista2" && denunciasRevisadas.length > 0 && (
+      {mostrarContenido === "lista2" && (
         <div>
-          <div className="tituloListas">Lista de denuncias revisadas: </div>
+          <br></br>
+          <div className="linea"> </div>
+          <button className="btnPSR" onClick={mostrarDenunciasNoRevisadas}>
+            Denuncias sin revisar
+          </button>
+
+          <button className="btnPR" onClick={mostrarDenunciasRevisadas}>
+            Denuncias revisadas
+          </button>
+
+          {denunciasRevisadas.length > 0 && mostrarTitulo === 1 && (
+            <div className="tituloListas">
+              Lista de denuncias revisadas de productos:
+            </div>
+          )}
           {denunciasRevisadas.map((producto) => (
             <ItemProductoConDenunciaAdmin
               key={producto.id}
@@ -226,35 +416,183 @@ export function ListaProductoConDenunciasAdmin() {
       {denunciasRevisadas.length === 0 && mostrarContenido === "lista2" && (
         <div>
           <br></br>
-          <h2>Aún no hay denuncias revisadas.</h2>
+          <h2>No hay denuncias de productos revisadas en este momento.</h2>
         </div>
       )}
 
-      {mostrarContenido === "lista3" &&
-        Object.keys(denunciasPorProducto).length > 0 && (
-          <div>
+      {mostrarContenido === "lista3" && (
+        <div>
+          <br></br>
+          <div className="linea"> </div>
+          <button
+            className="btnPSR"
+            onClick={mostrarDenunciasNoRevisadasServicios}
+          >
+            Denuncias sin revisar
+          </button>
+
+          <button
+            className="btnPR"
+            onClick={mostrarDenunciasRevisadasServicios}
+          >
+            Denuncias revisadas
+          </button>
+
+          {denunciasSinRevisarServicios.length > 0 && mostrarTitulo === 1 && (
             <div className="tituloListas">
-              Lista de todas las denuncias registradas:{" "}
+              Lista de denuncias sin revisar de servicios:
             </div>
-            <div>
-              <button onClick={generarReporte} className="btnReporte">
-              <box-icon style={{marginRight: "5px"}}  color="white" name='file'></box-icon>Generar reporte (.xlsx)</button>
-            </div>
-            <br></br>
-            {Object.values(denunciasPorProducto).map((producto) => (
-              <ItemProductoConDenunciaAdmin
-                key={producto.id}
-                producto={producto}
-                onDeleteDenuncia={onDeleteDenuncia}
-              />
-            ))}
-          </div>
-        )}
-      {Object.keys(denunciasPorProducto).length === 0 &&
+          )}
+          {denunciasSinRevisarServicios.map((servicio) => (
+            <ItemServicioConDenunciaAdmin
+              key={servicio.id}
+              servicio={servicio}
+              onDeleteDenunciaServicio={onDeleteDenunciaServicio}
+            />
+          ))}
+        </div>
+      )}
+      {denunciasSinRevisarServicios.length === 0 &&
         mostrarContenido === "lista3" && (
           <div>
             <br></br>
-            <h2>No hay denuncias registradas por ahora.</h2>
+            <h2>No hay denuncias de servicios por revisar en este momento.</h2>
+          </div>
+        )}
+
+      {mostrarContenido === "lista4" && (
+        <div>
+          <br></br>
+          <div className="linea"> </div>
+          <button
+            className="btnPSR"
+            onClick={mostrarDenunciasNoRevisadasServicios}
+          >
+            Denuncias sin revisar
+          </button>
+
+          <button
+            className="btnPR"
+            onClick={mostrarDenunciasRevisadasServicios}
+          >
+            Denuncias revisadas
+          </button>
+
+          {denunciasRevisadasServicios.length > 0 && mostrarTitulo === 1 && (
+            <div className="tituloListas">
+              Lista de denuncias revisadas de servicios:
+            </div>
+          )}
+          {denunciasRevisadasServicios.map((servicio) => (
+            <ItemServicioConDenunciaAdmin
+              key={servicio.id}
+              servicio={servicio}
+              onDeleteDenunciaServicio={onDeleteDenunciaServicio}
+            />
+          ))}
+        </div>
+      )}
+      {denunciasRevisadasServicios.length === 0 &&
+        mostrarContenido === "lista4" && (
+          <div>
+            <br></br>
+            <h2>No hay denuncias de servicios revisadas en este momento.</h2>
+          </div>
+        )}
+
+      {mostrarContenido === "lista5" && (
+        <div>
+          <br></br>
+          <div className="linea"> </div>
+          <button className="btnPSRS" onClick={mostrarTodasLasDenuncias}>
+            Mostrar las denuncias de productos
+          </button>
+
+          <button
+            className="btnPRS"
+            onClick={mostrarTodasLasDenunciasServicios}
+          >
+            Mostrar las denuncias de servicios
+          </button>
+
+          {Object.keys(denunciasPorProducto).length > 0 &&
+            mostrarTitulo === 1 && (
+              <div className="tituloListas">
+                Lista de todas las denuncias registradas de productos:
+              </div>
+            )}
+
+          <button onClick={generarReporte} className="btnReporte">
+            <box-icon
+              style={{ marginRight: "5px" }}
+              color="white"
+              name="file"
+            ></box-icon>
+            Generar reporte (.xlsx)
+          </button>
+          <br></br>
+          {Object.values(denunciasPorProducto).map((producto) => (
+            <ItemProductoConDenunciaAdmin
+              key={producto.id}
+              producto={producto}
+              onDeleteDenuncia={onDeleteDenuncia}
+            />
+          ))}
+        </div>
+      )}
+      {Object.keys(denunciasPorProducto).length === 0 &&
+        mostrarContenido === "lista5" && (
+          <div>
+            <br></br>
+            <h2>No hay denuncias de productos registradas por ahora.</h2>
+          </div>
+        )}
+
+      {mostrarContenido === "lista6" && (
+        <div>
+          <br></br>
+          <div className="linea"> </div>
+          <button className="btnPSRS" onClick={mostrarTodasLasDenuncias}>
+            Mostrar las denuncias de productos
+          </button>
+
+          <button
+            className="btnPRS"
+            onClick={mostrarTodasLasDenunciasServicios}
+          >
+            Mostrar las denuncias de servicios
+          </button>
+
+          {Object.keys(denunciasPorServicio).length > 0 &&
+            mostrarTitulo === 1 && (
+              <div className="tituloListas">
+                Lista de todas las denuncias registradas de servicios:
+              </div>
+            )}
+
+          <button onClick={generarReporteServicios} className="btnReporte">
+            <box-icon
+              style={{ marginRight: "5px" }}
+              color="white"
+              name="file"
+            ></box-icon>
+            Generar reporte (.xlsx)
+          </button>
+          <br></br>
+          {Object.values(denunciasPorServicio).map((servicio) => (
+            <ItemServicioConDenunciaAdmin
+              key={servicio.id}
+              servicio={servicio}
+              onDeleteDenunciaServicio={onDeleteDenunciaServicio}
+            />
+          ))}
+        </div>
+      )}
+      {Object.keys(denunciasPorServicio).length === 0 &&
+        mostrarContenido === "lista6" && (
+          <div>
+            <br></br>
+            <h2>No hay denuncias de servicios registradas por ahora.</h2>
           </div>
         )}
     </div>
