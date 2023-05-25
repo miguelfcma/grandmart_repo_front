@@ -25,6 +25,10 @@ import {
   eliminarPreguntaServicioRequest
 } from "../../../API/ServiciosApiRest/preguntasServicio.api";
 
+import { 
+  crearDenunciaServicioRequest 
+} from "../../../API/ServiciosApiRest/denunciasServicio.api";
+
 import { ServicioContext } from "./ServicioContext";
 
 export const useServicios = () => {
@@ -268,6 +272,24 @@ export const ServicioContextProvider = ({ children }) => {
       }
     };
 
+    /////////////////////////////////////////////////////////////////
+
+  //Denuncias
+
+  const crearDenunciaServicio = async (data) => {
+    console.log("datos desde el provider", data);
+    try {
+      const response = await crearDenunciaServicioRequest(data);
+
+      if (response.status == 201) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
   return (
@@ -292,6 +314,8 @@ export const ServicioContextProvider = ({ children }) => {
         crearRespuestaServicio,
         serviciosPreguntas,
         eliminarPreguntaServicio,
+
+        crearDenunciaServicio,
 
       }}
     >

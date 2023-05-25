@@ -214,7 +214,7 @@ console.log("preguntasRespondidasServicios", preguntasRespondidasServicios);
         </button>
         <br />
         <button className="bton3" onClick={mostrarOpinionesProductosPropios}>
-          Mostrar reviews de productos{" "}
+          Mostrar reviews de productos y servicios{" "}
         </button>
       </div>
 

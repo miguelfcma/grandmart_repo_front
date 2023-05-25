@@ -1,5 +1,5 @@
-import { crearDenunciaProductoRequest } from "../../../../../API/ProductosApiRest/denunciasProducto.api";
-import { useProductos } from "../../../ProductosContext/ProductoProvider";
+import { crearDenunciaServicioRequest } from "../../../../../API/ServiciosApiRest/denunciasServicio.api";
+import { useServicios } from "../../../ServiciosContext/ServicioProvider";
 import { Form, Button, Card } from "react-bootstrap";
 import "./Form2.css";
 import { useState } from "react";
@@ -7,21 +7,21 @@ import { Link, useParams,useLocation,useNavigate  } from "react-router-dom";
 import { FooterHome } from "../../../../HomePageComponents/FooterHome";
 import InputGroup from "react-bootstrap/InputGroup";
 
-export function Form2NuevaDenunciaProductoGeneral() {
-  window.scrollTo(0, 0); //Para que se muestre el producto desde arriba de la página
+export function Form2NuevaDenunciaServicioGeneral() {
+  window.scrollTo(0, 0); //Para que se muestre el servicio desde arriba de la página
 
   const navigate = useNavigate();
-  const { crearDenunciaProducto } = useProductos();
+  const { crearDenunciaServicio } = useServicios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const location = useLocation();
   const opcion = new URLSearchParams(location.search).get("opcion");
  
-  const { id_producto } = useParams();
+  const { id_servicio } = useParams();
   const [formData, setFormData] = useState({
     motivo:opcion,
     descripcion: "",
     revisar: 0,
-    id_producto: id_producto,
+    id_servicio: id_servicio,
     id_usuario: usuario.id,
   });
 
@@ -34,17 +34,17 @@ export function Form2NuevaDenunciaProductoGeneral() {
     }
     try {
       console.log("data desde el formulario",formData);
-      const res = await crearDenunciaProducto(formData);
+      const res = await crearDenunciaServicio(formData);
       setFormData({
         motivo:opcion,
         descripcion: "",
-        id_producto: id_producto,
+        id_servicio: id_servicio,
         id_usuario: usuario.id,
       });
       
       alert("La denuncia fue creada exitosamente.");
 
-      navigate(`/productos/detalles/${id_producto}`);
+      navigate(`/servicios/detalles/${id_servicio}`);
 
     } catch (error) {
       console.error(error)

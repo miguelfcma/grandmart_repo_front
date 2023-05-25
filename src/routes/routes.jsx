@@ -54,6 +54,8 @@ import { Form2NuevaDenunciaProductoGeneral } from "../components/ProductoCompone
 
 // Páginas de servicios
 import { ServiciosDetallesPage } from "../pages/HomePages/Servicios-Pages/ServiciosDetallesPage";
+import { FormNuevaDenunciaServicioGeneral } from "../components/ServicioComponents/ServiciosGeneral/DenunciasServicioGeneral/DenunciasServicioComponentesGeneral/FormNuevaDenunciaServicioGeneral";
+import { Form2NuevaDenunciaServicioGeneral } from "../components/ServicioComponents/ServiciosGeneral/DenunciasServicioGeneral/DenunciasServicioComponentesGeneral/Form2NuevaDenunciaServicioGeneral";
 
 //Página de categorias de home page
 import { CategoriasHomePage } from "../pages/HomePages/Categorias-pages/CategoriasHomePage";
@@ -319,6 +321,16 @@ export function MyRoutes() {
           exact
           path="/servicios/detalles/:id"
           element={<ServiciosDetallesPage />}
+        />
+        <Route
+          exact
+          path="/denuncia/servicio/:id_servicio"
+          element={<FormNuevaDenunciaServicioGeneral />}
+        />
+        <Route
+          exact
+          path="/denuncia/servicio/:id_servicio/detalles"
+          element={<Form2NuevaDenunciaServicioGeneral />}
         />
         <Route
           exact

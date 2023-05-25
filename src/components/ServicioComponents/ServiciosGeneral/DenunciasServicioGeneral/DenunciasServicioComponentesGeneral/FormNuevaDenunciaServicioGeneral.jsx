@@ -1,4 +1,4 @@
-import { useProductos } from "../../../ProductosContext/ProductoProvider";
+import { useServicios } from "../../../ServiciosContext/ServicioProvider";
 import { Form, Button, Card, Accordion } from "react-bootstrap";
 import "./FormNuevaDenunciaProductoGeneral.css";
 import { useState } from "react";
@@ -6,14 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { FooterHome } from "../../../../HomePageComponents/FooterHome";
 import { useParams } from "react-router-dom";
 
-export function FormNuevaDenunciaProductoGeneral() {
+export function FormNuevaDenunciaServicioGeneral() {
   const navigate = useNavigate();
 
   window.scrollTo(0, 0); //Para que se muestre desde arriba la página
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-  const { id_producto } = useParams();
-  console.log(id_producto);
+  const { id_servicio } = useParams();
+  console.log(id_servicio);
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleSubmit = (event) => {
@@ -22,7 +22,7 @@ export function FormNuevaDenunciaProductoGeneral() {
     if (selectedOption == "") {
       console.log("Logaritmo neperiano");
     } else {
-      navigate(`/denuncia/producto/${id_producto}/detalles?opcion=${selectedOption}`);
+      navigate(`/denuncia/servicio/${id_servicio}/detalles?opcion=${selectedOption}`);
 
     }
   };
@@ -52,14 +52,14 @@ export function FormNuevaDenunciaProductoGeneral() {
                     <Form.Check
                       type="radio"
                       name="denuncia"
-                      label="El producto genera dudas acerca de su legalidad o no transmite la confianza necesaria."
+                      label="El servicio genera dudas acerca de su legalidad o no transmite la confianza necesaria."
                       onChange={(e) =>
                         setSelectedOption(e.target.parentElement.innerText)
                       }
                     />
                   </Accordion.Header>
                   <Accordion.Body className="detallesDenuns">
-                    Se prohibe ofrecer productos o servicios que generen cierta
+                    Se prohibe ofrecer servicios o servicios que generen cierta
                     desconfianza o que puedan vulnerar la seguridad de los
                     usuarios.
                   </Accordion.Body>
@@ -105,7 +105,7 @@ export function FormNuevaDenunciaProductoGeneral() {
                       type="radio"
                       name="denuncia"
                       label="Quiere cobrar un precio diferente o hay incoherencias con
-                      el precio y los productos de la publicación."
+                      el precio y los servicios de la publicación."
                       onChange={(e) =>
                         setSelectedOption(e.target.parentElement.innerText)
                       }
@@ -129,10 +129,10 @@ export function FormNuevaDenunciaProductoGeneral() {
                     />
                   </Accordion.Header>
                   <Accordion.Body className="detallesDenuns">
-                    Se prohibe publicar productos falsificados que incluyan una
+                    Se prohibe publicar servicios falsificados que incluyan una
                     marca de un tercero y que no hayan sido fabricados o
                     autorizados por sus titulares. Hacer referencia a otras
-                    marcas para describir un producto utilizando palabras como:
+                    marcas para describir un servicio utilizando palabras como:
                     “símil”, “tipo” o “réplica”.
                   </Accordion.Body>
                 </Accordion.Item>
@@ -168,14 +168,14 @@ export function FormNuevaDenunciaProductoGeneral() {
                   </Accordion.Header>
                   <Accordion.Body className="detallesDenuns">
                     Se prohibe publicar envío gratis y no asumir todos los
-                    costos relacionados con el envío del producto.
+                    costos relacionados con el envío del servicio.
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
             </div>
             <br></br>
 
-            {/* <Link to="/denuncia/producto/:id_producto/detalles"> */}
+            {/* <Link to="/denuncia/servicio/:id_servicio/detalles"> */}
             <Button type="submit">Siguiente</Button>
 
             {/* </Link> */}
