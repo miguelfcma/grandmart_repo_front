@@ -40,7 +40,7 @@
 .card-producto-img {
   width: auto;
   height: 200px;
-  object-fit: contain;
+  object-fit: contain !important;
   margin-bottom: 10px;
 }
 
