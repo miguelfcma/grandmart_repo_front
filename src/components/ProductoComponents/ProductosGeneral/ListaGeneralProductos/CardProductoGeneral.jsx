@@ -82,6 +82,9 @@ export function CardProductoGeneral({ producto, favoritos }) {
 
   return (
     <div className="card-producto">
+      {producto.stock === 0 && (
+        <div className="agotado-label"><h4>Agotado</h4></div>
+      )}
       <Link
         to={`/productos/detalles/${producto.id}`}
         style={{ textDecoration: "none" }}
@@ -91,7 +94,7 @@ export function CardProductoGeneral({ producto, favoritos }) {
           src={urlImagen}
           alt={producto.nombre}
         />
-        <div>{producto.nombre}</div>
+        <div className="item-productogeneral-nombre">{producto.nombre}</div>
         <br></br>
         <div>${producto.precio}</div>
       </Link>

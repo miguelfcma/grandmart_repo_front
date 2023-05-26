@@ -2,11 +2,12 @@
   .card-producto {
     display: flex;
     flex-direction: column;
-    flex: 1 0 300px; /* Se establece una flex-basis de 300px */
+    flex: 1 0 300px;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative; /* Se agrega la posición relativa para el elemento padre */
   }
 }
 
@@ -18,18 +19,19 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative; /* Se agrega la posición relativa para el elemento padre */
 }
 
 .card-producto div {
   margin: 0;
   margin-left: 1px;
-  text-align: justify; /* Agregado para justificar el nombre del producto*/
+  text-align: justify;
   color: #4d4d4d;
   font-size: 17px;
 }
 
 .card-producto div:nth-of-type(2) {
-  text-align: center; /* Agregado para centrar el precio del producto */
+  text-align: center;
   color: #000000;
   font-family: Helvetica;
   font-size: 21px;
@@ -50,11 +52,34 @@
   background-color: #7197ff;
   color: #ffffff;
   font-weight: bold;
-  /* text-shadow: 1px 1px 0 #9fced8, -1px -1px 0 #9fced8, 1px -1px 0 #9fced8, -1px 1px 0 #9fced8; */
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
 
 .card-producto button:hover {
   background-color: #1c6bc3;
+}
+
+.agotado-label {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  background-color: #f44336;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  transform: rotate(-45deg);
+  z-index: 1;
+  /* Estilos adicionales para hacerlo más estilizado */
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.agotado-label h4{
+  margin: 0;
+  color: #ffffff; /* Color de las letras */
+  font-weight: bold; /* Negritas */
 }

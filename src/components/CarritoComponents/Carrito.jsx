@@ -18,7 +18,7 @@ export function Carrito() {
   useEffect(() => {
     const fetchData = async (userId) => {
       try {
-      await obtenerCarritoDeCompras(userId)
+        await obtenerCarritoDeCompras(userId);
       } catch (error) {
         console.error(error);
       }
@@ -78,14 +78,25 @@ export function Carrito() {
                   <p>Precio: ${item.producto.precio}</p>
                 </div>
                 <div className="cart-item-controls">
-                  <button className="btnMas" onClick={() => incrementarCantidadItemCarrito(item)}>
-                    +
-                  </button>
-                  <span>{item.cantidad}</span>
-                  <button className="btnMenos" onClick={() => decrementarCantidadItemCarrito(item)}>
-                    -
-                  </button>
-                  <button className="btnDelete" onClick={() => eliminarItemCarrito(item)}>
+                  <div className="btn-item-control-cantidad">
+                    <button
+                      className="btnMas"
+                      onClick={() => incrementarCantidadItemCarrito(item)}
+                    >
+                      +
+                    </button>
+                    <span>{item.cantidad}</span>
+                    <button
+                      className="btnMenos"
+                      onClick={() => decrementarCantidadItemCarrito(item)}
+                    >
+                      -
+                    </button>
+                  </div>
+                  <button
+                    className="btnDelete"
+                    onClick={() => eliminarItemCarrito(item)}
+                  >
                     Eliminar
                   </button>
                 </div>
@@ -93,7 +104,9 @@ export function Carrito() {
             ))}
             <p>Total: ${getTotal()}</p>
             <div className="cart-actions">
-              <button className="btn-empty"onClick={vaciarCarritoCompleto}>Vaciar carrito</button>
+              <button className="btn-empty" onClick={vaciarCarritoCompleto}>
+                Vaciar carrito
+              </button>
 
               <Link
                 to="/carrito-compras"

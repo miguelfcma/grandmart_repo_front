@@ -37,9 +37,13 @@ export function Favoritos() {
                 <>
                   {favoritos.map((producto) => (
                     <div key={producto.id} className="favoritos-item">
-                      <Link to={`/productos/detalles/${producto.producto.id}`}>
-                        {producto.producto.nombre}
-                      </Link>
+                      <div className="favoritos-item-nombre">
+                        <Link
+                          to={`/productos/detalles/${producto.producto.id}`}
+                        >
+                          {producto.producto.nombre}
+                        </Link>
+                      </div>
                       <div className="eliminar-btn-container">
                         <button
                           className="eliminar-btn"

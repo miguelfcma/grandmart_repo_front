@@ -83,8 +83,8 @@
     background-color: rgba(245, 245, 245, 0.979) !important;
     border-radius: 6px;
     margin-top: -2px;
-    overflow-y: auto; /* para scroll vertical */
-    max-height: 270px; /* la altura máxima del menu*/
+    overflow-y: auto;
+    max-height: 500px;
   }
   .navbar-nav {
     margin-left: 20px;
@@ -169,6 +169,8 @@
   position: absolute;
   min-width: 200px;
   z-index: 1;
+
+  
 }
 
 .dropdown-content a {
@@ -226,7 +228,7 @@
 .cart-icon-container:hover .cart-dropdown {
   display: block;
 }
-
+ 
 .cart-dropdown {
   position: absolute;
   top: 23px;
@@ -238,6 +240,9 @@
   display: none;
   z-index: 1;
   width: 250px;
+
+  overflow-y: auto;
+  max-height: 300px;
 }
 
 .cart-item {
@@ -245,17 +250,30 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
+  
 }
 
 .cart-item-info h3 {
   margin: 0;
   font-size: 16px;
+  color: #333;
 }
 
 .cart-item-info p {
   margin: 0;
-  font-size: 14px;
-  color: #999;
+  font-size: 20px;
+  color:#464646;;
+}
+.cart-item-controls {
+  display: flex;
+  flex-direction: column; /* Cambia la dirección de los elementos a columna */
+  align-items: flex-end; /* Alinea los elementos a la derecha */
+}
+
+.btn-item-control-cantidad {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Ajusta el margen inferior según tus necesidades */
 }
 
 .cart-item-controls button {
@@ -265,6 +283,8 @@
   padding: 5px 10px;
   margin-left: 5px;
   cursor: pointer;
+
+  
 }
 
 .cart-item-controls button:hover {
@@ -284,41 +304,33 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   z-index: 1;
   width: 270px;
-}
 
+  overflow-y: auto;
+  max-height: 300px;
+}
 .favoritos-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #ccc; /* Linea divisora de productos */
+  border-bottom: 1px solid #ccc; /* Línea divisora de productos */
 }
 
-.favoritos-item a {
+.favoritos-item-nombre {
+  flex: 1; /* El nombre del producto ocupa el espacio restante */
+}
+
+.favoritos-item-nombre a {
   color: #333;
-  background-color: #ffffff;
-
   text-decoration: none;
-}
+  overflow: hidden;
 
-.favoritos-item a:hover {
-  color: #1256a3;
-  background-color: #eeeeee;
 }
 
 .eliminar-btn-container {
-  position: relative;
-  visibility: hidden;
-}
-
-.favoritos-item:hover .eliminar-btn-container{
-  visibility: visible;
+  margin-left: 10px; /* Ajusta el margen izquierdo según tus necesidades */
 }
 
 .eliminar-btn {
-  position: absolute;
-  top: -32px;
-  right: -0px;
   background-color: #ff3d3d;
   color: #ffffff;
   border: none;
@@ -328,10 +340,10 @@
   cursor: pointer;
 }
 
+
 .eliminar-btn:hover {
   background-color: #cc0000;
 }
-
 .cart-actions{
   margin: auto;
   text-align: center

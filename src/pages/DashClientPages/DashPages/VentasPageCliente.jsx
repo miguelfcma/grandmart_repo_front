@@ -7,7 +7,7 @@ export function VentasPageCliente() {
     <div className="content-container">
       <HeaderCliente/>
       <SidebarCliente />
-      <h1>Página de pedidos</h1>
+
       <ListaVentasCliente/>
     </div>
   )
