@@ -33,37 +33,45 @@ export function SidebarRepartidor() {
               Ordenes
             </Link>
           </li>
+          <li>
+            <Link to="/dashRepartidor/perfil" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="user-detail"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Mi perfil
+            </Link>
+          </li>
           <div className="user-options">
-                <div className="separateIcon">
-                  <br></br>
-                  <Link
-                    to="/"
-                    style={{ textDecoration: "none", color: "white" }}
-                  >
-                    <box-icon
-                      name="home"
-                      color="#ffffff"
-                      style={{ verticalAlign: "middle" }}
-                    ></box-icon>
-                    Página principal
-                  </Link>
-                  <br></br>
-                  <br></br>
-                  <Link
-                    to="/"
-                    onClick={handleLogout}
-                    style={{ textDecoration: "none", color: "white" }}
-                    className="iconuser"
-                  >
-                    <box-icon
-                      name="log-out"
-                      color="#ffffff"
-                      style={{ verticalAlign: "middle" }}
-                    ></box-icon>
-                    Cerrar sesión
-                  </Link>
-                </div>
-              </div>
+            <div className="separateIcon">
+              <br></br>
+              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                <box-icon
+                  name="home"
+                  color="#ffffff"
+                  style={{ verticalAlign: "middle" }}
+                ></box-icon>
+                Página principal
+              </Link>
+              <br></br>
+              <br></br>
+              <Link
+                to="/"
+                onClick={handleLogout}
+                style={{ textDecoration: "none", color: "white" }}
+                className="iconuser"
+              >
+                <box-icon
+                  name="log-out"
+                  color="#ffffff"
+                  style={{ verticalAlign: "middle" }}
+                ></box-icon>
+                Cerrar sesión
+              </Link>
+            </div>
+          </div>
         </ul>
       </div>
 
@@ -72,9 +80,7 @@ export function SidebarRepartidor() {
           <box-icon name="menu" color="#ffffff" size="40px"></box-icon>
         </Button>
         <Offcanvas show={show} onHide={handleClose}>
-          <Offcanvas.Header closeButton>
-      
-          </Offcanvas.Header>
+          <Offcanvas.Header closeButton></Offcanvas.Header>
           <Offcanvas.Body>
             <div className="sidebar-container2">
               <ul>
@@ -88,6 +94,17 @@ export function SidebarRepartidor() {
                       style={{ verticalAlign: "middle" }}
                     ></box-icon>
                     Ordenes
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashRepartidor/perfil" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="user-detail"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Mi perfil
                   </Link>
                 </li>
               </ul>

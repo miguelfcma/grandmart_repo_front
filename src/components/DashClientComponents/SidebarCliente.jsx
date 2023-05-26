@@ -78,6 +78,27 @@ export function SidebarCliente({ children }) {
               Ventas
             </Link>
           </li>
+
+          <li>
+            <Link to="/dashClient/preguntas" className="separateIcon">
+              <box-icon
+                name="comment"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Preguntas/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Opiniones
+            </Link>
+          </li>
+          <li>
+            <Link to="/dashClient/estadisticas" className="separateIcon">
+              <box-icon
+                name="line-chart"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Estadísticas
+            </Link>
+          </li>
           <li>
             <Link to="/dashClient/perfil" className="separateIcon">
               <box-icon
@@ -182,14 +203,23 @@ export function SidebarCliente({ children }) {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashClient/perfil" className="separateIcon">
+                  <Link to="/dashClient/ventas" className="separateIcon">
                     <box-icon
-                      type="solid"
-                      name="shopping-bags"
+                      name="package"
                       color="#ffffff"
                       style={{ verticalAlign: "middle" }}
                     ></box-icon>
-                    Pedidos
+                    Ventas
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashClient/preguntas" className="separateIcon">
+                    <box-icon
+                      name="comment"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Preguntas/Opiniones
                   </Link>
                 </li>
                 <li>

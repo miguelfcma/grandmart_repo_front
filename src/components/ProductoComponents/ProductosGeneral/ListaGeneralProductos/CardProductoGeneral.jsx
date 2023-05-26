@@ -38,7 +38,7 @@ export function CardProductoGeneral({ producto, favoritos }) {
   }, [producto.id, esProductoFavorito]);
 
   async function agregarAlCarrito() {
-    if (usuario) {
+    if (usuario && usuario.tipoUsuario === 0) {
       try {
         await agregarProductoAlCarrito({
           id_usuario: usuario.id,
@@ -50,12 +50,16 @@ export function CardProductoGeneral({ producto, favoritos }) {
         console.error("Error agregando producto al carrito:", error);
       }
     } else {
-      navigate("/login");
+      if (!usuario || (usuario && usuario.tipoUsuario !== 0)) {
+        alert("Solo los usuarios tipo cliente pueden agregar productos al carrito.");
+      } else {
+        navigate("/login");
+      }
     }
   }
-
+  
   async function toggleFavorito() {
-    if (usuario) {
+    if (usuario && usuario.tipoUsuario === 0) {
       if (esProductoFavorito) {
         try {
           const favorito = favoritos.find(
@@ -76,14 +80,22 @@ export function CardProductoGeneral({ producto, favoritos }) {
       }
       setEsFavorito(!esFavorito);
     } else {
-      navigate("/login");
+      if (usuario && usuario.tipoUsuario !== 0) {
+        alert(
+          "Solo los usuarios tipo cliente pueden agregar a favoritos."
+        );
+      } else {
+        navigate("/login");
+      }
     }
   }
 
   return (
     <div className="card-producto">
       {producto.stock === 0 && (
-        <div className="agotado-label"><h4>Agotado</h4></div>
+        <div className="agotado-label">
+          <h4>Agotado</h4>
+        </div>
       )}
       <Link
         to={`/productos/detalles/${producto.id}`}
@@ -111,10 +123,15 @@ export function CardProductoGeneral({ producto, favoritos }) {
       </button>
 
       <div className="separateIcon">
-      <button onClick={agregarAlCarrito}>
-        <box-icon name="cart-add" type="solid" color="white" style={{ verticalAlign: "middle" }}></box-icon>
-        Agregar al carrito
-      </button>
+        <button onClick={agregarAlCarrito}>
+          <box-icon
+            name="cart-add"
+            type="solid"
+            color="white"
+            style={{ verticalAlign: "middle" }}
+          ></box-icon>
+          Agregar al carrito
+        </button>
       </div>
     </div>
   );

@@ -100,19 +100,27 @@ export function DetallesProductoGeneral({ id }) {
   };
 
   async function agregarAlCarrito() {
-    if (usuario) {
-      try {
-        await agregarProductoAlCarrito({
-          id_usuario: usuario.id,
-          id_producto: producto.id,
-          cantidad: 1,
-        });
-      } catch (error) {
-        // Manejar el error, si es necesario
-        console.error("Error agregando producto al carrito:", error);
-      }
-    } else {
+    if (!usuario) {
       navigate("/login");
+      return;
+    }
+
+    if (usuario.tipoUsuario !== 0) {
+      alert(
+        "Solo los usuarios tipo cliente pueden agregar productos al carrito."
+      );
+      return;
+    }
+
+    try {
+      await agregarProductoAlCarrito({
+        id_usuario: usuario.id,
+        id_producto: producto.id,
+        cantidad: 1,
+      });
+    } catch (error) {
+      // Manejar el error, si es necesario
+      console.error("Error agregando producto al carrito:", error);
     }
   }
 
@@ -123,6 +131,11 @@ export function DetallesProductoGeneral({ id }) {
   function toggleFavorito() {
     if (!usuario) {
       navigate("/login");
+      return;
+    }
+
+    if (usuario.tipoUsuario !== 0) {
+      alert("Solo los usuarios tipo cliente pueden agregar a favoritos.");
       return;
     }
 
@@ -267,11 +280,11 @@ export function DetallesProductoGeneral({ id }) {
               </Card>
               <br></br>
               <Button
-                  onClick={() => window.history.back()}
-                  className="back-button3"
-                >
-                  Atrás
-                </Button>
+                onClick={() => window.history.back()}
+                className="back-button3"
+              >
+                Atrás
+              </Button>
             </>
           )}
         </div>

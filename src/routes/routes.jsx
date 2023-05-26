@@ -38,6 +38,8 @@ import { RegistroProductoClientPage2 } from "../pages/DashClientPages/DashPages/
 import { ServiciosPageClient } from "../pages/DashClientPages/DashPages/ServiciosPageClient";
 import { ServicioDetallesClientPage } from "../pages/DashClientPages/DashPages/ServicioPagesCliente/ServicioDetallesClientPage";
 
+import { EstadisticasPageCliente } from "../pages/DashClientPages/DashPages/EstadisticasPageCliente";
+import { PreguntasPageCliente } from "../pages/DashClientPages/DashPages/PreguntasPageCliente";
 // Páginas de inicio de sesión y registro
 import { BlogPage } from "../pages/HomePages/Blog-Pages/BlogPage";
 import { HomePage } from "../pages/HomePages/HomePage";
@@ -261,7 +263,16 @@ export function MyRoutes() {
           path="/dashClient/ventas"
           element={<VentasPageCliente />}
         />
-
+        <Route
+          exact
+          path="/dashClient/estadisticas"
+          element={<EstadisticasPageCliente />}
+        />
+        <Route
+          exact
+          path="/dashClient/preguntas"
+          element={<PreguntasPageCliente />}
+        />
         {/*RUTAS DE PERFIL DE CLIENTES */}
         <Route exact path="/dashClient/perfil" element={<PerfilPageClient />} />
         <Route

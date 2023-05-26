@@ -4,9 +4,10 @@ import "./SignupFormUsuario.css";
 import { Link, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-
-
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Alert from "react-bootstrap/Alert";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 export function SignupFormUsuario() {
   const { createUsuario } = useUsuarios();
   const navigate = useNavigate();
@@ -19,10 +20,23 @@ export function SignupFormUsuario() {
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [telefono, setTelefono] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [tipoUsuario, setTipoUsuario] = useState("false");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmar, setShowPasswordConfirmar] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (
+      !validateFechaNacimiento() ||
+      !validateEmail() ||
+      !validateTelefono() ||
+      !validatePassword()
+    ) {
+      return;
+    }
 
     const formData = {
       nombre: nombre,
@@ -48,15 +62,82 @@ export function SignupFormUsuario() {
         setFechaNacimiento("");
         setTelefono("");
         setPassword("");
+        setConfirmPassword("");
         navigate("/login");
       } else {
-        window.alert(
+        setError(
           "Ha ocurrido un error al procesar la solicitud. Inténtelo de nuevo más tarde."
         );
       }
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const validateFechaNacimiento = () => {
+    const today = new Date();
+    const selectedDate = new Date(fechaNacimiento);
+    const minAge = 18; // Edad mínima requerida
+
+    // Calcula la fecha mínima de nacimiento permitida
+    const minDate = new Date(
+      today.getFullYear() - minAge,
+      today.getMonth(),
+      today.getDate()
+    );
+
+    if (selectedDate > today) {
+      setError("La fecha de nacimiento debe ser anterior a la fecha actual.");
+      return false;
+    }
+
+    if (selectedDate > minDate) {
+      setError("Debes ser mayor de edad para registrarte.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const validateEmail = () => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+      setError("El formato del email es incorrecto.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const validateTelefono = () => {
+    const telefonoPattern = /^\d{10}$/;
+
+    if (!telefonoPattern.test(telefono)) {
+      setError("El formato del teléfono es incorrecto. Debe tener 10 dígitos.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const validatePassword = () => {
+    if (password.length < 7) {
+      setError("La contraseña debe tener al menos 7 caracteres.");
+      return false;
+    }
+
+    if (!/\d/.test(password)) {
+      setError("La contraseña debe contener al menos un número.");
+      return false;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Las contraseñas no coinciden.");
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -75,18 +156,17 @@ export function SignupFormUsuario() {
         <div className="signup-form-container">
           <h2>Crear una cuenta</h2>
           <Form onSubmit={handleSubmit} className="signup-form">
+           
             <Form.Group className="mb-3" controlId="nombre">
               <Form.Label>Nombre:</Form.Label>
-   
-                <Form.Control
-                  type="text"
-                  value={nombre}
-                  placeholder="Nombre"
-                  onChange={(event) => setNombre(event.target.value)}
-                  required
-                />
-               
-             
+
+              <Form.Control
+                type="text"
+                value={nombre}
+                placeholder="Nombre"
+                onChange={(event) => setNombre(event.target.value)}
+                required
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="apellidoPaterno">
               <Form.Label>Apellido Paterno:</Form.Label>
@@ -150,19 +230,62 @@ export function SignupFormUsuario() {
                 value={telefono}
                 onChange={(event) => setTelefono(event.target.value)}
                 required
+                pattern="[0-9]*"
+                title="Ingresa solo números"
+                maxLength={10}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Contraseña"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
+              {showPassword ? (
+                <FaEye
+                  className="password-icon"
+                  title="Ocultar contraseña"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              ) : (
+                <FaEyeSlash
+                  className="password-icon"
+                  title="Mostrar contraseña"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              )}
             </Form.Group>
-
+            <Form.Group className="mb-3" controlId="confirmPassword">
+              <Form.Label>Confirmar Contraseña:</Form.Label>
+              <Form.Control
+                type={showPasswordConfirmar ? "text" : "password"}
+                placeholder="Confirmar Contraseña"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+                required
+              />
+              {showPasswordConfirmar ? (
+                <FaEye
+                  className="password-icon"
+                  title="Ocultar contraseña"
+                  onClick={() =>
+                    setShowPasswordConfirmar(!showPasswordConfirmar)
+                  }
+                />
+              ) : (
+                <FaEyeSlash
+                  className="password-icon"
+                  title="Mostrar contraseña"
+                  onClick={() =>
+                    setShowPasswordConfirmar(!showPasswordConfirmar)
+                  }
+                />
+              )}
+            </Form.Group>
+            {error && <Alert variant="danger">{error}</Alert>}
             <Button type="submit">Crear cuenta</Button>
           </Form>
         </div>

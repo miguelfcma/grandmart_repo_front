@@ -5,18 +5,25 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useServicios } from "../../../ServicioComponents/ServiciosContext/ServicioProvider";
 
 export function FiltradoProductosPorBusqueda({ searchTerm }) {
-  const { productosAll, loadProductos,favoritos,loadFavoritos  } = useProductos();
+  const { productosAll, loadProductos, favoritos, loadFavoritos } =
+    useProductos();
   const { serviciosAll, loadServicios } = useServicios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  // Declarar la variable noHayResultados fuera de la función renderMain()
+  const noHayResultados = `No hay publicaciones que coincidan con tu búsqueda "${searchTerm}".`;
+
   useEffect(() => {
     loadProductos();
     loadServicios();
   }, []);
+
   useEffect(() => {
     if (usuario && usuario.id) {
       loadFavoritos(usuario.id);
     }
   }, []);
+
   function renderMain() {
     let filteredProducts = productosAll;
     let filteredServicios = serviciosAll;
@@ -38,8 +45,7 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
         servicio.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    if (filteredProducts.length === 0 || filteredServicios.length === 0) {
-      const noHayResultados = `No hay publicaciones que coincidan con tu búsqueda "${searchTerm}."`;
+    if (filteredProductos.length === 0 || filteredServicios.length === 0) {
       return (
         <div>
           <div style={{ paddingTop: "30px", fontSize: "30px" }}>
@@ -75,10 +81,14 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
                   alignItems: "stretch",
                 }}
               >
-                <CardProductoGeneral key={producto.id} producto={producto} favoritos={favoritos} />
+                <CardProductoGeneral
+                  key={producto.id}
+                  producto={producto}
+                  favoritos={favoritos}
+                />
               </div>
             ))}
-            
+
             {filterServicios.map((servicio) => (
               <div
                 key={servicio.id}

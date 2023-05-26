@@ -3,7 +3,7 @@ import { useOrdenes } from "../OrdenesContext/OrdenProvider";
 import { ItemVentaCliente } from "./ItemVentasCliente";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FiltroVentas } from "./FiltroVentas";
-
+import { VentasReporteExcel } from "../../GeneracionDeReportes/VentasReporteExcel";
 export function ListaVentasCliente() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { obtenerVentasPorUsuarioId, ventasUser } = useOrdenes();
@@ -57,6 +57,28 @@ export function ListaVentasCliente() {
 
   const ventasAMostrar = filtros ? ventasFiltradas : ventasUser;
 
+  const atributosExcluir = [];
+  const ventasEstructuradas = ventasAMostrar.flatMap((venta) => {
+    const orden = venta.orden;
+
+    return venta.productos.map((producto) => ({
+      idOrden: orden.id.toString(),
+
+      estadoOrden: orden.estado_orden,
+
+      fechaVenta: orden.createdAt,
+
+      totalVenta: venta.totalVenta.toString(),
+      idProducto: producto.producto.id.toString(),
+      nombreProducto: producto.producto.nombre,
+      precioProducto: producto.producto.precio.toString(),
+      cantidad: producto.cantidad.toString(),
+      subtotal: producto.subtotal.toString(),
+    }));
+  });
+
+  console.log(ventasEstructuradas);
+
   return (
     <Container>
       <h1>Historial de Ventas</h1>
@@ -69,6 +91,14 @@ export function ListaVentasCliente() {
         <h1>No hay ventas registradas aún</h1>
       ) : (
         <Row>
+          <Button
+            variant="primary"
+            onClick={() =>
+              VentasReporteExcel(ventasEstructuradas, atributosExcluir)
+            }
+          >
+            Generar Reporte Excel
+          </Button>
           {ventasAMostrar.map((venta) => (
             <Col key={venta.id} sm={12}>
               <ItemVentaCliente venta={venta} />

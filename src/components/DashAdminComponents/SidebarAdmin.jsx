@@ -78,7 +78,7 @@ export function SidebarAdmin() {
               Ventas
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/dashAdmin/compras" className="separateIcon">
               <box-icon
                 name="bar-chart-alt"
@@ -87,7 +87,7 @@ export function SidebarAdmin() {
               ></box-icon>
               Compras
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/dashAdmin/ordenes" className="separateIcon">
               <box-icon
@@ -99,17 +99,7 @@ export function SidebarAdmin() {
               Ordenes
             </Link>
           </li>
-          <li>
-            <Link to="/dashAdmin/perfil" className="separateIcon">
-              <box-icon
-                type="solid"
-                name="user-detail"
-                color="#ffffff"
-                style={{ verticalAlign: "middle" }}
-              ></box-icon>
-              Mi perfil
-            </Link>
-          </li>
+
           <li>
             <Link to="/dashAdmin/preguntas" className="separateIcon">
               <box-icon
@@ -148,6 +138,17 @@ export function SidebarAdmin() {
                 style={{ verticalAlign: "middle" }}
               ></box-icon>
               Backups base de datos
+            </Link>
+          </li>
+          <li>
+            <Link to="/dashAdmin/perfil" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="user-detail"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Mi perfil
             </Link>
           </li>
         </ul>
@@ -248,7 +249,7 @@ export function SidebarAdmin() {
                     Ventas
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/dashAdmin/compras" className="separateIcon">
                     <box-icon
                       name="bar-chart-alt"
@@ -257,7 +258,7 @@ export function SidebarAdmin() {
                     ></box-icon>
                     Compras
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="/dashAdmin/ordenes" className="separateIcon">
                     <box-icon
@@ -269,17 +270,7 @@ export function SidebarAdmin() {
                     Ordenes
                   </Link>
                 </li>
-                <li>
-                  <Link to="/dashAdmin/perfil" className="separateIcon">
-                    <box-icon
-                      type="solid"
-                      name="user-detail"
-                      color="#ffffff"
-                      style={{ verticalAlign: "middle" }}
-                    ></box-icon>
-                    Mi perfil
-                  </Link>
-                </li>
+
                 <li>
                   <Link to="/dashAdmin/preguntas" className="separateIcon">
                     <box-icon
@@ -321,6 +312,17 @@ export function SidebarAdmin() {
                       style={{ verticalAlign: "middle" }}
                     ></box-icon>
                     Backups base de datos
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashAdmin/perfil" className="separateIcon">
+                    <box-icon
+                      type="solid"
+                      name="user-detail"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Mi perfil
                   </Link>
                 </li>
               </ul>
