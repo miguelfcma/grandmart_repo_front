@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, ListGroup, Form, Button, Collapse } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useProductos } from "../../ProductosContext/ProductoProvider";
 
 export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -73,6 +74,13 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
                         <div style={{ fontWeight: "bold" }}>Calificación:</div>
                         &nbsp;&nbsp;
                         <div>{review.calificacion}</div>
+                      </ListGroup.Item>
+                      <ListGroup.Item key={review.id} className="items">
+                        <div style={{ fontWeight: "bold" }}>Opinión hecha por ID: </div>
+                        &nbsp;&nbsp;
+                        <div>{" "}
+                        {review.id_usuario} {" "}
+                      </div>
                       </ListGroup.Item>
                       <ListGroup.Item className="items">
                         <div style={{ fontWeight: "bold" }}>Realizada: </div>

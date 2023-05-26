@@ -4,6 +4,18 @@ import { ItemProductoConPreguntaAdmin } from "./ItemProductoConPreguntaAdmin";
 import { ItemProductoConReviewAdmin } from "./ItemProductoConReviewAdmin";
 import { ItemServicioConPreguntaAdmin } from "./ItemServicioConPreguntaAdmin";
 import { useServicios } from "../../../ServicioComponents/ServiciosContext/ServicioProvider";
+import { reviewsReporteExcel } from "../../../GeneracionDeReportes/reviewsReporteExcel";
+
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  FormControl,
+  FormLabel,
+  Button,
+} from "react-bootstrap";
 
 export function ListaProductoConPreguntasYReviewsAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -183,6 +195,91 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
     setMostrarContenido("lista6");
     cargarTodasLasReviews();
     setMostrarTitulo(1);
+  };
+
+  const [calificacionFiltro, setCalificacionFiltro] = useState("");
+
+  const handleCalificacionFiltroChange = (event) => {
+    setCalificacionFiltro(event.target.value);
+  };
+
+  // Filtrar los productos por la calificación
+  let productosFiltrados = productosTodasReviews.filter((producto) => {
+    const reviews = producto.reviews;
+
+    if (calificacionFiltro === "") {
+      return reviews.length > 0; // Devolver el producto si tiene alguna review
+    }
+
+    const calificacion = parseInt(calificacionFiltro);
+
+    return reviews.some((review) => review.calificacion === calificacion);
+  });
+
+  // Mapear los productos filtrados para obtener la información deseada
+  productosFiltrados = productosFiltrados.map((producto) => {
+    const reviews = producto.reviews;
+
+    if (calificacionFiltro === "") {
+      return producto; // Devolver el producto sin cambios
+    }
+
+    const calificacion = parseInt(calificacionFiltro);
+
+    const reviewsFiltradas = reviews.filter((review) => {
+      return review.calificacion === calificacion;
+    });
+
+    return {
+      producto: producto.producto,
+      reviews: reviewsFiltradas.map((review) => ({
+        id: review.id,
+        titulo: review.titulo,
+        comentario: review.comentario,
+        calificacion: review.calificacion,
+        id_producto: review.id_producto,
+        id_usuario: review.id_usuario,
+        createdAT: review.createdAT,
+      })),
+    };
+  });
+
+  console.log("este es el arreglo de productos filtrados:", productosFiltrados);
+
+  const generarReporteReviews = () => {
+    console.log(productosFiltrados);
+
+    const formattedData = Object.values(productosFiltrados)
+      .map((productoReview) => {
+        const { producto, reviews } = productoReview;
+        return reviews.map((review) => {
+          const {
+            id,
+            titulo,
+            comentario,
+            calificacion,
+            id_producto,
+            id_usuario,
+          } = review;
+
+          return {
+            "ID  de review": id,
+            Título: titulo,
+            Comentario: comentario,
+            Calificacion: calificacion,
+            "ID Producto": id_producto,
+            "ID Usuario": id_usuario
+          };
+        });
+      })
+      .flat();
+
+    // Ordenar los datos por el ID de reviews de menor a mayor
+    formattedData.sort((a, b) => a["ID  de review"] - b["ID  de review"]);
+
+    console.log(formattedData);
+    const atributosExcluir = ["updatedAt"];
+    reviewsReporteExcel(formattedData, atributosExcluir);
   };
 
   return (
@@ -432,7 +529,26 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
                 Lista de todas las reviews del sistema:
               </div>
             )}
-          <button>
+
+          <Form inline>
+            <FormGroup>
+              <FormLabel>Filtrar por calificación mínima:</FormLabel>{" "}
+              <FormControl
+                as="select"
+                value={calificacionFiltro}
+                onChange={handleCalificacionFiltroChange}
+              >
+                <option value="">Todas</option>
+                <option value="1">1 estrella</option>
+                <option value="2">2 estrellas</option>
+                <option value="3">3 estrellas</option>
+                <option value="4">4 estrellas</option>
+                <option value="5">5 estrellas</option>
+              </FormControl>
+            </FormGroup>
+          </Form>
+          <br></br>
+          <button onClick={generarReporteReviews} className="btnReporte">
             <box-icon
               style={{ marginRight: "5px" }}
               color="white"
@@ -441,7 +557,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
             Generar reporte (.xlsx)
           </button>
           <br></br>
-          {productosTodasReviews.map((producto) => (
+          {productosFiltrados.map((producto) => (
             <ItemProductoConReviewAdmin
               key={producto.id}
               producto={producto}
