@@ -37,7 +37,6 @@ export function ItemCompraCliente({ orden }) {
     <Card>
       <Card.Header>
         <Card.Title>Orden de compra número: {id}</Card.Title>
-
       </Card.Header>
       <Card.Body>
         <Card.Title>Estado:</Card.Title> 

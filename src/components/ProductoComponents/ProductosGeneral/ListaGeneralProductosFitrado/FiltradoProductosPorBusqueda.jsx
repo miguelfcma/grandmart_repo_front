@@ -64,10 +64,10 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
       const siHayResultados = `Resultados para "${searchTerm}".`;
       return (
         <div>
-          <div style={{ fontSize: "30px", paddingTop: "20px" }}>
+          <div style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "35px"}}>
             {siHayResultados}
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", marginLeft: "35px"}}>
             {filteredProductos.map((producto) => (
               <div
                 key={producto.id}

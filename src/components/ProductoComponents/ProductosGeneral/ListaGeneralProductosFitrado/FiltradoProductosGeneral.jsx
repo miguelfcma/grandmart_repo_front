@@ -54,7 +54,7 @@ export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
       const categoriaFiltrada = `Estás en la categoría de "${nombre_categoria}".`;
       return (
         <div style={{ justifyContent: "center" }}>
-          <div style={{ fontSize: "30px", paddingTop: "20px" }}>
+          <div style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "115px" }}>
             {categoriaFiltrada}
             <br></br>
           </div>
@@ -72,7 +72,8 @@ export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
                 key={producto.id}
                 style={{
                   marginTop: "10px",
-                  marginRight: "35px",
+                  marginRight: "5px",
+                  marginLeft: "55px",
                   display: "flex",
                   flexWrap: "wrap",
                   justifyContent: "space-between",

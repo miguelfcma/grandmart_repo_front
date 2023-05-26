@@ -1,0 +1,116 @@
+.respuesta-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .respuesta-label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  .respuesta-input {
+    border: .5px solid #ccc !important;
+  }
+  
+  .btnEnviarRespuesta {
+    background-color: rgb(63, 180, 79) !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+
+.contBotones {
+    text-align: center;
+  }
+  
+  .btnEliminar {
+    margin-top: 10px;  /* Agrega espacio de 10px arriba del botón Eliminar */
+    margin-right: 60px;
+    margin-bottom: 10px; /* Agrega espacio de 10px debajo del botón Eliminar */
+  }
+
+.bton1,
+.bton2{
+margin-top: 10px;
+margin-bottom: 10px;
+border-radius: 5px;
+padding: 10px 20px;
+border: none;
+background-color: #3fa6bd;
+}
+.bton1{
+  margin-right: 25px;
+}
+.bton1:hover,
+.bton2:hover,
+.bton3:hover {
+  background-color: #277999;
+}
+
+.bton3{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #3fa6bd;
+  margin-left: 280px;
+}
+
+
+.linea{
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  color: #3258a07a;
+  margin-bottom: 15px;
+}
+
+.btnRPP{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #8f74f0;
+}
+.btnRPP{
+  margin-right: 20px;
+}
+.btnRPP:hover{
+  background-color: #5743a1;
+}
+
+.btnRPS{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  margin-left: 315px;
+  background-color: #28aa63;
+}
+.btnRPS:hover{
+  background-color: #1d7043;
+}
+
+
+
+
+.btnPSR, .btnPR{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #8f74f0;
+}
+.btnPSR{
+  margin-right: 20px;
+}
+.btnPR{
+  margin-left: 585px;
+}
+
+.btnPSR:hover, .btnPR:hover {
+  background-color: #5743a1;
+}
