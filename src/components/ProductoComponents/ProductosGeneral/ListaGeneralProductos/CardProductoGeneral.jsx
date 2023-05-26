@@ -12,6 +12,7 @@ export function CardProductoGeneral({ producto, favoritos }) {
     agregarFavorito,
     eliminarFavorito,
     agregarProductoAlCarrito,
+    limpiarTerminoBusqueda,
   } = useProductos();
 
   const [esFavorito, setEsFavorito] = useState(false);
@@ -51,13 +52,15 @@ export function CardProductoGeneral({ producto, favoritos }) {
       }
     } else {
       if (!usuario || (usuario && usuario.tipoUsuario !== 0)) {
-        alert("Solo los usuarios tipo cliente pueden agregar productos al carrito.");
+        alert(
+          "Solo los usuarios tipo cliente pueden agregar productos al carrito."
+        );
       } else {
         navigate("/login");
       }
     }
   }
-  
+
   async function toggleFavorito() {
     if (usuario && usuario.tipoUsuario === 0) {
       if (esProductoFavorito) {
@@ -81,9 +84,7 @@ export function CardProductoGeneral({ producto, favoritos }) {
       setEsFavorito(!esFavorito);
     } else {
       if (usuario && usuario.tipoUsuario !== 0) {
-        alert(
-          "Solo los usuarios tipo cliente pueden agregar a favoritos."
-        );
+        alert("Solo los usuarios tipo cliente pueden agregar a favoritos.");
       } else {
         navigate("/login");
       }
@@ -100,6 +101,7 @@ export function CardProductoGeneral({ producto, favoritos }) {
       <Link
         to={`/productos/detalles/${producto.id}`}
         style={{ textDecoration: "none" }}
+        onClick={limpiarTerminoBusqueda}
       >
         <img
           className="card-producto-img"

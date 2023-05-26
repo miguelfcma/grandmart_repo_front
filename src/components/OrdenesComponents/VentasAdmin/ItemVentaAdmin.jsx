@@ -2,7 +2,6 @@ import React from "react";
 import { Card, ListGroup } from "react-bootstrap";
 
 export function ItemVentaAdmin({ venta }) {
-  console.log(venta);
 
   return (
     <Card>

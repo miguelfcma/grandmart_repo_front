@@ -72,15 +72,18 @@ import { SeguridadPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/Perf
 import { TarjetaPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/TarjetaPerfilPageAdmin";
 //Paginas de perfil de cliente
 import { DatosPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/DatosPerfilPageCliente";
-import { DomicilioPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/DomicilioPerfilPageCliente";
 import { SeguridadPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/SeguridadPerfilPageCliente";
+import { DomicilioPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/DomicilioPerfilPageCliente";
+
 import { TarjetaPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/TarjetaPerfilPageCliente";
 /////////////PAGINAS DE REPARTIDOR///////////
 import { DashRepartidor } from "../pages/DashRepartidorPages/DashRepartidor";
 import { OrdenesDeCompraPageRepartidor } from "../pages/DashRepartidorPages/DashPages/OrdenesDeCompraPageRepartidor";
 import { OrdenDetallesPageRepartidor } from "../pages/DashRepartidorPages/DashPages/OrdenesPageRepartidor/OrdenDetallesPageRepartidor";
 import { ComprasFinalPage } from "../pages/HomePages/CarritoPage/ComprasFinalPage";
-
+import { PerfilPageRepartidor } from "../pages/DashRepartidorPages/DashPages/PerfilPageRepartidor"; 
+import { DatosPerfilPageRepartidor } from "../pages/DashRepartidorPages/DashPages/PerfilPagesRepartidor/DatosPerfilPageRepartidor";
+import { SeguridadPerfilPageRepartidor } from "../pages/DashRepartidorPages/DashPages/PerfilPagesRepartidor/SeguridadPerfilPageRepartidor";
 export function MyRoutes() {
   return (
     <Router>
@@ -296,6 +299,18 @@ export function MyRoutes() {
           element={<SeguridadPerfilPageCliente />}
         />
         {/* Rutas de repartidor */}
+        <Route exact path="/dashRepartidor/perfil" element={<PerfilPageRepartidor />} />
+       
+        <Route
+          exact
+          path="/dashRepartidor/perfil/datos"
+          element={<DatosPerfilPageRepartidor />}
+        />
+        <Route
+          exact
+          path="/dashRepartidor/perfil/seguridad"
+          element={<SeguridadPerfilPageRepartidor />}
+        />
         <Route exact path="/dashRepartidor" element={<DashRepartidor />} />
         <Route
           exact

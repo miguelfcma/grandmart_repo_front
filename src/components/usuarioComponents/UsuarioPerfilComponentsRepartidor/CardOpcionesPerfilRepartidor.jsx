@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./UsuarioPerfil.css"
 
-export function CardOpcionesPerfilAdmin() {
+export function CardOpcionesPerfilRepartidor() {
   /*Para mostrar el nombre de usuario */
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -21,7 +21,7 @@ export function CardOpcionesPerfilAdmin() {
 
       <ListGroup>
         <ListGroup.Item>
-          <Link to="/dashAdmin/perfil/datos" style={{width: '100%', textDecoration: 'none'}} className="separateIcon">
+          <Link to="/dashRepartidor/perfil/datos" style={{width: '100%', textDecoration: 'none'}} className="separateIcon">
             <div className="d-flex align-items-center justify-content-between">
           <box-icon name="user"></box-icon>
           <div className="ms-2 me-auto"  style={{ color: 'black' }}>
@@ -33,7 +33,7 @@ export function CardOpcionesPerfilAdmin() {
         </ListGroup.Item>
 
         <ListGroup.Item>
-          <Link to="/dashAdmin/perfil/seguridad" style={{width: '100%', textDecoration: 'none'}} className="separateIcon">
+          <Link to="/dashRepartidor/perfil/seguridad" style={{width: '100%', textDecoration: 'none'}} className="separateIcon">
             <div className="d-flex align-items-center justify-content-between">
           <box-icon name='lock'></box-icon>
           <div className="ms-2 me-auto"  style={{ color: 'black' }}>
@@ -44,29 +44,7 @@ export function CardOpcionesPerfilAdmin() {
           </Link>
         </ListGroup.Item>
         
-        <ListGroup.Item>
-          <Link to="/dashAdmin/perfil/tarjeta" style={{width: '100%', textDecoration: 'none'}} className="separateIcon">
-            <div className="d-flex align-items-center justify-content-between">
-             <box-icon name='credit-card'></box-icon>
-             <div className="ms-2 me-auto"  style={{ color: 'black' }}>
-              <div className="fw-bold">Tarjeta</div>
-              Tarjeta guardada en tu cuenta.
-              </div>
-            </div>
-          </Link>
-        </ListGroup.Item>
-
-        <ListGroup.Item>
-          <Link to="/dashAdmin/perfil/domicilio" style={{width: '100%', textDecoration: 'none'}} className="separateIcon">
-            <div className="d-flex align-items-center justify-content-between">
-              <box-icon name='map'></box-icon>
-              <div className="ms-2 me-auto"  style={{ color: 'black' }}>
-                <div className="fw-bold">Domicilio</div>
-                Domicilio de envío guardada en tu cuenta.
-              </div>
-            </div>
-          </Link>
-        </ListGroup.Item>
+        
       </ListGroup>
     </>
   );

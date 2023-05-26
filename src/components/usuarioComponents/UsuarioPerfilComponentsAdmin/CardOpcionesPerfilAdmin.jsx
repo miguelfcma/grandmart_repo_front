@@ -44,7 +44,7 @@ export function CardOpcionesPerfilAdmin() {
           </Link>
         </ListGroup.Item>
         
-        <ListGroup.Item>
+        {/* <ListGroup.Item>
           <Link to="/dashAdmin/perfil/tarjeta" style={{width: '100%', textDecoration: 'none'}} className="separateIcon">
             <div className="d-flex align-items-center justify-content-between">
              <box-icon name='credit-card'></box-icon>
@@ -66,7 +66,7 @@ export function CardOpcionesPerfilAdmin() {
               </div>
             </div>
           </Link>
-        </ListGroup.Item>
+        </ListGroup.Item> */}
       </ListGroup>
     </>
   );
