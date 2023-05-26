@@ -89,16 +89,7 @@ export function SidebarCliente({ children }) {
               Preguntas/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Opiniones
             </Link>
           </li>
-          <li>
-            <Link to="/dashClient/estadisticas" className="separateIcon">
-              <box-icon
-                name="line-chart"
-                color="#ffffff"
-                style={{ verticalAlign: "middle" }}
-              ></box-icon>
-              Estadísticas
-            </Link>
-          </li>
+
           <li>
             <Link to="/dashClient/perfil" className="separateIcon">
               <box-icon
