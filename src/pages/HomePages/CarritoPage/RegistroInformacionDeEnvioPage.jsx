@@ -1,12 +1,14 @@
 import { Navbar1 } from "../../../components/HomePageComponents/NavBar";
 import { FormRegistroEnvio } from "../../../components/OrdenesComponents/OrdenesGeneral/FormRegistroEnvio";
-import "./RegistroInformacionDeEnvioPage.css"
+import "./RegistroInformacionDeEnvioPage.css";
 
-
-export  function RegistroInformacionDeEnvioPage() {
+import { Link } from "react-router-dom";
+export function RegistroInformacionDeEnvioPage() {
   return (
-    <div className="registroInformacionDeEnvioPage" style={{ paddingTop: "80px" }}>
-      
+    <div
+      className="registroInformacionDeEnvioPage"
+      style={{ paddingTop: "80px" }}
+    >
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/">
@@ -17,7 +19,7 @@ export  function RegistroInformacionDeEnvioPage() {
           </Link>
         </div>
       </nav>
-    <FormRegistroEnvio />
+      <FormRegistroEnvio />
     </div>
-  )
+  );
 }

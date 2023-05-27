@@ -39,7 +39,7 @@ export function CardProductoGeneral({ producto, favoritos }) {
   }, [producto.id, esProductoFavorito]);
 
   async function agregarAlCarrito() {
-    if (usuario && usuario.tipoUsuario === 0) {
+    if (usuario && usuario.tipoUsuario == 0) {
       try {
         await agregarProductoAlCarrito({
           id_usuario: usuario.id,
@@ -51,16 +51,16 @@ export function CardProductoGeneral({ producto, favoritos }) {
         console.error("Error agregando producto al carrito:", error);
       }
     } else {
-      if (!usuario || (usuario && usuario.tipoUsuario !== 0)) {
+      if (!usuario) {
+        navigate("/login");
+      } else {
         alert(
           "Solo los usuarios tipo cliente pueden agregar productos al carrito."
         );
-      } else {
-        navigate("/login");
       }
     }
   }
-
+  
   async function toggleFavorito() {
     if (usuario && usuario.tipoUsuario === 0) {
       if (esProductoFavorito) {

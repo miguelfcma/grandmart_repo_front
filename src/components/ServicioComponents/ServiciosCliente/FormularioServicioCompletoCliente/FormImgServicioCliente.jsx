@@ -1,17 +1,16 @@
 import { useRef, useState } from "react";
-import {
-  uploadImagesServicio,
-} from "../../../../firebase/servicioStorage";
+import { uploadImagesServicio } from "../../../../firebase/servicioStorage";
 import { useServicios } from "../../ServiciosContext/ServicioProvider";
+import { useNavigate } from "react-router-dom";
 
-import { Form, Button} from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 
 export function FormImgServicioCliente({ idServicio }) {
   const id_servicio = idServicio;
 
   const { createImagenesServicioEnbd } = useServicios();
-
+  const navigate  = useNavigate();
 
   const [imagenes, setImagenes] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -57,15 +56,15 @@ export function FormImgServicioCliente({ idServicio }) {
     setImagenes(nuevasImagenes);
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     try {
       const urls = await uploadImagesServicio(imagenes);
-      console.log(urls)
+      console.log(urls);
       const dataUrls = await createImagenesServicioEnbd(id_servicio, urls);
       setLoading(false);
+      navigate("/dashClient/servicios");
     } catch (error) {
       setLoading(false);
       console.error(error);

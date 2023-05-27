@@ -96,7 +96,21 @@ export const ServicioContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const updateServicioCliente = async (id, servicio) => {
+    try {
+      const response = await updateServicioRequest(id, servicio);
 
+      if (response.status == 200) {
+        loadServiciosUsuario(usuario.id);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const getServicioById = async (id_servicio) => {
     try {
       const response = await getServicioByIdRequest(id_servicio);
@@ -119,6 +133,16 @@ export const ServicioContextProvider = ({ children }) => {
       const response = await deleteServicioRequest(id);
       if (response.status == 200) {
       setServiciosAll(serviciosAll.filter((servicio) => servicio.id !== id));
+    }}catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteServicioCliente = async (id) => {
+    try {
+      const response = await deleteServicioRequest(id);
+      if (response.status == 200) {
+      setServiciosUsuario(serviciosUsuario.filter((servicio) => servicio.id !== id));
     }}catch (error) {
       console.error(error);
     }
@@ -386,8 +410,10 @@ export const ServicioContextProvider = ({ children }) => {
         loadServiciosUsuario,
         getServicioById,
         deleteServicio,
+        deleteServicioCliente,
         createServicio,
         updateServicio,
+        updateServicioCliente,
         createServicioImage,
         createImagenesServicioEnbd,
         getImgPortadaServicio,

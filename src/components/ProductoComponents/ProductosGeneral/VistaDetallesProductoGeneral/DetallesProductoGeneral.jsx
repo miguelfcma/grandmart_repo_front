@@ -479,7 +479,7 @@ export function DetallesProductoGeneral({ id }) {
       <Card>
         <Card.Header style={{ textAlign: "right" }}>
           <Link
-            to={`/denuncia/producto/${id}`}
+            to={usuario ? `/denuncia/producto/${id}` : "/login"}
             style={{
               textDecoration: "none",
               marginTop: "10px",

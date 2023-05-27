@@ -65,6 +65,7 @@ export function FormImgServicioAdmin({ idServicio }) {
       console.log(urls)
       const dataUrls = await createImagenesServicioEnbd(id_servicio, urls);
       setLoading(false);
+      navigate("/dashAdmin/servicios");
     } catch (error) {
       setLoading(false);
       console.error(error);

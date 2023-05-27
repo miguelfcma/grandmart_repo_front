@@ -11,8 +11,9 @@ export function CardPublicacionBlog({ publicacion }) {
   const { deletePublicacionPorIdUsuario, getImagenPortadaPorIdPublicacion } =
     usePublicacionesBlog();
   const MAX_DESCRIPCION_LENGTH = 10;
-
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [urlImagen, setUrlImagen] = useState("");
+
   async function obtenerUrlImagenAsync(id_publicacionBlog) {
     const url = await getImagenPortadaPorIdPublicacion(id_publicacionBlog);
     setUrlImagen(url);
@@ -30,8 +31,13 @@ export function CardPublicacionBlog({ publicacion }) {
     setComentariosVisibles((visibles) => !visibles);
   };
 
+  const handleEliminarPublicacion = () => {
+    deletePublicacionPorIdUsuario(publicacion.id, usuario.id);
+    // Realizar cualquier otra acción necesaria después de eliminar la publicación
+  };
+
   return (
-    <div style={{maxWidth: "1200px", display: "flex", flexWrap: "wrap"}}>
+    <div style={{ maxWidth: "1200px", display: "flex", flexWrap: "wrap" }}>
       <Container className="blog-container">
         <Card key={publicacion.id} className="publicacion">
           <Card.Body>
@@ -59,18 +65,24 @@ export function CardPublicacionBlog({ publicacion }) {
                 {new Date(publicacion.updatedAt).toLocaleDateString()}
               </span>
             </Card.Footer>
+            {usuario.id === publicacion.usuario.id && (
+              <Button
+                variant="danger"
+                onClick={handleEliminarPublicacion}
+              >
+                Eliminar publicación
+              </Button>
+            )}
             <Button onClick={toggleComentarios} className="btn-comentarios">
               {comentariosVisibles
                 ? "Ocultar comentarios"
                 : "Mostrar comentarios"}
             </Button>{" "}
-            {/* 2. cambiar el texto del botón según si los comentarios están visibles o no */}
             {comentariosVisibles && (
               <ListaComentariosPublicacionBlog
                 id_publicacionBlog={publicacion.id}
               />
-            )}{" "}
-            {/* mostrar la lista de comentarios solo si los comentarios están visibles */}
+            )}
           </Card.Body>
         </Card>
       </Container>

@@ -81,9 +81,12 @@ import { DashRepartidor } from "../pages/DashRepartidorPages/DashRepartidor";
 import { OrdenesDeCompraPageRepartidor } from "../pages/DashRepartidorPages/DashPages/OrdenesDeCompraPageRepartidor";
 import { OrdenDetallesPageRepartidor } from "../pages/DashRepartidorPages/DashPages/OrdenesPageRepartidor/OrdenDetallesPageRepartidor";
 import { ComprasFinalPage } from "../pages/HomePages/CarritoPage/ComprasFinalPage";
-import { PerfilPageRepartidor } from "../pages/DashRepartidorPages/DashPages/PerfilPageRepartidor"; 
+import { PerfilPageRepartidor } from "../pages/DashRepartidorPages/DashPages/PerfilPageRepartidor";
 import { DatosPerfilPageRepartidor } from "../pages/DashRepartidorPages/DashPages/PerfilPagesRepartidor/DatosPerfilPageRepartidor";
 import { SeguridadPerfilPageRepartidor } from "../pages/DashRepartidorPages/DashPages/PerfilPagesRepartidor/SeguridadPerfilPageRepartidor";
+///
+import { RegistroServicioClientPage1 } from "../pages/DashClientPages/DashPages/ServicioPagesCliente/RegistroServicioClientPage1";
+import RegistroServicioAdminPage1 from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin/RegistroServicioAdminPage1";
 export function MyRoutes() {
   return (
     <Router>
@@ -174,12 +177,17 @@ export function MyRoutes() {
           path="/dashAdmin/servicios"
           element={<ServiciosPageAdmin />}
         />
+
         <Route
           exact
           path="/dashAdmin/servicios/detalles/:id"
           element={<ServicioDetallesAdminPage />}
         />
-
+        <Route
+          exact
+          path="/dashAdmin/servicios/registro-servicio"
+          element={<RegistroServicioAdminPage1 />}
+        />
         {/*RUTAS DE PERFIL DE ADMINISTRADOR */}
         <Route exact path="/dashAdmin/perfil" element={<PerfilPageAdmin />} />
         <Route
@@ -245,6 +253,12 @@ export function MyRoutes() {
           path="/dashClient/servicios/detalles/:id"
           element={<ServicioDetallesClientPage />}
         />
+
+        <Route
+          exact
+          path="/dashClient/servicios/registro-servicio"
+          element={<RegistroServicioClientPage1 />}
+        />
         <Route
           exact
           path="/dashClient/compras"
@@ -299,8 +313,12 @@ export function MyRoutes() {
           element={<SeguridadPerfilPageCliente />}
         />
         {/* Rutas de repartidor */}
-        <Route exact path="/dashRepartidor/perfil" element={<PerfilPageRepartidor />} />
-       
+        <Route
+          exact
+          path="/dashRepartidor/perfil"
+          element={<PerfilPageRepartidor />}
+        />
+
         <Route
           exact
           path="/dashRepartidor/perfil/datos"

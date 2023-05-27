@@ -4,7 +4,7 @@ import { useCategorias } from "../../CategoriaComponents/CategoriasContext/Categ
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
 export function FormUpdateProductoCliente({ onSubmit,producto }) {
-  const { updateProducto } = useProductos();
+  const { updateProductoCliente } = useProductos();
   const { categorias, loadCategorias } = useCategorias();
   useEffect(() => {
     loadCategorias();
@@ -30,7 +30,7 @@ export function FormUpdateProductoCliente({ onSubmit,producto }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        await updateProducto(producto.id, formValues);
+        await updateProductoCliente(producto.id, formValues);
         onSubmit();
     } catch (error) {
         console.error(error)

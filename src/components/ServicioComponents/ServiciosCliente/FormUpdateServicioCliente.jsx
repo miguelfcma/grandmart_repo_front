@@ -4,7 +4,7 @@ import { useCategorias } from "../../CategoriaComponents/CategoriasContext/Categ
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 
 export function FormUpdateServicioCliente({ onSubmit, servicio }) {
-  const { updateServicio } = useServicios();
+  const { updateServicioCliente } = useServicios();
   const { categorias, loadCategorias } = useCategorias();
   useEffect(() => {
     loadCategorias();
@@ -25,20 +25,14 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await updateServicio(servicio.id, formValues);
+      await updateServicioCliente(servicio.id, formValues);
       onSubmit();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleIdParentChange = (event) => {
-    const { value } = event.target;
-    setServicio((prevServicio) => ({
-      ...prevServicio,
-      id_categoria: value,
-    }));
-  };
+
 
   return (
     <form onSubmit={handleSubmit}>

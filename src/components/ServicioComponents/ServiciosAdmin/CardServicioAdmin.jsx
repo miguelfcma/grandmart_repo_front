@@ -25,9 +25,9 @@ export function CardServicioAdmin({ servicio }) {
       try {
         const imagenesServicio = await getAllImagesServicio(servicio.id);
         const urls = imagenesServicio.map((imagen) => imagen.url);
-  
-        await deleteImagesServicio(urls);
         await deleteServicio(servicio.id);
+        await deleteImagesServicio(urls);
+       
       } catch (error) {
         console.error(error);
       }

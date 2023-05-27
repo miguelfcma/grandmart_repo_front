@@ -27,6 +27,8 @@ export async function deleteImagesServicio(urls) {
   await Promise.all(storageRefs.map((storageRef) => deleteObject(storageRef)));
 }
 
+
+
 export async function uploadImagesServicio(files) {
   const MAX_SIZE_BYTES = 10 * 1024 * 1024; // Tamaño máximo de 10 MB en bytes
   const uniquePrefix = "servicios/" + uuidv4(); // Generación de un ID único para el prefijo de los nombres de las imágenes

@@ -11,7 +11,7 @@ export function CardProductoCliente({ producto }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
 
-  const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =
+  const { deleteProductoCliente, getImgPortadaProducto, getAllImagesProduct } =
     useProductos();
 
   const [urlImagen, setUrlImagen] = useState("");
@@ -31,7 +31,7 @@ export function CardProductoCliente({ producto }) {
       const urls = imagenesProducto.map((imagen) => imagen.url);
 
       await deleteImagesProducto(urls);
-      await deleteProducto(producto.id);
+      await deleteProductoCliente(producto.id);
     } catch (error) {
       console.error(error);
     }

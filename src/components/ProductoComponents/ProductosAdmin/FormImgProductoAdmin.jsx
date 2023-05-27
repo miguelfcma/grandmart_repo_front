@@ -69,6 +69,7 @@ export function FormImgProductoAdmin(idProducto) {
       console.log(urls)
       const dataUrls = await createImagenesProductoEnbd(id_producto, urls);
       setLoading(false);
+      navigate("/dashAdmin/productos");
     } catch (error) {
       setLoading(false);
       console.error(error);

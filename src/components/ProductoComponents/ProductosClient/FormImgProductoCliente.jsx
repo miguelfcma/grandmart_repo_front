@@ -3,6 +3,7 @@ import {
   uploadImageProducto,
   uploadImagesProducto,
 } from "../../../firebase/productoStorage";
+
 import { useProductos } from "../ProductosContext/ProductoProvider";
 import "./FormImgProductoCliente.css";
 import { useNavigate } from "react-router-dom";
@@ -70,6 +71,7 @@ export function FormImgProductoCliente(idProducto) {
       console.log(urls)
       const dataUrls = await createImagenesProductoEnbd(id_producto, urls);
       setLoading(false);
+      navigate("/dashClient/productos");
     } catch (error) {
       setLoading(false);
       console.error(error);

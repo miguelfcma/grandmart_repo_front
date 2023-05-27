@@ -5,7 +5,6 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import "./DetallesServicioGeneral.css";
 
-
 export function DetallesServicioGeneral({ id }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
@@ -181,7 +180,7 @@ export function DetallesServicioGeneral({ id }) {
       <Card>
         <Card.Header style={{ textAlign: "right" }}>
           <Link
-            to={`/denuncia/servicio/${id}`}
+            to={usuario ? `/denuncia/servicio/${id}` : "/login"}
             style={{
               textDecoration: "none",
               marginTop: "10px",

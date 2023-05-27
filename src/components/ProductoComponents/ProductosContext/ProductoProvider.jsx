@@ -450,7 +450,18 @@ export const ProductoContextProvider = ({ children }) => {
       console.error(error);
     }
   };
-
+  const deleteProductoCliente = async (id) => {
+    try {
+      const response = await deleteProductoRequest(id);
+      if (response.status == 200) {
+        setProductosUsuario(
+          productosUsuario.filter((producto) => producto.id !== id)
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const createProducto = async (producto) => {
     try {
       const response = await createProductoRequest(producto);
@@ -472,6 +483,21 @@ export const ProductoContextProvider = ({ children }) => {
 
       if (response.status == 200) {
         loadProductos();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const updateProductoCliente = async (id, producto) => {
+    try {
+      const response = await updateProductoRequest(id, producto);
+
+      if (response.status == 200) {
+        loadProductosUsuario(usuario.id);
         return true;
       } else {
         return false;
@@ -809,8 +835,10 @@ export const ProductoContextProvider = ({ children }) => {
         loadProductos,
         loadProductosUsuario,
         deleteProducto,
+        deleteProductoCliente,
         createProducto,
         updateProducto,
+        updateProductoCliente,
         createProductImage,
         createImagenesProductoEnbd,
         getImgPortadaProducto,
@@ -866,7 +894,7 @@ export const ProductoContextProvider = ({ children }) => {
         limpiarTerminoBusqueda,
         agregarTerminoBusqueda,
 
-        getReviewByUserAndProduct
+        getReviewByUserAndProduct,
       }}
     >
       {children}

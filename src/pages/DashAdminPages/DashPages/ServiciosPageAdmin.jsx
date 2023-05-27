@@ -1,9 +1,9 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
-import FormCompletoServicioAdmin from "../../../components/ServicioComponents/ServiciosAdmin/FormCompletoServicioAdmin";
+
 import { ListServiciosAdmin } from "../../../components/ServicioComponents/ServiciosAdmin/ListServiciosAdmin";
 import "../DashAdmin.css";
-
+import { Link } from "react-router-dom";
 export function ServiciosPageAdmin() {
   return (
     <div className="dashboard-container">
@@ -11,7 +11,13 @@ export function ServiciosPageAdmin() {
       <div className="contenidoPages">
         <HeaderAdmin />
         <h1>Página de servicios</h1>
-        <FormCompletoServicioAdmin />
+        <Link
+          to="/dashAdmin/servicios/registro-servicio"
+          style={{ textDecoration: "none" }}
+        >
+          <button type="submit"> Nuevo registro </button>
+        </Link>
+
         <ListServiciosAdmin />
       </div>
     </div>

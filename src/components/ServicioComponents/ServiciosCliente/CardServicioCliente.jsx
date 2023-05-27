@@ -12,7 +12,7 @@ export function CardServicioCliente({ servicio }) {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
     const navigate = useNavigate();
   
-    const { deleteServicio, getImgPortadaServicio, getAllImagesServicio } =
+    const { deleteServicioCliente, getImgPortadaServicio, getAllImagesServicio } =
       useServicios();
   
     const [urlImagen, setUrlImagen] = useState("");
@@ -30,9 +30,9 @@ export function CardServicioCliente({ servicio }) {
       try {
         const imagenesServicio = await getAllImagesServicio(servicio.id);
         const urls = imagenesServicio.map((imagen) => imagen.url);
-  
+        await deleteServicioCliente(servicio.id);
         await deleteImagesServicio(urls);
-        await deleteServicio(servicio.id);
+       
       } catch (error) {
         console.error(error);
       }
