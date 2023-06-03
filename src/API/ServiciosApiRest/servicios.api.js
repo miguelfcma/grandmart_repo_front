@@ -101,3 +101,38 @@ export const getServicioByIdRequest = async (id_servicio) => {
     return error.response;
   }
 };
+
+
+export const createDatosContactoServicioRequest = async (datosContacto) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}servicios/datos-contacto`, datosContacto);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};
+
+export const obtenerDatosContactoServicioRequest = async (id) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}servicios/datos-contacto/${id}`);
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};

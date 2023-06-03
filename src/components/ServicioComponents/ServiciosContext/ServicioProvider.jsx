@@ -7,6 +7,8 @@ import {
   updateServicioRequest,
   getServiciosByUsuarioIdRequest,
   getServicioByIdRequest,
+  createDatosContactoServicioRequest,
+  obtenerDatosContactoServicioRequest,
 } from "../../../API/ServiciosApiRest/servicios.api";
 
 import {
@@ -88,6 +90,27 @@ export const ServicioContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+  const createDatosContactoServicio = async (datosContacto) => {
+    try {
+      const response = await createDatosContactoServicioRequest(datosContacto);
+      return response.status;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const obtenerDatosContactoServicio = async (id) => {
+    try {
+      const response = await obtenerDatosContactoServicioRequest(id);
+
+      if (response.status == 200) {
+        return response.data;
+      }
+      return null;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const updateServicioCliente = async (id, servicio) => {
     try {
@@ -282,8 +305,7 @@ export const ServicioContextProvider = ({ children }) => {
       const response = await eliminarPreguntaServicioRequest(id_pregunta);
       console.log(response);
       if (response.status == 204) {
-       
-      } 
+      }
     } catch (error) {
       console.error(error);
     }
@@ -417,6 +439,8 @@ export const ServicioContextProvider = ({ children }) => {
         eliminarDenunciaServicio,
 
         cerrarSesionServicios,
+        createDatosContactoServicio,
+        obtenerDatosContactoServicio,
       }}
     >
       {children}

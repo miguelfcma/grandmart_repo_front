@@ -13,15 +13,26 @@ export function DetallesServicioGeneral({ id }) {
     getImgPortadaServicio,
     getAllImagesServicio,
     loadServicios,
+    obtenerDatosContactoServicio,
   } = useServicios();
 
   const [servicio, setServicio] = useState(null);
   const [imagenPortada, setImagenPortada] = useState(null);
   const [imagenes, setImagenes] = useState(null);
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
+  const [datosContacto, setDatosContacto] = useState(null);
+  const fetchDatosContacto = async () => {
+    try {
+      const data = await obtenerDatosContactoServicio(id);
 
+      setDatosContacto(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     loadServicios();
+    fetchDatosContacto();
   }, []);
 
   useEffect(() => {
@@ -165,6 +176,7 @@ export function DetallesServicioGeneral({ id }) {
                   </div>
                 </div>
               </Card>
+
               <br />
               <Button
                 onClick={() => window.history.back()}
@@ -175,6 +187,26 @@ export function DetallesServicioGeneral({ id }) {
             </Col>
           )}
         </Col>
+      </Container>
+      <Container fluid className="contenedor">
+        {datosContacto ? (
+          <div>
+            <div className="info-producto">
+              <p>Teléfono 1: {datosContacto.telefono1}</p>
+              <p>Teléfono 2: {datosContacto.telefono2}</p>
+              <p>Email: {datosContacto.email}</p>
+              <p>Estado: {datosContacto.estado}</p>
+              <p>Municipio/Alcaldía: {datosContacto.municipio_alcaldia}</p>
+              <p>Colonia: {datosContacto.colonia}</p>
+              <p>Calle: {datosContacto.calle}</p>
+              <p>Número Exterior: {datosContacto.numeroExterior}</p>
+              <p>Número Interior: {datosContacto.numeroInterior}</p>
+              <p>Descripción: {datosContacto.descripcion}</p>
+            </div>
+          </div>
+        ) : (
+          <p>No hay más datos de servicio</p>
+        )}
       </Container>
       <PreguntasServicioComponenteCompletoGeneral id_servicio={id} />
       <Card>

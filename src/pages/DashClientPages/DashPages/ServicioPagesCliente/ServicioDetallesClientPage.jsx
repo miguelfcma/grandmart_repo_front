@@ -14,6 +14,7 @@ export function ServicioDetallesClientPage() {
     getImgPortadaServicio,
     getAllImagesServicio,
     loadServicios,
+    obtenerDatosContactoServicio,
   } = useServicios();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,10 +22,20 @@ export function ServicioDetallesClientPage() {
   const [imagen, setImagen] = useState(null);
   const [imagenes, setImagenes] = useState(null);
   const { categorias, loadCategorias } = useCategorias();
+  const [datosContacto, setDatosContacto] = useState(null);
+  const fetchDatosContacto = async () => {
+    try {
+      const data = await obtenerDatosContactoServicio(id);
 
+      setDatosContacto(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     loadCategorias();
     loadServicios();
+    fetchDatosContacto();
   }, []);
 
   useEffect(() => {
@@ -80,7 +91,24 @@ export function ServicioDetallesClientPage() {
                 }
               </div>
             </div>
-
+            {datosContacto ? (
+              <div>
+                <div className="info-producto">
+                  <p>Teléfono 1: {datosContacto.telefono1}</p>
+                  <p>Teléfono 2: {datosContacto.telefono2}</p>
+                  <p>Email: {datosContacto.email}</p>
+                  <p>Estado: {datosContacto.estado}</p>
+                  <p>Municipio/Alcaldía: {datosContacto.municipio_alcaldia}</p>
+                  <p>Colonia: {datosContacto.colonia}</p>
+                  <p>Calle: {datosContacto.calle}</p>
+                  <p>Número Exterior: {datosContacto.numeroExterior}</p>
+                  <p>Número Interior: {datosContacto.numeroInterior}</p>
+                  <p>Descripción: {datosContacto.descripcion}</p>
+                </div>
+              </div>
+            ) : (
+              <p>No hay más datos de servicio</p>
+            )}
             <div className="galeria">
               {imagen && (
                 <img
