@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { recoveryPassRequest } from "../../../API/RecoveryPassApiRest/recoveryPass.api";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export function RecoverPassForm() {
   const [email, setEmail] = useState("");
@@ -10,21 +11,32 @@ export function RecoverPassForm() {
     event.preventDefault();
     console.log(email);
     try {
-      const response = await recoveryPassRequest({email});
-      if (response.status == 200) {
-        alert("Te hemos enviado tu contraseña por correo electrónico!");
-        navigate("/login");
-      } 
-      if(response.status == 404) {
-        alert(
-          "El correo electrónico introducido no corresponde a ningún usuario registrado."
-        );
+      
+      const response = await recoveryPassRequest({ email });
+      if (response.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "¡Contraseña enviada!",
+          text: "Te hemos enviado tu contraseña por correo electrónico!",
+        }).then(() => {
+          navigate("/login");
+        });
+      } else if (response.status === 404) {
+        Swal.fire({
+          icon: "error",
+          title: "Correo electrónico no encontrado",
+          text:
+            "El correo electrónico introducido no corresponde a ningún usuario registrado.",
+        });
       }
     } catch (error) {
       console.log(error);
-      alert(
-        "Hubo un error al recuperar la contraseña. Por favor, inténtalo de nuevo más tarde."
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Error al recuperar la contraseña",
+        text:
+          "Hubo un error al recuperar la contraseña. Por favor, inténtalo de nuevo más tarde.",
+      });
     }
   };
 

@@ -1,21 +1,36 @@
-import { async } from "@firebase/util";
+import { Form, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useServicios } from "../ServiciosContext/ServicioProvider";
+import Swal from "sweetalert2";
 
 export function FormUpdateServicioCliente({ onSubmit, servicio }) {
   const { updateServicioCliente } = useServicios();
   const { categorias, loadCategorias } = useCategorias();
+  const [categoriaActual, setCategoriaActual] = useState("");
+
   useEffect(() => {
-    loadCategorias();
+    const fetchCategorias = async () => {
+      await loadCategorias();
+    };
+
+    fetchCategorias();
   }, []);
+
+  useEffect(() => {
+    const categoriaEncontrada = categorias.find(
+      (categoria) => categoria.id === servicio.id_categoria
+    );
+
+    setCategoriaActual({ ...categoriaEncontrada });
+  }, [servicio.id_categoria, categorias]);
+
   const [formValues, setFormValues] = useState({
     titulo: servicio.titulo,
     descripcion: servicio.descripcion,
     precio: servicio.precio,
     id_categoria: servicio.id_categoria,
   });
-  console.log(formValues);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -24,51 +39,109 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await updateServicioCliente(servicio.id, formValues);
-      onSubmit();
-    } catch (error) {
-      console.error(error);
+    const confirmResult = await Swal.fire({
+      icon: "question",
+      title: "Confirmar actualización",
+      text: "¿Estás seguro de actualizar el servicio?",
+      showCancelButton: true,
+      confirmButtonText: "Actualizar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#3085d6", // Color azul para el botón de confirmación
+    });
+
+    if (confirmResult.isConfirmed) {
+      try {
+        const status = await updateServicioCliente(servicio.id, formValues);
+
+        if (status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Actualización exitosa",
+            text: "El servicio se ha actualizado correctamente",
+          }).then(() => {
+            onSubmit();
+          });
+        } else if (status === 404) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se encontró el servicio",
+          });
+        } else if (status === 500) {
+          Swal.fire({
+            icon: "error",
+            title: "Error en el servidor",
+            text: "Ocurrió un error en el servidor. Por favor, intenta nuevamente más tarde.",
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
-
+  const handleIdParentChange = (event) => {
+    const { value } = event.target;
+    if (value === "") {
+      // No se seleccionó ninguna categoría nueva, se mantiene la categoría actual
+      setFormValues((prevFormValues) => ({
+        ...prevFormValues,
+        id_categoria: categoriaActual.id,
+      }));
+    } else {
+      setFormValues((prevFormValues) => ({
+        ...prevFormValues,
+        id_categoria: value,
+      }));
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="titulo">Titulo:</label>
-      <input
-        type="text"
-        id="titulo"
-        name="titulo"
-        value={formValues.titulo}
-        onChange={handleInputChange}
-      />
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="titulo">
+        <Form.Label>Titulo:</Form.Label>
+        <Form.Control
+          type="text"
+          name="titulo"
+          value={formValues.titulo}
+          onChange={handleInputChange}
+        />
+      </Form.Group>
 
-      <label htmlFor="descripcion">Descripción:</label>
-      <textarea
-        id="descripcion"
-        name="descripcion"
-        value={formValues.descripcion}
-        onChange={handleInputChange}
-      ></textarea>
+      <Form.Group controlId="descripcion">
+        <Form.Label>Descripción:</Form.Label>
+        <Form.Control
+          as="textarea"
+          name="descripcion"
+          value={formValues.descripcion}
+          onChange={handleInputChange}
+        />
+      </Form.Group>
 
-      <label htmlFor="precio">Precio:</label>
-      <input
-        type="number"
-        id="precio"
-        name="precio"
-        value={formValues.precio}
-        onChange={handleInputChange}
-      />
+      <Form.Group controlId="precio">
+        <Form.Label>Precio:</Form.Label>
+        <Form.Control
+          type="number"
+          name="precio"
+          value={formValues.precio}
+          onChange={handleInputChange}
+          min="0"
+          required
+        />
+      </Form.Group>
 
-      <label>
-        Categoría del producto:
-        <select
+      <Form.Group controlId="id_categoria">
+        <Form.Label>Categoría del servicio:</Form.Label>
+        <Form.Text>
+          La categoría actual del servicio es:
+          <strong> {categoriaActual.nombre}</strong>
+        </Form.Text>
+
+        <Form.Control
+          as="select"
           name="id_categoria"
           value={formValues.id_categoria}
-          onChange={handleInputChange}
-          required
+          onChange={handleIdParentChange}
         >
           <option value="">Seleccionar categoría padre</option>
           {categorias
@@ -89,17 +162,17 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
                     <option
                       key={categoriaHija.id}
                       value={categoriaHija.id}
-                      selected={categoriaHija.id === formValues.id_categoria} // Agregamos el atributo selected si el id de la categoría coincide con el id del producto
+                      selected={categoriaHija.id === formValues.id_categoria}
                     >
                       {categoriaHija.nombre}
                     </option>
                   ))}
               </optgroup>
             ))}
-        </select>
-      </label>
+        </Form.Control>
+      </Form.Group>
 
-      <button type="submit">Actualizar servicio</button>
-    </form>
+      <Button type="submit">Actualizar servicio</Button>
+    </Form>
   );
 }

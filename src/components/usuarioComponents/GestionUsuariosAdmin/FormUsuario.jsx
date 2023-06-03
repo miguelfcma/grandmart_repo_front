@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./FormUsuario.css";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
-
+import Swal from "sweetalert2";
+import { Form, Row, Col, Button, Alert } from "react-bootstrap";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 export function FormUsuario({ onSubmit, initialUsuario = null }) {
   const { createUsuario, updateUsuario } = useUsuarios();
-
+  const [error, setError] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellidoPaterno, setApellidoPaterno] = useState("");
   const [apellidoMaterno, setApellidoMaterno] = useState("");
@@ -14,7 +17,7 @@ export function FormUsuario({ onSubmit, initialUsuario = null }) {
   const [telefono, setTelefono] = useState("");
   const [password, setPassword] = useState("");
   const [tipoUsuario, setTipoUsuario] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   useEffect(() => {
     if (initialUsuario !== null) {
       setNombre(initialUsuario.nombre);
@@ -28,104 +31,251 @@ export function FormUsuario({ onSubmit, initialUsuario = null }) {
       setTipoUsuario(initialUsuario.tipoUsuario);
     }
   }, [initialUsuario]);
+  const validateFechaNacimiento = () => {
+    const today = new Date();
+    const selectedDate = new Date(fechaNacimiento);
+    const minAge = 18; // Edad mínima requerida
+
+    // Calcula la fecha mínima de nacimiento permitida
+    const minDate = new Date(
+      today.getFullYear() - minAge,
+      today.getMonth(),
+      today.getDate()
+    );
+
+    if (selectedDate > today) {
+      setError("La fecha de nacimiento debe ser anterior a la fecha actual.");
+      return false;
+    }
+
+    if (selectedDate > minDate) {
+      setError("Debes ser mayor de edad para registrarte.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const validateEmail = () => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+      setError("El formato del email es incorrecto.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const validateTelefono = () => {
+    const telefonoPattern = /^\d{10}$/;
+
+    if (!telefonoPattern.test(telefono)) {
+      setError("El formato del teléfono es incorrecto. Debe tener 10 dígitos.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const validatePassword = () => {
+    if (password.length < 7) {
+      setError("La contraseña debe tener al menos 7 caracteres.");
+      return false;
+    }
+
+    if (!/\d/.test(password)) {
+      setError("La contraseña debe contener al menos un número.");
+      return false;
+    }
+
+ 
+
+    return true;
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = {
-      nombre: nombre,
-      apellidoPaterno: apellidoPaterno,
-      apellidoMaterno: apellidoMaterno,
-      email: email,
-      sexo: sexo,
-      fechaNacimiento: fechaNacimiento,
-      telefono: telefono,
-      password: password,
-      tipoUsuario: tipoUsuario,
-    };
-
-    try {
-      let status;
-
-      if (initialUsuario === null) {
-        status = await createUsuario(formData);
-      } else {
-        status = await updateUsuario(initialUsuario.id, formData);
+    if (
+      validateFechaNacimiento() &&
+      validateEmail() &&
+      validateTelefono() 
+      
+    ) {
+      if (initialUsuario == null) {
+        validatePassword()
       }
-      console.log(status);
-      if (status == true) {
-        setNombre("");
-        setApellidoPaterno("");
-        setApellidoMaterno("");
-        setEmail("");
-        setSexo("");
-        setFechaNacimiento("");
-        setTelefono("");
-        setPassword("");
-        setTipoUsuario("");
-        onSubmit();
-      } else {
-        window.alert(
-          "Ha ocurrido un error al procesar la solicitud. Inténtelo de nuevo más tarde."
-        );
+      const formData = {
+        nombre: nombre,
+        apellidoPaterno: apellidoPaterno,
+        apellidoMaterno: apellidoMaterno,
+        email: email,
+        sexo: sexo,
+        fechaNacimiento: fechaNacimiento,
+        telefono: telefono,
+        password: password,
+        tipoUsuario: tipoUsuario,
+      };
+
+      try {
+        let response;
+
+        if (initialUsuario === null) {
+          const confirmResult = await Swal.fire({
+            icon: "question",
+            title: "Confirmar creación",
+            text: "¿Estás seguro de que deseas crear el usuario?",
+            showCancelButton: true,
+            confirmButtonText: "Sí",
+            cancelButtonText: "Cancelar",
+          });
+
+          if (confirmResult.isConfirmed) {
+            response = await createUsuario(formData);
+          } else {
+            // El usuario canceló la operación
+            return;
+          }
+        } else {
+          const confirmResult = await Swal.fire({
+            icon: "question",
+            title: "Confirmar actualización",
+            text: "¿Estás seguro de que deseas actualizar el usuario?",
+            showCancelButton: true,
+            confirmButtonText: "Sí",
+            cancelButtonText: "Cancelar",
+          });
+
+          if (confirmResult.isConfirmed) {
+            response = await updateUsuario(initialUsuario.id, formData);
+          } else {
+            // El usuario canceló la operación
+            return;
+          }
+        }
+
+        if (response.status === 200 || response.status === 201) {
+          setNombre("");
+          setApellidoPaterno("");
+          setApellidoMaterno("");
+          setEmail("");
+          setSexo("");
+          setFechaNacimiento("");
+          setTelefono("");
+          setPassword("");
+          setTipoUsuario("");
+          if (initialUsuario === null) {
+            Swal.fire({
+              icon: "success",
+              title: "Operación exitosa",
+              text: "Usuario creado correctamente.",
+            });
+          } else {
+            Swal.fire({
+              icon: "success",
+              title: "Operación exitosa",
+              text: "Usuario actualizado correctamente.",
+            });
+          }
+
+          onSubmit();
+        } else if (response.status === 400) {
+          Swal.fire({
+            icon: "error",
+            title: "Error al procesar la solicitud",
+            text: "Ya existe una cuenta con ese correo registrado.",
+          });
+        } else if (response.status === 404) {
+          Swal.fire({
+            icon: "error",
+            title: "Error al procesar la solicitud",
+            text: "El usuario no ha sido encontrado.",
+          });
+        } else if (response.status === 500) {
+          Swal.fire({
+            icon: "error",
+            title: "Error en el servidor",
+            text: "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Ha ocurrido un error desconocido. Por favor, inténtalo de nuevo más tarde.",
+          });
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="nombre">
+    <Form onSubmit={handleSubmit}>
+      <Form.Group as={Row} controlId="nombre">
+        <Form.Label column sm="2">
           Nombre:
-          <input
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
             type="text"
-            id="nombre"
             value={nombre}
             onChange={(event) => setNombre(event.target.value)}
             required
           />
-        </label>
-        <br />
-        <label htmlFor="apellidoPaterno">
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} controlId="apellidoPaterno">
+        <Form.Label column sm="2">
           Apellido Paterno:
-          <input
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
             type="text"
-            id="apellidoPaterno"
             value={apellidoPaterno}
             onChange={(event) => setApellidoPaterno(event.target.value)}
             required
           />
-        </label>
-        <br />
-        <label htmlFor="apellidoMaterno">
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} controlId="apellidoMaterno">
+        <Form.Label column sm="2">
           Apellido Materno:
-          <input
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
             type="text"
-            id="apellidoMaterno"
             value={apellidoMaterno}
             onChange={(event) => setApellidoMaterno(event.target.value)}
             required
           />
-        </label>
-        <br />
-        <label htmlFor="email">
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} controlId="email">
+        <Form.Label column sm="2">
           Email:
-          <input
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
             type="email"
-            id="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             required
             disabled={initialUsuario}
           />
-        </label>
-        <br />
-        <label htmlFor="sexo">
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} controlId="sexo">
+        <Form.Label column sm="2">
           Sexo:
-          <select
-            id="sexo"
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
+            as="select"
             value={sexo}
             onChange={(event) => setSexo(event.target.value)}
             required
@@ -133,52 +283,78 @@ export function FormUsuario({ onSubmit, initialUsuario = null }) {
             <option value="">Selecciona una opción</option>
             <option value="M">Masculino</option>
             <option value="F">Femenino</option>
-          </select>
-        </label>
+          </Form.Control>
+        </Col>
+      </Form.Group>
 
-        <br />
-        <label htmlFor="fechaNacimiento">
+      <Form.Group as={Row} controlId="fechaNacimiento">
+        <Form.Label column sm="2">
           Fecha de nacimiento:
-          <input
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
             type="date"
-            id="fechaNacimiento"
             value={fechaNacimiento}
             onChange={(event) => setFechaNacimiento(event.target.value)}
             required
           />
-        </label>
-        <br />
-        <label htmlFor="telefono">
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} controlId="telefono">
+        <Form.Label column sm="2">
           Teléfono:
-          <input
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
             type="tel"
-            id="telefono"
             value={telefono}
             onChange={(event) => setTelefono(event.target.value)}
             required
+            inputMode="numeric"
+            pattern="[0-9]*"
+            title="Ingresa solo números"
+            maxLength={10}
           />
-        </label>
-        <br />
-        {initialUsuario ? (
-          <div></div>
-        ) : (
-          <label htmlFor="password">
+        </Col>
+      </Form.Group>
+
+      {!initialUsuario && (
+        <Form.Group as={Row} controlId="password">
+          <Form.Label column sm="2">
             Contraseña:
-            <input
-              type="password"
-              id="password"
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              type={showPassword ? "text" : "password"}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
             />
-          </label>
-        )}
+            {showPassword ? (
+              <FaEye
+                className="password-icon"
+                title="Ocultar contraseña"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <FaEyeSlash
+                className="password-icon"
+                title="Mostrar contraseña"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
+          </Col>
+        </Form.Group>
+      )}
 
-        <br />
-        <label htmlFor="tipoUsuario">
+      <Form.Group as={Row} controlId="tipoUsuario">
+        <Form.Label column sm="2">
           Tipo de usuario:
-          <select
-            id="tipoUsuario"
+        </Form.Label>
+        <Col sm="10">
+          <Form.Control
+            as="select"
             value={tipoUsuario}
             onChange={(event) => setTipoUsuario(Number(event.target.value))}
             required
@@ -189,12 +365,11 @@ export function FormUsuario({ onSubmit, initialUsuario = null }) {
             <option value="1">Administrador</option>
             <option value="0">Usuario cliente</option>
             <option value="2">Repartidor</option>
-          </select>
-        </label>
-
-        <br />
-        <button type="submit">Enviar</button>
-      </form>
-    </>
+          </Form.Control>
+        </Col>
+      </Form.Group>
+      {error && <Alert variant="danger">{error}</Alert>}
+      <Button type="submit">Enviar</Button>
+    </Form>
   );
 }

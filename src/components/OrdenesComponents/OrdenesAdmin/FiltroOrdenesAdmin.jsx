@@ -14,11 +14,10 @@ export function FiltroOrdenesAdmin({
   setFiltroOrden,
 }) {
   const opcionesEstadoOrden = [
-    "pendiente",
-    "en proceso",
-    "enviado",
-    "entregado",
-    "cancelado",
+    "Pendiente",
+    "En proceso",
+    "Cancelada",
+    "Completada",
   ]; // Opciones de estado de orden
 
   const handleLimpiarClick = () => {

@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CardProductoGeneral } from "../ListaGeneralProductos/CardProductoGeneral";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { useCategorias } from "../../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 
 export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
-  const { productosAll, loadProductos,favoritos,loadFavoritos  } = useProductos();
+  const { productosAll, loadProductos, favoritos, loadFavoritos } =
+    useProductos();
   const { categorias, loadCategorias } = useCategorias();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const [nombreCategoriaActual, setNombreCategoriaActual] = useState("");
   useEffect(() => {
     loadProductos();
     loadCategorias();
@@ -16,6 +18,20 @@ export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
       loadFavoritos(usuario.id);
     }
   }, []);
+
+  useEffect(() => {
+    if (id_categoria) {
+      const categoriaEncontrada = categorias.find(
+        (categoria) => categoria.id === parseInt(id_categoria)
+      );
+
+      if (categoriaEncontrada) {
+        setNombreCategoriaActual(categoriaEncontrada.nombre);
+      } else {
+        setNombreCategoriaActual("Nombre de la categoría desconocido");
+      }
+    }
+  }, [id_categoria]);
   function renderMain() {
     let filteredProducts = productosAll;
 
@@ -40,6 +56,7 @@ export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
     if (filteredProducts.length === 0) {
       return (
         <div>
+          <h2>{nombreCategoriaActual}</h2>
           <div style={{ fontSize: "30px", paddingTop: "50px" }}>
             Por ahora no hay productos registrados en esta categoría. Lo
             sentimos.
@@ -51,10 +68,12 @@ export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
         </div>
       );
     } else {
-      const categoriaFiltrada = `Estás en la categoría de "${nombre_categoria}".`;
+      const categoriaFiltrada = `Estás en la categoría de "${nombreCategoriaActual}".`;
       return (
         <div style={{ justifyContent: "center" }}>
-          <div style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "115px" }}>
+          <div
+            style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "115px" }}
+          >
             {categoriaFiltrada}
             <br></br>
           </div>
@@ -81,7 +100,11 @@ export function FiltradoProductosGeneral({ id_categoria, nombre_categoria }) {
                   flex: "1 0 300px" /* Se establece una flex-basis de 300px*/,
                 }}
               >
-                <CardProductoGeneral key={producto.id} producto={producto} favoritos={favoritos} />
+                <CardProductoGeneral
+                  key={producto.id}
+                  producto={producto}
+                  favoritos={favoritos}
+                />
               </div>
             ))}
           </div>

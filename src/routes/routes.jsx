@@ -87,6 +87,11 @@ import { SeguridadPerfilPageRepartidor } from "../pages/DashRepartidorPages/Dash
 ///
 import { RegistroServicioClientPage1 } from "../pages/DashClientPages/DashPages/ServicioPagesCliente/RegistroServicioClientPage1";
 import RegistroServicioAdminPage1 from "../pages/DashAdminPages/DashPages/ServiciosPageAdmin/RegistroServicioAdminPage1";
+
+import RutasProtegidasAdmin from "./RutasProtegidasAdmin";
+import RutasProtegidasCliente from "./RutasProtegidasCliente";
+import RutasProtegidasRepartidor from "./RutasProtegidasRepartidor";
+
 export function MyRoutes() {
   return (
     <Router>
@@ -107,239 +112,254 @@ export function MyRoutes() {
           element={<RegistroInformacionDeEnvioPage />}
         />
         <Route exact path="/final-compras/:id" element={<ComprasFinalPage />} />
-        <Route exact path="/dashAdmin" element={<DashAdmin />} />
-        <Route
-          exact
-          path="/dashAdmin/usuarios"
-          element={<UsuariosPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/categorias"
-          element={<CategoriasPageAdmin />}
-        />
-        <Route exact path="/dashAdmin/ventas" element={<VentasPageAdmin />} />
-        <Route
-          exact
-          path="/dashAdmin/productos"
-          element={<ProductosPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/ordenes"
-          element={<OrdenesDeCompraPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/ordenes/detalles/:id_orden"
-          element={<OrdenDetallesPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/preguntas"
-          element={<PreguntasPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/estadisticas"
-          element={<EstadisticasPageAdmin />}
-        />
 
-        <Route exact path="/dashAdmin/compras" element={<ComprasPageAdmin />} />
+        <Route element={<RutasProtegidasAdmin />}>
+          <Route exact path="/dashAdmin" element={<DashAdmin />} />
+          <Route
+            exact
+            path="/dashAdmin/usuarios"
+            element={<UsuariosPageAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/categorias"
+            element={<CategoriasPageAdmin />}
+          />
+          <Route exact path="/dashAdmin/ventas" element={<VentasPageAdmin />} />
+          <Route
+            exact
+            path="/dashAdmin/productos"
+            element={<ProductosPageAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/ordenes"
+            element={<OrdenesDeCompraPageAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/ordenes/detalles/:id_orden"
+            element={<OrdenDetallesPageAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/preguntas"
+            element={<PreguntasPageAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/estadisticas"
+            element={<EstadisticasPageAdmin />}
+          />
 
-        <Route
-          exact
-          path="/dashAdmin/compras/detalles/:id_orden"
-          element={<CompraDetallesPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/compras/opinar/:id_producto"
-          element={<CompraOpinarProductoAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/productos/registro-producto"
-          element={<RegistroProductoAdminPage1 />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/productos/registro-producto/:idProducto"
-          element={<RegistroProductoAdminPage2 />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/productos/detalles/:id"
-          element={<ProductoDetallesAdminPage />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/servicios"
-          element={<ServiciosPageAdmin />}
-        />
+          <Route
+            exact
+            path="/dashAdmin/compras"
+            element={<ComprasPageAdmin />}
+          />
 
-        <Route
-          exact
-          path="/dashAdmin/servicios/detalles/:id"
-          element={<ServicioDetallesAdminPage />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/servicios/registro-servicio"
-          element={<RegistroServicioAdminPage1 />}
-        />
-        {/*RUTAS DE PERFIL DE ADMINISTRADOR */}
-        <Route exact path="/dashAdmin/perfil" element={<PerfilPageAdmin />} />
-        <Route
-          exact
-          path="/dashAdmin/perfil/datos"
-          element={<DatosPerfilPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/perfil/seguridad"
-          element={<SeguridadPerfilPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/perfil/tarjeta"
-          element={<TarjetaPerfilPageAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/perfil/domicilio"
-          element={<DomicilioPerfilPageAdmin />}
-        />
+          <Route
+            exact
+            path="/dashAdmin/compras/detalles/:id_orden"
+            element={<CompraDetallesPageAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/compras/opinar/:id_producto"
+            element={<CompraOpinarProductoAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/productos/registro-producto"
+            element={<RegistroProductoAdminPage1 />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/productos/registro-producto/:idProducto"
+            element={<RegistroProductoAdminPage2 />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/productos/detalles/:id"
+            element={<ProductoDetallesAdminPage />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/servicios"
+            element={<ServiciosPageAdmin />}
+          />
 
-        <Route
-          exact
-          path="/dashAdmin/database-backup"
-          element={<DatabaseBackupAdmin />}
-        />
-        <Route
-          exact
-          path="/dashAdmin/denuncias"
-          element={<DenunciasPageAdmin />}
-        />
-        {/* Rutas para cliente */}
-        <Route exact path="/dashClient" element={<DashClient />} />
-        <Route
-          exact
-          path="/dashClient/productos"
-          element={<ProductosPageClient />}
-        />
-        <Route
-          exact
-          path="/dashClient/productos/registro-producto"
-          element={<RegistroProductoClientPage1 />}
-        />
-        <Route
-          exact
-          path="/dashClient/productos/registro-producto/:idProducto"
-          element={<RegistroProductoClientPage2 />}
-        />
-        <Route
-          exact
-          path="/dashClient/productos/detalles/:id"
-          element={<ProductoDetallesClientPage />}
-        />
-        <Route
-          exact
-          path="/dashClient/servicios"
-          element={<ServiciosPageClient />}
-        />
-        <Route
-          exact
-          path="/dashClient/servicios/detalles/:id"
-          element={<ServicioDetallesClientPage />}
-        />
+          <Route
+            exact
+            path="/dashAdmin/servicios/detalles/:id"
+            element={<ServicioDetallesAdminPage />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/servicios/registro-servicio"
+            element={<RegistroServicioAdminPage1 />}
+          />
+          {/*RUTAS DE PERFIL DE ADMINISTRADOR */}
+          <Route exact path="/dashAdmin/perfil" element={<PerfilPageAdmin />} />
+          <Route
+            exact
+            path="/dashAdmin/perfil/datos"
+            element={<DatosPerfilPageAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/perfil/seguridad"
+            element={<SeguridadPerfilPageAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/perfil/tarjeta"
+            element={<TarjetaPerfilPageAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/perfil/domicilio"
+            element={<DomicilioPerfilPageAdmin />}
+          />
 
-        <Route
-          exact
-          path="/dashClient/servicios/registro-servicio"
-          element={<RegistroServicioClientPage1 />}
-        />
-        <Route
-          exact
-          path="/dashClient/compras"
-          element={<ComprasPageCliente />}
-        />
+          <Route
+            exact
+            path="/dashAdmin/database-backup"
+            element={<DatabaseBackupAdmin />}
+          />
+          <Route
+            exact
+            path="/dashAdmin/denuncias"
+            element={<DenunciasPageAdmin />}
+          />
+        </Route>
+        <Route element={<RutasProtegidasCliente />}>
+          {/* Rutas para cliente */}
+          <Route exact path="/dashClient" element={<DashClient />} />
+          <Route
+            exact
+            path="/dashClient/productos"
+            element={<ProductosPageClient />}
+          />
+          <Route
+            exact
+            path="/dashClient/productos/registro-producto"
+            element={<RegistroProductoClientPage1 />}
+          />
+          <Route
+            exact
+            path="/dashClient/productos/registro-producto/:idProducto"
+            element={<RegistroProductoClientPage2 />}
+          />
+          <Route
+            exact
+            path="/dashClient/productos/detalles/:id"
+            element={<ProductoDetallesClientPage />}
+          />
+          <Route
+            exact
+            path="/dashClient/servicios"
+            element={<ServiciosPageClient />}
+          />
+          <Route
+            exact
+            path="/dashClient/servicios/detalles/:id"
+            element={<ServicioDetallesClientPage />}
+          />
 
-        <Route
-          exact
-          path="/dashClient/compras/detalles/:id_orden"
-          element={<CompraDetallesPageCliente />}
-        />
-        <Route
-          exact
-          path="/dashClient/compras/opinar/:id_producto"
-          element={<CompraOpinarProductoCliente />}
-        />
-        <Route
-          exact
-          path="/dashClient/ventas"
-          element={<VentasPageCliente />}
-        />
-        <Route
-          exact
-          path="/dashClient/estadisticas"
-          element={<EstadisticasPageCliente />}
-        />
-        <Route
-          exact
-          path="/dashClient/preguntas"
-          element={<PreguntasPageCliente />}
-        />
-        {/*RUTAS DE PERFIL DE CLIENTES */}
-        <Route exact path="/dashClient/perfil" element={<PerfilPageClient />} />
-        <Route
-          exact
-          path="/dashClient/perfil/domicilio"
-          element={<DomicilioPerfilPageCliente />}
-        />
-        <Route
-          exact
-          path="/dashClient/perfil/datos"
-          element={<DatosPerfilPageCliente />}
-        />
-        <Route
-          exact
-          path="/dashClient/perfil/tarjeta"
-          element={<TarjetaPerfilPageCliente />}
-        />
-        <Route
-          exact
-          path="/dashClient/perfil/seguridad"
-          element={<SeguridadPerfilPageCliente />}
-        />
-        {/* Rutas de repartidor */}
-        <Route
-          exact
-          path="/dashRepartidor/perfil"
-          element={<PerfilPageRepartidor />}
-        />
+          <Route
+            exact
+            path="/dashClient/servicios/registro-servicio"
+            element={<RegistroServicioClientPage1 />}
+          />
+          <Route
+            exact
+            path="/dashClient/compras"
+            element={<ComprasPageCliente />}
+          />
 
-        <Route
-          exact
-          path="/dashRepartidor/perfil/datos"
-          element={<DatosPerfilPageRepartidor />}
-        />
-        <Route
-          exact
-          path="/dashRepartidor/perfil/seguridad"
-          element={<SeguridadPerfilPageRepartidor />}
-        />
-        <Route exact path="/dashRepartidor" element={<DashRepartidor />} />
-        <Route
-          exact
-          path="/dashRepartidor/ordenes"
-          element={<OrdenesDeCompraPageRepartidor />}
-        />
-        <Route
-          exact
-          path="/dashRepartidor/ordenes/detalles/:id_orden"
-          element={<OrdenDetallesPageRepartidor />}
-        />
+          <Route
+            exact
+            path="/dashClient/compras/detalles/:id_orden"
+            element={<CompraDetallesPageCliente />}
+          />
+          <Route
+            exact
+            path="/dashClient/compras/detalles/:id_orden/opinar/:id_producto"
+            element={<CompraOpinarProductoCliente />}
+          />
+          <Route
+            exact
+            path="/dashClient/ventas"
+            element={<VentasPageCliente />}
+          />
+          <Route
+            exact
+            path="/dashClient/estadisticas"
+            element={<EstadisticasPageCliente />}
+          />
+          <Route
+            exact
+            path="/dashClient/preguntas"
+            element={<PreguntasPageCliente />}
+          />
+          {/*RUTAS DE PERFIL DE CLIENTES */}
+          <Route
+            exact
+            path="/dashClient/perfil"
+            element={<PerfilPageClient />}
+          />
+          <Route
+            exact
+            path="/dashClient/perfil/domicilio"
+            element={<DomicilioPerfilPageCliente />}
+          />
+          <Route
+            exact
+            path="/dashClient/perfil/datos"
+            element={<DatosPerfilPageCliente />}
+          />
+          <Route
+            exact
+            path="/dashClient/perfil/tarjeta"
+            element={<TarjetaPerfilPageCliente />}
+          />
+          <Route
+            exact
+            path="/dashClient/perfil/seguridad"
+            element={<SeguridadPerfilPageCliente />}
+          />
+        </Route>
+        <Route element={<RutasProtegidasRepartidor />}>
+          {/* Rutas de repartidor */}
+          <Route
+            exact
+            path="/dashRepartidor/perfil"
+            element={<PerfilPageRepartidor />}
+          />
+
+          <Route
+            exact
+            path="/dashRepartidor/perfil/datos"
+            element={<DatosPerfilPageRepartidor />}
+          />
+          <Route
+            exact
+            path="/dashRepartidor/perfil/seguridad"
+            element={<SeguridadPerfilPageRepartidor />}
+          />
+          <Route exact path="/dashRepartidor" element={<DashRepartidor />} />
+          <Route
+            exact
+            path="/dashRepartidor/ordenes"
+            element={<OrdenesDeCompraPageRepartidor />}
+          />
+          <Route
+            exact
+            path="/dashRepartidor/ordenes/detalles/:id_orden"
+            element={<OrdenDetallesPageRepartidor />}
+          />
+        </Route>
         {/* Otras rutas */}
         <Route
           exact
@@ -349,6 +369,11 @@ export function MyRoutes() {
         <Route
           exact
           path="/productos/categoria/:id_categoria/:nombre_categoria"
+          element={<ProductosByCategoriaPage />}
+        />
+        <Route
+          exact
+          path="/productos/categoria/:id_categoria"
           element={<ProductosByCategoriaPage />}
         />
         <Route

@@ -262,7 +262,7 @@ export function FormRegistroEnvio() {
                     name="numeroExterior"
                     checked={DomicilioData.numeroExterior === "SN"}
                     onChange={handleNumeroExteriorChange}
-                    required
+                    
                   />
                   <FormControl
                     type="text"

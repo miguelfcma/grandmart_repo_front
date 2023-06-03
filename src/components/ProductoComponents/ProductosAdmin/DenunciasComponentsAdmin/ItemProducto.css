@@ -1,22 +1,23 @@
-.tituloListas{
+.tituloListas {
   font-size: 40px;
   margin-bottom: 20px;
   text-align: center;
 }
 
-.tituloCard{
+.tituloCard {
   font-size: 28px;
 }
 
 .lineagruesa {
-    border-bottom-width: 5px;
-    border-bottom-style: solid;
-    color: #838383;
-  }
-.items{
-    display: flex !important;
-    align-items: center;
-    flex-wrap: wrap !important;
+  border-bottom-width: 5px;
+  border-bottom-style: solid;
+  color: #838383;
+}
+
+.items {
+  display: flex !important;
+  align-items: center;
+  flex-wrap: wrap !important;
 }
 
 .contBotones {
@@ -24,9 +25,11 @@
 }
 
 .btnEliminar {
-  margin-top: 10px;  /* Agrega espacio de 10px arriba del botón Eliminar */
+  margin-top: 10px;
+  /* Agrega espacio de 10px arriba del botón Eliminar */
   margin-right: 100px !important;
-  margin-bottom: 10px; /* Agrega espacio de 10px debajo del botón Eliminar */
+  margin-bottom: 10px;
+  /* Agrega espacio de 10px debajo del botón Eliminar */
 }
 
 .btnRevisada {
@@ -42,11 +45,13 @@
 .contenedorBotones {
   text-align: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .btn1,
-.btn2{
+.btn2 {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
@@ -55,47 +60,72 @@
   background-color: #3fa6bd;
   margin-right: 50px;
 }
+
 .btn1:hover,
-.btn2:hover{
+.btn2:hover {
   background-color: #277999;
 }
 
-.btn3{
+.btn3 {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
   padding: 10px 20px;
   border: none;
-  margin-left: 135px;
   background-color: #28aa63;
 }
-.btn3:hover{
+
+.btn3:hover {
   background-color: #1d7043;
 }
 
-.btnReporte{
+.btnReporte {
   border-radius: 5px;
   background-color: #468e9e;
   display: flex;
   align-items: center;
 }
-.btnReporte:hover{
+
+.btnReporte:hover {
   background-color: #2a6780;
 }
 
-.btnPSRS, .btnPRS{
+.btnPSR,
+.btnPR {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
   padding: 10px 20px;
   border: none;
-  background-color: #8f74f0;
+  background-color: #3fa6bd;
+  cursor: pointer;
 }
-.btnPSRS{
+.btnPR {
+  flex-grow: 1;
+  flex-basis: 200px; /* Ajusta el valor según tus necesidades */
+}
+.btnPSR:hover,
+.btnPR:hover {
+  background-color: #277999;
+}
+
+@media (max-width: 768px) {
+  .btnPSR,
+  .btnPR {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+
+.btnPSRS {
   margin-right: 20px;
 }
-.btnPRS{
-  margin-left: 480px;
+
+.btnPRS {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .btnPSRS:hover, .btnPRS:hover {

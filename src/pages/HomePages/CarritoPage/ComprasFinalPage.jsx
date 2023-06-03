@@ -1,6 +1,5 @@
-import { useParams,Link } from "react-router-dom";
-
-import { Navbar, Container, Row, Col } from "react-bootstrap";
+import { useParams, Link } from "react-router-dom";
+import { Navbar, Container, Row, Col, Button } from "react-bootstrap";
 import { ComprasFinal } from "../../../components/OrdenesComponents/OrdenesGeneral/ComprasFinal";
 
 export function ComprasFinalPage() {
@@ -8,18 +7,32 @@ export function ComprasFinalPage() {
 
   return (
     <div style={{ paddingTop: "80px" }}>
-      <nav className="navbar">
-        <div className="navbar-container">
-          <Link to="/">
+      <Navbar>
+        <Container>
+          <Navbar.Brand as={Link} to="/">
             <img
               alt="e-commerce"
               src="https://firebasestorage.googleapis.com/v0/b/grandmart-51065.appspot.com/o/src%2Flogo.png?alt=media&token=6c393680-5c89-4708-a0d3-f8ffcb0fc379"
             />
-          </Link>
-        </div>
-      </nav>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      
       <Container>
-        <Row>
+      <Button as={Link} to="/"  style={{ marginRight: "80px",marginTop: "20px" }} variant="outline-primary">
+            Ir a Página Principal
+            </Button>
+            <Button
+              as={Link}
+              to="/dashClient/compras"
+              style={{ marginTop: "20px" }}
+              variant="outline-primary"
+            >Ver Compras</Button>
+        <Row style={{ marginTop: "20px" }}>
           <Col>
             <h1>
               Tu compra ha sido exitosa, gracias por elegir GrandMart

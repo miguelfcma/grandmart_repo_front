@@ -7,6 +7,7 @@
   padding: 10px;
   width: 165px !important;
   z-index: 1; /* z-index menor que la sección de contenido */
+  overflow-y: auto; /* Agregar barra de desplazamiento vertical */
 }
 
 li a {
@@ -74,4 +75,5 @@ li a:hover {
   margin-top: 70px;
   z-index: 1; /* z-index menor que la sección de contenido */
   font-size: 20px;
+  overflow-y: auto; /* Agregar barra de desplazamiento vertical */
 }

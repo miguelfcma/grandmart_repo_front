@@ -44,8 +44,8 @@ export function ListaVentasAdmin() {
       if (filtros.totalMax && venta.totalVenta > filtros.totalMax) {
         cumplenFiltros = false;
       }
-
-      if (filtros.id && venta.id !== filtros.id) {
+      console.log("venta", venta);
+      if (filtros.id && venta.orden.id === filtros.id) {
         cumplenFiltros = false;
       }
 

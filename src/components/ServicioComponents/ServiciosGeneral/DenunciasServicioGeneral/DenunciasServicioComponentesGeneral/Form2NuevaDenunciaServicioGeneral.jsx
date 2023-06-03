@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { FooterHome } from "../../../../HomePageComponents/FooterHome";
 import InputGroup from "react-bootstrap/InputGroup";
-
+import Swal from 'sweetalert2';
 export function Form2NuevaDenunciaServicioGeneral() {
   window.scrollTo(0, 0); //Para que se muestre el servicio desde arriba de la página
 
@@ -33,8 +33,8 @@ export function Form2NuevaDenunciaServicioGeneral() {
       return;
     }
     try {
-      console.log("data desde el formulario", formData);
-      const res = await crearDenunciaServicio(formData);
+      
+      const status = await crearDenunciaServicio(formData);
       setFormData({
         motivo: opcion,
         descripcion: "",
@@ -42,9 +42,16 @@ export function Form2NuevaDenunciaServicioGeneral() {
         id_usuario: usuario.id,
       });
 
-      alert("La denuncia fue creada exitosamente.");
-
-      navigate(`/servicios/detalles/${id_servicio}`);
+      // Mostrar el mensaje de éxito con SweetAlert2
+      Swal.fire({
+        title: "Éxito",
+        text: "La denuncia fue creada exitosamente.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      }).then(() => {
+        // Redirigir después de que el usuario haya aceptado el mensaje
+        navigate(`/servicios/detalles/${id_servicio}`);
+      });
     } catch (error) {
       console.error(error);
       alert("Ocurrió un error al crear la denuncia.");

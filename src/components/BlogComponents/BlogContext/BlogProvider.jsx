@@ -80,6 +80,7 @@ export const BlogContextProvider = ({ children }) => {
           )
         );
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -175,9 +176,10 @@ export const BlogContextProvider = ({ children }) => {
         idComentario
       );
 
-      if (response.status == 204) {
+      if (response.status == 200) {
         loadComentarios(); // Llama a la función loadComentarios después de eliminar el comentario.
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -216,7 +218,7 @@ export const BlogContextProvider = ({ children }) => {
         imagenes
       );
 
-      if (response.status == 201 ) {
+      if (response.status == 201) {
         return response.data;
       } else {
         return null;
@@ -241,7 +243,7 @@ export const BlogContextProvider = ({ children }) => {
       console.error(error);
     }
   };
- 
+
   return (
     <BlogContext.Provider
       value={{

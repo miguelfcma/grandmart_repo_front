@@ -19,17 +19,7 @@ export function CardServicioGeneral({ servicio }) {
     obtenerUrlImagenAsync(servicio.id);
   }, [servicio.id]);
 
-  function contratarServicio() {
-    if (usuario) {
-      contratarServicio({
-        id_usuario: usuario.id,
-        id_servicio: servicio.id,
-        cantidad: 1
-      });
-    } else {
-      navigate("/login");
-    }
-  }
+
 
   return (
     <div className="card-producto">
@@ -47,9 +37,7 @@ export function CardServicioGeneral({ servicio }) {
         <div>${servicio.precio}</div>
       </Link>
 
-      <button onClick={contratarServicio} title="Contratar servicio">
-        Contratar servicio
-      </button>
+      
     </div>
   );
 }

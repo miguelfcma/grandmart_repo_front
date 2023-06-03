@@ -8,6 +8,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Alert from "react-bootstrap/Alert";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
 export function SignupFormUsuario() {
   const { createUsuario } = useUsuarios();
   const navigate = useNavigate();
@@ -51,9 +52,9 @@ export function SignupFormUsuario() {
     };
 
     try {
-      const status = await createUsuario(formData);
+      const response = await createUsuario(formData);
 
-      if (status === true) {
+      if (response.status === 201) {
         setNombre("");
         setApellidoPaterno("");
         setApellidoMaterno("");
@@ -63,14 +64,26 @@ export function SignupFormUsuario() {
         setTelefono("");
         setPassword("");
         setConfirmPassword("");
+        Swal.fire({
+          icon: "success",
+          title: "Usuario creado correctamente",
+          text: "Usuario creado correctamente",
+        });
         navigate("/login");
-      } else {
-        setError(
-          "Ha ocurrido un error al procesar la solicitud. Inténtelo de nuevo más tarde."
-        );
+      } else if (response.status == 400) {
+        Swal.fire({
+          icon: "error",
+          title: "Error al crear el usuario",
+          text: "El email ya ha sido vinculado a otro perfil!",
+        });
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error en el servidor",
+        text: "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.",
+      });
     }
   };
 
@@ -156,7 +169,6 @@ export function SignupFormUsuario() {
         <div className="signup-form-container">
           <h2>Crear una cuenta</h2>
           <Form onSubmit={handleSubmit} className="signup-form">
-           
             <Form.Group className="mb-3" controlId="nombre">
               <Form.Label>Nombre:</Form.Label>
 
@@ -237,6 +249,7 @@ export function SignupFormUsuario() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
               <Form.Label>Contraseña:</Form.Label>
+
               <Form.Control
                 type={showPassword ? "text" : "password"}
                 placeholder="Contraseña"

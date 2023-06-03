@@ -13,6 +13,7 @@ import {
   getCuentaBancariaByUserIdRequest,
   updateCuentaBancariaByUserIdRequest,
   deleteCuentaBancariaByUserIdRequest,
+  eliminarCuentaUsuarioRequest,
 } from "../../../API/UsuariosApiRest/usuarios.api";
 import {
   getDomicilioUsuarioByUserIdRequest,
@@ -35,6 +36,12 @@ export const UsuarioContextProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [domicilio, setDomicilio] = useState(null);
   const [info_bancaria, setInfo_bancaria] = useState(null);
+
+  const cerrarSesionUsuarios = () => {
+    setUsuarios([]);
+    setDomicilio(null);
+    setInfo_bancaria(null);
+  };
   const obtenerInfoPerfil = async (id_usuario) => {
     try {
       const response = await obtenerInfoPerfilRequest(id_usuario);
@@ -88,7 +95,7 @@ export const UsuarioContextProvider = ({ children }) => {
       if (response.status === 200) {
         setDomicilio(response.data.data);
       } else {
-        setDomicilio(null)
+        setDomicilio(null);
         throw new Error("No se pudo obtener la dirección del usuario");
       }
     } catch (error) {
@@ -102,6 +109,7 @@ export const UsuarioContextProvider = ({ children }) => {
       if (response.status == 200) {
         setUsuarios(usuarios.filter((usuario) => usuario.id !== id));
       }
+      return response;
     } catch (error) {
       console.error(error);
     }
@@ -110,13 +118,11 @@ export const UsuarioContextProvider = ({ children }) => {
   const createUsuario = async (usuario) => {
     try {
       const response = await createUsuarioRequest(usuario);
-
       if (response.status == 201) {
-        loadUsuarios(); // Llama a la función refreshUsuarios después de actualizar el usuario.
-        return true;
-      } else {
-        return false;
+        loadUsuarios();
       }
+
+      return response;
     } catch (error) {
       console.error(error);
     }
@@ -127,11 +133,9 @@ export const UsuarioContextProvider = ({ children }) => {
       const response = await updateUsuarioRequest(id, usuario);
       console.log(response);
       if (response.status == 200) {
-        loadUsuarios(); // Llama a la función refreshUsuarios después de actualizar el usuario.
-        return true;
-      } else {
-        return false;
+        loadUsuarios();
       }
+      return response;
     } catch (error) {
       console.error(error);
     }
@@ -140,12 +144,6 @@ export const UsuarioContextProvider = ({ children }) => {
   const loginUsuario = async (usuario) => {
     try {
       const response = await getUsuarioLoginRequest(usuario);
-
-      if (response.status == 200) {
-        return response.data;
-      } else {
-        return null;
-      }
       return response;
     } catch (error) {
       console.error(error);
@@ -281,6 +279,15 @@ export const UsuarioContextProvider = ({ children }) => {
       throw error;
     }
   };
+  const eliminarCuentaUsuario = async (id, password) => {
+    try {
+      const response = await eliminarCuentaUsuarioRequest(id, password);
+      return response.status;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
   return (
     <UsuarioContext.Provider
@@ -308,6 +315,9 @@ export const UsuarioContextProvider = ({ children }) => {
         create_info_bancaria,
         actualizar_info_bancaria,
         info_bancaria,
+
+        cerrarSesionUsuarios,
+        eliminarCuentaUsuario,
       }}
     >
       {children}

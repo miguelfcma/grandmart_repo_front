@@ -29,6 +29,7 @@
     "react-router-dom": "^6.9.0",
     "reactstrap": "^9.1.8",
     "sheetjs": "^2.0.0",
+    "sweetalert2": "^11.7.9",
     "uuid": "^9.0.0",
     "xlsx": "^0.18.5"
   },

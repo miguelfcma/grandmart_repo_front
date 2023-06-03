@@ -96,7 +96,7 @@ export const ProductoContextProvider = ({ children }) => {
   }
 
   // Vaciar todo el carrito
-  function cerrarSesionProductos() {
+  const cerrarSesionProductos = () => {
     setCarrito({
       idCarrito: null, // Valor inicial correspondiente
       id_usuario: null, // Valor inicial correspondiente
@@ -109,7 +109,7 @@ export const ProductoContextProvider = ({ children }) => {
     setProductosDenuncias([]);
     setProductosReviews([]);
     setProductosTodasReviews([]);
-  }
+  };
 
   /////////////////////////////////////////////////////////////////
 
@@ -383,11 +383,7 @@ export const ProductoContextProvider = ({ children }) => {
     try {
       const response = await createImagenesRequest(id_producto, imagenes);
 
-      if (response.status == 201) {
-        return response.data;
-      } else {
-        return null;
-      }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -446,6 +442,7 @@ export const ProductoContextProvider = ({ children }) => {
       if (response.status == 200) {
         setProductosAll(productosAll.filter((producto) => producto.id !== id));
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -458,6 +455,7 @@ export const ProductoContextProvider = ({ children }) => {
           productosUsuario.filter((producto) => producto.id !== id)
         );
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -468,10 +466,8 @@ export const ProductoContextProvider = ({ children }) => {
 
       if (response.status == 201) {
         loadProductos();
-        return response.data;
-      } else {
-        return null;
       }
+      return response;
     } catch (error) {
       console.error(error);
     }
@@ -483,10 +479,8 @@ export const ProductoContextProvider = ({ children }) => {
 
       if (response.status == 200) {
         loadProductos();
-        return true;
-      } else {
-        return false;
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -596,13 +590,24 @@ export const ProductoContextProvider = ({ children }) => {
   };
 
   const eliminarPreguntaProducto = async (id_pregunta) => {
+    console.log("pregunta a eliminar", id_pregunta);
+    console.log("preguntas prodcuto provider", productosPreguntas);
     try {
       const response = await eliminarPreguntaProductoRequest(id_pregunta);
-      console.log(response);
-      if (response.status == 200) {
-        return response.data;
-      } else {
-        return null;
+
+      if (response.status == 204) {
+        if (productosPreguntas && productosPreguntas.length > 0 && productosPreguntas[0].preguntas) {
+          setProductosPreguntas(
+            [
+              {
+                ...productosPreguntas[0],
+                preguntas: productosPreguntas[0].preguntas.filter(
+                  (pregunta) => pregunta.id !== id_pregunta
+                )
+              }
+            ]
+          );
+        }
       }
     } catch (error) {
       console.error(error);
@@ -735,15 +740,11 @@ export const ProductoContextProvider = ({ children }) => {
   //Denuncias
 
   const crearDenunciaProducto = async (data) => {
-    console.log("ddatos desde el provider", data);
+    console.log("datos desde el provider", data);
     try {
       const response = await crearDenunciaProductoRequest(data);
 
-      if (response.status == 201) {
-        return response.data;
-      } else {
-        return null;
-      }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -803,7 +804,7 @@ export const ProductoContextProvider = ({ children }) => {
         console.log(response.data);
         return response.data;
       } else {
-        throw new Error("No se obtener las ordenes");
+        throw new Error("No se pudo actualizar ");
       }
     } catch (error) {
       console.error(error);

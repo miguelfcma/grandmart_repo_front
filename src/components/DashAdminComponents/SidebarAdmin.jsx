@@ -1,12 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SidebarAdmin.css";
-import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
+import Swal from "sweetalert2";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "../../components/DashAdminComponents/SidebarAdmin.css";
-
+import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
+import { useOrdenes } from "../OrdenesComponents/OrdenesContext/OrdenProvider";
+import { useServicios } from "../ServicioComponents/ServiciosContext/ServicioProvider";
+import { useUsuarios } from "../usuarioComponents/UsuariosContext/UsuarioProvider";
 export function SidebarAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   //const {vaciarFavoritos} = useProductos();
@@ -15,11 +18,41 @@ export function SidebarAdmin() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const navigate = useNavigate();
+  const { cerrarSesionProductos } = useProductos();
+  const { cerrarSesionOrdenes } = useOrdenes();
+  const { cerrarSesionServicios } = useServicios();
+  const { cerrarSesionUsuarios } = useUsuarios();
+
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
-    //vaciarFavoritos();
-    // redirigir a la página de inicio de sesión o a la página principal
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Se cerrará tu sesión actual",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, salir",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
+        cerrarSesionProductos();
+        cerrarSesionOrdenes();
+        cerrarSesionServicios();
+        cerrarSesionUsuarios();
+
+        Swal.fire(
+          "¡Sesión cerrada!",
+          "Has salido de la cuenta exitosamente",
+          "success"
+        ).then(() => {
+          // redirigir a la página principal
+          navigate("/");
+        });
+      }
+    });
   };
 
   return (
@@ -96,7 +129,7 @@ export function SidebarAdmin() {
                 color="#ffffff"
                 style={{ verticalAlign: "middle" }}
               ></box-icon>
-              Ordenes
+              Órdenes
             </Link>
           </li>
 
@@ -167,19 +200,14 @@ export function SidebarAdmin() {
           </Link>
           <br></br>
           <br></br>
-          <Link
-            to="/"
-            onClick={handleLogout}
-            style={{ textDecoration: "none", color: "white" }}
-            className="separateIcon"
-          >
+          <button onClick={handleLogout} className="iconuser">
             <box-icon
               name="log-out"
               color="#ffffff"
               style={{ verticalAlign: "middle" }}
             ></box-icon>
             Cerrar sesión
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -267,7 +295,7 @@ export function SidebarAdmin() {
                       color="#ffffff"
                       style={{ verticalAlign: "middle" }}
                     ></box-icon>
-                    Ordenes
+                    Órdenes
                   </Link>
                 </li>
 
@@ -342,19 +370,14 @@ export function SidebarAdmin() {
                   </Link>
                   <br></br>
                   <br></br>
-                  <Link
-                    to="/"
-                    onClick={handleLogout}
-                    style={{ textDecoration: "none", color: "white" }}
-                    className="iconuser"
-                  >
+                  <button onClick={handleLogout} className="iconuser">
                     <box-icon
                       name="log-out"
                       color="#ffffff"
                       style={{ verticalAlign: "middle" }}
                     ></box-icon>
                     Cerrar sesión
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>

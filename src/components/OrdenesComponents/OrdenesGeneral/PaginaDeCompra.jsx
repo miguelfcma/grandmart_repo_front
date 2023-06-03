@@ -9,9 +9,9 @@ import { useProductos } from "../../ProductoComponents/ProductosContext/Producto
 import { useEffect,useState } from "react";
 
 export function PaginaDeCompra() {
-  const navigate = useNavigate();
+
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { verificacionDireccionEnvio } = useOrdenes();
+
   const { carrito, obtenerCarritoDeCompras } = useProductos();
 
   useEffect(() => {

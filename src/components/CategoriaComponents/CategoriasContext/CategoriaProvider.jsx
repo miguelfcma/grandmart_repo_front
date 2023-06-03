@@ -5,7 +5,6 @@ import {
   deleteCategoriaRequest,
   updateCategoriaRequest,
   createCategoriaRequest,
-
 } from "../../../API/CategoriasApiRest/categorias.api";
 
 import { CategoriaContext } from "./CategoriaContext";
@@ -26,18 +25,16 @@ export const CategoriaContextProvider = ({ children }) => {
   async function loadCategorias() {
     try {
       const response = await getCategoriasRequest();
-      
+
       if (response.status === 200) {
         setCategorias(response.data);
-      }else{
+      } else {
         throw new Error("No se pudo obtener la lista de categorias");
       }
-      
     } catch (error) {
       console.error(error);
     }
   }
-
 
   const deleteCategoria = async (id) => {
     try {
@@ -45,6 +42,7 @@ export const CategoriaContextProvider = ({ children }) => {
       if (response.status == 204) {
         setCategorias(categorias.filter((categoria) => categoria.id !== id));
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -55,11 +53,9 @@ export const CategoriaContextProvider = ({ children }) => {
       const response = await createCategoriaRequest(categoria);
 
       if (response.status == 201) {
-        loadCategorias() // Llama a la función refreshCategorias después de actualizar el categoria.
-        return true;
-      } else {
-        return false;
+        loadCategorias();
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -68,19 +64,15 @@ export const CategoriaContextProvider = ({ children }) => {
   const updateCategoria = async (id, categoria) => {
     try {
       const response = await updateCategoriaRequest(id, categoria);
-    
+
       if (response.status == 200) {
-        loadCategorias() // Llama a la función refreshCategorias después de actualizar el categoria.
-        return true;
-      } else {
-        return false;
+        loadCategorias();
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
   };
-
- 
 
   return (
     <CategoriaContext.Provider
@@ -90,7 +82,6 @@ export const CategoriaContextProvider = ({ children }) => {
         deleteCategoria,
         createCategoria,
         updateCategoria,
-
       }}
     >
       {children}

@@ -2,7 +2,9 @@ import { useCategorias } from "../../CategoriaComponents/CategoriasContext/Categ
 import { useState, useEffect } from "react";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 import { useNavigate } from "react-router-dom";
+import { Form, FormGroup, FormControl, Button, Alert } from "react-bootstrap";
 
+import Swal from "sweetalert2";
 export function FormProductoCliente() {
   const navigate = useNavigate();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -19,6 +21,7 @@ export function FormProductoCliente() {
     id_categoria: "",
     id_usuario: usuario.id,
   });
+  const [validationErrors, setValidationErrors] = useState({});
 
   const { categorias, loadCategorias } = useCategorias();
   useEffect(() => {
@@ -32,6 +35,24 @@ export function FormProductoCliente() {
       [name]: value,
     }));
   };
+  const validateForm = () => {
+    const errors = {};
+
+    // Validación del formato del precio
+    if (!/^\d+(\.\d{1,2})?$/.test(producto.precio)) {
+      errors.precio =
+        "El formato del precio es incorrecto. Ejemplo: 10 o 10.99";
+    }
+
+    // Validación del stock
+    if (isNaN(producto.stock) || producto.stock < 0) {
+      errors.stock = "El stock debe ser un número positivo";
+    }
+
+    setValidationErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,22 +62,52 @@ export function FormProductoCliente() {
       producto.nombre === "" ||
       producto.precio === "" ||
       producto.stock === "" ||
-      producto.id_categoria === ""||
+      producto.id_categoria === "" ||
       producto.estado === ""
     ) {
-      console.log("Por favor complete los campos obligatorios");
+      Swal.fire({
+        icon: "warning",
+        title: "Campos obligatorios",
+        text: "Por favor complete todos los campos obligatorios",
+      });
       return;
     }
 
-   
+    // Validación adicional del formulario
+    if (!validateForm()) {
+      return;
+    }
+    try {
       const response = await createProducto(producto);
-      if (response) {
-        const idProducto=response.producto.id
-        
+      if (response.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Éxito",
+          text: "El producto se creó correctamente",
+        });
+        const idProducto = response.data.producto.id;
         navigate(`/dashClient/productos/registro-producto/${idProducto}`);
-
+      } else if (response.status === 400) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Este producto ya está registrado en su cuenta",
+        });
+      } else if (response.status === 500) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error en el servidor. Por favor, inténtelo de nuevo más tarde",
+        });
       }
-
+    } catch (error) {
+      console.error("Error al crear el producto:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Ocurrió un error al crear el producto. Por favor, inténtelo de nuevo más tarde",
+      });
+    }
   };
 
   const handleIdParentChange = (event) => {
@@ -68,84 +119,92 @@ export function FormProductoCliente() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Nombre del producto:
-        <input
+    <Form onSubmit={handleSubmit}>
+      <FormGroup>
+        <Form.Label>Nombre del producto:</Form.Label>
+        <FormControl
           type="text"
           name="nombre"
           value={producto.nombre}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Precio del producto:
-        <input
+      </FormGroup>
+      <FormGroup>
+        <Form.Label>Precio del producto:</Form.Label>
+        <FormControl
           type="number"
           name="precio"
           value={producto.precio}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Stock del producto:
-        <input
+      </FormGroup>
+      <FormGroup>
+        <Form.Label>Stock del producto:</Form.Label>
+        <FormControl
           type="number"
           name="stock"
           value={producto.stock}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Descripción del producto:
-        <textarea
+      </FormGroup>
+      <FormGroup>
+        <Form.Label>Descripción del producto:</Form.Label>
+        <FormControl
+          as="textarea"
           name="descripcion"
           value={producto.descripcion}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Marca del producto:
-        <input
+      </FormGroup>
+      <FormGroup>
+        <Form.Label>Marca del producto:</Form.Label>
+        <FormControl
           type="text"
           name="marca"
           value={producto.marca}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Modelo del producto:
-        <input
+      </FormGroup>
+      <FormGroup>
+        <Form.Label>Modelo del producto:</Form.Label>
+        <FormControl
           type="text"
           name="modelo"
           value={producto.modelo}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Color del producto:
-        <input
+      </FormGroup>
+      <FormGroup>
+        <Form.Label>Color del producto:</Form.Label>
+        <FormControl
           type="text"
           name="color"
           value={producto.color}
           onChange={handleChange}
         />
-      </label>
-      <label>
-        Estado del producto:
-        <select name="estado" value={producto.estado} onChange={handleChange}>
+      </FormGroup>
+      <FormGroup>
+        <Form.Label>Estado del producto:</Form.Label>
+        <FormControl
+          as="select"
+          name="estado"
+          value={producto.estado}
+          onChange={handleChange}
+          required
+        >
           <option value="">Seleccionar el estado del producto</option>
           <option value="true">Nuevo</option>
           <option value="false">Usado</option>
-        </select>
-      </label>
+        </FormControl>
+      </FormGroup>
 
-      <label>
-        Categoría del producto:
-        <select
+      <FormGroup>
+        <Form.Label>Categoría del producto:</Form.Label>
+        <FormControl
+          as="select"
           name="id_categoria"
           value={producto.id_categoria}
           onChange={handleIdParentChange}
@@ -156,7 +215,7 @@ export function FormProductoCliente() {
             .filter((categoria) => categoria.id_parent === null)
             .map((categoriaPadre) => (
               <optgroup
-                className="categoria-padre" // Agregamos una clase a las opciones de las categorías padres
+                className="categoria-padre"
                 label={categoriaPadre.nombre}
                 key={categoriaPadre.id}
               >
@@ -164,7 +223,7 @@ export function FormProductoCliente() {
                   .filter(
                     (categoria) =>
                       categoria.id_parent === categoriaPadre.id &&
-                      categoria.id !== producto.id_categoria // para evitar que se pueda seleccionar como categoría padre a sí mismo
+                      categoria.id !== producto.id_categoria
                   )
                   .map((categoriaHija) => (
                     <option key={categoriaHija.id} value={categoriaHija.id}>
@@ -173,9 +232,12 @@ export function FormProductoCliente() {
                   ))}
               </optgroup>
             ))}
-        </select>
-      </label>
-      <button type="submit">Agregar</button>
-    </form>
+        </FormControl>
+      </FormGroup>
+      {validationErrors.stock && (
+        <Alert variant="danger">{validationErrors.stock}</Alert>
+      )}
+      <Button type="submit">Agregar</Button>
+    </Form>
   );
 }

@@ -26,9 +26,9 @@ export const deletePublicacionPorIdUsuarioRequest = async (
   id_publicacionBlog
 ) => {
   try {
-    const response = await axios.delete(
-      `${API_BASE_URL}blog-publicaciones/${id_usuario}?id=${id_publicacionBlog}`
-
+    const response = await axios.post(
+      `${API_BASE_URL}blog-publicaciones/elminar/${id_usuario}`,
+      { id: id_publicacionBlog }
     );
 
     return response;

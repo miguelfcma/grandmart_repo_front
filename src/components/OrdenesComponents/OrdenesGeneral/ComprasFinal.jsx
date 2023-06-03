@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { FaWhatsapp } from "react-icons/fa";
 import "./ComprasFinal.css";
+import { useNavigate } from "react-router-dom";
 export function ComprasFinal({ id_orden }) {
   const text = `¡Hola! Estoy interesado en obtener más información sobre el proceso de mi paquetería. Mi ID de orden de compra es ${id_orden}.`;
 
@@ -14,7 +15,7 @@ export function ComprasFinal({ id_orden }) {
 
   const phoneNumber = "527353424868"; // Reemplaza esto con el número de teléfono de la persona encargada de la paquetería
   const whatsappLink = generateWhatsAppLink(phoneNumber, text);
-
+  const navigate = useNavigate();
   return (
     <div>
       <Button

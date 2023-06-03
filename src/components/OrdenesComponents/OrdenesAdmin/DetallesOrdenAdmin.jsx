@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
-import {
-  Container,
-  Row,
-  Col,
-  Table,
-  Dropdown,
-  DropdownButton,
-  Button,
-  Alert, // Agregar el componente de Alert de Bootstrap
-} from "react-bootstrap";
+import { Container, Row, Col, Table, Button, Form } from "react-bootstrap";
 import "./DetallesOrdenAdmin.css";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 export function DetallesOrdenAdmin({ id_orden }) {
   const navigate = useNavigate();
   const {
@@ -32,7 +24,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
   });
 
   const [direccionEnvio, setDireccionEnvio] = useState(null);
-  const [infoEnvio, setInfoEnvio] = useState(null);
+  const [infoEnvio, setInfoEnvio] = useState("");
   const cargarDetalleOrden = async () => {
     try {
       const data = await obtenerDetalleOrden(id_orden);
@@ -67,17 +59,48 @@ export function DetallesOrdenAdmin({ id_orden }) {
   }, []);
 
   const [opcionSeleccionadaOrden, setOpcionSeleccionadaOrden] = useState("");
-  const opcionesOrden = ["Completado", "Cancelado", "Pendiente"];
+  const opcionesOrden = ["Pendiente", "En proceso", "Cancelada", "Completada"];
   const handleCambioOpcionOrden = (e) => {
     setOpcionSeleccionadaOrden(e.target.value);
   };
   const handleCambiarEstadoOrden = async () => {
     try {
-      await cambiarEstadoOrden(orden.id, {
-        nuevoEstado: opcionSeleccionadaOrden,
+      const confirmResult = await Swal.fire({
+        icon: "question",
+        title: "Confirmar actualización",
+        text: "¿Estás seguro de que deseas cambiar el estado de la orden?",
+        showCancelButton: true,
+        confirmButtonText: "Sí, actualizar",
+        cancelButtonText: "Cancelar",
       });
-      fetchData();
-      console.log("Estado de orden cambiado correctamente.");
+
+      if (confirmResult.isConfirmed) {
+        const status = await cambiarEstadoOrden(orden.id, {
+          nuevoEstado: opcionSeleccionadaOrden,
+        });
+
+        if (status === 200) {
+          Swal.fire("Éxito", "Estado de la orden actualizado", "success");
+          cargarDetalleOrden();
+          console.log("Estado de orden cambiado correctamente.");
+        } else if (status === 404) {
+          Swal.fire("Error", `La orden con id ${orden.id} no existe`, "error");
+        } else if (status === 401) {
+          Swal.fire(
+            "Error",
+            "La orden ya está cancelada y no se puede cambiar su estado",
+            "error"
+          );
+        } else if (status === 402) {
+          Swal.fire(
+            "Error",
+            `La orden ya tiene el estado ${opcionSeleccionadaOrden} y no se puede cambiar su estado nuevamente`,
+            "error"
+          );
+        } else if (status === 500) {
+          Swal.fire("Error", "Error en el servidor", "error");
+        }
+      }
     } catch (error) {
       console.error("Error al cambiar el estado de la orden:", error);
     }
@@ -96,12 +119,45 @@ export function DetallesOrdenAdmin({ id_orden }) {
     setOpcionSeleccionadaEnvio(e.target.value);
   };
   const handleCambiarEstadoEnvio = async () => {
-    console.log(opcionSeleccionadaEnvio);
     try {
-      await cambiarEstadoEnvio(infoEnvio.id, {
-        nuevoEstado: opcionSeleccionadaEnvio,
+      const confirmResult = await Swal.fire({
+        icon: "question",
+        title: "Confirmar actualización",
+        text: "¿Estás seguro de que deseas cambiar el estado del envío?",
+        showCancelButton: true,
+        confirmButtonText: "Sí, actualizar",
+        cancelButtonText: "Cancelar",
       });
-      console.log("Estado de envío cambiado correctamente.");
+
+      if (confirmResult.isConfirmed) {
+        const status = await cambiarEstadoEnvio(infoEnvio.id, {
+          nuevoEstado: opcionSeleccionadaEnvio,
+        });
+        if (status === 200) {
+          Swal.fire("Éxito", "Estado del envío actualizado", "success");
+          cargarDireccionEnvioOrden();
+        } else if (status === 404) {
+          Swal.fire(
+            "Error",
+            `El envío con id ${infoEnvio.id} no existe`,
+            "error"
+          );
+        } else if (status === 401) {
+          Swal.fire(
+            "Error",
+            "La orden ya está cancelada y no se puede cambiar su estado",
+            "error"
+          );
+        } else if (status === 402) {
+          Swal.fire(
+            "Error",
+            `El envío ya tiene el estado ${opcionSeleccionadaEnvio} y no se puede cambiar su estado nuevamente`,
+            "error"
+          );
+        } else if (status === 500) {
+          Swal.fire("Error", "Error en el servidor", "error");
+        }
+      }
     } catch (error) {
       console.error("Error al cambiar el estado del envío:", error);
     }
@@ -134,7 +190,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
             </p>
           </Col>
           <div>
-            <select
+            <Form.Select
               value={opcionSeleccionadaOrden}
               onChange={handleCambioOpcionOrden}
             >
@@ -144,7 +200,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
                   {option}
                 </option>
               ))}
-            </select>
+            </Form.Select>
             <button
               onClick={handleCambiarEstadoOrden}
               disabled={!opcionSeleccionadaOrden}
@@ -189,11 +245,11 @@ export function DetallesOrdenAdmin({ id_orden }) {
               <h1 className="infoEnvio-titulo">Envío:</h1>
               <Row className="orden-row">
                 <Col md={4}>
-                  <p>ID: {infoEnvio.id}</p>
-                  <p>Estado: {infoEnvio.estado}</p>
+                  <p>ID envío: {infoEnvio.id}</p>
+                  <p>Estado envío: {infoEnvio.estado}</p>
                 </Col>
                 <div>
-                  <select
+                  <Form.Select
                     value={opcionSeleccionadaEnvio}
                     onChange={handleCambioOpcionEnvio}
                   >
@@ -203,7 +259,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
                         {option}
                       </option>
                     ))}
-                  </select>
+                  </Form.Select>
                   <button
                     onClick={handleCambiarEstadoEnvio}
                     disabled={!opcionSeleccionadaEnvio}

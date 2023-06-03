@@ -39,7 +39,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
   const onDeletePregunta = async (preguntaId) => {
     try {
       await eliminarPreguntaProducto(preguntaId);
-      console.log("Ejecutando la función en el componente padre");
+    
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +68,9 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     cargarProductosConPreguntasByUsuarioId();
     cargarServiciosConPreguntasByUsuarioId();
   }, []);
-
+  console.log("----------------------------------");
+  console.log("webos",productosPreguntas);
+  console.log("----------------------------------");
   const preguntasSinResponder =
     productosPreguntas &&
     Object.values(productosPreguntas).reduce((preguntas, producto) => {
@@ -126,7 +128,6 @@ export function ListaProductoConPreguntasYReviewsCliente() {
       return preguntas;
     }, []);
 
-  console.log("preguntasSinResponderServicios", preguntasSinResponderServicios);
 
   const preguntasRespondidasServicios =
     serviciosPreguntas &&
@@ -226,7 +227,6 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     };
   });
 
-  console.log("este es el arreglo de productos filtrados:", productosFiltrados);
 
   const generarReporteReviews = () => {
     console.log(productosFiltrados);

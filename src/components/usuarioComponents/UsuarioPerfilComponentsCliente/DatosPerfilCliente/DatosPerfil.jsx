@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "../../../ModalComponents/Modal";
 import { FormEditarPerfil } from "./FormEditarPerfil";
+import Swal from "sweetalert2";
 
 import { Card } from "react-bootstrap";
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
 
 export function DatosPerfil() {
   const [modalVisible, setModalVisible] = useState(false);
-  const { obtenerInfoPerfil } = useUsuarios();
+  const { obtenerInfoPerfil, eliminarCuentaUsuario } = useUsuarios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [perfil, setPerfil] = useState(null);
 
@@ -34,10 +35,63 @@ export function DatosPerfil() {
     setModalVisible(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     handleCloseModal();
     cargarPerfil();
   };
+
+  const handleEliminarCuenta = async () => {
+    try {
+      const { value: password } = await Swal.fire({
+        title: "Eliminar cuenta",
+        text: "Ingresa tu contraseña para confirmar la eliminación de la cuenta:",
+        input: "password",
+        inputPlaceholder: "Contraseña",
+        inputAttributes: {
+          autocapitalize: "off",
+          autocorrect: "off",
+        },
+        showCancelButton: true,
+        confirmButtonText: "Eliminar cuenta",
+        cancelButtonText: "Cancelar",
+        showLoaderOnConfirm: true,
+        preConfirm: async (password) => {
+          if (!password) {
+            Swal.showValidationMessage("Debes ingresar una contraseña");
+          } else {
+            try {
+              const status = await eliminarCuentaUsuario(usuario.id, password);
+              if (status === 200) {
+                Swal.fire(
+                  "Cuenta eliminada",
+                  "La cuenta ha sido eliminada exitosamente.",
+                  "success"
+                );
+              } else if (status === 401) {
+                Swal.fire("Error", "Contraseña incorrecta.", "error");
+              } else if (status === 404) {
+                Swal.fire("Error", "Usuario no encontrado.", "error");
+              } else if (status === 500) {
+                Swal.fire("Error", "Error en el servidor.", "error");
+              } else {
+                throw new Error("Error al eliminar la cuenta");
+              }
+            } catch (error) {
+              Swal.showValidationMessage(
+                "Error al eliminar la cuenta. Por favor, inténtalo nuevamente."
+              );
+            }
+          }
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      });
+  
+     
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
 
   return (
     <div>
@@ -69,6 +123,9 @@ export function DatosPerfil() {
               <label>Teléfono:</label>
               <p>{perfil.telefono}</p>
               <button onClick={handleEditarPerfilClick}>Editar</button>
+            </div>
+            <div>
+              <button onClick={handleEliminarCuenta}>Eliminar cuenta</button>
             </div>
           </Card.Body>
         </Card>

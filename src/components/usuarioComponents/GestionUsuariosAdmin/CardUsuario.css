@@ -1,44 +1,30 @@
 .card-usuario {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    list-style: none;
-    margin-bottom: 20px;
-    max-width: 300px;
-  }
-  
-  .card-usuario div {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .card-usuario div:first-of-type {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .card-usuario div:last-of-type {
-    margin-bottom: 0;
-  }
-  .card-usuario button {
-  background-color: #4CAF50; /* Color de fondo */
-  border: none; /* Elimina borde */
-  color: white; /* Color del texto */
-  padding: 10px 20px; /* Añade espacio interno */
-  text-align: center; /* Centra el texto */
-  text-decoration: none; /* Elimina subrayado */
-  display: inline-block; /* Mantiene los botones en línea */
-  font-size: 16px; /* Tamaño de fuente */
-  margin-right: 10px; /* Añade margen derecho para separar botones */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-usuario div {
+  margin: 8px 0;
+}
+
+.card-usuario button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .card-usuario button:hover {
-  background-color: #3e8e41; /* Cambia el color de fondo al pasar el mouse */
-}
-
-.card-usuario button:active {
-  background-color: #3e8e41; /* Cambia el color de fondo al hacer clic */
-  transform: translateY(2px); /* Añade una pequeña animación al hacer clic */
+  background-color: #0069d9;
 }

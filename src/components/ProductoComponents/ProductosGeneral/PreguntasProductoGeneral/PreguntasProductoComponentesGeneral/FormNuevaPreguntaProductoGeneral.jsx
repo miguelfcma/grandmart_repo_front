@@ -2,8 +2,12 @@ import { crearPreguntaProductoRequest } from "../../../../../API/ProductosApiRes
 import { useProductos } from "../../../ProductosContext/ProductoProvider";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import "./FormNuevaPreguntaProductoGeneral.css"
-export function FormNuevaPreguntaProductoGeneral({id_producto,actualizarPreguntas}) {
+import "./FormNuevaPreguntaProductoGeneral.css";
+import Swal from 'sweetalert2';
+export function FormNuevaPreguntaProductoGeneral({
+  id_producto,
+  actualizarPreguntas,
+}) {
   const { crearPreguntaProducto } = useProductos();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -21,17 +25,28 @@ export function FormNuevaPreguntaProductoGeneral({id_producto,actualizarPregunta
       return;
     }
     try {
-        console.log(pregunta)
+      console.log(pregunta);
       const res = await crearPreguntaProducto(pregunta);
       setPregunta({
         pregunta: "",
         id_producto: id_producto,
         id_usuario: usuario.id,
       });
-      actualizarPreguntas()
-      alert("La pregunta fue creada exitosamente.");
+      actualizarPreguntas();
+
+      Swal.fire({
+        title: "Éxito",
+        text: "La pregunta fue creada exitosamente.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      });
     } catch (error) {
-      alert("Ocurrió un error al crear la pregunta.");
+      Swal.fire({
+        title: "Error",
+        text: "Ocurrió un error al crear la pregunta.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+      });
     }
   };
 

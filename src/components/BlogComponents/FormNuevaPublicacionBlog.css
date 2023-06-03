@@ -1,73 +1,94 @@
 /* Estilos personalizados para el área de Dropzone */
 .dropzone-area {
-    border: 2px dashed #bbb;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    width: 300px;
-    margin-bottom: 20px;
-    text-align: center;
-    cursor: pointer;
-  }
-  .dropzone-area:hover {
-    border-color: #999;
-  }
+  border: 2px dashed #bbb;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  width: 300px;
+  margin: 0 auto;
+  /* Centra el contenedor horizontalmente */
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   
-  .imagen-preview-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .imagen-preview {
-    position: relative;
-    width: calc(25% - 0.75rem); /* ajusta el tamaño de las imágenes */
-  }
-  
-  .imagen-preview__img {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  
+}
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Otros estilos que desees aplicar */
+}
 
+.dropzone-area:hover {
+  border-color: #999;
+}
 
-  
-  .imagen-preview__portada-container {
-    position: relative;
-  }
-  
-  .imagen-preview__icono-portada {
-    position: absolute;
-    top: 10px; /* ajusta esta posición según tus necesidades */
-    left: 10px; /* ajusta esta posición según tus necesidades */
-    font-size: 24px;
-    color: yellow; /* ajusta el color según tus necesidades */
-  }
-  
-  .imagen-preview__texto-portada {
-    position: absolute;
-    top: 10px; /* ajusta esta posición según tus necesidades */
-    left: 40px; /* ajusta esta posición según tus necesidades */
-    font-size: 16px;
-    color: white; /* ajusta el color según tus necesidades */
-    background-color: rgba(0, 0, 0, 0.6); /* ajusta el fondo según tus necesidades */
-    padding: 5px; /* ajusta el padding según tus necesidades */
-    border-radius: 5px; /* ajusta el borde según tus necesidades */
-  }
-  
-  .imagen-preview__eliminar {
-    position: absolute;
-    top: 10px; /* ajusta esta posición según tus necesidades */
-    right: 10px; /* ajusta esta posición según tus necesidades */
-    background-color: red; /* ajusta el color según tus necesidades */
-    color: white; /* ajusta el color según tus necesidades */
-    border: none;
-    padding: 5px; /* ajusta el padding según tus necesidades */
-    border-radius: 5px; /* ajusta el borde según tus necesidades */
-  }
-  
-  .btnFormShow{ 
-    margin-left: 570px !important;
-  }
+.imagen-preview-container {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  /* Agrega una barra de desplazamiento horizontal */
+  max-width: 100%;
+  /* Asegura que el contenedor ocupe todo el ancho disponible */
+  padding-bottom: 1rem;
+  /* Agrega espacio inferior para la barra de desplazamiento */
+}
+
+.imagen-preview {
+  position: relative;
+  flex: 0 0 auto;
+  /* Permite que el tamaño del elemento se ajuste al contenido */
+  width: 200px;
+  /* Ajusta el ancho de las imágenes según tus necesidades */
+  margin-bottom: 1rem;
+  /* Agrega un espacio inferior entre las imágenes */
+}
+
+.imagen-preview__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.imagen-preview__portada-container {
+  position: relative;
+}
+
+.imagen-preview__icono-portada {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+  color: yellow;
+}
+
+.imagen-preview__texto-portada {
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  font-size: 16px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.imagen-preview__eliminar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+.btnFormShow {
+  display: block;
+  margin: 0 auto;
+}

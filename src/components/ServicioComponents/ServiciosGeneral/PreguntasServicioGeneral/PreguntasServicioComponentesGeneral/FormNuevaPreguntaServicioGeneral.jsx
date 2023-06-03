@@ -2,8 +2,12 @@ import { crearPreguntaServicioRequest } from "../../../../../API/ServiciosApiRes
 import { useServicios } from "../../../ServiciosContext/ServicioProvider";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import "./FormNuevaPreguntaProductoGeneral.css"
-export function FormNuevaPreguntaServicioGeneral({id_servicio,actualizarPreguntas}) {
+import "./FormNuevaPreguntaProductoGeneral.css";
+import Swal from 'sweetalert2';
+export function FormNuevaPreguntaServicioGeneral({
+  id_servicio,
+  actualizarPreguntas,
+}) {
   const { crearPreguntaServicio } = useServicios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -12,7 +16,7 @@ export function FormNuevaPreguntaServicioGeneral({id_servicio,actualizarPregunta
     id_servicio: id_servicio,
     id_usuario: usuario.id,
   });
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -21,17 +25,28 @@ export function FormNuevaPreguntaServicioGeneral({id_servicio,actualizarPregunta
       return;
     }
     try {
-      console.log(pregunta)
+      console.log(pregunta);
       const res = await crearPreguntaServicio(pregunta);
       setPregunta({
         pregunta: "",
         id_servicio: id_servicio,
         id_usuario: usuario.id,
       });
-      actualizarPreguntas()
-      alert("La pregunta fue creada exitosamente.");
+      actualizarPreguntas();
+
+      Swal.fire({
+        title: "Éxito",
+        text: "La pregunta fue creada exitosamente.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      });
     } catch (error) {
-      alert("Ocurrió un error al crear la pregunta.");
+      Swal.fire({
+        title: "Error",
+        text: "Ocurrió un error al crear la pregunta.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+      });
     }
   };
 

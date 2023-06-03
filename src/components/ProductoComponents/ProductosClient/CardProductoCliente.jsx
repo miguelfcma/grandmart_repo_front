@@ -2,15 +2,12 @@ import "./CardProductoCliente.css";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
 import { deleteImagesProducto } from "../../../firebase/productoStorage";
 import { FormUpdateProductoCliente } from "./FormUpdateProductoCliente";
 import { Modal } from "../../ModalComponents/Modal";
 
 export function CardProductoCliente({ producto }) {
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const navigate = useNavigate();
-
   const { deleteProductoCliente, getImgPortadaProducto, getAllImagesProduct } =
     useProductos();
 
@@ -30,8 +27,40 @@ export function CardProductoCliente({ producto }) {
       const imagenesProducto = await getAllImagesProduct(producto.id);
       const urls = imagenesProducto.map((imagen) => imagen.url);
 
-      await deleteImagesProducto(urls);
-      await deleteProductoCliente(producto.id);
+      // Mostrar SweetAlert2 de confirmación
+      const confirmResult = await Swal.fire({
+        icon: "warning",
+        title: "Eliminar producto",
+        text: `¿Estás seguro de eliminar el producto "${producto.nombre}"?`,
+        showCancelButton: true,
+        confirmButtonText: "Eliminar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (confirmResult.isConfirmed) {
+        const status = await deleteProductoCliente(producto.id);
+
+        if (status === 200) {
+          await deleteImagesProducto(urls);
+          Swal.fire({
+            icon: "success",
+            title: "Éxito",
+            text: "El producto se eliminó correctamente",
+          });
+        } else if (status === 404) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "El producto no se encontró o no existe",
+          });
+        } else if (status === 500) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Hubo un error en el servidor",
+          });
+        }
+      }
     } catch (error) {
       console.error(error);
     }
@@ -62,6 +91,11 @@ export function CardProductoCliente({ producto }) {
 
   return (
     <div className="card-producto">
+      {producto.stock === 0 && (
+        <div className="agotado-label">
+          <h4>Agotado</h4>
+        </div>
+      )}
       <Link
         to={`/dashClient/productos/detalles/${producto.id}`}
         style={{ textDecoration: "none" }}
@@ -80,7 +114,10 @@ export function CardProductoCliente({ producto }) {
         Editar producto
       </button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <FormUpdateProductoCliente onSubmit={handleSubmit} producto={producto} />
+        <FormUpdateProductoCliente
+          onSubmit={handleSubmit}
+          producto={producto}
+        />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
       <button className="btn-cliente-producto" onClick={handleEliminarProducto}>

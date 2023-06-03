@@ -4,8 +4,9 @@ import { Favoritos } from "../FavoritosComponents/Favoritos";
 import { Carrito } from "../CarritoComponents/Carrito";
 import axios from "axios";
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
-import { useCategorias } from "../CategoriaComponents/CategoriasContext/CategoriaProvider";
-
+import { useOrdenes } from "../OrdenesComponents/OrdenesContext/OrdenProvider";
+import { useServicios } from "../ServicioComponents/ServiciosContext/ServicioProvider";
+import { useUsuarios } from "../usuarioComponents/UsuariosContext/UsuarioProvider";
 import "./NavBar.css";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -15,19 +16,45 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link, useNavigate } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
-
+import Swal from "sweetalert2";
 export function Navbar1({ onSearch }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
   const { cerrarSesionProductos } = useProductos();
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
-    cerrarSesionProductos();
-    // redirigir a  la página principal
-    navigate("/");
-  };
+  const { cerrarSesionOrdenes } = useOrdenes();
+  const { cerrarSesionServicios } = useServicios();
+  const { cerrarSesionUsuarios } = useUsuarios();
 
+  const handleLogout = () => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Se cerrará tu sesión actual",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, salir",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
+        cerrarSesionProductos();
+        cerrarSesionOrdenes();
+        cerrarSesionServicios();
+        cerrarSesionUsuarios();
+
+        Swal.fire(
+          "¡Sesión cerrada!",
+          "Has salido de la cuenta exitosamente",
+          "success"
+        ).then(() => {
+          // redirigir a la página principal
+          navigate("/");
+        });
+      }
+    });
+  };
   const categorias = [
     { id: 25, nombre: "Tecnología", link: "/productos/categoria/25" },
     { id: 26, nombre: "Entretenimiento", link: "/productos/categoria/26" },

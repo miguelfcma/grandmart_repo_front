@@ -6,6 +6,7 @@ import { useCategorias } from "../../../../components/CategoriaComponents/Catego
 import { SidebarAdmin } from "../../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../../components/DashAdminComponents/HeaderAdmin";
 import "./ProductoDetallesAdminPage.css";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 export function ProductoDetallesAdminPage() {
   const {
@@ -49,31 +50,45 @@ export function ProductoDetallesAdminPage() {
   }, [productosAll, id, getImgPortadaProducto, getProductImagesGaleria]);
 
   return (
-    <div className="contenedor-producto" style={{ marginLeft: "200px" }}>
-      <HeaderAdmin />
+    <div className="dashboard-container">
       <SidebarAdmin />
-      {producto ? (
-        <>
-          <div className="info-producto">
-            <div>ID producto: {producto.id}</div>
-            <div>Nombre: {producto.nombre}</div>
-            <div>Precio: ${producto.precio}</div>
-            <div>Stock: {producto.stock}</div>
-            <div>Descripción: {producto.descripcion}</div>
-            <div>Marca: {producto.marca}</div>
-            <div>Modelo: {producto.modelo}</div>
-            <div>Color: {producto.color}</div>
-            <div>Estado: {producto.estado ? "Nuevo" : "Usado"}</div>
-            <div>
-              Categoría:{" "}
-              {
-                categorias.find(
-                  (categoria) => categoria.id === producto.id_categoria
-                )?.nombre
-              }
+      <div className="contenidoPages">
+        <HeaderAdmin />
+        <Breadcrumb
+          style={{
+            backgroundColor: "#1256a3",
+            fontWeight: "bold",
+          }}
+        >
+          <Breadcrumb.Item onClick={() => navigate("/dashAdmin/productos")}>
+            Productos
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active style={{ color: "white" }}>
+            Detalles del Producto
+          </Breadcrumb.Item>
+        </Breadcrumb>
+        {producto ? (
+          <>
+            <div className="info-producto">
+              <div>ID producto: {producto.id}</div>
+              <div>Nombre: {producto.nombre}</div>
+              <div>Precio: ${producto.precio}</div>
+              <div>Stock: {producto.stock}</div>
+              <div>Descripción: {producto.descripcion}</div>
+              <div>Marca: {producto.marca}</div>
+              <div>Modelo: {producto.modelo}</div>
+              <div>Color: {producto.color}</div>
+              <div>Estado: {producto.estado ? "Nuevo" : "Usado"}</div>
+              <div>
+                Categoría:{" "}
+                {
+                  categorias.find(
+                    (categoria) => categoria.id === producto.id_categoria
+                  )?.nombre
+                }
+              </div>
+              <div>Publicado por usuario con ID: {producto.id_usuario}</div>
             </div>
-            <div>Publicado por usuario con ID: {producto.id_usuario}</div>
-          </div>
 
             <div className="galeria">
               {imagen && (
@@ -93,13 +108,14 @@ export function ProductoDetallesAdminPage() {
                   />
                 ))}
             </div>
-        </>
-      ) : (
-        <div>No se encontró el producto</div>
-      )}
-      <button onClick={() => window.history.back()} className="back-buttonp">
-        Atrás
-      </button>
+          </>
+        ) : (
+          <div>No se encontró el producto</div>
+        )}
+        <button onClick={() => window.history.back()} className="back-buttonp">
+          Atrás
+        </button>{" "}
+      </div>
     </div>
   );
 }

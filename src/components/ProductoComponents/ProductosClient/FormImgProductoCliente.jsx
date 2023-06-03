@@ -1,14 +1,10 @@
 import { useRef, useState } from "react";
-import {
-  uploadImageProducto,
-  uploadImagesProducto,
-} from "../../../firebase/productoStorage";
-
+import { uploadImagesProducto } from "../../../firebase/productoStorage";
 import { useProductos } from "../ProductosContext/ProductoProvider";
-import "./FormImgProductoCliente.css";
-import { useNavigate } from "react-router-dom";
 
-import { Form, Button} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { Form, Button, Alert } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 
 export function FormImgProductoCliente(idProducto) {
@@ -18,37 +14,41 @@ export function FormImgProductoCliente(idProducto) {
 
   const navigate = useNavigate();
   const [imagenes, setImagenes] = useState([]);
-
-  const [loading, setLoading] = useState(false); // Agrega un estado de carga
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const onDrop = async (acceptedFiles) => {
     const nuevasImagenes = [];
     const maxSize = 10 * 1024 * 1024; // 10 MB
-    await Promise.all(
-      acceptedFiles.map((file) => {
-        return new Promise((resolve, reject) => {
-          if (!file.type.startsWith("image/")) {
-            reject(new Error(`El archivo "${file.name}" no es una imagen`));
-          } else if (file.size > maxSize) {
-            reject(
-              new Error(
-                `El archivo "${file.name}" excede el tamaño máximo permitido de 10 MB`
-              )
-            );
-          } else {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-              nuevasImagenes.push(file);
-              resolve();
-            };
-            reader.onerror = reject;
-          }
-        });
-      })
-    );
-
-    setImagenes((prevImagenes) => [...prevImagenes, ...nuevasImagenes]);
+    try {
+      await Promise.all(
+        acceptedFiles.map((file) => {
+          return new Promise((resolve, reject) => {
+            if (!file.type.startsWith("image/")) {
+              reject(new Error(`El archivo "${file.name}" no es una imagen`));
+            } else if (file.size > maxSize) {
+              reject(
+                new Error(
+                  `El archivo "${file.name}" excede el tamaño máximo permitido de 10 MB`
+                )
+              );
+            } else {
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = () => {
+                nuevasImagenes.push(file);
+                resolve();
+              };
+              reader.onerror = reject;
+            }
+          });
+        })
+      );
+      setImagenes((prevImagenes) => [...prevImagenes, ...nuevasImagenes]);
+      setError(null);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -66,15 +66,44 @@ export function FormImgProductoCliente(idProducto) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
+    setError(null);
+
     try {
+      if (imagenes.length === 0) {
+        throw new Error("Debe agregar al menos una imagen");
+      } else if (imagenes.length > 7) {
+        throw new Error("Solo se pueden agregar 7 imágenes");
+      }
+      Swal.fire({
+        title: "Cargando...",
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+        },
+      });
       const urls = await uploadImagesProducto(imagenes);
-      console.log(urls)
-      const dataUrls = await createImagenesProductoEnbd(id_producto, urls);
+
+      const status = await createImagenesProductoEnbd(id_producto, urls);
+      if (status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Imágenes subidas",
+          text: "Las imágenes se han subido correctamente",
+        });
+        navigate("/dashClient/productos");
+      } else if (status === 500) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Ha ocurrido un error al procesar la solicitud",
+        });
+      }
+
       setLoading(false);
-      navigate("/dashClient/productos");
     } catch (error) {
       setLoading(false);
-      console.error(error);
+      setError(error.message);
+      console.log(error);
     }
   };
 
@@ -82,11 +111,14 @@ export function FormImgProductoCliente(idProducto) {
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="imagenes">
         <Form.Label>Imágenes:</Form.Label>
+        <p>
+          Ahora ingresa las imágenes del producto para finalizar el registro.
+          Solo puedes agregar hasta 7 imágenes:
+        </p>
         <div {...getRootProps()} className="dropzone-area">
           <input {...getInputProps()} />
           <p>
-            Arrastre y suelte archivos aquí o haga clic para seleccionar
-            archivos
+            Arrastra y suelta archivos aquí o haz clic para seleccionar archivos
           </p>
         </div>
         <div className="imagen-preview-container">
@@ -118,6 +150,7 @@ export function FormImgProductoCliente(idProducto) {
           ))}
         </div>
       </Form.Group>
+      {error && <Alert variant="danger">{error}</Alert>}
       <Button variant="primary" type="submit" disabled={loading}>
         Crear publicación
       </Button>

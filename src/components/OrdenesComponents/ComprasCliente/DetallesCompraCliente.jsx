@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import { useProductos } from "../../ProductoComponents/ProductosContext/ProductoProvider";
 import { useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
 export function DetallesCompraCliente({ id_orden }) {
   const {
     obtenerDetalleOrden,
@@ -33,7 +33,7 @@ export function DetallesCompraCliente({ id_orden }) {
   const [nuevoEstado, setNuevoEstado] = useState("");
   const [direccionEnvio, setDireccionEnvio] = useState(null);
   const [urlImagenes, setUrlImagenes] = useState([]);
-
+  const [infoEnvio, setInfoEnvio] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,6 +49,7 @@ export function DetallesCompraCliente({ id_orden }) {
           fechaEntrega: data.orden.fechaEntrega,
           detallesOrden: data.detallesOrden,
         });
+        setInfoEnvio(data2.envio);
         setDireccionEnvio(data2.direccion_envio);
         setNuevoEstado(data.orden.estado_orden);
 
@@ -71,12 +72,66 @@ export function DetallesCompraCliente({ id_orden }) {
   };
 
   const handleOpinar = (productoId) => {
-    navigate(`/dashClient/compras/opinar/${productoId}`);
+    navigate(`/dashClient/compras/detalles/${id_orden}/opinar/${productoId}`);
   };
 
   const handleCancelarOrdenDeCompra = async () => {
     try {
-      await cancelarOrdenDeCompra(orden.id);
+      const confirmResult = await Swal.fire({
+        icon: "question",
+        title: "Confirmar cancelación",
+        text: "¿Estás seguro de que deseas cancelar la orden de compra?",
+        showCancelButton: true,
+        confirmButtonText: "Sí, cancelar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (confirmResult.isConfirmed) {
+        const status = await cancelarOrdenDeCompra(orden.id);
+        if (status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Orden cancelada",
+            text: "La orden de compra se ha cancelado exitosamente",
+          });
+        } else if (status === 401) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "La orden ya está cancelada y no se puede cambiar su estado",
+          });
+        } else if (status === 402) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "La orden no está en estado 'Pendiente' y no se puede cancelar",
+          });
+        } else if (status === 403) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "El envío no está en estado 'Pendiente' y no se puede cancelar",
+          });
+        } else if (status === 404) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "La orden de compra no se encontró o no existe",
+          });
+        } else if (status === 500) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Ha ocurrido un error en el servidor",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Ha ocurrido un error al cancelar la orden de compra",
+          });
+        }
+      }
     } catch (error) {
       console.error("Error al eliminar orden", error);
     }
@@ -128,6 +183,16 @@ export function DetallesCompraCliente({ id_orden }) {
               </Col>
             ))}
           </Row>
+          <div>
+            <h1 className="infoEnvio-titulo">Envío:</h1>
+            <Row className="orden-row">
+              <Col md={4}>
+                <p>ID envío: {infoEnvio.id}</p>
+                <p>Estado envío: {infoEnvio.estado}</p>
+              </Col>
+              
+            </Row>
+          </div>
 
           {direccionEnvio && (
             <Card>

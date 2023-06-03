@@ -52,7 +52,7 @@ export function ListaOrdenesAdmin() {
     }
 
     if (ordenesFiltradas.length === 0) {
-      return <h1>No hay órdenes registradas</h1>;
+      return <h3>No se encontraron resultados</h3>;
     } else {
       return ordenesFiltradas.map((orden) => (
         <ItemOrdenAdmin key={orden.id} orden={orden} />
@@ -88,7 +88,7 @@ export function ListaOrdenesAdmin() {
                 <th>Estado de Orden</th>
                 <th>ID de Usuario</th>
                 <th>Fecha de Creación</th>
-           
+
                 <th>Total</th>
                 <th></th>
               </tr>

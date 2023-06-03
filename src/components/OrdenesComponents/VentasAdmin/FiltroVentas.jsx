@@ -55,16 +55,17 @@ export function FiltroVentas({ handleFiltrarVentas, handleLimpiarFiltros }) {
                 onChange={handleEstadoChange}
               >
                 <option value="">Todos</option>
+                <option value="Pendiente">Pendiente</option>
                 <option value="En proceso">En proceso</option>
-                <option value="Completada">Completada</option>
                 <option value="Cancelada">Cancelada</option>
+                <option value="Completada">Completada</option>
               </Form.Control>
             </Form.Group>
           </Col>
 
           <Col>
             <Form.Group controlId="totalMin">
-              <Form.Label>Total Mínimo:</Form.Label>
+              <Form.Label>Total Mínimo $:</Form.Label>
               <Form.Control
                 type="number"
                 value={filtroTotalMin}
@@ -74,7 +75,7 @@ export function FiltroVentas({ handleFiltrarVentas, handleLimpiarFiltros }) {
           </Col>
           <Col>
             <Form.Group controlId="totalMax">
-              <Form.Label>Total Máximo:</Form.Label>
+              <Form.Label>Total Máximo $:</Form.Label>
               <Form.Control
                 type="number"
                 value={filtroTotalMax}

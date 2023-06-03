@@ -52,7 +52,8 @@ export function ListaOrdenesRepartidor() {
     }
 
     if (ordenesFiltradas.length === 0) {
-      return <h1>No hay órdenes registradas</h1>;
+      return <h3>No se encontraron resultados</h3>;
+
     } else {
       return ordenesFiltradas.map((orden) => (
         <ItemOrdenRepartidor key={orden.id} orden={orden} />

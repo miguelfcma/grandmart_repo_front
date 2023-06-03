@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { useServicios } from "../../ServiciosContext/ServicioProvider";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Col } from "react-bootstrap";
-
-export function FormNuevoServicioCliente({handleServicioRegistrado}) {
+import Swal from "sweetalert2";
+export function FormNuevoServicioCliente({ handleServicioRegistrado }) {
   const navigate = useNavigate();
-  
+
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { createServicio } = useServicios();
   const [servicio, setServicio] = useState({
@@ -32,7 +32,7 @@ export function FormNuevoServicioCliente({handleServicioRegistrado}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   
+
     if (
       servicio.titulo === "" ||
       servicio.precio === "" ||
@@ -42,13 +42,39 @@ export function FormNuevoServicioCliente({handleServicioRegistrado}) {
       return;
     }
 
-    const response = await createServicio(servicio);
-
-    if (response) {
-      const idServicio = response.servicio.id;
-  
-      handleServicioRegistrado(idServicio);
-    
+    try {
+      const response = await createServicio(servicio);
+      const status = response ? response.status : null;
+      console.log("asas", status);
+      if (status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Éxito",
+          text: "El servicio se creó con éxito",
+        });
+        const idServicio = response.data.servicio.id;
+        handleServicioRegistrado(idServicio);
+      } else if (status === 400) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "El servicio ya está registrado en su cuenta",
+        });
+      } else if (status === 500) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Hubo un error en el servidor",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      // Mostrar una alerta de error genérica
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al crear el servicio",
+      });
     }
   };
 

@@ -14,7 +14,7 @@ const stripePromise = loadStripe(
 );
 import { Button, Container } from "react-bootstrap";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 import "./StripeFormTarjetaComponent.css";
 
 import { AnimacionCargaComponent } from "../Animaciones/AnimacionCargaComponent";
@@ -30,14 +30,19 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const validation = await verificacionDireccionEnvio(usuario.id);
-    console.log(validation);
+    const status = await verificacionDireccionEnvio(usuario.id);
 
-    if (validation === false) {
-      alert("La dirección de envío no está verificada");
+    if (status === 400) {
+      Swal.fire({
+        icon: "error",
+        text: "El usuario no tiene una dirección de envío registrada",
+      });
       navigate("/informacion-envio");
     } else if (carrito.detalles.length === 0) {
-      alert("El carrito está vacío");
+      Swal.fire({
+        icon: "error",
+        text: "El usuario no tiene un carrito de compra",
+      });
       navigate("/carrito-compras");
     } else {
       try {
@@ -53,21 +58,34 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
           const amountInCents = Math.round(detallesCarrito.total * 100);
 
           try {
-            const orden = await crearOrden({
+            const response = await crearOrden({
               id_card: id,
               amount: amountInCents,
               description: detallesCarrito.descripcion,
               id_usuario: usuario.id,
             });
-
-     
-            elements.getElement(CardElement).clear();
-            navigate(`/final-compras/${orden.id}`); // Redirige a la página "/final-compras" con el ID de la orden en el URL
+            console.log(response);
+            if (response.status === 201) {
+              elements.getElement(CardElement).clear();
+              Swal.fire({
+                icon: "success",
+                text: "¡La orden se ha creado exitosamente!",
+              }).then(() => {
+                navigate(`/final-compras/${response.data.nuevaOrden.id}`);
+              });
+            } else if (response.status === 400) {
+              Swal.fire({
+                icon: "error",
+                text: response.data.message,
+              });
+            } else if (response.status === 500) {
+              Swal.fire({
+                icon: "error",
+                text: "Ha ocurrido un error en el servidor",
+              });
+            }
           } catch (error) {
-            alert(
-              "Ocurrió un error al procesar el pago. Por favor, verifica los datos de tu tarjeta e intenta nuevamente."
-            );
-            console.log("Error al crear la orden:", error);
+            console.log("Error al crear la orden:2", error);
           }
 
           setTimeout(() => {
@@ -77,10 +95,7 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
           throw new Error(error.message);
         }
       } catch (error) {
-        console.log("Error al crear el pago:", error.message);
-        alert(
-          "Ocurrió un error al procesar el pago. Por favor, verifica los datos de tu tarjeta e intenta nuevamente."
-        );
+        console.log("Error al crear el pago 1:", error.message);
       } finally {
         setLoading(false);
       }

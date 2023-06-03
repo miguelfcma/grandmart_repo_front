@@ -14,7 +14,7 @@ export function CarritoPay() {
     getImgPortadaProducto,
     limpiarCarrito,
   } = useProductos();
-  const { crearOrden, verificacionDireccionEnvio } = useOrdenes();
+  const { verificacionDireccionEnvio } = useOrdenes();
 
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -25,7 +25,7 @@ export function CarritoPay() {
   useEffect(() => {
     const fetchData = async (userId) => {
       try {
-      await obtenerCarritoDeCompras(userId)
+        await obtenerCarritoDeCompras(userId);
       } catch (error) {
         console.error(error);
       }
@@ -77,15 +77,13 @@ export function CarritoPay() {
     });
   };
   const crearOrdenDeCompra = async () => {
-    const validation = await verificacionDireccionEnvio(usuario.id);
-    console.log(validation);
-    if (validation == false) {
+    const status = await verificacionDireccionEnvio(usuario.id);
+
+    if (status === 400) {
       navigate("/informacion-envio");
-    } else {
-      
+    } else if(status === 200){
       navigate("/resumen-compras");
     }
-    //const response = await crearOrden({ id_usuario: usuario.id });
     limpiarCarrito();
   };
   return (

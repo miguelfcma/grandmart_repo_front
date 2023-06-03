@@ -18,14 +18,18 @@ export const createComentarioRequest = async (data) => {
   }
 };
 
-export const getComentariosPorIdPublicacionRequest = async (id_publicacionBlog) => {
+export const getComentariosPorIdPublicacionRequest = async (
+  id_publicacionBlog
+) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}blog-comentarios/${id_publicacionBlog}`);
+    const response = await axios.get(
+      `${API_BASE_URL}blog-comentarios/${id_publicacionBlog}`
+    );
     console.log({
       status: response.status,
       message: response.data.message,
     });
-    return response
+    return response;
   } catch (error) {
     console.log({
       status: error.response.status,
@@ -35,9 +39,11 @@ export const getComentariosPorIdPublicacionRequest = async (id_publicacionBlog) 
   }
 };
 
-export const deleteComentarioPorIdUsuarioRequest = async (idUsuario) => {
+export const deleteComentarioPorIdUsuarioRequest = async (idUsuario, id) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}blog-comentarios/${idUsuario}`);
+    const response = await axios.delete(
+      `${API_BASE_URL}blog-comentarios/${idUsuario}/${id}`
+    );
     console.log({
       status: response.status,
       message: response.data.message,
@@ -54,7 +60,10 @@ export const deleteComentarioPorIdUsuarioRequest = async (idUsuario) => {
 
 export const updateComentarioPorIdUsuarioRequest = async (idUsuario, data) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}blog-comentarios/${idUsuario}`, data);
+    const response = await axios.put(
+      `${API_BASE_URL}blog-comentarios/${idUsuario}`,
+      data
+    );
     console.log({
       status: response.status,
       message: response.data.message,

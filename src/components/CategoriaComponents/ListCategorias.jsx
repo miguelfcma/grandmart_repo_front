@@ -4,6 +4,7 @@ import { Modal } from "../ModalComponents/Modal";
 import { FormCategoria } from "./FormCategoria";
 import { Table, Button } from "react-bootstrap";
 import "./ListCategorias.css";
+import Swal from "sweetalert2";
 
 export function ListCategorias() {
   const { loadCategorias, categorias, deleteCategoria } = useCategorias();
@@ -13,7 +14,10 @@ export function ListCategorias() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
   useEffect(() => {
-    loadCategorias();
+    async function fetchData() {
+      await loadCategorias();
+    }
+    fetchData();
   }, []);
 
   function handleOpenModal(categoria) {
@@ -36,6 +40,50 @@ export function ListCategorias() {
       handleCloseModal();
     }
   }, [formularioEnviado]);
+
+  const handleEliminarCategoria = async (categoria) => {
+    try {
+      const confirmResult = await Swal.fire({
+        icon: "warning",
+        title: "Eliminar categoría",
+        html: `¿Estás seguro de eliminar la categoría <strong>${categoria.nombre}</strong>?`,
+        showCancelButton: true,
+        confirmButtonText: "Sí",
+        cancelButtonText: "No",
+      });
+
+      if (confirmResult.isConfirmed) {
+        const status = await deleteCategoria(categoria.id);
+        if (status === 204) {
+          Swal.fire({
+            icon: "success",
+            title: "Éxito",
+            text: "La categoría se eliminó correctamente",
+          });
+        } else if (status === 400) {
+          Swal.fire({
+            icon: "info",
+            title: "Advertencia",
+            text: "La categoría tiene subcategorías y no se puede eliminar",
+          });
+        } else if (status === 404) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "La categoría no se encontró o no existe",
+          });
+        } else if (status === 500) {
+          Swal.fire({
+            icon: "error",
+            title: "Error en el servidor",
+            text: "Ocurrió un error en el servidor. Por favor, intenta nuevamente más tarde.",
+          });
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -67,7 +115,7 @@ export function ListCategorias() {
 
                     <Button
                       variant="danger"
-                      onClick={() => deleteCategoria(categoria.id)}
+                      onClick={() => handleEliminarCategoria(categoria)}
                     >
                       Eliminar
                     </Button>

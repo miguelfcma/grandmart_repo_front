@@ -80,20 +80,31 @@ background-color: #3fa6bd;
   background-color: #5743a1;
 }
 
-.btnRPS{
+.btnRPS {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
   padding: 10px 20px;
   border: none;
-  margin-left: 315px;
   background-color: #28aa63;
+  cursor: pointer;
 }
-.btnRPS:hover{
+
+.btnRPS:hover {
   background-color: #1d7043;
 }
 
+@media (max-width: 768px) {
+  .contenedorBoton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .btnRPS {
+    margin-left: 0;
+  }
+}
 
 
 .btnPSR, .btnPR{
@@ -107,9 +118,7 @@ background-color: #3fa6bd;
 .btnPSR{
   margin-right: 20px;
 }
-.btnPR{
-  margin-left: 585px;
-}
+
 
 .btnPSR:hover, .btnPR:hover {
   background-color: #5743a1;

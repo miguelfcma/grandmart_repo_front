@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from "react";
-
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
-import {
-  Container,
-  Row,
-  Col,
-  Table,
-  Dropdown,
-  DropdownButton,
-  Button,
-  Alert, // Agregar el componente de Alert de Bootstrap
-} from "react-bootstrap";
+import { Container, Row, Col, Table, Button, Form } from "react-bootstrap";
 import "./DetallesOrdenRepartidor.css";
 import { useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
 export function DetallesOrdenRepartidor({ id_orden }) {
   const {
     obtenerDetalleOrden,
     cambiarEstadoEnvio,
     obtenerDireccionEnvioOrden,
   } = useOrdenes();
+
   const [orden, setOrden] = useState({
     id: null,
     total: null,
@@ -31,32 +22,96 @@ export function DetallesOrdenRepartidor({ id_orden }) {
   });
   const navigate = useNavigate();
   const [direccionEnvio, setDireccionEnvio] = useState(null);
-  const [infoEnvio, setInfoEnvio] = useState(null);
+  const [infoEnvio, setInfoEnvio] = useState("");
+  const cargarDetalleOrden = async () => {
+    try {
+      const data = await obtenerDetalleOrden(id_orden);
+
+      setOrden({
+        id: data.orden.id,
+        total: data.orden.total,
+        estado_orden: data.orden.estado_orden,
+        id_usuario: data.orden.id_usuario,
+        createdAt: data.orden.createdAt,
+        fechaEntrega: data.orden.fechaEntrega,
+        detallesOrden: data.detallesOrden,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const cargarDireccionEnvioOrden = async () => {
+    try {
+      const data2 = await obtenerDireccionEnvioOrden(id_orden);
+
+      setInfoEnvio(data2.envio);
+      setDireccionEnvio(data2.direccion_envio);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await obtenerDetalleOrden(id_orden);
-        const data2 = await obtenerDireccionEnvioOrden(id_orden);
-        console.log(data2);
-        setOrden({
-          id: data.orden.id,
-          total: data.orden.total,
-          estado_orden: data.orden.estado_orden,
-          id_usuario: data.orden.id_usuario,
-          createdAt: data.orden.createdAt,
-          fechaEntrega: data.orden.fechaEntrega,
-          detallesOrden: data.detallesOrden,
-        });
-        setInfoEnvio(data2.envio);
-        setDireccionEnvio(data2.direccion_envio);
-        setEstadoModificable(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
+    cargarDetalleOrden();
+    cargarDireccionEnvioOrden();
   }, []);
 
+  const [opcionSeleccionadaEnvio, setOpcionSeleccionadaEnvio] = useState("");
+  const opcionesEnvio = [
+    "Pendiente",
+    "En tránsito",
+    "Entregado",
+    "Retrasado",
+    "Devuelto",
+    "Cancelado",
+  ];
+  const handleCambioOpcionEnvio = (e) => {
+    setOpcionSeleccionadaEnvio(e.target.value);
+  };
+  const handleCambiarEstadoEnvio = async () => {
+    try {
+      const confirmResult = await Swal.fire({
+        icon: "question",
+        title: "Confirmar actualización",
+        text: "¿Estás seguro de que deseas cambiar el estado del envío?",
+        showCancelButton: true,
+        confirmButtonText: "Sí, actualizar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (confirmResult.isConfirmed) {
+        const status = await cambiarEstadoEnvio(infoEnvio.id, {
+          nuevoEstado: opcionSeleccionadaEnvio,
+        });
+        if (status === 200) {
+          Swal.fire("Éxito", "Estado del envío actualizado", "success");
+          cargarDireccionEnvioOrden();
+        } else if (status === 404) {
+          Swal.fire(
+            "Error",
+            `El envío con id ${infoEnvio.id} no existe`,
+            "error"
+          );
+        } else if (status === 401) {
+          Swal.fire(
+            "Error",
+            "La orden ya está cancelada y no se puede cambiar su estado",
+            "error"
+          );
+        } else if (status === 402) {
+          Swal.fire(
+            "Error",
+            `El envío ya tiene el estado ${opcionSeleccionadaEnvio} y no se puede cambiar su estado nuevamente`,
+            "error"
+          );
+        } else if (status === 500) {
+          Swal.fire("Error", "Error en el servidor", "error");
+        }
+      }
+    } catch (error) {
+      console.error("Error al cambiar el estado del envío:", error);
+    }
+  };
   return (
     <Container className="detalles-orden-Repartidor">
       <div>
@@ -108,16 +163,33 @@ export function DetallesOrdenRepartidor({ id_orden }) {
           </Table>
 
           <div>
-        <h1 className="infoEnvio-titulo">Envío:</h1>
-        <Row className="orden-row">
-          <Col md={4}>
-            <p>ID: {infoEnvio.id}</p>
-            <p>Estado: {infoEnvio.estado}</p>
-       
-          </Col>
-        
-        </Row>
-      </div>
+            <h1 className="infoEnvio-titulo">Envío:</h1>
+            <Row className="orden-row">
+              <Col md={4}>
+                <p>ID: {infoEnvio.id}</p>
+                <p>Estado: {infoEnvio.estado}</p>
+              </Col>
+              <div>
+                <Form.Select
+                  value={opcionSeleccionadaEnvio}
+                  onChange={handleCambioOpcionEnvio}
+                >
+                  <option value="">Seleccione un estado</option>
+                  {opcionesEnvio.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Form.Select>
+                <button
+                  onClick={handleCambiarEstadoEnvio}
+                  disabled={!opcionSeleccionadaEnvio}
+                >
+                  Cambiar Estado de Orden
+                </button>
+              </div>
+            </Row>
+          </div>
 
           <h1 className="detalles-orden-titulo">Detalles del envío:</h1>
           {direccionEnvio && (

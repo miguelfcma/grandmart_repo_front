@@ -228,3 +228,20 @@ export const deleteCuentaBancariaByUserIdRequest = async (id_usuario) => {
     return error.response;
   }
 };
+
+export const eliminarCuentaUsuarioRequest = async (id, password) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}usuarios/${id}/eliminar-cuenta`, { data: { password } });
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};
