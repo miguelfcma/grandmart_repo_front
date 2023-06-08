@@ -14,8 +14,6 @@ export function DetalleDeProductos({ enviarDetallesCarrito }) {
     const fetchData = async (userId) => {
       try {
         await obtenerCarritoDeCompras(userId);
-        
-
       } catch (error) {
         console.error(error);
       }
@@ -40,18 +38,16 @@ export function DetalleDeProductos({ enviarDetallesCarrito }) {
       }
     });
 
-
     const totalCarrito = carrito.totalCantidad;
-        const descripcionProductos = carrito.detalles
-          .map((item) => item.producto.nombre)
-          .join(", ");
-          
+    const descripcionProductos = carrito.detalles
+      .map((item) => item.producto.nombre)
+      .join(", ");
 
-          const detallesCarrito = {
-            descripcion: descripcionProductos,
-            total: totalCarrito
-          };
-          enviarDetallesCarrito(detallesCarrito);
+    const detallesCarrito = {
+      descripcion: descripcionProductos,
+      total: totalCarrito,
+    };
+    enviarDetallesCarrito(detallesCarrito);
   }, [carrito, imgUrls, getImgPortadaProducto]);
   return (
     <Container className="contenedor-productos-detalles">
@@ -93,19 +89,17 @@ export function DetalleDeProductos({ enviarDetallesCarrito }) {
                   {/* Usamos el estado local para obtener la imagen de portada */}
                 </Link>
               </td>
-              <td className="prices">$ {item.producto.precio}</td>
-              <td className="cart-item-controls2">
-                <span className="prices">{item.cantidad}</span>
-              </td>
+              <td className="prices">$ {item.producto.precio} MXN</td>
+              <td className="prices">{item.cantidad}</td>
               <td className="prices">
-                $ {item.producto.precio * item.cantidad}
+                $ {item.producto.precio * item.cantidad} MXN
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
       <div className="cart-total">
-        <h3>Total: ${carrito.totalCantidad}</h3>
+        <h3>Total: ${carrito.totalCantidad} MXN</h3>
       </div>
       <div className="cart-actions">
         {carrito.detalles.length === 0 ? (

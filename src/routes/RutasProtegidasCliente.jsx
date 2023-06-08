@@ -1,4 +1,5 @@
 import { Route, Navigate, Outlet } from "react-router-dom";
+import { VerificarToken } from "../components/VerificadorToken/VerificarToken";
 
 function RutasProtegidasCliente() {
   // Verificar si existe el token en el localStorage
@@ -16,6 +17,7 @@ function RutasProtegidasCliente() {
   return (
     <>
       <Outlet />
+      <VerificarToken />
     </>
   );
 }

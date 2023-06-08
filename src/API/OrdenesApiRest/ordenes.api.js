@@ -100,6 +100,7 @@ export const obtenerVentasPorUsuarioRequest = async (id_usuario) => {
       status: response.status,
       message: response.data.message,
     });
+    console.log(response.data)
     return response;
   } catch (error) {
     console.log({

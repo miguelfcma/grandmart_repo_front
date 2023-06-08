@@ -107,7 +107,7 @@ export function CardProductoCliente({ producto }) {
           src={urlImagen}
           alt={producto.nombre}
         />
-        <div>Precio: ${producto.precio}</div>
+        <div>Precio: ${producto.precio} MXN</div>
       </Link>
 
       <button className="btn-cliente-producto" onClick={handleOpenModal}>

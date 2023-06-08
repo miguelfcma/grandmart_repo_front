@@ -3,7 +3,7 @@ import "./CardServicioAdmin.css";
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { FormUpdateInfoContactoDomicilio } from "./FormUpdateInfoContactoDomicilio";
 import { deleteImagesServicio } from "../../../firebase/servicioStorage";
 import { FormUpdateServicioAdmin } from "./FormUpdateServicioAdmin";
 import { Modal } from "../../ModalComponents/Modal";
@@ -67,8 +67,11 @@ export function CardServicioAdmin({ servicio }) {
   };
   
 
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenContacto, setIsModalOpenContacto] = useState(false);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
+
 
   function handleOpenModal() {
     setIsModalOpen(true);
@@ -76,20 +79,30 @@ export function CardServicioAdmin({ servicio }) {
 
   function handleCloseModal() {
     setIsModalOpen(false);
-    setFormularioEnviado(false); // Reiniciar el estado del formulario enviado
+    setFormularioEnviado(false);
+  }
+
+  function handleOpenModalContacto() {
+    setIsModalOpenContacto(true);
+  }
+
+  function handleCloseModalContacto() {
+    setIsModalOpenContacto(false);
+    setFormularioEnviado(false);
   }
 
   function handleSubmit() {
-    // Lógica para enviar el formulario
     setFormularioEnviado(true);
+    setIsModalOpenContacto(true);
   }
+
 
   useEffect(() => {
     if (formularioEnviado) {
-      handleCloseModal(); // Cerrar la ventana modal si el formulario se ha enviado correctamente
+      handleCloseModal();
+      handleCloseModalContacto();
     }
   }, [formularioEnviado]);
-
   return (
     <div className="card-producto">
       <Link
@@ -97,13 +110,14 @@ export function CardServicioAdmin({ servicio }) {
         style={{ textDecoration: "none" }}
       >
         <div>ID: {servicio.id}</div>
+        <div>ID Usuario: {servicio.id_usuario}</div>
         <div>Título: {servicio.titulo}</div>
         <img
           className="card-servicio-img"
           src={urlImagen}
           alt={servicio.nombre}
         />
-        <div>Precio: ${servicio.precio}</div>
+        <div>Precio: ${servicio.precio} MXN</div>
       </Link>
 
       <button className="card-servicio" onClick={handleOpenModal}>
@@ -115,6 +129,17 @@ export function CardServicioAdmin({ servicio }) {
           servicio={servicio}
         />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
+      </Modal>
+
+      <button className="card-servicio" onClick={handleOpenModalContacto}>
+        Editar información de contacto y domicilio
+      </button>
+      <Modal isOpen={isModalOpenContacto} onClose={handleCloseModalContacto}>
+        <FormUpdateInfoContactoDomicilio
+          onSubmit={handleSubmit}
+          servicio={servicio}
+        />
+        <button onClick={handleCloseModalContacto}>Cerrar ventana</button>
       </Modal>
       <button className="card-servicio" onClick={handleEliminarServicio}>
         Eliminar servicio

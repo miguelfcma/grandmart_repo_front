@@ -1,17 +1,41 @@
 import { SidebarAdmin } from "../../../components/DashAdminComponents/SidebarAdmin";
 import { HeaderAdmin } from "../../../components/DashAdminComponents/HeaderAdmin";
-
-import { Bar, Line } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, BarElement, LineElement, Title, Tooltip, Legend, Filler,} from "chart.js";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  BarElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from "chart.js";
 import { useOrdenes } from "../../../components/OrdenesComponents/OrdenesContext/OrdenProvider";
-import { useEffect } from "react";
-ChartJS.register( CategoryScale, LinearScale, PointElement, BarElement, LineElement, Title, Tooltip, Legend, Filler);
+import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Button } from "react-bootstrap";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  BarElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 export function EstadisticasPageAdmin() {
   const { obtenerTodasLasOrdenesConDetalles, ordenesAll } = useOrdenes();
 
+  const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
+
   useEffect(() => {
-    // Definir una función asincrónica dentro del useEffect para utilizar await
     const fetchData = async () => {
       try {
         await obtenerTodasLasOrdenesConDetalles();
@@ -22,35 +46,39 @@ export function EstadisticasPageAdmin() {
     fetchData();
   }, []);
 
-  // Obtener los datos de fechas y totales de las órdenes en español
-  const fechas = ordenesAll.map((orden) => {
+  const ordenesDiaActual = ordenesAll.filter((orden) => {
+    const fechaOrden = new Date(orden.createdAt);
+    return fechaOrden.toDateString() === fechaSeleccionada.toDateString();
+  });
+
+  const datosOrdenes = ordenesDiaActual.map((orden) => {
     const fecha = new Date(orden.createdAt);
-    const opcionesFecha = {
+    const fechaFormateada = fecha.toLocaleDateString("es-ES", {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
-    };
-    const opcionesHora = {
+    });
+    const horaFormateada = fecha.toLocaleTimeString("es-ES", {
       hour: "numeric",
       minute: "numeric",
       second: "numeric",
+    });
+    return {
+      fecha: `${fechaFormateada} ${horaFormateada}`,
+      totalOrden: parseFloat(orden.total),
     };
-    const fechaFormateada = fecha.toLocaleString("es-ES", opcionesFecha);
-    const horaFormateada = fecha.toLocaleString("es-ES", opcionesHora);
-    return `${fechaFormateada} ${horaFormateada}`;
   });
 
+  const fechasDiaActual = datosOrdenes.map((orden) => orden.fecha);
+  const totalesDiaActual = datosOrdenes.map((orden) => orden.totalOrden);
 
-  const totales = ordenesAll.map(orden => parseFloat(orden.total));
-
-  // Configurar los datos y opciones del gráfico
-  const midata = {
-    labels: fechas,
+  const data = {
+    labels: fechasDiaActual,
     datasets: [
       {
-        label: "Total de Ventas",
-        data: totales,
+        label: "Total de Órdenes",
+        data: totalesDiaActual,
         tension: 0.5,
         fill: true,
         borderColor: "rgb(54, 162, 235)",
@@ -59,28 +87,39 @@ export function EstadisticasPageAdmin() {
         pointBorderColor: "rgba(54, 162, 235)",
         pointBackgroundColor: "rgba(54, 162, 235)",
       },
-    
     ],
   };
 
-  const misoptions = {
+  const options = {
     scales: {
       y: {
         min: 0,
       },
       x: {
-        display: false, /* Para que no se muestren las fechas por debajo del gráfico */
+        display: false,
       },
     },
   };
-  
+
+  const handleFechaActual = () => {
+    setFechaSeleccionada(new Date());
+  };
+
   return (
     <div className="dashboard-container">
       <SidebarAdmin />
       <div className="contenidoPages">
         <HeaderAdmin />
-        <h1>Ventas del Día</h1>
-        <Line data={midata} options={misoptions} />
+        <h1>Órdenes del Día</h1>
+        <div className="fecha-seleccionada">
+          <DatePicker
+            selected={fechaSeleccionada}
+            onChange={(date) => setFechaSeleccionada(date)}
+            dateFormat="P"
+          />
+          <Button variant="success" onClick={handleFechaActual}>Fecha Actual</Button>
+        </div>
+        <Line data={data} options={options} />
       </div>
     </div>
   );

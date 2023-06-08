@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
-
+import Swal from "sweetalert2";
 export function FormEditarPerfil({
   onSubmit,
   nombre,
@@ -51,6 +51,7 @@ export function FormEditarPerfil({
 
     return edadCalculada >= edadMinima;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateTelefono(formulario.telefono)) {
@@ -63,11 +64,34 @@ export function FormEditarPerfil({
     }
 
     try {
-      await actualizarPerfilUsuario(usuario.id, formulario);
-      console.log("Perfil de usuario actualizado correctamente");
-      onSubmit();
+      const result = await Swal.fire({
+        title: "Confirmar actualización",
+        text: "¿Estás seguro de que deseas actualizar tu perfil?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Sí, actualizar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (result.isConfirmed) {
+        await actualizarPerfilUsuario(usuario.id, formulario);
+        Swal.fire(
+          "¡Éxito!",
+          "Perfil de usuario actualizado correctamente",
+          "success"
+        );
+        onSubmit();
+      } else {
+        // El usuario canceló la actualización
+        console.log("Actualización del perfil cancelada por el usuario");
+      }
     } catch (error) {
       console.error("Error al actualizar el perfil del usuario:", error);
+      Swal.fire(
+        "¡Error!",
+        "Error al actualizar el perfil del usuario",
+        "error"
+      );
       // Manejar el error de actualización del perfil
     }
   };

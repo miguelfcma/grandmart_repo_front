@@ -91,6 +91,7 @@ export function ServicioDetallesAdminPage() {
                   )?.nombre
                 }
               </div>
+              <div>ID usuario: {servicio.id_usuario}</div>
             </div>
             {datosContacto ? (
               <div>

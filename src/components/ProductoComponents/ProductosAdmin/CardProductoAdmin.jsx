@@ -101,13 +101,14 @@ export function CardProductoAdmin({ producto }) {
         style={{ textDecoration: "none" }}
       >
         <div>ID: {producto.id}</div>
+        <div>ID Usuario: {producto.id_usuario}</div>
         <div>{producto.nombre}</div>
         <img
           className="card-producto-img"
           src={urlImagen}
           alt={producto.nombre}
         />
-        <div>Precio: ${producto.precio}</div>
+        <div>Precio: ${producto.precio} MXN</div>
       </Link>
 
       <button className="btn-admin-producto" onClick={handleOpenModal}>

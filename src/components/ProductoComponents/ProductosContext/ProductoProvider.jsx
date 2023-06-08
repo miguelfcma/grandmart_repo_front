@@ -492,10 +492,8 @@ export const ProductoContextProvider = ({ children }) => {
 
       if (response.status == 200) {
         loadProductosUsuario(usuario.id);
-        return true;
-      } else {
-        return false;
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }
@@ -596,17 +594,19 @@ export const ProductoContextProvider = ({ children }) => {
       const response = await eliminarPreguntaProductoRequest(id_pregunta);
 
       if (response.status == 204) {
-        if (productosPreguntas && productosPreguntas.length > 0 && productosPreguntas[0].preguntas) {
-          setProductosPreguntas(
-            [
-              {
-                ...productosPreguntas[0],
-                preguntas: productosPreguntas[0].preguntas.filter(
-                  (pregunta) => pregunta.id !== id_pregunta
-                )
-              }
-            ]
-          );
+        if (
+          productosPreguntas &&
+          productosPreguntas.length > 0 &&
+          productosPreguntas[0].preguntas
+        ) {
+          setProductosPreguntas([
+            {
+              ...productosPreguntas[0],
+              preguntas: productosPreguntas[0].preguntas.filter(
+                (pregunta) => pregunta.id !== id_pregunta
+              ),
+            },
+          ]);
         }
       }
     } catch (error) {

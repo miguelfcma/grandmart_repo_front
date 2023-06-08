@@ -9,6 +9,7 @@ import {
   getServicioByIdRequest,
   createDatosContactoServicioRequest,
   obtenerDatosContactoServicioRequest,
+  actualizarDatosContactoServicioRequest,
 } from "../../../API/ServiciosApiRest/servicios.api";
 
 import {
@@ -52,6 +53,7 @@ export const ServicioContextProvider = ({ children }) => {
   const [serviciosUsuario, setServiciosUsuario] = useState([]);
   const [serviciosPreguntas, setServiciosPreguntas] = useState([]);
   const [serviciosDenuncias, setServiciosDenuncias] = useState([]);
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
   const cerrarSesionServicios = () => {
     setServiciosUsuario([]);
     setServiciosPreguntas([]);
@@ -111,7 +113,39 @@ export const ServicioContextProvider = ({ children }) => {
     }
   };
 
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const actualizarDatosContactoServicioAdmin = async (id, datosContacto) => {
+    try {
+      const response = await actualizarDatosContactoServicioRequest(
+        id,
+        datosContacto
+      );
+
+      if (response.status == 200) {
+        return response.data;
+      }
+      return null;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const actualizarDatosContactoServicioCliente = async (id, datosContacto) => {
+    try {
+      const response = await actualizarDatosContactoServicioRequest(
+        id,
+        datosContacto
+      );
+
+      if (response.status == 200) {
+        loadServiciosUsuario(usuario.id);
+      }
+      return response.status;
+      return null;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+ 
   const updateServicioCliente = async (id, servicio) => {
     try {
       const response = await updateServicioRequest(id, servicio);
@@ -441,6 +475,9 @@ export const ServicioContextProvider = ({ children }) => {
         cerrarSesionServicios,
         createDatosContactoServicio,
         obtenerDatosContactoServicio,
+
+        actualizarDatosContactoServicioAdmin,
+        actualizarDatosContactoServicioCliente
       }}
     >
       {children}

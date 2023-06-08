@@ -12,6 +12,9 @@ export function ListCategorias() {
   const [formularioEnviado, setFormularioEnviado] = useState(false);
 
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
+  const [filtroNombre, setFiltroNombre] = useState("");
+  const [filtroId, setFiltroId] = useState("");
+  const [filtroCategoriaPadre, setFiltroCategoriaPadre] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -87,8 +90,30 @@ export function ListCategorias() {
 
   return (
     <>
-      <h2 className="titulo">Lista de categorias:</h2>
-      <div class="tabla-lista-categorias">
+      <h2 className="titulo">Lista de categorías:</h2>
+      <div className="filtros">
+        <input
+          type="text"
+          placeholder="Filtrar por nombre"
+          value={filtroNombre}
+          onChange={(e) => setFiltroNombre(e.target.value.toLowerCase())}
+        />
+        <input
+          type="number"
+          placeholder="Filtrar por ID"
+          value={filtroId}
+          onChange={(e) => setFiltroId(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Filtrar por categoría padre"
+          value={filtroCategoriaPadre}
+          onChange={(e) =>
+            setFiltroCategoriaPadre(e.target.value.toLowerCase())
+          }
+        />
+      </div>
+      <div className="tabla-lista-categorias">
         <Table>
           <thead>
             <tr>
@@ -99,30 +124,47 @@ export function ListCategorias() {
             </tr>
           </thead>
           <tbody>
-            {categorias.map((categoria) => (
-              <tr key={categoria.id}>
-                <td>{categoria.id}</td>
-                <td>{categoria.nombre}</td>
-                <td>{categoria.id_parent || "-"}</td>
-                <td>
-                  <div class="btn-acciones-categoria">
-                    <Button
-                      variant="primary"
-                      onClick={() => handleOpenModal(categoria)}
-                    >
-                      Editar
-                    </Button>
+            {categorias
+              .filter((categoria) => {
+                const nombreCategoria = categoria.nombre.toLowerCase();
+                const nombreCategoriaPadre =
+                  categoria.categoriaPadre?.nombre?.toLowerCase() || "";
+                return (
+                  nombreCategoria.includes(filtroNombre) &&
+                  String(categoria.id).includes(filtroId) &&
+                  nombreCategoriaPadre.includes(filtroCategoriaPadre)
+                );
+              })
+              .map((categoria) => (
+                <tr key={categoria.id}>
+                  <td>{categoria.id}</td>
+                  <td
+                    className={
+                      categoria.categoriaPadre === null ? "negrita" : ""
+                    }
+                  >
+                    {categoria.nombre}
+                  </td>
+                  <td>{categoria.categoriaPadre?.nombre || "-"}</td>
+                  <td>
+                    <div className="btn-acciones-categoria">
+                      <Button
+                        variant="primary"
+                        onClick={() => handleOpenModal(categoria)}
+                      >
+                        Editar
+                      </Button>
 
-                    <Button
-                      variant="danger"
-                      onClick={() => handleEliminarCategoria(categoria)}
-                    >
-                      Eliminar
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                      <Button
+                        variant="danger"
+                        onClick={() => handleEliminarCategoria(categoria)}
+                      >
+                        Eliminar
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
       </div>

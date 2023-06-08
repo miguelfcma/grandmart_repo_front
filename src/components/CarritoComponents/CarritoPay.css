@@ -1,3 +1,8 @@
+.cart-table {
+  height: 500px;
+  overflow: auto;
+}
+
 .cart-table table {
   width: 100%;
   border-collapse: collapse;
@@ -12,17 +17,23 @@
   border-bottom: 1px solid #ddd;
 }
 
-.prices{
+.prices {
   font-size: 18px;
 }
 
 .cart-table th {
   background-color: #f2f2f2;
 }
+
+.cart-item-controls2 {
+  display: flex;
+  align-items: center;
+}
+
 .cart-item-controls2 button {
   background-color: #478ad6;
   border: none;
-  font-size: 18px;
+  font-size: 24px;
   padding: 8px;
   cursor: pointer;
 }
@@ -43,6 +54,7 @@
   margin-right: 500px;
   margin-top: 5px;
 }
+
 .cart-table {
   border: 1px solid #ddd;
   padding: 13px;
@@ -53,14 +65,15 @@
   text-align: right;
 }
 
-.btnEliminar{
+.btnEliminar {
   background-color: #fd6c6c;
 }
-.btnEliminar:hover{
+
+.btnEliminar:hover {
   background-color: #ff3d3d;
 }
 
-.totalPrice{
+.totalPrice {
   font-size: 25px;
   text-align: right;
   margin-right: 110px;
@@ -82,7 +95,7 @@
 
 .back-button {
   text-decoration: none;
-  background-color: white; 
+  background-color: white;
   color: black !important;
   border: 2px solid #1c6bc3;
   padding: 6px 8px;
@@ -93,18 +106,19 @@
   margin: 0 auto;
   align-items: center;
   justify-content: center;
-}    
+}
 
 .back-button:hover {
   text-decoration: none;
   background-color: #1c6bc3;
-  color: white !important; 
+  color: white !important;
   padding: 6px 8px;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
 .cart-total {
   display: flex;
   justify-content: right;
@@ -116,6 +130,7 @@
   font-size: 1.5rem;
   color: #333;
 }
+
 .btn-empty {
   padding: 0.5rem 1rem;
   margin-right: 0.5rem;
@@ -143,4 +158,32 @@
 
 .btn-checkout:hover {
   background-color: #0069d9;
+}
+
+.cart-table-contenedor {
+  overflow-x: auto;
+}
+
+.cart-table th {
+  white-space: nowrap;
+}
+
+.cart-actions button:first-of-type {
+  margin-right: 10px;
+}
+
+.cart-actions button:last-of-type {
+  margin-right: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .cart-table-contenedor {
+    overflow-x: scroll;
+  }
+  
+  .cart-item-controls2 button,
+  .cart-item-controls2 span {
+    display: block;
+    margin: 5px auto;
+  }
 }

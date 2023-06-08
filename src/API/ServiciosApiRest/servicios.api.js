@@ -136,3 +136,22 @@ export const obtenerDatosContactoServicioRequest = async (id) => {
     return error.response;
   }
 };
+
+
+export const actualizarDatosContactoServicioRequest = async (id,datosContacto) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}servicios/datos-contacto/${id}`, datosContacto);
+    
+    console.log({
+      status: response.status,
+      message: response.data.message,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};

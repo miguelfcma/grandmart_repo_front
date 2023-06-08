@@ -74,7 +74,7 @@ export function DetallesProductoGeneral({ id }) {
     } else {
       fetchData();
     }
-  }, []);
+  }, [id]);
 
   const handleImagenHover = (url) => {
     setImagenSeleccionada(url);
@@ -396,7 +396,7 @@ export function DetallesProductoGeneral({ id }) {
                   </Card.Title>
                   <Card.Title>
                     <div className="infoProductoPrecio">
-                      $ {producto.precio}
+                      $ {producto.precio} MXN
                     </div>
                   </Card.Title>
                   <Card.Text>

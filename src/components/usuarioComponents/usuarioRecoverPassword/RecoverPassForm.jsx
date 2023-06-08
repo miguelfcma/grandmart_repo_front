@@ -54,13 +54,12 @@ export function RecoverPassForm() {
       </nav>
       <div className="login-form-container">
         <form onSubmit={handleSubmit} className="login-form">
-          <h2>Recuperar contraseña</h2>
+          <h2>Restablecer contraseña</h2>
           <br></br>
           <br></br>
           <div className="form-group">
             <label htmlFor="email">
-              Favor de introducir tu correo electrónico de tu perfil que deseas
-              recuperar y nosotros te enviaremos tu contraseña.
+              Por favor, ingresa tu dirección de correo electrónico asociada a tu cuenta para solicitar la recuperación de contraseña. Te enviaremos un correo electrónico con una nueva contraseña.
             </label>
             <br></br>
             <br></br>
@@ -76,7 +75,7 @@ export function RecoverPassForm() {
           <br></br>
 
           <button type="submit" className="btn-login">
-            Enviar
+            Enviar nueva contraseña
           </button>
 
           <br></br>

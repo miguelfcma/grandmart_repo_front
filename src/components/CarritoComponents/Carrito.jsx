@@ -3,7 +3,7 @@ import "../HomePageComponents/NavBar.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Carrito.css";
-
+import { Button } from "react-bootstrap";
 export function Carrito() {
   const {
     carrito,
@@ -58,7 +58,6 @@ export function Carrito() {
   }
   return (
     <div className="cart-icon-container">
-      {/* Renderizar el icono del carrito y la cantidad de items en el carrito */}
       <box-icon type="solid" name="cart" className="cart-icon"></box-icon>
       {carrito.detalles.length === 0 ? (
         <div></div>
@@ -73,40 +72,52 @@ export function Carrito() {
           <>
             {carrito.detalles.map((item) => (
               <div key={item.id} className="cart-item">
-                <div className="cart-item-info">
-                  <h3>{item.producto.nombre}</h3>
-                  <p>Precio: ${item.producto.precio}</p>
-                </div>
+                <Link
+                  to={`/productos/detalles/${item.producto.id}`}
+                  style={{ textDecoration: "none" }}
+                  type="button"
+                >
+                  <div className="cart-item-info">
+                    <h3>{item.producto.nombre}</h3>
+                    <p>Precio: ${item.producto.precio} MXN</p>
+                  </div>
+                </Link>
                 <div className="cart-item-controls">
                   <div className="btn-item-control-cantidad">
-                    <button
-                      className="btnMas"
-                      onClick={() => incrementarCantidadItemCarrito(item)}
-                    >
-                      +
-                    </button>
-                    <span>{item.cantidad}</span>
-                    <button
+                    {" "}
+                    <Button
                       className="btnMenos"
                       onClick={() => decrementarCantidadItemCarrito(item)}
                     >
                       -
-                    </button>
+                    </Button>
+                    <span>{item.cantidad}</span>
+                    <Button
+                      className="btnMas"
+                      onClick={() => incrementarCantidadItemCarrito(item)}
+                    >
+                      +
+                    </Button>
                   </div>
-                  <button
+                  <Button
+                    variant="danger"
                     className="btnDelete"
                     onClick={() => eliminarItemCarrito(item)}
                   >
                     Eliminar
-                  </button>
+                  </Button>
                 </div>
               </div>
             ))}
-            <p>Total: ${getTotal()}</p>
+            <p>Total: ${getTotal()} MXN</p>
             <div className="cart-actions">
-              <button className="btn-empty" onClick={vaciarCarritoCompleto}>
+              <Button
+                variant="danger"
+                className="btn-empty"
+                onClick={vaciarCarritoCompleto}
+              >
                 Vaciar carrito
-              </button>
+              </Button>
 
               <Link
                 to="/carrito-compras"

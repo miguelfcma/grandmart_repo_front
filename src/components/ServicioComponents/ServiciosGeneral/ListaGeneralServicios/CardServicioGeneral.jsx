@@ -34,7 +34,7 @@ export function CardServicioGeneral({ servicio }) {
         />
         <div>{servicio.titulo}</div>
         <br></br>
-        <div>${servicio.precio}</div>
+        <div>${servicio.precio} MXN</div>
       </Link>
 
       

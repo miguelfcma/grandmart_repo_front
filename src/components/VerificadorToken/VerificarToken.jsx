@@ -46,7 +46,7 @@ export const VerificarToken = () => {
     };
 
     if (token) {
-      const intervalId = setInterval(verificarToken, 5000); // Ejecutar cada 5 segundos
+      const intervalId = setInterval(verificarToken, 10000); // Ejecutar cada 5 segundos
 
       return () => {
         clearInterval(intervalId); // Limpiar el intervalo al desmontar el componente

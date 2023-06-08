@@ -1,35 +1,39 @@
 .lista-categorias {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: white;
-  }
-  
-  .lista-categorias > li {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .lista-categorias > li:last-child {
-    border-bottom: none;
-  }
-  
-  .lista-categorias ul {
-    margin-left: 16px;
-    margin-bottom: 8px;
-  }
-  
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+}
+
+.lista-categorias>li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.lista-categorias>li:last-child {
+  border-bottom: none;
+}
+
+.lista-categorias ul {
+  margin-left: 16px;
+  margin-bottom: 8px;
+}
+
 
 /* Estilos de la tabla */
 .tabla-lista-categorias table {
   width: 100%;
   border-collapse: collapse;
 }
-.tabla-lista-categorias  {
-  height: 500px; /* Establece una altura fija para el contenedor */
-  overflow: auto; /* Habilita la barra de desplazamiento cuando sea necesario */
-  
+
+.tabla-lista-categorias {
+  height: 500px;
+  /* Establece una altura fija para el contenedor */
+  overflow: auto;
+  /* Habilita la barra de desplazamiento cuando sea necesario */
+
 }
+
 .tabla-lista-categorias th, .tabla-lista-categorias td {
   padding: 8px;
   text-align: left;
@@ -61,4 +65,9 @@
 .tabla-lista-categorias .btn-acciones-categoria .btn-eliminar {
   background-color: #f44336;
   color: #fff;
+}
+
+.negrita {
+  font-weight: bold;
+  font-size:20px;
 }

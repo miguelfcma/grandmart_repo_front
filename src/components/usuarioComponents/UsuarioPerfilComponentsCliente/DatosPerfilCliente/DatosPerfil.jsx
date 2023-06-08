@@ -2,15 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "../../../ModalComponents/Modal";
 import { FormEditarPerfil } from "./FormEditarPerfil";
 import Swal from "sweetalert2";
-
 import { Card } from "react-bootstrap";
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
+import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useProductos } from "../../../ProductoComponents/ProductosContext/ProductoProvider";
+import { useOrdenes } from "../../../OrdenesComponents/OrdenesContext/OrdenProvider";
+import { useServicios } from "../../../ServicioComponents/ServiciosContext/ServicioProvider";
 
 export function DatosPerfil() {
   const [modalVisible, setModalVisible] = useState(false);
   const { obtenerInfoPerfil, eliminarCuentaUsuario } = useUsuarios();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [perfil, setPerfil] = useState(null);
+  const navigate = useNavigate();
+  const { cerrarSesionProductos } = useProductos();
+  const { cerrarSesionOrdenes } = useOrdenes();
+  const { cerrarSesionServicios } = useServicios();
+  const { cerrarSesionUsuarios } = useUsuarios();
 
   const cargarPerfil = async () => {
     try {
@@ -67,6 +76,13 @@ export function DatosPerfil() {
                   "La cuenta ha sido eliminada exitosamente.",
                   "success"
                 );
+                localStorage.removeItem("token");
+                localStorage.removeItem("usuario");
+                cerrarSesionProductos();
+                cerrarSesionOrdenes();
+                cerrarSesionServicios();
+                cerrarSesionUsuarios();
+                navigate("/");
               } else if (status === 401) {
                 Swal.fire("Error", "Contraseña incorrecta.", "error");
               } else if (status === 404) {
@@ -85,20 +101,21 @@ export function DatosPerfil() {
         },
         allowOutsideClick: () => !Swal.isLoading(),
       });
-  
-     
     } catch (error) {
       console.error(error);
     }
   };
-  
 
   return (
     <div>
       <h2>Información de la cuenta</h2>
       {perfil && (
         <Card style={{ width: "auto" }}>
-          <Card.Body>
+         <Card.Body>
+            <div>
+              <label>ID:</label>
+              <p>{perfil.id}</p>
+            </div>
             <div>
               <label>Nombre:</label>
               <p>{perfil.nombre}</p>
@@ -112,6 +129,10 @@ export function DatosPerfil() {
               <p>{perfil.apellidoMaterno}</p>
             </div>
             <div>
+              <label>Email:</label>
+              <p>{perfil.email}</p>
+            </div>
+            <div>
               <label>Sexo:</label>
               <p>{perfil.sexo}</p>
             </div>
@@ -122,7 +143,9 @@ export function DatosPerfil() {
             <div>
               <label>Teléfono:</label>
               <p>{perfil.telefono}</p>
-              <button onClick={handleEditarPerfilClick}>Editar</button>
+              <button onClick={handleEditarPerfilClick}>
+                Editar información
+              </button>
             </div>
             <div>
               <button onClick={handleEliminarCuenta}>Eliminar cuenta</button>

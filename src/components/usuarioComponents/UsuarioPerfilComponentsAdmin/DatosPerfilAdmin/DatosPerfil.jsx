@@ -46,6 +46,10 @@ export function DatosPerfil() {
         <Card style={{ width: "auto" }}>
           <Card.Body>
             <div>
+              <label>ID:</label>
+              <p>{perfil.id}</p>
+            </div>
+            <div>
               <label>Nombre:</label>
               <p>{perfil.nombre}</p>
             </div>
@@ -58,6 +62,10 @@ export function DatosPerfil() {
               <p>{perfil.apellidoMaterno}</p>
             </div>
             <div>
+              <label>Email:</label>
+              <p>{perfil.email}</p>
+            </div>
+            <div>
               <label>Sexo:</label>
               <p>{perfil.sexo}</p>
             </div>
@@ -68,7 +76,9 @@ export function DatosPerfil() {
             <div>
               <label>Teléfono:</label>
               <p>{perfil.telefono}</p>
-              <button onClick={handleEditarPerfilClick}>Editar</button>
+              <button onClick={handleEditarPerfilClick}>
+                Editar información
+              </button>
             </div>
           </Card.Body>
         </Card>

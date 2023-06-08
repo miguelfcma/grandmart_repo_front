@@ -70,7 +70,7 @@ export function ProductoDetallesClientPage() {
             <div className="info-producto">
               <div>ID: {producto.id}</div>
               <div>Nombre: {producto.nombre}</div>
-              <div>Precio: ${producto.precio}</div>
+              <div>Precio: ${producto.precio} MXN</div>
               <div>Stock: {producto.stock}</div>
               <div>Descripción: {producto.descripcion}</div>
               <div>Marca: {producto.marca}</div>

@@ -134,6 +134,16 @@ export function SidebarCliente({ children }) {
               Mi perfil
             </Link>
           </li>
+          <li>
+            <Link to="/dashClient/estadisticas" className="separateIcon">
+              <box-icon
+                name="line-chart"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Estadísticas
+            </Link>
+          </li>
         </ul>
         <br></br>
         <br></br>
@@ -250,6 +260,16 @@ export function SidebarCliente({ children }) {
                       style={{ verticalAlign: "middle" }}
                     ></box-icon>
                     Mi perfil
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashClient/estadisticas" className="separateIcon">
+                    <box-icon
+                      name="line-chart"
+                      color="#ffffff"
+                      style={{ verticalAlign: "middle" }}
+                    ></box-icon>
+                    Estadísticas
                   </Link>
                 </li>
               </ul>

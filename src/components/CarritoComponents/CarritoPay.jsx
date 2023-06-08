@@ -1,6 +1,7 @@
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Table, Image, Button } from "react-bootstrap";
 import "./CarritoPay.css";
 import { useOrdenes } from "../OrdenesComponents/OrdenesContext/OrdenProvider";
 
@@ -81,79 +82,90 @@ export function CarritoPay() {
 
     if (status === 400) {
       navigate("/informacion-envio");
-    } else if(status === 200){
+    } else if (status === 200) {
       navigate("/resumen-compras");
     }
     limpiarCarrito();
   };
+
   return (
     <div className="cart-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {carrito.detalles.map((item) => (
-            <tr key={item.id_producto}>
-              <td>
-                <Link
-                  to={`/productos/detalles/${item.producto.id}`}
-                  style={{ textDecoration: "none" }}
-                  title={"Clic para ver más información del producto"}
-                >
-                  <h5>{item.producto.nombre}</h5>
-                  <img
-                    className="card-producto-img2"
-                    src={imgUrls[item.producto.id] || ""}
-                  />{" "}
-                  {/* Usamos el estado local para obtener la imagen de portada */}
-                </Link>
-              </td>
-              <td className="prices">$ {item.producto.precio}</td>
-              <td className="cart-item-controls2">
-                <button onClick={() => decrementarCantidadItemCarrito(item)}>
-                  -
-                </button>
-                <span className="prices">{item.cantidad}</span>
-                <button onClick={() => incrementarCantidadItemCarrito(item)}>
-                  +
-                </button>
-              </td>
-              <td className="prices">
-                $ {item.producto.precio * item.cantidad}
-              </td>
-              <td>
-                <button
-                  className="btn-remove"
-                  onClick={() => eliminarItemCarrito(item)}
-                >
-                  Eliminar
-                </button>
-              </td>
+      <div className="cart-table-contenedor">
+        <Table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Subtotal</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {carrito.detalles.map((item) => (
+              <tr key={item.id_producto}>
+                <td>
+                  <Link
+                    to={`/productos/detalles/${item.producto.id}`}
+                    style={{ textDecoration: "none" }}
+                    title={"Clic para ver más información del producto"}
+                  >
+                    <h5>{item.producto.nombre}</h5>
+                    <Image
+                      className="card-producto-img2"
+                      src={imgUrls[item.producto.id] || ""}
+                    />{" "}
+                    {/* Usamos el estado local para obtener la imagen de portada */}
+                  </Link>
+                </td>
+                <td className="prices">$ {item.producto.precio}</td>
+                <td>
+                  <div className="cart-item-controls2">
+                    <Button
+                      variant="primary"
+                      onClick={() => decrementarCantidadItemCarrito(item)}
+                    >
+                      -
+                    </Button>
+                    <span className="prices">{item.cantidad}</span>
+                    <Button
+                      variant="primary"
+                      onClick={() => incrementarCantidadItemCarrito(item)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </td>
+                <td className="prices">
+                  $ {item.producto.precio * item.cantidad} MXN
+                </td>
+                <td>
+                  <Button
+                    variant="danger"
+                    onClick={() => eliminarItemCarrito(item)}
+                  >
+                    Eliminar
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
       <div className="cart-total">
-        <h3>Total: ${getTotal()}</h3>
+        <h3>Total: ${getTotal()} MXN</h3>
       </div>
       <div className="cart-actions">
         {carrito.detalles.length === 0 ? (
           <div></div>
         ) : (
           <>
-            <button className="btn-empty" onClick={vaciarCarritoCompleto}>
+            <Button variant="danger" onClick={vaciarCarritoCompleto}>
               Vaciar Carrito
-            </button>
-            <button className="btn-checkout" onClick={crearOrdenDeCompra}>
+            </Button>
+            <Button variant="success" onClick={crearOrdenDeCompra}>
               Realizar orden de compra
-            </button>
+            </Button>
           </>
         )}
       </div>

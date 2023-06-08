@@ -91,28 +91,89 @@ import RegistroServicioAdminPage1 from "../pages/DashAdminPages/DashPages/Servic
 import RutasProtegidasAdmin from "./RutasProtegidasAdmin";
 import RutasProtegidasCliente from "./RutasProtegidasCliente";
 import RutasProtegidasRepartidor from "./RutasProtegidasRepartidor";
-
+import RutasGeneral from "./RutasGeneral";
 export function MyRoutes() {
   return (
     <Router>
       <Routes>
-        {/* Rutas para la página de inicio y autenticación */}
-        <Route exact path="/" element={<HomePage />} />
-        <Route exact path="/login" element={<LoginPage />} />
-        <Route exact path="/contacto" element={<ContactoPage />} />
-        <Route exact path="/signup" element={<SignupPage />} />
-        <Route exact path="/blog" element={<BlogPage />} />
-        <Route exact path="/categorias" element={<CategoriasHomePage />} />
-        <Route exact path="/servicios" element={<ServiciosPage />} />
-        <Route exact path="/carrito-compras" element={<CompraCarritoPage />} />
-        <Route exact path="/resumen-compras" element={<ResumenComprasPage />} />
-        <Route
-          exact
-          path="/informacion-envio"
-          element={<RegistroInformacionDeEnvioPage />}
-        />
-        <Route exact path="/final-compras/:id" element={<ComprasFinalPage />} />
-
+        <Route element={<RutasGeneral />}>
+          {/* Rutas para la página de inicio y autenticación */}
+          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/login" element={<LoginPage />} />
+          <Route exact path="/contacto" element={<ContactoPage />} />
+          <Route exact path="/signup" element={<SignupPage />} />
+          <Route exact path="/blog" element={<BlogPage />} />
+          <Route exact path="/categorias" element={<CategoriasHomePage />} />
+          <Route exact path="/servicios" element={<ServiciosPage />} />
+          <Route
+            exact
+            path="/carrito-compras"
+            element={<CompraCarritoPage />}
+          />
+          <Route
+            exact
+            path="/resumen-compras"
+            element={<ResumenComprasPage />}
+          />
+          <Route
+            exact
+            path="/informacion-envio"
+            element={<RegistroInformacionDeEnvioPage />}
+          />
+          <Route
+            exact
+            path="/final-compras/:id"
+            element={<ComprasFinalPage />}
+          />
+          {/* Otras rutas */}
+          <Route
+            exact
+            path="/productos/detalles/:id"
+            element={<ProductosDetallesPage />}
+          />
+          <Route
+            exact
+            path="/productos/categoria/:id_categoria/:nombre_categoria"
+            element={<ProductosByCategoriaPage />}
+          />
+          <Route
+            exact
+            path="/productos/categoria/:id_categoria"
+            element={<ProductosByCategoriaPage />}
+          />
+          <Route
+            exact
+            path="/denuncia/producto/:id_producto"
+            element={<FormNuevaDenunciaProductoGeneral />}
+          />
+          <Route
+            exact
+            path="/denuncia/producto/:id_producto/detalles"
+            element={<Form2NuevaDenunciaProductoGeneral />}
+          />
+          <Route
+            exact
+            path="/servicios/detalles/:id"
+            element={<ServiciosDetallesPage />}
+          />
+          <Route
+            exact
+            path="/denuncia/servicio/:id_servicio"
+            element={<FormNuevaDenunciaServicioGeneral />}
+          />
+          <Route
+            exact
+            path="/denuncia/servicio/:id_servicio/detalles"
+            element={<Form2NuevaDenunciaServicioGeneral />}
+          />
+          <Route
+            exact
+            path="/login/recuperar-contrasena"
+            element={<RecovPassPage />}
+          />
+          {/* Ruta para manejar las rutas no encontradas */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
         <Route element={<RutasProtegidasAdmin />}>
           <Route exact path="/dashAdmin" element={<DashAdmin />} />
           <Route
@@ -360,54 +421,6 @@ export function MyRoutes() {
             element={<OrdenDetallesPageRepartidor />}
           />
         </Route>
-        {/* Otras rutas */}
-        <Route
-          exact
-          path="/productos/detalles/:id"
-          element={<ProductosDetallesPage />}
-        />
-        <Route
-          exact
-          path="/productos/categoria/:id_categoria/:nombre_categoria"
-          element={<ProductosByCategoriaPage />}
-        />
-        <Route
-          exact
-          path="/productos/categoria/:id_categoria"
-          element={<ProductosByCategoriaPage />}
-        />
-        <Route
-          exact
-          path="/denuncia/producto/:id_producto"
-          element={<FormNuevaDenunciaProductoGeneral />}
-        />
-        <Route
-          exact
-          path="/denuncia/producto/:id_producto/detalles"
-          element={<Form2NuevaDenunciaProductoGeneral />}
-        />
-        <Route
-          exact
-          path="/servicios/detalles/:id"
-          element={<ServiciosDetallesPage />}
-        />
-        <Route
-          exact
-          path="/denuncia/servicio/:id_servicio"
-          element={<FormNuevaDenunciaServicioGeneral />}
-        />
-        <Route
-          exact
-          path="/denuncia/servicio/:id_servicio/detalles"
-          element={<Form2NuevaDenunciaServicioGeneral />}
-        />
-        <Route
-          exact
-          path="/login/recuperar-contrasena"
-          element={<RecovPassPage />}
-        />
-        {/* Ruta para manejar las rutas no encontradas */}
-        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

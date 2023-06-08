@@ -43,7 +43,7 @@ export  function DetallesProductoCliente({id}) {
           <>
             <div className="info-producto">
               <div>Nombre: {producto.nombre}</div>
-              <div>Precio: ${producto.precio}</div>
+              <div>Precio: ${producto.precio} MXN</div>
               <div>Stock disponible: {producto.stock}</div>
               <div>Descripción: {producto.descripcion}</div>
               <div>Marca: {producto.marca}</div>
