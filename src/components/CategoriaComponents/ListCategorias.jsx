@@ -2,7 +2,7 @@ import { useCategorias } from "./CategoriasContext/CategoriaProvider";
 import { useEffect, useState } from "react";
 import { Modal } from "../ModalComponents/Modal";
 import { FormCategoria } from "./FormCategoria";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Form } from "react-bootstrap";
 import "./ListCategorias.css";
 import Swal from "sweetalert2";
 
@@ -14,7 +14,6 @@ export function ListCategorias() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
   const [filtroNombre, setFiltroNombre] = useState("");
   const [filtroId, setFiltroId] = useState("");
-  const [filtroCategoriaPadre, setFiltroCategoriaPadre] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -92,25 +91,18 @@ export function ListCategorias() {
     <>
       <h2 className="titulo">Lista de categorías:</h2>
       <div className="filtros">
-        <input
+        <Form.Control
           type="text"
-          placeholder="Filtrar por nombre"
+          placeholder="Filtrar por nombre o categoría padre"
           value={filtroNombre}
           onChange={(e) => setFiltroNombre(e.target.value.toLowerCase())}
         />
-        <input
+
+        <Form.Control
           type="number"
           placeholder="Filtrar por ID"
           value={filtroId}
           onChange={(e) => setFiltroId(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Filtrar por categoría padre"
-          value={filtroCategoriaPadre}
-          onChange={(e) =>
-            setFiltroCategoriaPadre(e.target.value.toLowerCase())
-          }
         />
       </div>
       <div className="tabla-lista-categorias">
@@ -129,10 +121,13 @@ export function ListCategorias() {
                 const nombreCategoria = categoria.nombre.toLowerCase();
                 const nombreCategoriaPadre =
                   categoria.categoriaPadre?.nombre?.toLowerCase() || "";
+                const filtro = filtroNombre.toLowerCase();
+
                 return (
-                  nombreCategoria.includes(filtroNombre) &&
-                  String(categoria.id).includes(filtroId) &&
-                  nombreCategoriaPadre.includes(filtroCategoriaPadre)
+                  (nombreCategoria.includes(filtro) ||
+                    nombreCategoriaPadre.includes(filtro)) &&
+                  (filtroId === "" ||
+                    categoria.id.toString().includes(filtroId))
                 );
               })
               .map((categoria) => (

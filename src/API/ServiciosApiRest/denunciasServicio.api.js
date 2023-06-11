@@ -98,11 +98,10 @@ export const getTodasLasDenunciasRequestServicio = async () => {
     }
   };
 
-export const actualizarDenunciaARevisadaServicio = async (id_denuncia, data) => {
+export const actualizarDenunciaARevisadaServicio = async (id_denuncia) => {
   try{
     const response = await axios.put(
-      `${API_BASE_URL}servicio-denuncias/actualizar/${id_denuncia}`,
-      data
+      `${API_BASE_URL}servicio-denuncias/actualizar/${id_denuncia}`
     );
     console.log({
       status: response.status,

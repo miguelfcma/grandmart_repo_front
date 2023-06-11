@@ -201,7 +201,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
           />
         </FormGroup>
         <FormGroup>
-          <Form.Label>Teléfono 2:</Form.Label>
+          <Form.Label>Teléfono 2 (opcional):</Form.Label>
           <FormControl
             type="text"
             name="telefono2"
@@ -316,7 +316,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
 
         <h3>Descripción</h3>
         <FormGroup>
-          <Form.Label>Descripción (opcional):</Form.Label>
+          <Form.Label>Descripción domicilio (opcional):</Form.Label>
           <FormControl
             as="textarea"
             name="descripcion"
@@ -325,7 +325,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
           />
         </FormGroup>
 
-        <Button type="submit">Enviar</Button>
+        <Button type="submit">Guardar</Button>
       </Form>
     </div>
   );

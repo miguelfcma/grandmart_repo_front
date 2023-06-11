@@ -111,7 +111,7 @@ export function FormNuevoServicioCliente({ handleServicioRegistrado }) {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Descripción del servicio:</Form.Label>
+        <Form.Label>Descripción del servicio (opcional):</Form.Label>
         <Form.Control
           as="textarea"
           name="descripcion"

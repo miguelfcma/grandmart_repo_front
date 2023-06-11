@@ -151,7 +151,7 @@ export function FormProductoAdmin() {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label>Descripción del producto:</Form.Label>
+        <Form.Label>Descripción del producto (opcional):</Form.Label>
         <FormControl
           as="textarea"
           name="descripcion"
@@ -160,7 +160,7 @@ export function FormProductoAdmin() {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label>Marca del producto:</Form.Label>
+        <Form.Label>Marca del producto (opcional):</Form.Label>
         <FormControl
           type="text"
           name="marca"
@@ -169,7 +169,7 @@ export function FormProductoAdmin() {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label>Modelo del producto:</Form.Label>
+        <Form.Label>Modelo del producto (opcional):</Form.Label>
         <FormControl
           type="text"
           name="modelo"
@@ -178,7 +178,7 @@ export function FormProductoAdmin() {
         />
       </FormGroup>
       <FormGroup>
-        <Form.Label>Color del producto:</Form.Label>
+        <Form.Label>Color del producto (opcional):</Form.Label>
         <FormControl
           type="text"
           name="color"

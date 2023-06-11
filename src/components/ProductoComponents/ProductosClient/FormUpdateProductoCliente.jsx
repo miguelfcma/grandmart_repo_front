@@ -179,7 +179,7 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
       </Form.Group>
 
       <Form.Group controlId="descripcion">
-        <Form.Label>Descripción:</Form.Label>
+        <Form.Label>Descripción (opcional):</Form.Label>
         <Form.Control
           as="textarea"
           name="descripcion"
@@ -189,7 +189,7 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
       </Form.Group>
 
       <Form.Group controlId="marca">
-        <Form.Label>Marca:</Form.Label>
+        <Form.Label>Marca (opcional):</Form.Label>
         <Form.Control
           type="text"
           name="marca"
@@ -199,7 +199,7 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
       </Form.Group>
 
       <Form.Group controlId="modelo">
-        <Form.Label>Modelo:</Form.Label>
+        <Form.Label>Modelo (opcional):</Form.Label>
         <Form.Control
           type="text"
           name="modelo"
@@ -209,7 +209,7 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
       </Form.Group>
 
       <Form.Group controlId="color">
-        <Form.Label>Color:</Form.Label>
+        <Form.Label>Color (opcional):</Form.Label>
         <Form.Control
           type="text"
           name="color"

@@ -145,7 +145,6 @@ export const ServicioContextProvider = ({ children }) => {
     }
   };
 
- 
   const updateServicioCliente = async (id, servicio) => {
     try {
       const response = await updateServicioRequest(id, servicio);
@@ -405,17 +404,12 @@ export const ServicioContextProvider = ({ children }) => {
     }
   };
 
-  const actualizarDenunciaRevisadaServicio = async (id_denuncia, data) => {
-    console.log(id_denuncia + data);
+  const actualizarDenunciaRevisadaServicio = async (id_denuncia) => {
     try {
-      const response = await actualizarDenunciaARevisadaServicio(
-        id_denuncia,
-        data
-      );
+      const response = await actualizarDenunciaARevisadaServicio(id_denuncia);
 
       if (response.status === 200) {
-        console.log(response.data);
-        return response.data;
+        obtenerTodasLasDenunciasServicios();
       } else {
         throw new Error("No se obtener las ordenes");
       }
@@ -477,7 +471,7 @@ export const ServicioContextProvider = ({ children }) => {
         obtenerDatosContactoServicio,
 
         actualizarDatosContactoServicioAdmin,
-        actualizarDatosContactoServicioCliente
+        actualizarDatosContactoServicioCliente,
       }}
     >
       {children}

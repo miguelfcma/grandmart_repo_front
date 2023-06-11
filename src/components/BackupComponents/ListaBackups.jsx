@@ -1,7 +1,8 @@
 import { useBackup } from "./BackupContext/BackupProvider";
 import { ItemBackup } from "./ItemBackup";
 import React, { useState, useEffect } from "react";
-import { ListGroup, Card, Button, Form } from "react-bootstrap";
+import { ListGroup, Card, Button, Form, Modal } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export function ListaBackups() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -44,10 +45,18 @@ export function ListaBackups() {
       setSelectedDeleteBackup("");
       setSelectedDownloadBackup("");
       console.log(response);
-      // Aquí puedes agregar la lógica para mostrar un mensaje de éxito o error
+      Swal.fire({
+        icon: "success",
+        title: "Restauración exitosa",
+        text: "La copia de seguridad ha sido restaurada con éxito.",
+      });
     } catch (error) {
       console.error(error);
-      // Aquí puedes agregar la lógica para mostrar un mensaje de error
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al intentar restaurar la copia de seguridad.",
+      });
     }
   };
 
@@ -60,7 +69,6 @@ export function ListaBackups() {
     setSelectedDownloadBackup(backup);
     setSelectedDeleteBackup("");
     setSelectedBackup("");
-    
   };
 
   const handleDelete = async (event) => {
@@ -76,12 +84,21 @@ export function ListaBackups() {
       setSelectedDeleteBackup("");
       setSelectedDownloadBackup("");
       console.log(response);
-      // Aquí puedes agregar la lógica para mostrar un mensaje de éxito o error
+      Swal.fire({
+        icon: "success",
+        title: "Eliminación exitosa",
+        text: "La copia de seguridad ha sido eliminada con éxito.",
+      });
     } catch (error) {
       console.error(error);
-      // Aquí puedes agregar la lógica para mostrar un mensaje de error
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al intentar eliminar la copia de seguridad.",
+      });
     }
   };
+
   const handleDownload = async (event) => {
     event.preventDefault();
     try {
@@ -90,21 +107,45 @@ export function ListaBackups() {
         email: usuario.email,
       };
       console.log("download", credentials);
-      const response = await downloadBackup(selectedDownloadBackup, credentials);
+      const response = await downloadBackup(
+        selectedDownloadBackup,
+        credentials
+      );
       setSelectedBackup("");
       setSelectedDeleteBackup("");
       setSelectedDownloadBackup("");
       console.log(response);
-      // Aquí puedes agregar la lógica para mostrar un mensaje de éxito o error
+      Swal.fire({
+        icon: "success",
+        title: "Descarga exitosa",
+        text: "La copia de seguridad se ha descargado exitosamente.",
+      });
     } catch (error) {
       console.error(error);
-      // Aquí puedes agregar la lógica para mostrar un mensaje de error
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al intentar descargar la copia de seguridad.",
+      });
     }
-
   };
+
   return (
     <div>
       <h2>Lista de copias de seguridad:</h2>
+      <p>
+        Haz clic en el botón "Seleccionar" para restaurar esta copia de
+        seguridad de la base de datos.
+      </p>
+      <p>
+        Haz clic en el botón "Eliminar" para eliminar esta copia de seguridad de
+        la base de datos.
+      </p>
+      <p>
+        Haz clic en el botón "Descargar" para descargar el archivo SQL de la
+        base de datos.
+      </p>
+
       <ListGroup>
         {backupList.map((backup, index) => (
           <ItemBackup
@@ -116,74 +157,81 @@ export function ListaBackups() {
           />
         ))}
       </ListGroup>
-      {selectedBackup && (
-        <Card className="mt-4">
-          <Card.Body>
-            <Card.Title>
-              Backup seleccionado para restaurar: {selectedBackup}
-            </Card.Title>
-            <Form onSubmit={handleRestore}>
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Contraseña:</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Restaurar
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
-      )}
 
-      {selectedDeleteBackup && (
-        <Card className="mt-4">
-          <Card.Body>
-            <Card.Title>
-              Backup seleccionado para eliminar: {selectedDeleteBackup}
-            </Card.Title>
-            <Form onSubmit={handleDelete}>
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Contraseña:</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Eliminar
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
-      )}
+      <Modal show={!!selectedBackup} onHide={() => setSelectedBackup("")}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Backup seleccionado para restaurar: {selectedBackup}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleRestore}>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Contraseña:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Restaurar
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
 
-      {selectedDownloadBackup && (
-        <Card className="mt-4">
-          <Card.Body>
-            <Card.Title>
-              Backup seleccionado para descargar: {selectedDownloadBackup}
-            </Card.Title>
-            <Form onSubmit={handleDownload}>
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Contraseña:</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Descargar archivo
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
-      )}
+      <Modal
+        show={!!selectedDeleteBackup}
+        onHide={() => setSelectedDeleteBackup("")}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Backup seleccionado para eliminar: {selectedDeleteBackup}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleDelete}>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Contraseña:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Eliminar
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        show={!!selectedDownloadBackup}
+        onHide={() => setSelectedDownloadBackup("")}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Backup seleccionado para descargar: {selectedDownloadBackup}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleDownload}>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Contraseña:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Descargar archivo
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

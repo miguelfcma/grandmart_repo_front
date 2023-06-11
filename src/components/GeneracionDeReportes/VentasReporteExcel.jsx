@@ -3,6 +3,22 @@ import FileSaver from "file-saver";
 import moment from "moment";
 
 export const VentasReporteExcel = (datos, atributosExcluir) => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  const dateFormatted = `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`; // Formato: AAAA-MM-DD
+  const timeFormatted = `${hours.toString().padStart(2, "0")}-${minutes
+    .toString()
+    .padStart(2, "0")}-${seconds.toString().padStart(2, "0")}`; // Formato: HH-MM-SS
+  const filename = `ReporteVentas_${dateFormatted}_${timeFormatted}`;
+
   // Excluir los atributos del arreglo de objetos
   const datosSinAtributos = datos.map((dato) => {
     const datoSinAtributos = { ...dato };
@@ -36,8 +52,8 @@ export const VentasReporteExcel = (datos, atributosExcluir) => {
   }, {});
 
   // Ordenar los productos por cantidad vendida de mayor a menor
-  const productosOrdenados = Object.values(productosVendidos).sort((a, b) =>
-    b.cantidad - a.cantidad
+  const productosOrdenados = Object.values(productosVendidos).sort(
+    (a, b) => b.cantidad - a.cantidad
   );
 
   // Crear el libro de trabajo y la hoja de cálculo
@@ -56,5 +72,5 @@ export const VentasReporteExcel = (datos, atributosExcluir) => {
   const blob = new Blob([excelBuffer], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
   });
-  FileSaver.saveAs(blob, "reporte.xlsx");
+  FileSaver.saveAs(blob, `${filename}.xlsx`);
 };

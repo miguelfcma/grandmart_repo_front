@@ -369,7 +369,7 @@ export function FormUsuario({ onSubmit, initialUsuario = null }) {
         </Col>
       </Form.Group>
       {error && <Alert variant="danger">{error}</Alert>}
-      <Button type="submit">Enviar</Button>
+      <Button type="submit">Registrar</Button>
     </Form>
   );
 }

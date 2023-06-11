@@ -32,7 +32,7 @@ export function CardServicioCliente({ servicio }) {
       const confirmResult = await Swal.fire({
         icon: "warning",
         title: "Eliminar servicio",
-        text: `¿Estás seguro de eliminar el servicio "${servicio.nombre}"?`,
+        text: `¿Estás seguro de eliminar el servicio "${servicio.titulo}"?`,
         showCancelButton: true,
         confirmButtonText: "Eliminar",
         cancelButtonText: "Cancelar",

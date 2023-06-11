@@ -4,7 +4,7 @@ import { ItemOrdenAdmin } from "./ItemOrdenAdmin";
 import { FiltroOrdenesAdmin } from "./FiltroOrdenesAdmin";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./ListaOrdenesAdmin.css";
-import { ordenesReporteExcel } from "../../GeneracionDeReportes/ordenesReporteExcel";
+import { ordenesReporteExcel } from "../../GeneracionDeReportes/OrdenesReporteExcel";
 
 export function ListaOrdenesAdmin() {
   // Utilizar el hook useOrdenes para acceder al contexto y las funciones relacionadas con las órdenes

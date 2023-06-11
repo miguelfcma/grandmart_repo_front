@@ -109,7 +109,7 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
       </Form.Group>
 
       <Form.Group controlId="descripcion">
-        <Form.Label>Descripción:</Form.Label>
+        <Form.Label>Descripción (opcional):</Form.Label>
         <Form.Control
           as="textarea"
           name="descripcion"

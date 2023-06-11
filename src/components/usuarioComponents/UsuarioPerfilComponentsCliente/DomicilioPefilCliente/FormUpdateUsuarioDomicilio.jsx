@@ -8,6 +8,7 @@ import {
   FormCheck,
   FormControl,
 } from "react-bootstrap";
+import Swal from 'sweetalert2';
 
 export function FormUpdateUsuarioDomicilio({ onSubmit, initialDomicilio }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -60,12 +61,34 @@ export function FormUpdateUsuarioDomicilio({ onSubmit, initialDomicilio }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateDomicilioUsuarioByUserId(usuario.id, formData);
-      onSubmit();
+      // Mostrar confirmación antes de la actualización
+      const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción actualizará el domicilio',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, actualizar',
+        cancelButtonText: 'Cancelar',
+      });
+  
+      // Si el usuario confirmó la actualización
+      if (result.isConfirmed) {
+        await updateDomicilioUsuarioByUserId(usuario.id, formData);
+  
+        // Mostrar alerta de éxito
+        Swal.fire({
+          icon: 'success',
+          title: 'Domicilio actualizado',
+          text: 'El domicilio ha sido actualizado correctamente.',
+        });
+  
+        onSubmit();
+      }
     } catch (error) {
       console.error(error);
     }
   };
+  
   const estados = [
     "Aguascalientes",
     "Baja California",
@@ -231,7 +254,7 @@ export function FormUpdateUsuarioDomicilio({ onSubmit, initialDomicilio }) {
       </FormGroup>
 
       <FormGroup>
-        <Form.Label>Indicaciones adicionales de esta dirección:</Form.Label>
+        <Form.Label>Indicaciones adicionales de esta dirección (opcional):</Form.Label>
         <Form.Control
           as="textarea"
           rows={3}

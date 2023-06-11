@@ -17,7 +17,8 @@ export function ItemOrdenAdmin({ orden }) {
   return (
     <tr>
       <td>{id}</td>
-      <td className={`estado-${estado_orden.toLowerCase()}`}>{estado_orden}</td>
+      <td className={`estado-${estado_orden.replace(" ", "").toLowerCase()}`}>{estado_orden}</td>
+
       <td>{id_usuario}</td>
       <td>{new Date(createdAt).toLocaleDateString()}</td>
     

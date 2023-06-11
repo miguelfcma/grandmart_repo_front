@@ -65,7 +65,7 @@ export const OrdenContextProvider = ({ children }) => {
         setOrdenesUser(response.data);
         console.log(response.data);
       } else {
-        throw new Error("eliminarOrden");
+        throw new Error(" obtenerCompras");
       }
     } catch (error) {
       console.error(error);
@@ -160,10 +160,9 @@ export const OrdenContextProvider = ({ children }) => {
 
       if (response.status === 200) {
         console.log(response.data);
-        return response.data;
-      } else {
-        throw new Error("eliminarOrden");
+        
       }
+      return response.status;
     } catch (error) {
       console.error(error);
     }

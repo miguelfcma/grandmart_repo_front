@@ -57,11 +57,11 @@ export function FormInformacionServicioCliente({
     try {
       // Enviar los datos de contacto y domicilio mediante la función createDatosContactoServicio
       const status = await createDatosContactoServicio(datosServicio);
-      if (status === 200) {
+      if (status === 201) {
         // Mostrar una notificación de éxito si se envían los datos correctamente
         Swal.fire(
           "Éxito",
-          "Los datos de contacto se han enviado correctamente",
+          "Los datos de contacto se han guardado correctamente",
           "success"
         );
       }
@@ -73,7 +73,7 @@ export function FormInformacionServicioCliente({
       // Mostrar una notificación de error si hay algún problema al enviar los datos
       Swal.fire(
         "Error",
-        "Ha ocurrido un error al enviar los datos de contacto",
+        "Ha ocurrido un error al guardar los datos de contacto",
         "error"
       );
     }
@@ -173,7 +173,7 @@ export function FormInformacionServicioCliente({
           />
         </FormGroup>
         <FormGroup>
-          <Form.Label>Teléfono 2:</Form.Label>
+          <Form.Label>Teléfono 2 (opcional):</Form.Label>
           <FormControl
             type="text"
             name="telefono2"
@@ -296,7 +296,7 @@ export function FormInformacionServicioCliente({
           />
         </FormGroup>
 
-        <Button type="submit">Enviar</Button>
+        <Button type="submit">Registrar</Button>
       </Form>
     </div>
   );

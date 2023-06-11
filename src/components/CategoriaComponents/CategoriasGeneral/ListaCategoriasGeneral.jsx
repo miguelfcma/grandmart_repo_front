@@ -49,7 +49,7 @@ export function ListaCategoriasGeneral() {
 
   return (
     <>
-      <h2 className="titulo">Lista de categorias:</h2>
+      <h2 className="titulo">Categorías</h2>
       <ListGroup>
         {categoriasJerarquicas.map((categoria) =>
           renderizarCategoria(categoria, 0)

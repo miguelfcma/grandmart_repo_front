@@ -796,13 +796,11 @@ export const ProductoContextProvider = ({ children }) => {
   };
 
   const actualizarDenunciaRevisada = async (id_denuncia, data) => {
-    console.log(id_denuncia + data);
     try {
-      const response = await actualizarDenunciaARevisada(id_denuncia, data);
+      const response = await actualizarDenunciaARevisada(id_denuncia);
 
       if (response.status === 200) {
-        console.log(response.data);
-        return response.data;
+        obtenerTodasLasDenuncias();
       } else {
         throw new Error("No se pudo actualizar ");
       }

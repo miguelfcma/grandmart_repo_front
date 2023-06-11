@@ -162,13 +162,34 @@ export function DetallesOrdenAdmin({ id_orden }) {
       console.error("Error al cambiar el estado del envío:", error);
     }
   };
-
   const handleEliminarOrden = async () => {
     try {
-      await eliminarOrden(orden.id);
-      navigate("/dashAdmin/ordenes");
+      const confirmation = await Swal.fire({
+        title: 'Confirmar eliminación',
+        text: '¿Estás seguro de que deseas eliminar esta orden?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+    
+      });
+  
+      if (confirmation.isConfirmed) {
+        const status = await eliminarOrden(orden.id);
+  
+        if (status === 200) {
+          Swal.fire('Éxito', 'La orden ha sido eliminada correctamente', 'success');
+          navigate('/dashAdmin/ordenes');
+        } else if (status === 404) {
+          Swal.fire('Error', 'La orden no existe', 'error');
+        } else if (status === 500) {
+          Swal.fire('Error', 'Error en el servidor', 'error');
+        } else {
+          Swal.fire('Error', 'Ha ocurrido un error inesperado', 'error');
+        }
+      }
     } catch (error) {
-      console.error("Error al eliminar orden", error);
+      console.error('Error al eliminar orden', error);
     }
   };
 

@@ -7,6 +7,7 @@ import {
   Button,
   FormCheck,
 } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export function FormCreateUsuarioDomicilio({ onSubmit }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -78,6 +79,14 @@ export function FormCreateUsuarioDomicilio({ onSubmit }) {
         descripcion: "",
         id_usuario: usuario.id,
       });
+
+      // Mostrar alerta de éxito
+      Swal.fire({
+        icon: "success",
+        title: "Domicilio registrado",
+        text: "El domicilio se ha registrado correctamente.",
+      });
+
       onSubmit();
     } catch (error) {
       console.error(error);
@@ -263,7 +272,9 @@ export function FormCreateUsuarioDomicilio({ onSubmit }) {
       <br />
 
       <FormGroup>
-        <Form.Label>Indicaciones adicionales de esta dirección:</Form.Label>
+        <Form.Label>
+          Indicaciones adicionales de esta dirección (opcional):
+        </Form.Label>
         <Form.Control
           as="textarea"
           rows={3}

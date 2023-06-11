@@ -4,7 +4,7 @@ import { ItemOrdenRepartidor } from "./ItemOrdenRepartidor";
 import { FiltroOrdenesRepartidor } from "./FiltroOrdenesRepartidor";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./ListaOrdenesRepartidor.css";
-import { ordenesReporteExcel } from "../../GeneracionDeReportes/ordenesReporteExcel";
+import { ordenesReporteExcel } from "../../GeneracionDeReportes/OrdenesReporteExcel";
 
 export function ListaOrdenesRepartidor() {
   // Utilizar el hook useOrdenes para acceder al contexto y las funciones relacionadas con las órdenes
@@ -28,12 +28,6 @@ export function ListaOrdenesRepartidor() {
     fetchData();
   }, []);
 
-  const generarReporte = () => {
-    // Array de atributos que se desea incluir en el reporte
-    const atributosExcluir = ["updatedAt"];
-
-    ordenesReporteExcel(ordenesFiltradasReporte, atributosExcluir);
-  };
 
   function renderMain() {
     // Filtrar las órdenes en base a los criterios de filtro ingresados por el usuario
@@ -76,10 +70,7 @@ export function ListaOrdenesRepartidor() {
         filtroOrden={filtroOrden}
         setFiltroOrden={setFiltroOrden}
       />
-      {/* Renderizado del botón para generar el reporte */}
-      <Button onClick={generarReporte} className="btn-generar-reporte">
-        Generar Reporte
-      </Button>
+
       <div className="table-container">
         <div className="list-ordenes">
           <table className="tabla-ordenes">

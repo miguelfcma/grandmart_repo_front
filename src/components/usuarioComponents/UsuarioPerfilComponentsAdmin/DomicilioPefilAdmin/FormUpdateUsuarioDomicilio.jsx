@@ -231,7 +231,7 @@ export function FormUpdateUsuarioDomicilio({ onSubmit, initialDomicilio }) {
       </FormGroup>
 
       <FormGroup>
-        <Form.Label>Indicaciones adicionales de esta dirección:</Form.Label>
+        <Form.Label>Indicaciones adicionales de esta dirección (opcional):</Form.Label>
         <Form.Control
           as="textarea"
           rows={3}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
+import Swal from "sweetalert2";
 import { useBackup } from "./BackupContext/BackupProvider";
 
 export function FormCreateBackup() {
@@ -17,14 +18,18 @@ export function FormCreateBackup() {
 
     try {
       const response = await getBackup(credentials);
-      console.log({
-        status: response.status,
-        message: response.data.message,
+   
+      Swal.fire({
+        icon: "success",
+        title: "Backup creado",
+
       });
     } catch (error) {
-      console.log({
-        status: error.response.status,
-        message: error.response.data.message,
+
+      Swal.fire({
+        icon: "error",
+        title: "Error al crear el backup",
+
       });
     }
   };

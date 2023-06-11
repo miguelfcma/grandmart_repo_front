@@ -322,7 +322,7 @@ export function FormRegistroEnvio() {
 
             <Form.Group controlId="descripcion">
               <Form.Label>
-                Indicaciones adicionales de esta dirección:
+                Indicaciones adicionales de esta dirección (opcional):
               </Form.Label>
               <Form.Control
                 as="textarea"

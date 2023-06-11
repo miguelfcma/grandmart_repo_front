@@ -9,7 +9,7 @@ export function ResenaCliente({ id_producto }) {
 
   useEffect(() => {
     verificarResenaExistente();
-  }, [id_producto, usuario.id]);
+  }, []);
 
   const verificarResenaExistente = async () => {
     const review = await getReviewByUserAndProduct(usuario.id, id_producto);

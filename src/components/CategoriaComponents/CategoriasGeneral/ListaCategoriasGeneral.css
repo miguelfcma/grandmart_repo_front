@@ -1,12 +1,24 @@
-.categorias-container {
-    margin-bottom: 1rem;
-  }
-  
-  .categoria-padre {
-    background-color: lightblue;
-  }
-  
-  .paginacategorias{
-    margin-left: 12px;
-  }
-  
+.titulo {
+  color: blue;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.categoria-padre {
+  background-color: lightblue;
+}
+
+.paginacategorias {
+  margin-left: 12px;
+  font-size: 20px;
+}
+
+.paginacategorias a {
+  color: black;
+  text-decoration: none;
+}
+
+.paginacategorias a:hover {
+  color: blue;
+  text-decoration: underline;
+}

@@ -263,7 +263,7 @@ export function FormCreateUsuarioDomicilio({ onSubmit }) {
       <br />
 
       <FormGroup>
-        <Form.Label>Indicaciones adicionales de esta dirección:</Form.Label>
+        <Form.Label>Indicaciones adicionales de esta dirección (opcional):</Form.Label>
         <Form.Control
           as="textarea"
           rows={3}

@@ -44,6 +44,6 @@ export const denunciasServiciosReporteExcel = (datos, atributosExcluir) => {
     const blob = new Blob([excelBuffer], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
     });
-    FileSaver.saveAs(blob, "reporteDeDenunciasServicios.xlsx");
+    FileSaver.saveAs(blob, "reporteDeDenunciasServicioss.xlsx");
   };
   

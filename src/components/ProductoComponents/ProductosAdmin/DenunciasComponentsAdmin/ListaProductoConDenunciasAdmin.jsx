@@ -4,8 +4,8 @@ import { useServicios } from "../../../ServicioComponents/ServiciosContext/Servi
 import { ItemProductoConDenunciaAdmin } from "./ItemProductoConDenunciaAdmin";
 import { ItemServicioConDenunciaAdmin } from "./ItemServicioConDenunciaAdmin";
 import "./ItemProducto.css";
-import { denunciasReporteExcel } from "../../../GeneracionDeReportes/denunciasReporteExcel";
-import { denunciasServiciosReporteExcel } from "../../../GeneracionDeReportes/denunciasServiciosReporteExcel";
+import { denunciasReporteExcel } from "../../../GeneracionDeReportes/DenunciasReporteExcel";
+import { denunciasServiciosReporteExcel } from "../../../GeneracionDeReportes/DenunciasServiciosReporteExcel";
 
 export function ListaProductoConDenunciasAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -29,15 +29,15 @@ export function ListaProductoConDenunciasAdmin() {
     }
   };
 
+  const fetchData = async () => {
+    try {
+      await obtenerTodasLasDenuncias();
+      await obtenerTodasLasDenunciasServicios();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await obtenerTodasLasDenuncias();
-        await obtenerTodasLasDenunciasServicios();
-      } catch (error) {
-        console.error(error);
-      }
-    };
     fetchData();
   }, []);
 
@@ -58,16 +58,33 @@ export function ListaProductoConDenunciasAdmin() {
   );
 
   //Es un filtro para almacenar únicamente las denuncias que no han sido revisadas
-  const denunciasSinRevisar = Object.values(denunciasPorProducto).filter(
-    (producto) =>
-      producto.denuncias.some((denuncia) => denuncia.revisar === false)
-  );
+  const denunciasSinRevisar =  Object.values(denunciasPorProducto)
+  .filter((producto) =>
+    producto.denuncias.some((denuncia) => denuncia.revisar === true)
+  )
+  .map((producto) => {
+    return {
+      producto: producto.producto,
+      denuncias: producto.denuncias.filter(
+        (denuncia) => denuncia.revisar === false
+      ),
+    };
+  });
 
   //Es un filtro para almacenar únicamente las denuncias que ya han sido revisadas
-  const denunciasRevisadas = Object.values(denunciasPorProducto).filter(
-    (producto) =>
+
+  const denunciasRevisadas = Object.values(denunciasPorProducto)
+    .filter((producto) =>
       producto.denuncias.some((denuncia) => denuncia.revisar === true)
-  );
+    )
+    .map((producto) => {
+      return {
+        producto: producto.producto,
+        denuncias: producto.denuncias.filter(
+          (denuncia) => denuncia.revisar === true
+        ),
+      };
+    });
 
   //Estado para mostrar el contenido del botón seleccionado
   const [mostrarContenido, setMostrarContenido] = useState(false);
@@ -187,18 +204,31 @@ export function ListaProductoConDenunciasAdmin() {
   );
 
   //Es un filtro para almacenar únicamente las denuncias que no han sido revisadas
-  const denunciasSinRevisarServicios = Object.values(
-    denunciasPorServicio
-  ).filter((servicio) =>
-    servicio.denuncias.some((denuncia) => denuncia.revisar === false)
-  );
+  const denunciasSinRevisarServicios = Object.values(denunciasPorServicio)
+  .map((servicio) => {
+    return {
+      servicio: servicio.servicio,
+      denuncias: servicio.denuncias.filter(
+        (denuncia) => denuncia.revisar === false
+      ),
+    };
+  })
+  .filter((servicio) => servicio.denuncias.length > 0);
+
 
   //Es un filtro para almacenar únicamente las denuncias que ya han sido revisadas
-  const denunciasRevisadasServicios = Object.values(
-    denunciasPorServicio
-  ).filter((servicio) =>
-    servicio.denuncias.some((denuncia) => denuncia.revisar === true)
-  );
+
+  const denunciasRevisadasServicios = Object.values(denunciasPorServicio)
+    .map((servicio) => {
+      return {
+        servicio: servicio.servicio,
+        denuncias: servicio.denuncias.filter(
+          (denuncia) => denuncia.revisar === true
+        ),
+      };
+    })
+    .filter((servicio) => servicio.denuncias.length > 0);
+
 
   //Reporte denuncias para servicios
   const generarReporteServicios = () => {
@@ -348,7 +378,7 @@ export function ListaProductoConDenunciasAdmin() {
         </button>
         <br></br>
         <button className="btn3" onClick={mostrarTodasLasDenuncias}>
-          Mostrar todas las denuncias del sistema
+          Mostrar todas las denuncias del sistema revisadas y no revisadas
         </button>
       </div>
 

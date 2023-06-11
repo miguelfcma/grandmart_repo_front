@@ -131,7 +131,9 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
   };
 
   const buildOptions = (categorias, indent = 0) => {
-    return categorias.map((categoria) => {
+    const categoriasFiltradas = categorias.filter(categoria => categoria.id_parent === null);
+    
+    return categoriasFiltradas.map((categoria) => {
       const prefix = new Array(indent + 1).join("-");
       return (
         <option key={categoria.id} value={categoria.id}>
@@ -140,6 +142,7 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
       );
     });
   };
+  
 
   return (
     <Form onSubmit={handleSubmit}>
