@@ -3,6 +3,23 @@ import * as FileSaver from "file-saver";
 import moment from "moment"; /*Formatear fechas y horas */
 
 export const denunciasReporteExcel = (datos, atributosExcluir) => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  const dateFormatted = `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`; // Formato: AAAA-MM-DD
+  const timeFormatted = `${hours.toString().padStart(2, "0")}-${minutes
+    .toString()
+    .padStart(2, "0")}-${seconds.toString().padStart(2, "0")}`; // Formato: HH-MM-SS
+  const filename = `reporteDeDenunciasProductos_${dateFormatted}_${timeFormatted}.xlsx`;
+
+
     // Verificar si no hay datos disponibles
     if (!datos || Object.keys(datos).length === 0) {
       console.log("No hay datos disponibles para generar el reporte.");
@@ -44,6 +61,6 @@ export const denunciasReporteExcel = (datos, atributosExcluir) => {
     const blob = new Blob([excelBuffer], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
     });
-    FileSaver.saveAs(blob, "reporteDeDenunciasProductos.xlsx");
+    FileSaver.saveAs(blob, filename);
   };
   

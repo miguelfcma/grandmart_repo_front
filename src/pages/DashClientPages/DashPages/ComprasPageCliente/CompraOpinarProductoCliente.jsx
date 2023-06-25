@@ -28,7 +28,7 @@ export function CompraOpinarProductoCliente() {
             Detalles compra
           </Breadcrumb.Item>
           <Breadcrumb.Item active style={{ color: "white" }}>
-            Registro de Producto 2
+            Opinar
           </Breadcrumb.Item>
         </Breadcrumb>
         <ResenaCliente id_producto={id_producto} />

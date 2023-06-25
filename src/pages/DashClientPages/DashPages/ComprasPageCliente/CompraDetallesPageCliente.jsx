@@ -22,7 +22,7 @@ export function CompraDetallesPageCliente() {
             Compras
           </Breadcrumb.Item>
           <Breadcrumb.Item active style={{ color: "white" }}>
-            Registro de Producto 2
+            Detalles compra
           </Breadcrumb.Item>
         </Breadcrumb>
         <DetallesCompraCliente id_orden={id_orden} />

@@ -17,7 +17,7 @@ export const VentasReporteExcel = (datos, atributosExcluir) => {
   const timeFormatted = `${hours.toString().padStart(2, "0")}-${minutes
     .toString()
     .padStart(2, "0")}-${seconds.toString().padStart(2, "0")}`; // Formato: HH-MM-SS
-  const filename = `ReporteVentas_${dateFormatted}_${timeFormatted}`;
+  const filename = `ReporteVentas_${dateFormatted}_${timeFormatted}.xlsx`;
 
   // Excluir los atributos del arreglo de objetos
   const datosSinAtributos = datos.map((dato) => {
@@ -65,12 +65,12 @@ export const VentasReporteExcel = (datos, atributosExcluir) => {
 
   // Hoja de cálculo de los productos ordenados por cantidad vendida
   const productosWorksheet = XLSX.utils.json_to_sheet(productosOrdenados);
-  XLSX.utils.book_append_sheet(workbook, productosWorksheet, "Productos");
+  XLSX.utils.book_append_sheet(workbook, productosWorksheet, "Productos más vendidos");
 
   // Generar el archivo Excel y guardarlo
   const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
   const blob = new Blob([excelBuffer], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
   });
-  FileSaver.saveAs(blob, `${filename}.xlsx`);
+  FileSaver.saveAs(blob,filename);
 };

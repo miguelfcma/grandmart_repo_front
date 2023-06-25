@@ -97,7 +97,12 @@ export function ListaVentasAdmin() {
               VentasReporteExcel(ventasEstructuradas, atributosExcluir)
             }
           >
-            Generar Reporte Excel
+            <box-icon
+              style={{ marginRight: "5px" }}
+              color="white"
+              name="file"
+            ></box-icon>
+            Generar reporte (.xlsx)
           </Button>
           {ventasAMostrar.map((venta) => (
             <Col key={venta.id} sm={12}>

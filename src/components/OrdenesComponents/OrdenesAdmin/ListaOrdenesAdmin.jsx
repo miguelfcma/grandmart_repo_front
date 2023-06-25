@@ -4,8 +4,7 @@ import { ItemOrdenAdmin } from "./ItemOrdenAdmin";
 import { FiltroOrdenesAdmin } from "./FiltroOrdenesAdmin";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./ListaOrdenesAdmin.css";
-import { ordenesReporteExcel } from "../../GeneracionDeReportes/OrdenesReporteExcel";
-
+import { ordenesReporteExcel } from "../../GeneracionDeReportes/ordenesReporteExcel";
 export function ListaOrdenesAdmin() {
   // Utilizar el hook useOrdenes para acceder al contexto y las funciones relacionadas con las órdenes
   const { obtenerTodasLasOrdenesConDetalles, ordenesAll } = useOrdenes();
@@ -77,7 +76,12 @@ export function ListaOrdenesAdmin() {
       />
       {/* Renderizado del botón para generar el reporte */}
       <Button onClick={generarReporte} className="btn-generar-reporte">
-        Generar Reporte
+      <box-icon
+              style={{ marginRight: "5px" }}
+              color="white"
+              name="file"
+            ></box-icon>
+            Generar reporte (.xlsx)
       </Button>
       <div className="table-container">
         <div className="list-ordenes">

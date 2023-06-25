@@ -108,6 +108,45 @@ export function ItemProductoConDenunciaAdmin({ producto, onDeleteDenuncia }) {
                       {denuncia.descripcion}
                     </div>
                   </ListGroup.Item>
+
+                  <ListGroup.Item className="items">
+                    <div style={{ fontWeight: "bold" }}>
+                      Denuncia hecha por ID:{" "}
+                    </div>
+                    &nbsp;&nbsp;
+                    <div>
+                      {" "}
+                      {denuncia.usuario.id} - {denuncia.usuario.nombre}{" "}
+                      {denuncia.usuario.apellidoPaterno}{" "}
+                      {denuncia.usuario.apellidoMaterno}{" "}
+                    </div>
+                  </ListGroup.Item>
+       
+                  <ListGroup.Item className="items">
+                    <div style={{ fontWeight: "bold" }}>
+                      Propietario de la publicación ID:{" "}
+                    </div>
+                    &nbsp;&nbsp;
+                    <div>
+                      {" "}
+                      {denuncia.usuarioProducto.id} -{" "}
+                      {denuncia.usuarioProducto.nombre}{" "}
+                      {denuncia.usuarioProducto.apellidoPaterno}{" "}
+                      {denuncia.usuarioProducto.apellidoMaterno}
+                    </div>
+                  </ListGroup.Item>
+                  <ListGroup.Item className="items">
+                    <div style={{ fontWeight: "bold" }}>Realizada: </div>
+                    &nbsp;&nbsp;
+                    <div>{denuncia.createdAt}</div>
+                  </ListGroup.Item>
+                  <ListGroup.Item className="items">
+                    <div style={{ fontWeight: "bold" }}>
+                      Ya ha sido revisada:{" "}
+                    </div>
+                    &nbsp;&nbsp;
+                    <div>{denuncia.revisar ? "SI" : "NO"}</div>
+                  </ListGroup.Item>
                   <ListGroup.Item className="items">
                     {!denuncia.revisar && (
                       <Button
