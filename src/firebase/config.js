@@ -13,11 +13,7 @@ const firebaseConfig = {
 
   appId: "1:589248633150:web:170209812c5aaffc2ef46f",
 };
-//ESTE ES UN CAMBIO DE RAMITA
-//brayan es puto
-//ESTE ES EL NUEVO SECSO EN EL OXXO
 
-//MIGUE LE GUSTA LA VERGA
 const app = initializeApp(firebaseConfig);
 
 export default app;
