@@ -1,4 +1,5 @@
 /* proveedor de contexto que proporciona acceso a las funciones para cargar, crear, actualizar y eliminar productos, así como para obtener y cargar imágenes de productos. */
+import Swal from 'sweetalert2';
 
 import { useContext, useState, useEffect } from "react";
 
@@ -91,7 +92,6 @@ export const ProductoContextProvider = ({ children }) => {
     setTerminoBusqueda(termino);
   }
   function limpiarTerminoBusqueda() {
-    console.log("hola");
     setTerminoBusqueda("");
   }
 
@@ -163,7 +163,13 @@ export const ProductoContextProvider = ({ children }) => {
         obtenerCarritoDeCompras(data.id_usuario);
         console.log("Producto agregado al carrito exitosamente", carrito);
       } else {
-        throw new Error("No se pudo agregar el producto al carrito");
+        const mensajeError = response.data.message; // Obtén el mensaje de error de la respuesta
+    
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: mensajeError,
+        });
       }
     } catch (error) {
       console.error(error);
@@ -230,12 +236,17 @@ export const ProductoContextProvider = ({ children }) => {
         });
         console.log("Cantidad de producto actualizada exitosamente");
       } else {
-        throw new Error(
-          "No se pudo actualizar la cantidad del producto en el carrito"
-        );
+        const mensajeError = response.data.message; // Obtén el mensaje de error de la respuesta
+    
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: mensajeError,
+        });
       }
     } catch (error) {
       console.error(error);
+     
     }
   };
 
@@ -331,7 +342,6 @@ export const ProductoContextProvider = ({ children }) => {
   }
   */
   async function agregarFavorito(id_usuario, id_producto) {
-    console.log("hola", id_usuario, id_producto);
     try {
       const response = await agregarProductoAFavoritosRequest(
         id_usuario,
@@ -350,7 +360,6 @@ export const ProductoContextProvider = ({ children }) => {
 
   async function eliminarFavorito(id_usuario, id_producto) {
     try {
-      console.log("hola");
       const response = await eliminarProductoFavoritoRequest(
         id_usuario,
         id_producto
@@ -740,7 +749,6 @@ export const ProductoContextProvider = ({ children }) => {
   //Denuncias
 
   const crearDenunciaProducto = async (data) => {
-    console.log("datos desde el provider", data);
     try {
       const response = await crearDenunciaProductoRequest(data);
 

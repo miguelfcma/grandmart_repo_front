@@ -59,6 +59,17 @@ export function SidebarAdmin() {
     <div>
       <div className="d-none d-md-block sidebar-container">
         <ul>
+        <li>
+            <Link to="/dashAdmin" className="separateIcon">
+              <box-icon
+                type="solid"
+                name="dashboard"
+                color="#ffffff"
+                style={{ verticalAlign: "middle" }}
+              ></box-icon>
+              Dashboard
+            </Link>
+          </li>
           <li>
             <Link to="/dashAdmin/usuarios" className="separateIcon">
               <box-icon

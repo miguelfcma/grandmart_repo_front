@@ -39,7 +39,6 @@ export function ListaProductoConPreguntasYReviewsCliente() {
   const onDeletePregunta = async (preguntaId) => {
     try {
       await eliminarPreguntaProducto(preguntaId);
-    
     } catch (error) {
       console.log(error);
     }
@@ -68,9 +67,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     cargarProductosConPreguntasByUsuarioId();
     cargarServiciosConPreguntasByUsuarioId();
   }, []);
-  console.log("----------------------------------");
-  console.log("webos",productosPreguntas);
-  console.log("----------------------------------");
+
   const preguntasSinResponder =
     productosPreguntas &&
     Object.values(productosPreguntas).reduce((preguntas, producto) => {
@@ -98,7 +95,6 @@ export function ListaProductoConPreguntasYReviewsCliente() {
   const onDeleteReview = async (reviewId) => {
     try {
       await eliminarReviewProducto(reviewId);
-      console.log("Ejecutando la función en el componente padre");
     } catch (error) {
       console.log(error);
     }
@@ -128,7 +124,6 @@ export function ListaProductoConPreguntasYReviewsCliente() {
       return preguntas;
     }, []);
 
-
   const preguntasRespondidasServicios =
     serviciosPreguntas &&
     Object.values(serviciosPreguntas).reduce((preguntas, servicio) => {
@@ -147,7 +142,6 @@ export function ListaProductoConPreguntasYReviewsCliente() {
   const onDeletePreguntaServicio = async (preguntaId) => {
     try {
       await eliminarPreguntaServicio(preguntaId);
-      console.log("Ejecutando la función en el componente padre");
     } catch (error) {
       console.log(error);
     }
@@ -227,7 +221,6 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     };
   });
 
-
   const generarReporteReviews = () => {
     console.log(productosFiltrados);
 
@@ -250,7 +243,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
             Comentario: comentario,
             Calificacion: calificacion,
             "ID Producto": id_producto,
-            "ID Usuario": id_usuario
+            "ID Usuario": id_usuario,
           };
         });
       })
@@ -259,7 +252,6 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     // Ordenar los datos por el ID de reviews de menor a mayor
     formattedData.sort((a, b) => a["ID  de review"] - b["ID  de review"]);
 
-    console.log(formattedData);
     const atributosExcluir = ["updatedAt"];
     reviewsReporteExcel(formattedData, atributosExcluir);
   };

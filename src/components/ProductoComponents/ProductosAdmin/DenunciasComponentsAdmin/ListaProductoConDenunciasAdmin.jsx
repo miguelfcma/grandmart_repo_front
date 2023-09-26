@@ -40,6 +40,7 @@ export function ListaProductoConDenunciasAdmin() {
   useEffect(() => {
     fetchData();
   }, []);
+  productosDenuncias;
 
   //Obtiene todos los productos que tienen denuncias y almacena las denuncias
   const denunciasPorProducto = productosDenuncias.reduce(
@@ -57,19 +58,17 @@ export function ListaProductoConDenunciasAdmin() {
     {}
   );
 
-  //Es un filtro para almacenar únicamente las denuncias que no han sido revisadas
-  const denunciasSinRevisar =  Object.values(denunciasPorProducto)
-  .filter((producto) =>
-    producto.denuncias.some((denuncia) => denuncia.revisar === true)
-  )
-  .map((producto) => {
-    return {
-      producto: producto.producto,
-      denuncias: producto.denuncias.filter(
-        (denuncia) => denuncia.revisar === false
-      ),
-    };
-  });
+  // Es un filtro para almacenar únicamente las denuncias que no han sido revisadas
+  const denunciasSinRevisar = Object.values(denunciasPorProducto)
+    .map((producto) => {
+      return {
+        producto: producto.producto,
+        denuncias: producto.denuncias.filter(
+          (denuncia) => denuncia.revisar === false
+        ),
+      };
+    })
+    .filter((producto) => producto.denuncias.length > 0);
 
   //Es un filtro para almacenar únicamente las denuncias que ya han sido revisadas
 
@@ -92,7 +91,7 @@ export function ListaProductoConDenunciasAdmin() {
   const [mostrarTitulo, setMostrarTitulo] = useState(false); // Agrega el estado para controlar la visibilidad del título
 
   const generarReporte = () => {
-    console.log(denunciasPorProducto);
+   
 
     const formattedData = Object.values(denunciasPorProducto)
       .map((productoDenuncia) => {
@@ -133,60 +132,13 @@ export function ListaProductoConDenunciasAdmin() {
     // Ordenar los datos por el ID de denuncias de menor a mayor
     formattedData.sort((a, b) => a["ID  de denuncia"] - b["ID  de denuncia"]);
 
-    // Calcular el motivo de denuncia más recurrente y su cantidad
-    const motivoDenunciaRecurrente =
-      obtenerMotivoDenunciaRecurrente(formattedData);
-    const cantidadDenunciasMotivoRecurrente = contarDenunciasPorMotivo(
-      formattedData,
-      motivoDenunciaRecurrente
-    );
 
-    // Agregar el campo extra al objeto
-    formattedData.push({
-      "Motivo más recurrente": motivoDenunciaRecurrente,
-      "Denuncias con este motivo": cantidadDenunciasMotivoRecurrente,
-    });
-
-    console.log(formattedData);
+   
     const atributosExcluir = ["updatedAt"];
     denunciasReporteExcel(formattedData, atributosExcluir);
   };
 
-  // Función para obtener el motivo de denuncia más recurrente
-  const obtenerMotivoDenunciaRecurrente = (data) => {
-    const motivoFrecuenteMap = {};
-    let maxCount = 0;
-    let motivoFrecuente = "";
-
-    data.forEach((item) => {
-      const motivo = item["Motivo"];
-      if (motivoFrecuenteMap[motivo]) {
-        motivoFrecuenteMap[motivo]++;
-      } else {
-        motivoFrecuenteMap[motivo] = 1;
-      }
-      if (motivoFrecuenteMap[motivo] > maxCount) {
-        maxCount = motivoFrecuenteMap[motivo];
-        motivoFrecuente = motivo;
-      }
-    });
-
-    return motivoFrecuente;
-  };
-
-  // Función para contar las denuncias por motivo
-  const contarDenunciasPorMotivo = (data, motivo) => {
-    let count = 0;
-
-    data.forEach((item) => {
-      if (item["Motivo"] === motivo) {
-        count++;
-      }
-    });
-
-    return count;
-  };
-
+ 
   //Obtiene todos los servicios que tienen denuncias y almacena las denuncias
   const denunciasPorServicio = serviciosDenuncias.reduce(
     (resultado, denuncia) => {
@@ -205,16 +157,15 @@ export function ListaProductoConDenunciasAdmin() {
 
   //Es un filtro para almacenar únicamente las denuncias que no han sido revisadas
   const denunciasSinRevisarServicios = Object.values(denunciasPorServicio)
-  .map((servicio) => {
-    return {
-      servicio: servicio.servicio,
-      denuncias: servicio.denuncias.filter(
-        (denuncia) => denuncia.revisar === false
-      ),
-    };
-  })
-  .filter((servicio) => servicio.denuncias.length > 0);
-
+    .map((servicio) => {
+      return {
+        servicio: servicio.servicio,
+        denuncias: servicio.denuncias.filter(
+          (denuncia) => denuncia.revisar === false
+        ),
+      };
+    })
+    .filter((servicio) => servicio.denuncias.length > 0);
 
   //Es un filtro para almacenar únicamente las denuncias que ya han sido revisadas
 
@@ -228,7 +179,6 @@ export function ListaProductoConDenunciasAdmin() {
       };
     })
     .filter((servicio) => servicio.denuncias.length > 0);
-
 
   //Reporte denuncias para servicios
   const generarReporteServicios = () => {
@@ -273,64 +223,16 @@ export function ListaProductoConDenunciasAdmin() {
     // Ordenar los datos por el ID de denuncias de menor a mayor
     formattedData.sort((a, b) => a["ID  de denuncia"] - b["ID  de denuncia"]);
 
-    // Calcular el motivo de denuncia más recurrente y su cantidad
-    const motivoDenunciaRecurrente =
-      obtenerMotivoDenunciaRecurrenteServicio(formattedData);
-    const cantidadDenunciasMotivoRecurrente = contarDenunciasPorMotivoServicio(
-      formattedData,
-      motivoDenunciaRecurrente
-    );
 
-    // Agregar el campo extra al objeto
-    formattedData.push({
-      "Motivo más recurrente": motivoDenunciaRecurrente,
-      "Denuncias con este motivo": cantidadDenunciasMotivoRecurrente,
-    });
 
-    console.log(formattedData);
     const atributosExcluir = ["updatedAt"];
     denunciasServiciosReporteExcel(formattedData, atributosExcluir);
   };
 
-  // Función para obtener el motivo de denuncia más recurrente
-  const obtenerMotivoDenunciaRecurrenteServicio = (data) => {
-    const motivoFrecuenteMap = {};
-    let maxCount = 0;
-    let motivoFrecuente = "";
-
-    data.forEach((item) => {
-      const motivo = item["Motivo"];
-      if (motivoFrecuenteMap[motivo]) {
-        motivoFrecuenteMap[motivo]++;
-      } else {
-        motivoFrecuenteMap[motivo] = 1;
-      }
-      if (motivoFrecuenteMap[motivo] > maxCount) {
-        maxCount = motivoFrecuenteMap[motivo];
-        motivoFrecuente = motivo;
-      }
-    });
-
-    return motivoFrecuente;
-  };
-
-  // Función para contar las denuncias por motivo
-  const contarDenunciasPorMotivoServicio = (data, motivo) => {
-    let count = 0;
-
-    data.forEach((item) => {
-      if (item["Motivo"] === motivo) {
-        count++;
-      }
-    });
-
-    return count;
-  };
-
+ 
   const onDeleteDenunciaServicio = async (preguntaId) => {
     try {
       await eliminarDenunciaServicio(preguntaId);
-      console.log("Ejecutando la función en el componente padre");
     } catch (error) {
       console.log(error);
     }

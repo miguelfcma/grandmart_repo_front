@@ -29,10 +29,6 @@ export const actualizarCantidadProductoEnCarritoRequest = async (
   id_producto,
   data
 ) => {
-  /**{
-  "id_usuario": 77,
-  "accion": "decrementar"
-} */
   try {
     const response = await axios.put(
       `${API_BASE_URL}carrito/${id_producto}`,

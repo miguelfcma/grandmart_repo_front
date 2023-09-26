@@ -20,10 +20,10 @@ export function FormNuevaDenunciaProductoGeneral() {
     console.log(selectedOption);
     event.preventDefault();
     if (selectedOption == "") {
-      console.log("Logaritmo neperiano");
     } else {
-      navigate(`/denuncia/producto/${id_producto}/detalles?opcion=${selectedOption}`);
-
+      navigate(
+        `/denuncia/producto/${id_producto}/detalles?opcion=${selectedOption}`
+      );
     }
   };
 

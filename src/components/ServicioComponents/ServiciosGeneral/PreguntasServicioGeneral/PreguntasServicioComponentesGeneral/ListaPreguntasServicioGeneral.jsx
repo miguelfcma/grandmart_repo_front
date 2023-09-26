@@ -7,31 +7,28 @@ import "./ListaPreguntasProductoGeneral.css"; // Importa el archivo CSS con los 
 export function ListaPreguntasServicioGeneral({
   id_servicio,
   actualizarFalse,
-  actualizarPreguntas
+  actualizarPreguntas,
 }) {
-
   const { getPreguntasByIdServicio } = useServicios();
   const [preguntas, setPreguntas] = useState([]);
 
   useEffect(() => {
     const fetchPreguntas = async () => {
       const preguntasData = await getPreguntasByIdServicio(id_servicio);
-      console.log("Este es el arreglo de preguntas de servicio:",preguntasData);
+
       setPreguntas(preguntasData || []);
     };
 
     if (preguntas && preguntas.length > 0) {
-      if(actualizarPreguntas){
+      if (actualizarPreguntas) {
         fetchPreguntas();
 
-        actualizarFalse()
+        actualizarFalse();
       }
     } else {
       fetchPreguntas();
     }
-  }, [id_servicio,actualizarPreguntas]);
-
-  
+  }, [id_servicio, actualizarPreguntas]);
 
   return (
     <Container>

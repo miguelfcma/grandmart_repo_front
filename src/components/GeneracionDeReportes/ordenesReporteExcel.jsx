@@ -11,8 +11,12 @@ export const ordenesReporteExcel = (datos, atributosExcluir) => {
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
 
-  const dateFormatted = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`; // Formato: AAAA-MM-DD
-  const timeFormatted = `${hours.toString().padStart(2, "0")}-${minutes.toString().padStart(2, "0")}-${seconds.toString().padStart(2, "0")}`; // Formato: HH-MM-SS
+  const dateFormatted = `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`; // Formato: AAAA-MM-DD
+  const timeFormatted = `${hours.toString().padStart(2, "0")}-${minutes
+    .toString()
+    .padStart(2, "0")}-${seconds.toString().padStart(2, "0")}`; // Formato: HH-MM-SS
   const filename = `ReporteOrdenesCompras_${dateFormatted}_${timeFormatted}.xlsx`;
 
   // Excluir los atributos del arreglo de objetos
@@ -53,14 +57,22 @@ export const ordenesReporteExcel = (datos, atributosExcluir) => {
   const worksheetDatos = XLSX.utils.json_to_sheet(datosSinAtributos);
   XLSX.utils.book_append_sheet(workbook, worksheetDatos, "Reporte");
 
-  // Hoja de resumen
-  const resumenOrdenes = obtenerResumenOrdenes(datos);
-  const resumenData = Object.entries(resumenOrdenes).map(([estado, cantidad]) => ({
-    "Estado Orden": estado,
-    "Cantidad": cantidad,
-  }));
-  const worksheetResumen = XLSX.utils.json_to_sheet(resumenData);
-  XLSX.utils.book_append_sheet(workbook, worksheetResumen, "Resumen");
+  // Hoja de usuarios
+  const usuariosData = obtenerResumenUsuarios(datos);
+  const worksheetUsuarios = XLSX.utils.json_to_sheet(usuariosData);
+  XLSX.utils.book_append_sheet(workbook, worksheetUsuarios, "Usuarios");
+
+  // Hoja de estados de órdenes con monto total
+  const estadosData = obtenerResumenEstadosMonto(datos);
+  const resumenData = Object.entries(estadosData).map(
+    ([estado, datosEstado]) => ({
+      "Estado Orden": estado,
+      Cantidad: datosEstado.cantidad,
+      "Monto Total": datosEstado.montoTotal.toFixed(2), // Formatear el monto con dos decimales
+    })
+  );
+  const worksheetEstados = XLSX.utils.json_to_sheet(resumenData);
+  XLSX.utils.book_append_sheet(workbook, worksheetEstados, "EstadosOrdenes");
 
   // Generar el archivo Excel y guardarlo
   const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
@@ -70,14 +82,38 @@ export const ordenesReporteExcel = (datos, atributosExcluir) => {
   FileSaver.saveAs(blob, filename);
 };
 
-const obtenerResumenOrdenes = (datos) => {
+const obtenerResumenUsuarios = (datos) => {
+  const usuariosResumen = {};
+  datos.forEach((dato) => {
+    const usuarioId = dato.id_usuario;
+    const totalOrden = parseFloat(dato.total); // Convertir a número
+    if (usuarioId in usuariosResumen) {
+      usuariosResumen[usuarioId].totalOrdenes += 1;
+      usuariosResumen[usuarioId].montoTotal += totalOrden;
+    } else {
+      usuariosResumen[usuarioId] = {
+        idUsuario: usuarioId,
+        totalOrdenes: 1,
+        montoTotal: totalOrden,
+      };
+    }
+  });
+
+  return Object.values(usuariosResumen);
+};
+const obtenerResumenEstadosMonto = (datos) => {
   const resumen = {};
   datos.forEach((dato) => {
     const estado = dato.estado_orden;
+    const totalOrden = parseFloat(dato.total); // Convertir a número
     if (estado in resumen) {
-      resumen[estado] += 1;
+      resumen[estado].cantidad += 1;
+      resumen[estado].montoTotal += totalOrden;
     } else {
-      resumen[estado] = 1;
+      resumen[estado] = {
+        cantidad: 1,
+        montoTotal: totalOrden,
+      };
     }
   });
   return resumen;

@@ -14,8 +14,6 @@ export function ListUsuarios() {
   }, []);
 
   function filtrarUsuarios() {
-    console.log("Valor del filtro:", filtro);
-
     if (filtro === "") {
       return usuarios;
     } else {
@@ -24,15 +22,6 @@ export function ListUsuarios() {
 
         const apellidoPaternoLowerCase = usuario.apellidoPaterno.toLowerCase();
         const apellidoMaternoLowerCase = usuario.apellidoMaterno.toLowerCase();
-        console.log("Valor de 'filtroLowerCase':", filtroLowerCase);
-        console.log(
-          "Valor de 'apellidoPaternoLowerCase':",
-          apellidoPaternoLowerCase
-        );
-        console.log(
-          "Valor de 'apellidoMaternoLowerCase':",
-          apellidoMaternoLowerCase
-        );
 
         return (
           usuario.id.toString().includes(filtroLowerCase) ||
@@ -40,11 +29,21 @@ export function ListUsuarios() {
           usuario.apellidoPaterno.toLowerCase().includes(filtroLowerCase) ||
           usuario.apellidoMaterno.toLowerCase().includes(filtroLowerCase) ||
           usuario.email.toLowerCase().includes(filtroLowerCase) ||
-          `${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`.toLowerCase().includes(filtroLowerCase) ||
-          `${usuario.apellidoPaterno} ${usuario.apellidoMaterno} ${usuario.nombre}`.toLowerCase().includes(filtroLowerCase) ||
-          `${usuario.id} ${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`.toLowerCase().includes(filtroLowerCase) ||
-          `${usuario.id} - ${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`.toLowerCase().includes(filtroLowerCase) ||
-          `${usuario.id}-${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`.toLowerCase().includes(filtroLowerCase)
+          `${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`
+            .toLowerCase()
+            .includes(filtroLowerCase) ||
+          `${usuario.apellidoPaterno} ${usuario.apellidoMaterno} ${usuario.nombre}`
+            .toLowerCase()
+            .includes(filtroLowerCase) ||
+          `${usuario.id} ${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`
+            .toLowerCase()
+            .includes(filtroLowerCase) ||
+          `${usuario.id} - ${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`
+            .toLowerCase()
+            .includes(filtroLowerCase) ||
+          `${usuario.id}-${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`
+            .toLowerCase()
+            .includes(filtroLowerCase)
         );
       });
     }
@@ -52,8 +51,6 @@ export function ListUsuarios() {
 
   function renderMain() {
     const usuariosFiltrados = filtrarUsuarios();
-
-    console.log("Usuarios filtrados:", usuariosFiltrados);
 
     if (usuariosFiltrados.length === 0) {
       return <h1>No hay usuarios registrados</h1>;

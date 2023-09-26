@@ -43,7 +43,6 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
   const onDeletePregunta = async (preguntaId) => {
     try {
       await eliminarPreguntaProducto(preguntaId);
-      console.log("Ejecutando la función en el componente padre");
     } catch (error) {
       console.log(error);
     }
@@ -108,7 +107,6 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
   const onDeleteReview = async (reviewId) => {
     try {
       await eliminarReviewProducto(reviewId);
-      console.log("Ejecutando la función en el componente padre");
     } catch (error) {
       console.log(error);
     }
@@ -138,8 +136,6 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       return preguntas;
     }, []);
 
-  console.log("preguntasSinResponderServicios", preguntasSinResponderServicios);
-
   const preguntasRespondidasServicios =
     serviciosPreguntas &&
     Object.values(serviciosPreguntas).reduce((preguntas, servicio) => {
@@ -158,7 +154,6 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
   const onDeletePreguntaServicio = async (preguntaId) => {
     try {
       await eliminarPreguntaServicio(preguntaId);
-      console.log("Ejecutando la función en el componente padre");
     } catch (error) {
       console.log(error);
     }
@@ -244,8 +239,6 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
     };
   });
 
-  console.log("este es el arreglo de productos filtrados:", productosFiltrados);
-
   const generarReporteReviews = () => {
     console.log(productosFiltrados);
 
@@ -268,7 +261,7 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
             Comentario: comentario,
             Calificacion: calificacion,
             "ID Producto": id_producto,
-            "ID Usuario": id_usuario
+            "ID Usuario": id_usuario,
           };
         });
       })
@@ -277,7 +270,6 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
     // Ordenar los datos por el ID de reviews de menor a mayor
     formattedData.sort((a, b) => a["ID  de review"] - b["ID  de review"]);
 
-    console.log(formattedData);
     const atributosExcluir = ["updatedAt"];
     reviewsReporteExcel(formattedData, atributosExcluir);
   };

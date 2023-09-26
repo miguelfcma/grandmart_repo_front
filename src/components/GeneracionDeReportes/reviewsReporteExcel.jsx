@@ -11,12 +11,8 @@ export const reviewsReporteExcel = (datos, atributosExcluir) => {
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
 
-  const dateFormatted = `${year}-${month.toString().padStart(2, "0")}-${day
-    .toString()
-    .padStart(2, "0")}`; // Formato: AAAA-MM-DD
-  const timeFormatted = `${hours.toString().padStart(2, "0")}-${minutes
-    .toString()
-    .padStart(2, "0")}-${seconds.toString().padStart(2, "0")}`; // Formato: HH-MM-SS
+  const dateFormatted = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+  const timeFormatted = `${hours.toString().padStart(2, "0")}-${minutes.toString().padStart(2, "0")}-${seconds.toString().padStart(2, "0")}`;
   const filename = `reporteDeReviewsProductos_${dateFormatted}_${timeFormatted}.xlsx`;
 
   // Verificar si no hay datos disponibles
@@ -49,10 +45,43 @@ export const reviewsReporteExcel = (datos, atributosExcluir) => {
     }
   });
 
-  // Crear el libro de trabajo, hoja de cálculo y agregar los datos
+  // Obtener la cantidad total de reviews y el promedio de calificación por producto
+  const productosConReviews = {};
+  datos.forEach((dato) => {
+    const idProducto = dato["ID Producto"];
+    if (!productosConReviews[idProducto]) {
+      productosConReviews[idProducto] = {
+        CantidadDeReviews: 0,
+        PromedioDeCalificacion: 0,
+      };
+    }
+    productosConReviews[idProducto].CantidadDeReviews++;
+    productosConReviews[idProducto].PromedioDeCalificacion += dato["Calificacion"];
+  });
+
+  // Calcular el promedio de calificación
+  for (const idProducto in productosConReviews) {
+    if (productosConReviews.hasOwnProperty(idProducto)) {
+      const producto = productosConReviews[idProducto];
+      producto.PromedioDeCalificacion /= producto.CantidadDeReviews;
+    }
+  }
+
+  // Convertir productosConReviews a un arreglo de objetos
+  const arregloProductosConReviews = Object.entries(productosConReviews).map(
+    ([idProducto, producto]) => ({
+      "ID Producto": parseInt(idProducto),
+      "Cantidad de Reviews": producto.CantidadDeReviews,
+      "Promedio de Calificación": producto.PromedioDeCalificacion.toFixed(2),
+    })
+  );
+
+  // Crear el libro de trabajo, hojas de cálculo y agregar los datos
   const workbook = XLSX.utils.book_new();
-  const worksheet = XLSX.utils.json_to_sheet(datosSinAtributos); // Pasar directamente datosSinAtributos
-  XLSX.utils.book_append_sheet(workbook, worksheet, "ReporteReviewsProductos");
+  const worksheet1 = XLSX.utils.json_to_sheet(datosSinAtributos);
+  const worksheet2 = XLSX.utils.json_to_sheet(arregloProductosConReviews);
+  XLSX.utils.book_append_sheet(workbook, worksheet1, "ReporteReviewsProductos");
+  XLSX.utils.book_append_sheet(workbook, worksheet2, "ReporteProductosConReviews");
 
   // Generar el archivo Excel y guardarlo
   const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });

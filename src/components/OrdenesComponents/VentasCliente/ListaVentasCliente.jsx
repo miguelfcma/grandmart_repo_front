@@ -77,7 +77,7 @@ export function ListaVentasCliente() {
     }));
   });
 
-  console.log(ventasEstructuradas);
+  
 
   return (
     <Container>

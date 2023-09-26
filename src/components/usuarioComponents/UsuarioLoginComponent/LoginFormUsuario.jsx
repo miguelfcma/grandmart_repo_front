@@ -12,7 +12,7 @@ export function LoginFormUsuario() {
   const [showPassword, setShowPassword] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(usuarioLogin);
+
     try {
       const response = await loginUsuario(usuarioLogin);
 

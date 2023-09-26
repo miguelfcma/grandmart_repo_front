@@ -38,14 +38,18 @@ export const VentasReporteExcel = (datos, atributosExcluir) => {
 
   // Obtener el producto más vendido
   const productosVendidos = datos.reduce((productos, venta) => {
-    const { idProducto, nombreProducto, cantidad } = venta;
+    const { idProducto, nombreProducto, cantidad, precioProducto } = venta;
+    const montoTotal = parseFloat(cantidad) * parseFloat(precioProducto);
+
     if (productos[idProducto]) {
       productos[idProducto].cantidad += parseInt(cantidad);
+      productos[idProducto].montoTotal += montoTotal;
     } else {
       productos[idProducto] = {
         idProducto,
         nombreProducto,
         cantidad: parseInt(cantidad),
+        montoTotal,
       };
     }
     return productos;
@@ -64,13 +68,25 @@ export const VentasReporteExcel = (datos, atributosExcluir) => {
   XLSX.utils.book_append_sheet(workbook, worksheet, "Reporte");
 
   // Hoja de cálculo de los productos ordenados por cantidad vendida
-  const productosWorksheet = XLSX.utils.json_to_sheet(productosOrdenados);
-  XLSX.utils.book_append_sheet(workbook, productosWorksheet, "Productos más vendidos");
+  const productosWorksheetData = Object.values(productosVendidos).map(
+    (producto) => ({
+      "ID Producto": producto.idProducto,
+      "Nombre Producto": producto.nombreProducto,
+      Cantidad: producto.cantidad,
+      "Monto Total": producto.montoTotal,
+    })
+  );
+  const productosWorksheet = XLSX.utils.json_to_sheet(productosWorksheetData);
+  XLSX.utils.book_append_sheet(
+    workbook,
+    productosWorksheet,
+    "Productos más vendidos"
+  );
 
   // Generar el archivo Excel y guardarlo
   const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
   const blob = new Blob([excelBuffer], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8",
   });
-  FileSaver.saveAs(blob,filename);
+  FileSaver.saveAs(blob, filename);
 };

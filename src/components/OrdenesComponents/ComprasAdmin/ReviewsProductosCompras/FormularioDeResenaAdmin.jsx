@@ -42,7 +42,6 @@ export function FormularioDeResenaAdmin({ id_producto, onReviewSubmit }) {
       calificacion,
     };
 
-    console.log("Reseña:", resena);
     await createReview(resena);
     setTitulo("");
     setComentario("");

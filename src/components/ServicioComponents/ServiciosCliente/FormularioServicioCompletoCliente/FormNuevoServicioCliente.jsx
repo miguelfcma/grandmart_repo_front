@@ -45,7 +45,7 @@ export function FormNuevoServicioCliente({ handleServicioRegistrado }) {
     try {
       const response = await createServicio(servicio);
       const status = response ? response.status : null;
-      console.log("asas", status);
+
       if (status === 201) {
         Swal.fire({
           icon: "success",

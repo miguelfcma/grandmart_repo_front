@@ -39,12 +39,12 @@ export function ListaBackups() {
         password,
         email: usuario.email,
       };
-      console.log(credentials);
+    
       const response = await postRestore(selectedBackup, credentials);
       setSelectedBackup("");
       setSelectedDeleteBackup("");
       setSelectedDownloadBackup("");
-      console.log(response);
+
       Swal.fire({
         icon: "success",
         title: "Restauración exitosa",
@@ -78,12 +78,12 @@ export function ListaBackups() {
         password,
         email: usuario.email,
       };
-      console.log(credentials);
+   
       const response = await deleteBackup(selectedDeleteBackup, credentials);
       setSelectedBackup("");
       setSelectedDeleteBackup("");
       setSelectedDownloadBackup("");
-      console.log(response);
+
       Swal.fire({
         icon: "success",
         title: "Eliminación exitosa",
@@ -106,7 +106,7 @@ export function ListaBackups() {
         password,
         email: usuario.email,
       };
-      console.log("download", credentials);
+
       const response = await downloadBackup(
         selectedDownloadBackup,
         credentials
@@ -114,7 +114,7 @@ export function ListaBackups() {
       setSelectedBackup("");
       setSelectedDeleteBackup("");
       setSelectedDownloadBackup("");
-      console.log(response);
+
       Swal.fire({
         icon: "success",
         title: "Descarga exitosa",

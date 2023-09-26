@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom"; // Importar useNavigate y Link para la navegación
 import { FaEye } from "react-icons/fa"; // Importar el icono de ojo
 import "./ItemCompraAdmin.css";
-import { Card ,Button} from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { FaWhatsapp } from "react-icons/fa";
 export function ItemCompraAdmin({ orden }) {
   const {
@@ -18,7 +18,7 @@ export function ItemCompraAdmin({ orden }) {
 
   const verDetalles = () => {
     // Función de manejo de evento para ver detalles del pedido
-    console.log("Ver más detalles del pedido: ", orden);
+
     // Navegar a la página de detalles del pedido, puedes modificar la URL según tu estructura de rutas
     navigate(`/dashAdmin/compras/detalles/${id}`);
   };

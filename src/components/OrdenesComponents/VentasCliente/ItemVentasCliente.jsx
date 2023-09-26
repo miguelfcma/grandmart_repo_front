@@ -9,7 +9,7 @@ export function ItemVentaCliente({ venta }) {
       <Card.Body>
         <Card.Title>Venta #{venta.orden.id}</Card.Title>
         <Card.Text>
-          <strong>Fecha de venta:</strong> {venta.orden.createdAt} 
+        <strong>Fecha de venta:</strong> {new Date(venta.orden.createdAt).toLocaleString()}
         </Card.Text>
         <Card.Text>
           <strong>Total:</strong> $ {venta.totalVenta} MXN
