@@ -245,3 +245,22 @@ export const eliminarCuentaUsuarioRequest = async (id, password) => {
     return error.response;
   }
 };
+
+export const getInformacionDash = async (id_usuario) => {
+  try {
+    const response = await axios.get(
+      API_BASE_URL + `dashinformacion/${id_usuario}`
+    );
+    console.log({
+      status: response.status,
+      data: response.data,
+    });
+    return response;
+  } catch (error) {
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
+  }
+};

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../pages/DashClientPages/DashClient.css";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Badge from "react-bootstrap/Badge";
 import { BsInfoCircle } from "react-icons/bs";
+import { getInformacionDash } from "../../API/UsuariosApiRest/usuarios.api";
 
 export function ContentCliente() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -13,12 +14,17 @@ export function ContentCliente() {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const numeroVentas = 120; // Ejemplo de número de ventas, puedes obtenerlo de tus datos reales
-  const numeroCompras = 50; // Ejemplo de número de compras realizadas
-  const numeroPreguntas = 10; // Ejemplo de número de preguntas
+  const [informacionDash, setInformacionDash] = useState({});
 
-  const totalProductosPublicados = 30; // Ejemplo de total de productos publicados
-  const totalServiciosOfrecidos = 15; // Ejemplo de total de servicios ofrecidos
+  useEffect(() => {
+    const fetchInformacionDash = async () => {
+      const informacion = await getInformacionDash(usuario.id);
+      console.log(informacion);
+      setInformacionDash(informacion.data);
+    };
+
+    fetchInformacionDash();
+  }, []);
 
   return (
     <div className="textoBienvenida">
@@ -53,7 +59,8 @@ export function ContentCliente() {
             <div className="sales-metric">
               <h4>Ventas</h4>
               <p>
-                Total de Ventas: <Badge variant="primary">{numeroVentas}</Badge>
+                Total de Ventas:{" "}
+                <Badge variant="primary">{informacionDash.totalVentas}</Badge>
               </p>
             </div>
 
@@ -61,18 +68,26 @@ export function ContentCliente() {
               <h4>Notificaciones</h4>
               <ul>
                 <li>
-                  <BsInfoCircle /> {numeroPreguntas} nuevas preguntas
+                  <BsInfoCircle /> {informacionDash.totalPreguntas} nuevas
+                  preguntas de productos
                 </li>
                 <li>
-                  <BsInfoCircle /> {numeroPreguntas} nuevas opiniones
+                  <BsInfoCircle /> {informacionDash.totalPreguntas2} nuevas
+                  preguntas de servicios
+                </li>
+                <li>
+                  <BsInfoCircle /> {informacionDash.totalReviews} nuevas
+                  opiniones
                 </li>
               </ul>
             </div>
 
             <div className="profile-data">
               <h4>Datos de Perfil</h4>
-              <p>Total de Productos Publicados: {totalProductosPublicados}</p>
-              <p>Total de Servicios Ofrecidos: {totalServiciosOfrecidos}</p>
+              <p>
+                Total de Productos Publicados: {informacionDash.totalProductos}
+              </p>
+              <p>Total de Servicios Ofrecidos: {informacionDash.totalServicios}</p>
             </div>
           </div>
         </Card.Body>
@@ -83,22 +98,20 @@ export function ContentCliente() {
           <Modal.Title>Información del Dashboard</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         
-            Desde este apartado, usted podrá gestionar de manera integral los
-            distintos aspectos que conforman su perfil.
-            <br></br>
-            <br></br>
-            Tendrá la capacidad de gestionar todos los productos y servicios que
-            ofrezca para los clientes.
-            <br></br>
-            Podrá visualizar las compras realizadas por usted mismo y gestionar
-            sus respectivos pedidos que tenga de sus clientes.
-            <br></br>
-            Además, esta plataforma le permitirá editar la información de su
-            perfil y revisar las preguntas que los usuarios han realizado acerca
-            de los productos y servicios ofrecidos. Así también, podrá observar
-            las estadísticas acerca de sus datos dentro del sistema.
-       
+          Desde este apartado, usted podrá gestionar de manera integral los
+          distintos aspectos que conforman su perfil.
+          <br></br>
+          <br></br>
+          Tendrá la capacidad de gestionar todos los productos y servicios que
+          ofrezca para los clientes.
+          <br></br>
+          Podrá visualizar las compras realizadas por usted mismo y gestionar
+          sus respectivos pedidos que tenga de sus clientes.
+          <br></br>
+          Además, esta plataforma le permitirá editar la información de su
+          perfil y revisar las preguntas que los usuarios han realizado acerca
+          de los productos y servicios ofrecidos. Así también, podrá observar
+          las estadísticas acerca de sus datos dentro del sistema.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModal}>
