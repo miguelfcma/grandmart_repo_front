@@ -49,7 +49,7 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
               flexWrap: "wrap",
               justifyContent: "space-between",
               gap: "20px",
-              flex: "1 0 300px" /* Se establece una flex-basis de 300px*/,
+              flex: "1 0 300px" /* Se establece una flex-basis de 300px */,
             }}
           >
             <CardProductoGeneral producto={producto} favoritos={favoritos} />
