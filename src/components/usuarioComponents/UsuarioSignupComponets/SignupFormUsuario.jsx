@@ -113,6 +113,17 @@ export function SignupFormUsuario() {
     return true;
   };
 
+  const validateTelefono = () => {
+    const telefonoPattern = /^[0-9]{10}$/; // Expresión regular para verificar que el teléfono tenga 10 dígitos
+  
+    if (!telefonoPattern.test(telefono)) {
+      setError("El formato del teléfono es incorrecto. Debe contener 10 dígitos numéricos.");
+      return false;
+    }
+  
+    return true;
+  };
+  
   const validateEmail = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
