@@ -62,23 +62,36 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
 
   return (
     <div>
-      {hayProductos && (
+      {(hayProductos || hayServicios) ? (
+        <>
+          {hayProductos && (
+            <div style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "35px" }}>
+              Resultados de productos para "{searchTerm}".
+            </div>
+          )}
+          <div style={{ display: "flex", flexWrap: "wrap", marginLeft: "35px" }}>
+            {hayProductos && renderProductos()}
+          </div>
+  
+          {hayServicios && (
+            <div style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "35px" }}>
+              Resultados de servicios para "{searchTerm}".
+            </div>
+          )}
+          <div style={{ display: "flex", flexWrap: "wrap", marginLeft: "35px" }}>
+            {hayServicios && renderServicios()}
+          </div>
+        </>
+      ) : (
         <div style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "35px" }}>
-          Resultados de productos para "{searchTerm}".
+          No hay publicaciones que coincidan con tu búsqueda: "{searchTerm}".
+          <p></p>
+          <p>* Revisa la ortografía de la palabra.</p>
+          <p>* Utiliza palabras más genéricas o menos palabras.</p>
+          <p>* Navega por las categorías para encontrar un producto similar.</p>
         </div>
       )}
-      <div style={{ display: "flex", flexWrap: "wrap", marginLeft: "35px" }}>
-        {hayProductos && renderProductos()}
-      </div>
-
-      {hayServicios && (
-        <div style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "35px" }}>
-          Resultados de servicios para "{searchTerm}".
-        </div>
-      )}
-      <div style={{ display: "flex", flexWrap: "wrap", marginLeft: "35px" }}>
-        {hayServicios && renderServicios()}
-      </div>
     </div>
   );
+  
 }
