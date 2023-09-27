@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useUsuarios } from "../UsuariosContext/UsuarioProvider";
 import "./SignupFormUsuario.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import Alert from "react-bootstrap/Alert";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
+
 export function SignupFormUsuario() {
   const { createUsuario } = useUsuarios();
   const navigate = useNavigate();
@@ -123,17 +124,40 @@ export function SignupFormUsuario() {
     return true;
   };
 
-  const validateTelefono = () => {
-    const telefonoPattern = /^\d{10}$/;
-
-    if (!telefonoPattern.test(telefono)) {
-      setError("El formato del teléfono es incorrecto. Debe tener 10 dígitos.");
-      return false;
+  useEffect(() => {
+    // Se obtiene el elemento de entrada de teléfono por su ID
+    const inputTelefono = document.getElementById("telefono");
+  
+    // Se define una función para manejar las pulsaciones de teclas en el campo de entrada de teléfono
+    const handleTelefonoKeyDown = (event) => {
+      // Obtener el código de la tecla presionada
+      const keyCode = event.keyCode || event.which;
+  
+      // Verificar si la tecla presionada no es un número ni una tecla de navegación
+      if (!((keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105) || [8, 37, 39, 35, 36].includes(keyCode))) {
+        // Evitar que se ingrese el carácter no deseado
+        event.preventDefault();
+      }
+    };
+  
+    // Se verifica si se encontró el elemento de entrada de teléfono
+    if (inputTelefono) {
+      // Se agrega un oyente de eventos para el evento keydown que llamará a la función "handleTelefonoKeyDown"
+      inputTelefono.addEventListener("keydown", handleTelefonoKeyDown);
     }
-
-    return true;
-  };
-
+  
+    // Se devuelve una función de limpieza para eliminar el oyente de eventos
+    return () => {
+      // Se verifica si el elemento de entrada de teléfono aún existe
+      if (inputTelefono) {
+        // Se eliminan el oyente de eventos para evitar fugas de memoria
+        inputTelefono.removeEventListener("keydown", handleTelefonoKeyDown);
+      }
+    };
+  }, []); // El array vacío asegura que este efecto se ejecute solo una vez, al montar el componente
+  
+  
+  
   const validatePassword = () => {
     if (password.length < 7) {
       setError("La contraseña debe tener al menos 7 caracteres.");
@@ -171,7 +195,6 @@ export function SignupFormUsuario() {
           <Form onSubmit={handleSubmit} className="signup-form">
             <Form.Group className="mb-3" controlId="nombre">
               <Form.Label>Nombre:</Form.Label>
-
               <Form.Control
                 type="text"
                 value={nombre}
@@ -249,7 +272,6 @@ export function SignupFormUsuario() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
               <Form.Label>Contraseña:</Form.Label>
-
               <Form.Control
                 type={showPassword ? "text" : "password"}
                 placeholder="Contraseña"
