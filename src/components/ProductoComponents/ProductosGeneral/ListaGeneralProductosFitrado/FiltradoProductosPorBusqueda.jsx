@@ -29,9 +29,29 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
     );
 
     return (
-      <div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          gridGap: "20px",
+          maxWidth: "1200px",
+          margin: "0 auto",
+        }}
+      >
         {filteredProductos.map((producto) => (
-          <div key={producto.id}>
+          <div
+            key={producto.id}
+            style={{
+              marginTop: "10px",
+              marginRight: "5px",
+              marginLeft: "55px",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              gap: "20px",
+              flex: "1 0 300px" /* Se establece una flex-basis de 300px*/,
+            }}
+          >
             <CardProductoGeneral producto={producto} favoritos={favoritos} />
           </div>
         ))}
@@ -47,9 +67,29 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
     );
 
     return (
-      <div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          gridGap: "20px",
+          maxWidth: "1200px",
+          margin: "0 auto",
+        }}
+      >
         {filteredServicios.map((servicio) => (
-          <div key={servicio.id}>
+          <div
+            key={servicio.id}
+            style={{
+              marginTop: "10px",
+              marginRight: "5px",
+              marginLeft: "55px",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              gap: "20px",
+              flex: "1 0 300px" /* Se establece una flex-basis de 300px*/,
+            }}
+          >
             <CardServicioGeneral servicio={servicio} />
           </div>
         ))}
@@ -69,18 +109,14 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
               Resultados de productos para "{searchTerm}".
             </div>
           )}
-          <div style={{ display: "flex", flexWrap: "wrap", marginLeft: "35px" }}>
-            {hayProductos && renderProductos()}
-          </div>
+          {hayProductos && renderProductos()}
   
           {hayServicios && (
             <div style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "35px" }}>
               Resultados de servicios para "{searchTerm}".
             </div>
           )}
-          <div style={{ display: "flex", flexWrap: "wrap", marginLeft: "35px" }}>
-            {hayServicios && renderServicios()}
-          </div>
+          {hayServicios && renderServicios()}
         </>
       ) : (
         <div style={{ fontSize: "30px", paddingTop: "5px", marginLeft: "35px" }}>
@@ -93,5 +129,4 @@ export function FiltradoProductosPorBusqueda({ searchTerm }) {
       )}
     </div>
   );
-  
 }
