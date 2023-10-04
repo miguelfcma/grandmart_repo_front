@@ -92,6 +92,7 @@ export const downloadFile = async (filename, credentials) => {
         },
       }
     );
+
     const url = window.URL.createObjectURL(new Blob([response.data])); // creamos una URL para descargar el archivo
     const link = document.createElement("a");
     link.href = url;
@@ -99,7 +100,12 @@ export const downloadFile = async (filename, credentials) => {
     document.body.appendChild(link);
     link.click();
     link.remove();
+    return response;
   } catch (error) {
-    console.error(error);
+    console.log({
+      status: error.response.status,
+      message: error.response.data.message,
+    });
+    return error.response;
   }
 };

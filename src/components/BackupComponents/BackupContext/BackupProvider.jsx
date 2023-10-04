@@ -4,7 +4,7 @@ import {
   postRestoreRequest,
   getListaDeBackupsRequest,
   deleteBackupRequest,
-  downloadFile
+  downloadFile,
 } from "../../../API/BDBackupApiRest/bdBackup.api";
 import { BackupContext } from "./BackupContext";
 
@@ -18,34 +18,32 @@ export const useBackup = () => {
   return context;
 };
 
-
 export const BackupContextProvider = ({ children }) => {
   const [backupList, setBackupList] = useState([]);
-  
+
   const getBackup = async (credentials) => {
     try {
       const response = await getBackupRequest(credentials);
+
       if (response.status === 200) {
         await getListaDeBackups();
+        return response;
       } else {
-        throw new Error(
-          "No se pudo obtener la copia de seguridad de la base de datos"
-        );
+        return response;
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const postRestore = async (filename,credentials) => {
+  const postRestore = async (filename, credentials) => {
     try {
-      const response = await postRestoreRequest(filename,credentials);
+      const response = await postRestoreRequest(filename, credentials);
       if (response.status === 200) {
         await getListaDeBackups();
+        return response;
       } else {
-        throw new Error(
-          "No se pudo restaurar la base de datos a partir de la copia de seguridad"
-        );
+        return response;
       }
     } catch (error) {
       console.error(error);
@@ -68,28 +66,28 @@ export const BackupContextProvider = ({ children }) => {
     }
   };
 
-  const deleteBackup = async (filename,credentials) => {
+  const deleteBackup = async (filename, credentials) => {
     try {
-      const response = await deleteBackupRequest(filename,credentials);
+      const response = await deleteBackupRequest(filename, credentials);
       if (response.status === 200) {
         const updatedBackupList = backupList.filter(
           (backup) => backup.filename !== filename
         );
         setBackupList(updatedBackupList);
         await getListaDeBackups(); // Actualiza la lista después de eliminar una copia de seguridad
-        return response.data;
+        return response;
       } else {
-        throw new Error(
-          "No se pudo eliminar la copia de seguridad de la base de datos"
-        );
+        return response;
       }
     } catch (error) {
       console.error(error);
     }
   };
-  const downloadBackup = async (filename,credentials) => {
+  const downloadBackup = async (filename, credentials) => {
     try {
-       await downloadFile(filename,credentials);
+      const response = await downloadFile(filename, credentials);
+      console.log("wilitros", response);
+      return response;
     } catch (error) {
       console.error(error);
     }
@@ -102,7 +100,7 @@ export const BackupContextProvider = ({ children }) => {
         getListaDeBackups,
         deleteBackup,
         backupList,
-        downloadBackup
+        downloadBackup,
       }}
     >
       {children}
