@@ -74,6 +74,12 @@ export function ListCategorias() {
             title: "Error",
             text: "La categoría no se encontró o no existe",
           });
+        } else if (status === 401) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se puede eliminar la categoría porque está siendo utilizada en uno o más registros",
+          });
         } else if (status === 500) {
           Swal.fire({
             icon: "error",
