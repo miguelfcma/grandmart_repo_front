@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 export function ListaBackups() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false); // Estado para el error de contraseña
 
   const [selectedBackup, setSelectedBackup] = useState("");
   const [selectedDeleteBackup, setSelectedDeleteBackup] = useState("");
@@ -34,22 +35,53 @@ export function ListaBackups() {
 
   const handleRestore = async (event) => {
     event.preventDefault();
-    try {
-      const credentials = {
-        password,
-        email: usuario.email,
-      };
-    
-      const response = await postRestore(selectedBackup, credentials);
-      setSelectedBackup("");
-      setSelectedDeleteBackup("");
-      setSelectedDownloadBackup("");
-
+  
+    if (!selectedBackup) {
+      // Verifica si no se ha seleccionado una copia de seguridad
       Swal.fire({
-        icon: "success",
-        title: "Restauración exitosa",
-        text: "La copia de seguridad ha sido restaurada con éxito.",
+        icon: "error",
+        title: "Error",
+        text: "Debes seleccionar una copia de seguridad antes de restaurar.",
       });
+      return; // Evita continuar si no hay copia de seguridad seleccionada
+    }
+  
+    const credentials = {
+      password,
+      email: usuario.email,
+    };
+  
+    if (!password) {
+      // Verifica si el campo de contraseña está vacío
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "El campo de contraseña no puede estar vacío.",
+      });
+      return; // Evita enviar el formulario si hay un error
+    }
+  
+    try {
+      const response = await postRestore(selectedBackup, credentials);
+  
+      if (response.status === "success") {
+        // Verifica si la acción fue exitosa
+        setSelectedBackup("");
+        setSelectedDeleteBackup("");
+        setSelectedDownloadBackup("");
+  
+        Swal.fire({
+          icon: "success",
+          title: "Restauración exitosa",
+          text: "La copia de seguridad ha sido restaurada con éxito.",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Hubo un error al intentar restaurar la copia de seguridad.",
+        });
+      }
     } catch (error) {
       console.error(error);
       Swal.fire({
@@ -59,31 +91,32 @@ export function ListaBackups() {
       });
     }
   };
-
-  const handleSelectDelete = (backup) => {
-    setSelectedDeleteBackup(backup);
-    setSelectedBackup("");
-    setSelectedDownloadBackup("");
-  };
-  const handleSelectDownload = (backup) => {
-    setSelectedDownloadBackup(backup);
-    setSelectedDeleteBackup("");
-    setSelectedBackup("");
-  };
+  
 
   const handleDelete = async (event) => {
     event.preventDefault();
+  
+    const credentials = {
+      password,
+      email: usuario.email,
+    };
+  
+    if (!password) {
+      // Verifica si el campo de contraseña está vacío
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "El campo de contraseña no puede estar vacío.",
+      });
+      return; // Evita enviar el formulario si hay un error
+    }
+  
     try {
-      const credentials = {
-        password,
-        email: usuario.email,
-      };
-   
       const response = await deleteBackup(selectedDeleteBackup, credentials);
       setSelectedBackup("");
       setSelectedDeleteBackup("");
       setSelectedDownloadBackup("");
-
+  
       Swal.fire({
         icon: "success",
         title: "Eliminación exitosa",
@@ -98,23 +131,31 @@ export function ListaBackups() {
       });
     }
   };
-
+  
   const handleDownload = async (event) => {
     event.preventDefault();
+  
+    const credentials = {
+      password,
+      email: usuario.email,
+    };
+  
+    if (!password) {
+      // Verifica si el campo de contraseña está vacío
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "El campo de contraseña no puede estar vacío.",
+      });
+      return; // Evita enviar el formulario si hay un error
+    }
+  
     try {
-      const credentials = {
-        password,
-        email: usuario.email,
-      };
-
-      const response = await downloadBackup(
-        selectedDownloadBackup,
-        credentials
-      );
+      const response = await downloadBackup(selectedDownloadBackup, credentials);
       setSelectedBackup("");
       setSelectedDeleteBackup("");
       setSelectedDownloadBackup("");
-
+  
       Swal.fire({
         icon: "success",
         title: "Descarga exitosa",
@@ -128,6 +169,17 @@ export function ListaBackups() {
         text: "Hubo un error al intentar descargar la copia de seguridad.",
       });
     }
+  };
+
+  const handleSelectDelete = (backup) => {
+    setSelectedDeleteBackup(backup);
+    setSelectedBackup("");
+    setSelectedDownloadBackup("");
+  };
+  const handleSelectDownload = (backup) => {
+    setSelectedDownloadBackup(backup);
+    setSelectedDeleteBackup("");
+    setSelectedBackup("");
   };
 
   return (
@@ -169,10 +221,16 @@ export function ListaBackups() {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
+                  type="password"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                    setPasswordError(false); // Restablece el error al cambiar la contraseña
+                  }}
+                />
+                {passwordError && (
+                  <div className="text-danger">El campo de contraseña no puede estar vacío.</div>
+                )}
             </Form.Group>
             <Button variant="primary" type="submit">
               Restaurar
@@ -195,10 +253,16 @@ export function ListaBackups() {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
+                  type="password"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                    setPasswordError(false); // Restablece el error al cambiar la contraseña
+                  }}
+                />
+                {passwordError && (
+                  <div className="text-danger">El campo de contraseña no puede estar vacío.</div>
+                )}
             </Form.Group>
             <Button variant="primary" type="submit">
               Eliminar
@@ -221,10 +285,16 @@ export function ListaBackups() {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
+                  type="password"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                    setPasswordError(false); // Restablece el error al cambiar la contraseña
+                  }}
+                />
+                {passwordError && (
+                  <div className="text-danger">El campo de contraseña no puede estar vacío.</div>
+                )}
             </Form.Group>
             <Button variant="primary" type="submit">
               Descargar archivo
