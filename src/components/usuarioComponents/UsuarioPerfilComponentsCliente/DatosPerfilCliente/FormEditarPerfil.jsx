@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
 import Swal from 'sweetalert2';
 
@@ -24,17 +23,28 @@ export function FormEditarPerfil({
     sexo,
   });
 
+  // Estado para manejar errores del teléfono
+  const [telefonoError, setTelefonoError] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Validación de longitud y formato del teléfono
+    if (name === "telefono") {
+      const telefonoPattern = /^[0-9]{10}$/;
+      if (!telefonoPattern.test(value)) {
+        setTelefonoError("El formato del teléfono es incorrecto. Debe contener 10 dígitos numéricos.");
+      } else {
+        setTelefonoError(""); // Limpia el error si es válido
+      }
+    }
+
     setFormulario((prevFormulario) => ({
       ...prevFormulario,
       [name]: value,
     }));
   };
-  const validateTelefono = (telefono) => {
-    const telefonoRegex = /^\d{10}$/;
-    return telefonoRegex.test(telefono);
-  };
+
   const validateEdadMinima = (fechaNacimiento) => {
     const fechaActual = new Date();
     const fechaNacimientoDate = new Date(fechaNacimiento);
@@ -52,12 +62,17 @@ export function FormEditarPerfil({
 
     return edadCalculada >= edadMinima;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateTelefono(formulario.telefono)) {
+
+    // Validación de teléfono
+    if (telefonoError) {
       console.log("El número de teléfono no es válido");
       return;
     }
+
+    // Validación de edad mínima
     if (!validateEdadMinima(formulario.fechaNacimiento)) {
       console.log("Debes tener al menos 18 años para enviar el formulario");
       return;
@@ -145,6 +160,8 @@ export function FormEditarPerfil({
           title="Ingresa solo números"
           required
         />
+        {/* Mostrar mensaje de error del teléfono */}
+        {telefonoError && <p className="error">{telefonoError}</p>}
       </label>
       <label>
         Sexo:
