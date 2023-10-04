@@ -35,7 +35,7 @@ export function ListaBackups() {
 
   const handleRestore = async (event) => {
     event.preventDefault();
-  
+
     if (!selectedBackup) {
       // Verifica si no se ha seleccionado una copia de seguridad
       Swal.fire({
@@ -45,12 +45,12 @@ export function ListaBackups() {
       });
       return; // Evita continuar si no hay copia de seguridad seleccionada
     }
-  
+
     const credentials = {
       password,
       email: usuario.email,
     };
-  
+
     if (!password) {
       // Verifica si el campo de contraseña está vacío
       Swal.fire({
@@ -60,26 +60,26 @@ export function ListaBackups() {
       });
       return; // Evita enviar el formulario si hay un error
     }
-  
+
     try {
       const response = await postRestore(selectedBackup, credentials);
-  
-      if (response.status === "success") {
+
+      if (response.status === 200) {
         // Verifica si la acción fue exitosa
         setSelectedBackup("");
         setSelectedDeleteBackup("");
         setSelectedDownloadBackup("");
-  
+
         Swal.fire({
           icon: "success",
           title: "Restauración exitosa",
           text: "La copia de seguridad ha sido restaurada con éxito.",
         });
-      } else {
+      } else if (response.status === 400) {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "Hubo un error al intentar restaurar la copia de seguridad.",
+          text: "Contraseña incorrecta",
         });
       }
     } catch (error) {
@@ -91,16 +91,15 @@ export function ListaBackups() {
       });
     }
   };
-  
 
   const handleDelete = async (event) => {
     event.preventDefault();
-  
+
     const credentials = {
       password,
       email: usuario.email,
     };
-  
+
     if (!password) {
       // Verifica si el campo de contraseña está vacío
       Swal.fire({
@@ -110,18 +109,27 @@ export function ListaBackups() {
       });
       return; // Evita enviar el formulario si hay un error
     }
-  
+
     try {
       const response = await deleteBackup(selectedDeleteBackup, credentials);
-      setSelectedBackup("");
-      setSelectedDeleteBackup("");
-      setSelectedDownloadBackup("");
-  
-      Swal.fire({
-        icon: "success",
-        title: "Eliminación exitosa",
-        text: "La copia de seguridad ha sido eliminada con éxito.",
-      });
+      console.log("BRAYAN ES PUTO", response);
+      if (response.status === 200) {
+        setSelectedBackup("");
+        setSelectedDeleteBackup("");
+        setSelectedDownloadBackup("");
+
+        Swal.fire({
+          icon: "success",
+          title: "Eliminación exitosa",
+          text: "La copia de seguridad ha sido eliminada con éxito.",
+        });
+      } else if (response.status === 400) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Contraseña incorrecta",
+        });
+      }
     } catch (error) {
       console.error(error);
       Swal.fire({
@@ -131,15 +139,15 @@ export function ListaBackups() {
       });
     }
   };
-  
+
   const handleDownload = async (event) => {
     event.preventDefault();
-  
+
     const credentials = {
       password,
       email: usuario.email,
     };
-  
+
     if (!password) {
       // Verifica si el campo de contraseña está vacío
       Swal.fire({
@@ -149,18 +157,29 @@ export function ListaBackups() {
       });
       return; // Evita enviar el formulario si hay un error
     }
-  
+
     try {
-      const response = await downloadBackup(selectedDownloadBackup, credentials);
-      setSelectedBackup("");
-      setSelectedDeleteBackup("");
-      setSelectedDownloadBackup("");
-  
-      Swal.fire({
-        icon: "success",
-        title: "Descarga exitosa",
-        text: "La copia de seguridad se ha descargado exitosamente.",
-      });
+      const response = await downloadBackup(
+        selectedDownloadBackup,
+        credentials
+      );
+      if (response.status === 200) {
+        setSelectedBackup("");
+        setSelectedDeleteBackup("");
+        setSelectedDownloadBackup("");
+
+        Swal.fire({
+          icon: "success",
+          title: "Descarga exitosa",
+          text: "La copia de seguridad se ha descargado exitosamente.",
+        });
+      } else if (response.status == 400) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Contraseña incorrecta",
+        });
+      }
     } catch (error) {
       console.error(error);
       Swal.fire({
@@ -221,16 +240,18 @@ export function ListaBackups() {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                    setPasswordError(false); // Restablece el error al cambiar la contraseña
-                  }}
-                />
-                {passwordError && (
-                  <div className="text-danger">El campo de contraseña no puede estar vacío.</div>
-                )}
+                type="password"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                  setPasswordError(false); // Restablece el error al cambiar la contraseña
+                }}
+              />
+              {passwordError && (
+                <div className="text-danger">
+                  El campo de contraseña no puede estar vacío.
+                </div>
+              )}
             </Form.Group>
             <Button variant="primary" type="submit">
               Restaurar
@@ -253,16 +274,18 @@ export function ListaBackups() {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                    setPasswordError(false); // Restablece el error al cambiar la contraseña
-                  }}
-                />
-                {passwordError && (
-                  <div className="text-danger">El campo de contraseña no puede estar vacío.</div>
-                )}
+                type="password"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                  setPasswordError(false); // Restablece el error al cambiar la contraseña
+                }}
+              />
+              {passwordError && (
+                <div className="text-danger">
+                  El campo de contraseña no puede estar vacío.
+                </div>
+              )}
             </Form.Group>
             <Button variant="primary" type="submit">
               Eliminar
@@ -285,16 +308,18 @@ export function ListaBackups() {
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Contraseña:</Form.Label>
               <Form.Control
-                  type="password"
-                  value={password}
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                    setPasswordError(false); // Restablece el error al cambiar la contraseña
-                  }}
-                />
-                {passwordError && (
-                  <div className="text-danger">El campo de contraseña no puede estar vacío.</div>
-                )}
+                type="password"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                  setPasswordError(false); // Restablece el error al cambiar la contraseña
+                }}
+              />
+              {passwordError && (
+                <div className="text-danger">
+                  El campo de contraseña no puede estar vacío.
+                </div>
+              )}
             </Form.Group>
             <Button variant="primary" type="submit">
               Descargar archivo

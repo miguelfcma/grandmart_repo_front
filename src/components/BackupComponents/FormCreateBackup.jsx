@@ -25,12 +25,13 @@ export function FormCreateBackup() {
 
     try {
       const response = await getBackup(credentials);
-      if (response.status === "success") {
+     
+      if (response.status === 200) {
         Swal.fire({
           icon: "success",
           title: "Backup creado",
         });
-      } else {
+      } else if (response.status === 400) {
         Swal.fire({
           icon: "error",
           title: "Contraseña incorrecta",
@@ -42,8 +43,6 @@ export function FormCreateBackup() {
         title: "Error al crear el backup",
       });
     }
-    
-    
   };
 
   const [showForm, setShowForm] = useState(false);
@@ -71,7 +70,9 @@ export function FormCreateBackup() {
                   }}
                 />
                 {passwordError && (
-                  <div className="text-danger">El campo de contraseña no puede estar vacío.</div>
+                  <div className="text-danger">
+                    El campo de contraseña no puede estar vacío.
+                  </div>
                 )}
               </Form.Group>
               <Button variant="primary" type="submit">
