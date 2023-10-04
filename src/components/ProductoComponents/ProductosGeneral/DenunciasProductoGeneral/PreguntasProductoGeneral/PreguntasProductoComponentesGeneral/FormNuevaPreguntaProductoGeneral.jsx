@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./FormNuevaPreguntaProductoGeneral.css"
 import Swal from 'sweetalert2';
+
 export function FormNuevaPreguntaProductoGeneral({id_producto,actualizarPreguntas}) {
   const { crearPreguntaProducto } = useProductos();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -13,6 +14,9 @@ export function FormNuevaPreguntaProductoGeneral({id_producto,actualizarPregunta
     id_producto: id_producto,
     id_usuario: usuario.id,
   });
+
+  // Agrega esta línea para definir setError y error
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -62,6 +66,7 @@ export function FormNuevaPreguntaProductoGeneral({id_producto,actualizarPregunta
             }
             required
           />
+          {error && <p className="error">{error}</p>}
         </Form.Group>
 
         <Button type="submit" className="btn-azul">

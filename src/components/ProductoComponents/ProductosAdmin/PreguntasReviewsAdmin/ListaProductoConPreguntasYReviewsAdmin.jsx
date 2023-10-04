@@ -5,7 +5,7 @@ import { ItemProductoConReviewAdmin } from "./ItemProductoConReviewAdmin";
 import { ItemServicioConPreguntaAdmin } from "./ItemServicioConPreguntaAdmin";
 import { useServicios } from "../../../ServicioComponents/ServiciosContext/ServicioProvider";
 import { reviewsReporteExcel } from "../../../GeneracionDeReportes/reviewsReporteExcel";
-
+import Swal from "sweetalert2";
 import {
   Container,
   Row,
@@ -42,7 +42,19 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
 
   const onDeletePregunta = async (preguntaId) => {
     try {
-      await eliminarPreguntaProducto(preguntaId);
+      const confirmResult = await Swal.fire({
+        icon: "warning",
+        title: "Eliminar pregunta",
+        text: `¿Estás seguro de eliminar la pregunta "${preguntaId}"?`,
+        showCancelButton: true,
+        confirmButtonText: "Eliminar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (confirmResult.isConfirmed) {
+        await eliminarPreguntaProducto(preguntaId);
+        await cargarProductosConPreguntasByUsuarioId();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -104,13 +116,25 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       return preguntas;
     }, []);
 
-  const onDeleteReview = async (reviewId) => {
-    try {
-      await eliminarReviewProducto(reviewId);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const onDeleteReview = async (reviewId) => {
+      try {
+        const confirmResult = await Swal.fire({
+          icon: "warning",
+          title: "Eliminar review",
+          text: `¿Estás seguro de eliminar la review "${reviewId}"?`,
+          showCancelButton: true,
+          confirmButtonText: "Eliminar",
+          cancelButtonText: "Cancelar",
+        });
+  
+        if (confirmResult.isConfirmed) {
+          await eliminarReviewProducto(reviewId);
+          await cargarProductosConReviewsByUsuario();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
   const [mostrarContenido, setMostrarContenido] = useState(false);
   const [mostrarReviewsProductos, setMostrarReviewsProductos] = useState(false);
@@ -151,13 +175,25 @@ export function ListaProductoConPreguntasYReviewsAdmin() {
       return preguntas;
     }, []);
 
-  const onDeletePreguntaServicio = async (preguntaId) => {
-    try {
-      await eliminarPreguntaServicio(preguntaId);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const onDeletePreguntaServicio = async (preguntaId) => {
+      try {
+        const confirmResult = await Swal.fire({
+          icon: "warning",
+          title: "Eliminar pregunta",
+          text: `¿Estás seguro de eliminar la pregunta "${preguntaId}"?`,
+          showCancelButton: true,
+          confirmButtonText: "Eliminar",
+          cancelButtonText: "Cancelar",
+        });
+  
+        if (confirmResult.isConfirmed) {
+          await eliminarPreguntaServicio(preguntaId);
+          await cargarServiciosConPreguntasByUsuarioId();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
   const mostrarPreguntasProductosNoRespondidas = () => {
     setMostrarContenido("lista1");

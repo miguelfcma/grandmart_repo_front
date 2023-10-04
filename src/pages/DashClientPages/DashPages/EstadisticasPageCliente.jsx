@@ -96,9 +96,17 @@ export function EstadisticasPageCliente() {
     scales: {
       y: {
         min: 0,
+        title: {
+          display: true,
+          text: 'Ingresos en pesos MXN de Ventas',
+        },
       },
       x: {
-        display: false,
+        display: true,
+        title: {
+          display: true,
+          text: 'Fecha y Hora',
+        },
       },
     },
   };
@@ -111,7 +119,7 @@ export function EstadisticasPageCliente() {
       <SidebarCliente />
       <div className="contenidoPages">
         <HeaderCliente />
-        <h1>Ventas del Día</h1>
+        <h1>Ingresos por Día de las Ventas</h1>
         <div className="fecha-seleccionada">
           <p>Seleccione una fecha:</p>
           <DatePicker

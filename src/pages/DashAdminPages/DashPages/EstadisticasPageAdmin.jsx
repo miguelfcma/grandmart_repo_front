@@ -89,14 +89,21 @@ export function EstadisticasPageAdmin() {
       },
     ],
   };
-
   const options = {
     scales: {
       y: {
         min: 0,
+        title: {
+          display: true,
+          text: 'Ingresos en pesos MXN de Órdenes',
+        },
       },
       x: {
-        display: false,
+        display: true,
+        title: {
+          display: true,
+          text: 'Fecha y Hora',
+        },
       },
     },
   };
@@ -110,7 +117,7 @@ export function EstadisticasPageAdmin() {
       <SidebarAdmin />
       <div className="contenidoPages">
         <HeaderAdmin />
-        <h1>Órdenes del Día</h1>
+        <h1>Ingresos por Día de las Órdenes</h1>
         <div className="fecha-seleccionada">
           <DatePicker
             selected={fechaSeleccionada}

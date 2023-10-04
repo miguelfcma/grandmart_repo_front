@@ -1,10 +1,19 @@
 import { useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
-import { Form, Button, FormGroup, FormLabel, FormControl } from "react-bootstrap";
-import "./FormComentarioPublicacionBlog.css"
+import {
+  Form,
+  Button,
+  FormGroup,
+  FormLabel,
+  FormControl,
+} from "react-bootstrap";
+import "./FormComentarioPublicacionBlog.css";
 
-import Swal from 'sweetalert2';
-export function FormComentarioPublicacionBlog({ id_publicacionBlog, actualizarComentarios }) {
+import Swal from "sweetalert2";
+export function FormComentarioPublicacionBlog({
+  id_publicacionBlog,
+  actualizarComentarios,
+}) {
   const { createComentario } = usePublicacionesBlog();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
@@ -29,22 +38,21 @@ export function FormComentarioPublicacionBlog({ id_publicacionBlog, actualizarCo
       });
       actualizarComentarios();
       Swal.fire({
-        title: '¡Comentario creado!',
-        text: 'El comentario se ha creado correctamente.',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
+        title: "¡Comentario creado!",
+        text: "El comentario se ha creado correctamente.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
       });
     } catch (error) {
       console.log("Ha ocurrido un error al crear el comentario: ", error);
       Swal.fire({
-        title: 'Error',
-        text: 'Ha ocurrido un error al crear el comentario. Por favor, inténtalo de nuevo.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
+        title: "Error",
+        text: "Ha ocurrido un error al crear el comentario. Por favor, inténtalo de nuevo.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
       });
     }
   };
-
 
   return (
     <Form className="form-comentario" onSubmit={handleSubmit}>
@@ -59,10 +67,14 @@ export function FormComentarioPublicacionBlog({ id_publicacionBlog, actualizarCo
           onChange={handleComentarioChange}
         />
       </FormGroup>
-      <Button className="btn-publicar" variant="primary" type="submit">
+      <Button
+        className="btn-publicar"
+        variant="primary"
+        type="submit"
+        disabled={!comentario.comentario.trim()}
+      >
         Publicar comentario
       </Button>
     </Form>
   );
-  
 }

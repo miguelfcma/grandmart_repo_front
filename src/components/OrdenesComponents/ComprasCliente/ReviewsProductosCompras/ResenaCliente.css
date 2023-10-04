@@ -1,0 +1,47 @@
+/* Estilos para la reseña del cliente */
+.resena-cliente {
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+  }
+  
+  .resena-cliente:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* Estilos para la reseña existente */
+  .resena-existente {
+    padding: 10px;
+    background-color: #f1f1f1;
+  }
+  
+  /* Estilos para el título de la reseña */
+  .titulo-resena {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  /* Estilos para el texto del título de la reseña */
+  .titulo-resena-texto {
+    font-size: 16px;
+    color: #888;
+  }
+  
+  /* Estilos para el comentario de la reseña */
+  .comentario-resena {
+    font-size: 14px;
+    color: #888;
+  }
+  
+  /* Estilos para la calificación de la reseña */
+  .calificacion-resena {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Estilos para el formulario de la reseña */
+  .formulario-resena {
+    padding: 20px;
+  }
+  

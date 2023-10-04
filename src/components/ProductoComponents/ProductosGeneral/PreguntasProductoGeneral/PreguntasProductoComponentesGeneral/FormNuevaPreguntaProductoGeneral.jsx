@@ -10,7 +10,7 @@ export function FormNuevaPreguntaProductoGeneral({
 }) {
   const { crearPreguntaProducto } = useProductos();
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-
+  const [error, setError] = useState(null);
   const [pregunta, setPregunta] = useState({
     pregunta: "",
     id_producto: id_producto,
@@ -64,6 +64,7 @@ export function FormNuevaPreguntaProductoGeneral({
             }
             required
           />
+           {error && <p className="error">{error}</p>}
         </Form.Group>
 
         <Button type="submit" className="btn-azul">

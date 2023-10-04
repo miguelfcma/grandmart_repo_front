@@ -2,14 +2,14 @@ import React from "react";
 import { Card, ListGroup } from "react-bootstrap";
 
 export function ItemVentaAdmin({ venta }) {
-
   return (
     <Card>
       <Card.Header>{venta.orden.estado_orden}</Card.Header>
       <Card.Body>
         <Card.Title>Venta #{venta.orden.id}</Card.Title>
         <Card.Text>
-          <strong>Fecha de venta:</strong> {venta.orden.createdAt} 
+          <strong>Fecha de venta:</strong>{" "}
+          {new Date(venta.orden.createdAt).toLocaleString()}
         </Card.Text>
         <Card.Text>
           <strong>Total:</strong> $ {venta.totalVenta} MXN
@@ -20,7 +20,8 @@ export function ItemVentaAdmin({ venta }) {
         <ListGroup>
           {venta.productos.map((producto, index) => (
             <ListGroup.Item key={index}>
-              {producto.producto.nombre} (Cantidad: {producto.cantidad}) - Subtotal: {producto.subtotal} 
+              {producto.producto.nombre} (Cantidad: {producto.cantidad}) -
+              Subtotal: {producto.subtotal}
             </ListGroup.Item>
           ))}
         </ListGroup>
