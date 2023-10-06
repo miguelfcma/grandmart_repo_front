@@ -25,15 +25,28 @@ export function FormEditarPerfil({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+  // Validación de longitud del teléfono
+  if (name === "telefono") {
+    // Bloquear letras y limitar a 10 dígitos
+    const telefonoValue = value.replace(/\D/g, '').slice(0, 10);
+    setFormulario((prevFormulario) => ({
+      ...prevFormulario,
+      [name]: telefonoValue,
+    }));
+  } else {
     setFormulario((prevFormulario) => ({
       ...prevFormulario,
       [name]: value,
     }));
-  };
-  const validateTelefono = (telefono) => {
-    const telefonoRegex = /^\d{10}$/;
-    return telefonoRegex.test(telefono);
-  };
+  }
+};
+
+const validateTelefono = (telefono) => {
+  const telefonoRegex = /^\d{10}$/;
+  return telefonoRegex.test(telefono);
+};
+
   const validateEdadMinima = (fechaNacimiento) => {
     const fechaActual = new Date();
     const fechaNacimientoDate = new Date(fechaNacimiento);
@@ -105,6 +118,7 @@ export function FormEditarPerfil({
           name="nombre"
           value={formulario.nombre}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -114,6 +128,7 @@ export function FormEditarPerfil({
           name="apellidoPaterno"
           value={formulario.apellidoPaterno}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -123,6 +138,7 @@ export function FormEditarPerfil({
           name="apellidoMaterno"
           value={formulario.apellidoMaterno}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -132,6 +148,7 @@ export function FormEditarPerfil({
           name="fechaNacimiento"
           value={formulario.fechaNacimiento}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
