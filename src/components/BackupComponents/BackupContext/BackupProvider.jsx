@@ -83,10 +83,12 @@ export const BackupContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+
   const downloadBackup = async (filename, credentials) => {
     try {
       const response = await downloadFile(filename, credentials);
-      console.log("wilitros", response);
+  
       return response;
     } catch (error) {
       console.error(error);

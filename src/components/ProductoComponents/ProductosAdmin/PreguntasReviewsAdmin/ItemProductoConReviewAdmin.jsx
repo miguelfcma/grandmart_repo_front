@@ -6,7 +6,6 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [reviewsVisible, setReviewsVisible] = useState(false);
-  
 
   console.log(producto);
   const handleToggleReviewsVisible = () => {
@@ -21,7 +20,6 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
     }
   };
 
-  
   return (
     <div>
       <React.Fragment>
@@ -76,16 +74,28 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
                         <div>{review.calificacion}</div>
                       </ListGroup.Item>
                       <ListGroup.Item key={review.id} className="items">
-                        <div style={{ fontWeight: "bold" }}>Opinión hecha por ID: </div>
+                        <div style={{ fontWeight: "bold" }}>
+                          Opinión hecha por ID:{" "}
+                        </div>
                         &nbsp;&nbsp;
-                        <div>{" "}
-                        {review.id_usuario} {" "}
-                      </div>
+                        <div> {review.id_usuario} </div>
                       </ListGroup.Item>
                       <ListGroup.Item className="items">
                         <div style={{ fontWeight: "bold" }}>Realizada: </div>
                         &nbsp;&nbsp;
-                        <div>{review.createdAt}</div>
+                        <div>
+                          {new Date(denuncia.createdAt).toLocaleDateString(
+                            "es-ES",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              second: "2-digit",
+                            }
+                          )}
+                        </div>
                       </ListGroup.Item>
                       <div className="contBotones">
                         <Button

@@ -90,11 +90,15 @@ export function ListaComentariosPublicacionBlog({ id_publicacionBlog }) {
                 Comentario realizado el:
                 {new Date(comentario.updatedAt).toLocaleDateString()}
               </div>
-              {usuario.id === comentario.usuario.id && (
-                <RiDeleteBin6Line
-                  onClick={() => eliminarComentario(comentario.id)}
-                  className="eliminar-icono"
-                />
+              {usuario ? (
+                usuario.id === comentario.usuario.id && (
+                  <RiDeleteBin6Line
+                    onClick={() => eliminarComentario(comentario.id)}
+                    className="eliminar-icono"
+                  />
+                )
+              ) : (
+                <></>
               )}
             </div>
           </div>
@@ -102,10 +106,14 @@ export function ListaComentariosPublicacionBlog({ id_publicacionBlog }) {
       ) : (
         <p>No hay comentarios aún.</p>
       )}
-      <FormComentarioPublicacionBlog
-        id_publicacionBlog={id_publicacionBlog}
-        actualizarComentarios={actualizarComentarios}
-      />
+      {usuario ? (
+        <FormComentarioPublicacionBlog
+          id_publicacionBlog={id_publicacionBlog}
+          actualizarComentarios={actualizarComentarios}
+        />
+      ) : (
+        <h6>Por favor inicia sesión para relizar un comentario</h6>
+      )}
     </div>
   );
 }

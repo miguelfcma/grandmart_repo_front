@@ -285,7 +285,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
                     onClick={handleCambiarEstadoEnvio}
                     disabled={!opcionSeleccionadaEnvio}
                   >
-                    Cambiar Estado de Orden
+                    Cambiar Estado de Envío
                   </button>
                 </div>
               </Row>

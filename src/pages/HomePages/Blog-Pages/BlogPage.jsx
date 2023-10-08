@@ -9,7 +9,7 @@ export function BlogPage() {
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
   };
-
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
   return (
     <div style={{ paddingTop: "80px" }}>
       <Navbar1 onSearch={handleSearch} />
@@ -17,11 +17,16 @@ export function BlogPage() {
         <FiltradoProductosPorBusqueda searchTerm={searchTerm} />
       ) : (
         <>
-          <FormNuevaPublicacionBlog />
+          {usuario ? (
+            <FormNuevaPublicacionBlog />
+          ) : (
+            <p>Por favor inicia sesión para publicar</p>
+          )}
+
           <ListaPublicacionesBlog />
         </>
       )}
-      <FooterHome/>
+      <FooterHome />
     </div>
   );
 }

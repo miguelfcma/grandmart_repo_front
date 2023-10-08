@@ -80,7 +80,7 @@ export function ServicioDetallesClientPage() {
           <>
             <div className="info-producto">
               <div>ID: {servicio.id}</div>
-              <div>Titulo: {servicio.titulo}</div>
+              <div>Título: {servicio.titulo}</div>
               <div>Descripción: {servicio.descripcion}</div>
               <div>
                 Categoría:{" "}

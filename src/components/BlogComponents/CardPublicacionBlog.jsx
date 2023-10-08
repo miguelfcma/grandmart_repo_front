@@ -99,11 +99,16 @@ export function CardPublicacionBlog({ publicacion }) {
                 publicación:{" "}
                 {new Date(publicacion.updatedAt).toLocaleDateString()}
               </span>
-              {usuario.id === publicacion.usuario.id && (
-                <IoTrashBin
-                  className="eliminar-publicacion-icon"
-                  onClick={handleEliminarPublicacion}
-                />
+              {usuario ? (
+                (usuario.id === publicacion.usuario.id ||
+                  usuario.tipo === 0) && (
+                  <IoTrashBin
+                    className="eliminar-publicacion-icon"
+                    onClick={handleEliminarPublicacion}
+                  />
+                )
+              ) : (
+                <></>
               )}
             </Card.Footer>
             <Button
@@ -111,9 +116,7 @@ export function CardPublicacionBlog({ publicacion }) {
               className="toggle-comentarios-btn"
               variant="secondary"
             >
-              {comentariosVisibles
-                ? "Ocultar comentarios"
-                : "Comentarios"}
+              {comentariosVisibles ? "Ocultar comentarios" : "Comentarios"}
             </Button>{" "}
             {comentariosVisibles && (
               <ListaComentariosPublicacionBlog

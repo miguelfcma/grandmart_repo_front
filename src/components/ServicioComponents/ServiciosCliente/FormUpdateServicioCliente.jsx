@@ -99,7 +99,7 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="titulo">
-        <Form.Label>Titulo:</Form.Label>
+        <Form.Label>Título:</Form.Label>
         <Form.Control
           type="text"
           name="titulo"

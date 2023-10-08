@@ -121,7 +121,7 @@ export function ItemProductoConDenunciaAdmin({ producto, onDeleteDenuncia }) {
                       {denuncia.usuario.apellidoMaterno}{" "}
                     </div>
                   </ListGroup.Item>
-       
+
                   <ListGroup.Item className="items">
                     <div style={{ fontWeight: "bold" }}>
                       Propietario de la publicación ID:{" "}
@@ -138,7 +138,19 @@ export function ItemProductoConDenunciaAdmin({ producto, onDeleteDenuncia }) {
                   <ListGroup.Item className="items">
                     <div style={{ fontWeight: "bold" }}>Realizada: </div>
                     &nbsp;&nbsp;
-                    <div>{denuncia.createdAt}</div>
+                    <div>
+                      {new Date(denuncia.createdAt).toLocaleDateString(
+                        "es-ES",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          second: "2-digit",
+                        }
+                      )}
+                    </div>
                   </ListGroup.Item>
                   <ListGroup.Item className="items">
                     <div style={{ fontWeight: "bold" }}>

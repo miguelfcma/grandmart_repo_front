@@ -157,7 +157,7 @@ export function FormNuevaPublicacionBlog() {
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="titulo">
-              <Form.Label>Titulo:</Form.Label>
+              <Form.Label>Título:</Form.Label>
               <Form.Control
                 type="text"
                 name="titulo"

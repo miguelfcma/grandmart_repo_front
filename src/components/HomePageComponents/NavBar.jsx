@@ -139,7 +139,8 @@ export function Navbar1({ onSearch }) {
               </NavDropdown.Item>
             </NavDropdown>
 
-            <Nav.Link as={Link} to={usuario ? "/blog" : "/login"}>
+            {/*<Nav.Link as={Link} to={usuario ? "/blog" : "/login"}>*/}
+            <Nav.Link as={Link} to={"/blog"}>
               Blog
             </Nav.Link>
             <Nav.Link as={Link} to="/contacto">
