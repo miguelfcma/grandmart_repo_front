@@ -198,6 +198,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             pattern="[0-9]*"
             title="Ingresa solo números"
             maxLength={10}
+            minLength={10}
           />
         </FormGroup>
         <FormGroup>
@@ -210,6 +211,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             pattern="[0-9]*"
             title="Ingresa solo números"
             maxLength={10}
+            minLength={10}
           />
         </FormGroup>
         <FormGroup>

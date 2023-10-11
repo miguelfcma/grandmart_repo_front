@@ -101,10 +101,11 @@ export function FormNuevoServicioCliente({ handleServicioRegistrado }) {
       <Form.Group>
         <Form.Label>Precio del servicio:</Form.Label>
         <Form.Control
-          type="number"
+          type="text"
           name="precio"
-          pattern="^\d+(\.\d{1,2})?$"
-          title="Introduzca un número válido con hasta 2 decimales"
+          pattern="^\d+(\.\d+)?$"
+          title="Ingrese un número no negativo con hasta dos decimales"
+          min="0"
           value={servicio.precio}
           onChange={handleChange}
           required

@@ -158,7 +158,7 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
                         </div>
                       </Form.Group>
 
-                      {/* Eliminar siempre visible */}
+                      {/* Eliminar siempre visible 
                       <div className="contBotones">
                         <Button
                           variant="danger"
@@ -168,7 +168,7 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
                         >
                           Eliminar pregunta
                         </Button>
-                      </div>
+                      </div>*/}
                     </ListGroup.Item>
                   ))}
                 </ListGroup>
@@ -218,7 +218,7 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
                         </div>
                       </Form.Group>
 
-                      {/* Eliminar siempre visible */}
+                      {/* Eliminar siempre visible 
                       <div className="contBotones">
                         <Button
                           variant="danger"
@@ -228,7 +228,7 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
                         >
                           Eliminar pregunta
                         </Button>
-                      </div>
+                      </div>*/}
                     </ListGroup.Item>
                   ))}
                 </ListGroup>

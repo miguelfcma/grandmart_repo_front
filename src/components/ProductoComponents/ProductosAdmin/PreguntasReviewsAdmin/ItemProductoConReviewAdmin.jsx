@@ -84,7 +84,7 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
                         <div style={{ fontWeight: "bold" }}>Realizada: </div>
                         &nbsp;&nbsp;
                         <div>
-                          {new Date(denuncia.createdAt).toLocaleDateString(
+                          {new Date(review.createdAt).toLocaleDateString(
                             "es-ES",
                             {
                               year: "numeric",

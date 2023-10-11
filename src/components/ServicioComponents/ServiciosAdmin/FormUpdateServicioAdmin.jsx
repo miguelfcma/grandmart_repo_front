@@ -104,6 +104,7 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
           name="titulo"
           value={formValues.titulo}
           onChange={handleInputChange}
+          required
         />
       </Form.Group>
 
@@ -120,11 +121,13 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
       <Form.Group controlId="precio">
         <Form.Label>Precio:</Form.Label>
         <Form.Control
-          type="number"
+          type="text"
           name="precio"
+          pattern="^\d+(\.\d+)?$"
+          title="Ingrese un número no negativo con hasta dos decimales"
+          min="0"
           value={formValues.precio}
           onChange={handleInputChange}
-          min="0"
           required
         />
       </Form.Group>
