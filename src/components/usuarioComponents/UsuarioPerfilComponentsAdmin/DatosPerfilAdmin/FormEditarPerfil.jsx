@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
 import Swal from "sweetalert2";
+
 export function FormEditarPerfil({
   onSubmit,
   nombre,
@@ -23,29 +24,38 @@ export function FormEditarPerfil({
     sexo,
   });
 
+  const [telefonoError, setTelefonoError] = useState(""); // Nuevo estado para el error del teléfono
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
-  // Validación de longitud del teléfono
-  if (name === "telefono") {
-    // Bloquear letras y limitar a 10 dígitos
-    const telefonoValue = value.replace(/\D/g, '').slice(0, 10);
-    setFormulario((prevFormulario) => ({
-      ...prevFormulario,
-      [name]: telefonoValue,
-    }));
-  } else {
-    setFormulario((prevFormulario) => ({
-      ...prevFormulario,
-      [name]: value,
-    }));
-  }
-};
 
-const validateTelefono = (telefono) => {
-  const telefonoRegex = /^\d{10}$/;
-  return telefonoRegex.test(telefono);
-};
+    // Validación de longitud del teléfono
+    if (name === "telefono") {
+      // Bloquear letras y limitar a 10 dígitos
+      const telefonoValue = value.replace(/\D/g, "").slice(0, 10);
+      setFormulario((prevFormulario) => ({
+        ...prevFormulario,
+        [name]: telefonoValue,
+      }));
+
+      // Validar la longitud y mostrar el mensaje de error
+      if (telefonoValue.length !== 10) {
+        setTelefonoError("  (Debe ser a 10 dígitos)");
+      } else {
+        setTelefonoError(""); // No hay error
+      }
+    } else {
+      setFormulario((prevFormulario) => ({
+        ...prevFormulario,
+        [name]: value,
+      }));
+    }
+  };
+
+  const validateTelefono = (telefono) => {
+    const telefonoRegex = /^\d{10}$/;
+    return telefonoRegex.test(telefono);
+  };
 
   const validateEdadMinima = (fechaNacimiento) => {
     const fechaActual = new Date();
@@ -67,10 +77,12 @@ const validateTelefono = (telefono) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!validateTelefono(formulario.telefono)) {
-      console.log("El número de teléfono no es válido");
+      console.log("Debe tener 10 dígitos!");
       return;
     }
+
     if (!validateEdadMinima(formulario.fechaNacimiento)) {
       console.log("Debes tener al menos 18 años para enviar el formulario");
       return;
@@ -163,6 +175,8 @@ const validateTelefono = (telefono) => {
           required
         />
       </label>
+      {/* Mostrar el mensaje de error debajo del campo de entrada */}
+      {telefonoError && <span style={{ color: "red" }}>{telefonoError}</span>}
       <label>
         Sexo:
         <select
