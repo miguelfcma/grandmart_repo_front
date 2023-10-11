@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
-import Swal from "sweetalert2";
 
 export function FormEditarPerfil({
   onSubmit,
@@ -25,7 +24,8 @@ export function FormEditarPerfil({
   });
 
   const [telefonoError, setTelefonoError] = useState(""); // Nuevo estado para el error del teléfono
-  
+  const [edadError, setEdadError] = useState(""); // Nuevo estado para el error de edad
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -72,6 +72,12 @@ export function FormEditarPerfil({
       edadCalculada--;
     }
 
+    if (edadCalculada < edadMinima) {
+      setEdadError("(Debes tener +18)");
+    } else {
+      setEdadError(""); // No hay error de edad
+    }
+
     return edadCalculada >= edadMinima;
   };
 
@@ -89,34 +95,9 @@ export function FormEditarPerfil({
     }
 
     try {
-      const result = await Swal.fire({
-        title: "Confirmar actualización",
-        text: "¿Estás seguro de que deseas actualizar tu perfil?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: "Sí, actualizar",
-        cancelButtonText: "Cancelar",
-      });
-
-      if (result.isConfirmed) {
-        await actualizarPerfilUsuario(usuario.id, formulario);
-        Swal.fire(
-          "¡Éxito!",
-          "Perfil de usuario actualizado correctamente",
-          "success"
-        );
-        onSubmit();
-      } else {
-        // El usuario canceló la actualización
-        console.log("Actualización del perfil cancelada por el usuario");
-      }
+      // Resto del código para el envío del formulario
     } catch (error) {
       console.error("Error al actualizar el perfil del usuario:", error);
-      Swal.fire(
-        "¡Error!",
-        "Error al actualizar el perfil del usuario",
-        "error"
-      );
       // Manejar el error de actualización del perfil
     }
   };
@@ -162,6 +143,7 @@ export function FormEditarPerfil({
           onChange={handleChange}
           required
         />
+        {edadError && <span style={{ color: "red" }}>{edadError}</span>}
       </label>
       <label>
         Teléfono:
@@ -175,7 +157,6 @@ export function FormEditarPerfil({
           required
         />
       </label>
-      {/* Mostrar el mensaje de error debajo del campo de entrada */}
       {telefonoError && <span style={{ color: "red" }}>{telefonoError}</span>}
       <label>
         Sexo:

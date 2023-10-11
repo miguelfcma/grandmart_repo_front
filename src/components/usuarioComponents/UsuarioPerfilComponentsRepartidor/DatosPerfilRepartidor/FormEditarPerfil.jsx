@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
 import Swal from "sweetalert2";
 
@@ -24,25 +23,23 @@ export function FormEditarPerfil({
     sexo,
   });
 
-  const [telefonoError, setTelefonoError] = useState(""); // Nuevo estado para el error del teléfono
-  
+  const [telefonoError, setTelefonoError] = useState("");
+  const [edadError, setEdadError] = useState(""); // Nuevo estado para el error de edad
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Validación de longitud del teléfono
     if (name === "telefono") {
-      // Bloquear letras y limitar a 10 dígitos
       const telefonoValue = value.replace(/\D/g, "").slice(0, 10);
       setFormulario((prevFormulario) => ({
         ...prevFormulario,
         [name]: telefonoValue,
       }));
 
-      // Validar la longitud y mostrar el mensaje de error
       if (telefonoValue.length !== 10) {
-        setTelefonoError("  (Debe ser a 10 dígitos)");
+        setTelefonoError("  (Debe tener 10 dígitos)");
       } else {
-        setTelefonoError(""); // No hay error
+        setTelefonoError("");
       }
     } else {
       setFormulario((prevFormulario) => ({
@@ -56,6 +53,7 @@ export function FormEditarPerfil({
     const telefonoRegex = /^\d{10}$/;
     return telefonoRegex.test(telefono);
   };
+
   const validateEdadMinima = (fechaNacimiento) => {
     const fechaActual = new Date();
     const fechaNacimientoDate = new Date(fechaNacimiento);
@@ -73,15 +71,20 @@ export function FormEditarPerfil({
 
     return edadCalculada >= edadMinima;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!validateTelefono(formulario.telefono)) {
       console.log("El número de teléfono no es válido");
       return;
     }
+
     if (!validateEdadMinima(formulario.fechaNacimiento)) {
-      console.log("Debes tener al menos 18 años para enviar el formulario");
+      setEdadError("Debes tener +18");
       return;
+    } else {
+      setEdadError("");
     }
 
     try {
@@ -98,24 +101,23 @@ export function FormEditarPerfil({
         await actualizarPerfilUsuario(usuario.id, formulario);
         Swal.fire(
           "¡Éxito!",
-          "Perfil de usuario actualizado correctamente",
+          "Perfil de repartidor actualizado correctamente",
           "success"
         );
         onSubmit();
       } else {
-        // El usuario canceló la actualización
-        console.log("Actualización del perfil cancelada por el usuario");
+        console.log("Actualización del perfil cancelada por el repartidor");
       }
     } catch (error) {
-      console.error("Error al actualizar el perfil del usuario:", error);
+      console.error("Error al actualizar el perfil del repartidor:", error);
       Swal.fire(
         "¡Error!",
-        "Error al actualizar el perfil del usuario",
+        "Error al actualizar el perfil del repartidor",
         "error"
       );
-      // Manejar el error de actualización del perfil
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
@@ -158,6 +160,7 @@ export function FormEditarPerfil({
           required
         />
       </label>
+      {edadError && <span style={{ color: "red" }}>{edadError}</span>}
       <label>
         Teléfono:
         <input
@@ -170,7 +173,6 @@ export function FormEditarPerfil({
           required
         />
       </label>
-      {/* Mostrar el mensaje de error debajo del campo de entrada */}
       {telefonoError && <span style={{ color: "red" }}>{telefonoError}</span>}
       <label>
         Sexo:

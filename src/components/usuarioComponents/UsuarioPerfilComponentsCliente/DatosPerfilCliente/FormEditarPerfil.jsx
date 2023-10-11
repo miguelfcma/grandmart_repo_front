@@ -25,6 +25,7 @@ export function FormEditarPerfil({
 
   // Estado para manejar errores del teléfono
   const [telefonoError, setTelefonoError] = useState("");
+  const [edadError, setEdadError] = useState(""); // Nuevo estado para el error de edad
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +41,7 @@ export function FormEditarPerfil({
 
       // Validar la longitud y mostrar el mensaje de error
       if (telefonoValue.length !== 10) {
-        setTelefonoError("  (Debe ser a 10 dígitos)");
+        setTelefonoError("  (Debe tener 10 dígitos)");
       } else {
         setTelefonoError(""); // No hay error
       }
@@ -81,8 +82,10 @@ export function FormEditarPerfil({
 
     // Validación de edad mínima
     if (!validateEdadMinima(formulario.fechaNacimiento)) {
-      console.log("Debes tener al menos 18 años para enviar el formulario");
+      setEdadError(" Debes tener +18");
       return;
+    } else {
+      setEdadError(""); // No hay error de edad
     }
 
     // Validación de campos vacíos
@@ -168,6 +171,8 @@ export function FormEditarPerfil({
           required
         />
       </label>
+      {/* Mostrar el mensaje de error debajo del campo de entrada */}
+      {edadError && <span style={{ color: "red" }}>{edadError}</span>}
       <label>
         Teléfono:
         <input
