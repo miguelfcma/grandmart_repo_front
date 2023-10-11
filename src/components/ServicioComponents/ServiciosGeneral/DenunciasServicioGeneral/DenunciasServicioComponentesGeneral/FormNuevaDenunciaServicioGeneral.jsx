@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FooterHome } from "../../../../HomePageComponents/FooterHome";
 import { useParams } from "react-router-dom";
-
+import Swal from "sweetalert2";
 export function FormNuevaDenunciaServicioGeneral() {
   const navigate = useNavigate();
 
@@ -20,10 +20,15 @@ export function FormNuevaDenunciaServicioGeneral() {
     console.log(selectedOption);
     event.preventDefault();
     if (selectedOption == "") {
-      console.log("Logaritmo neperiano");
+      Swal.fire({
+        icon: "warning",
+        title: "Selecciona una opción",
+        text: "Debes seleccionar una opción de la lista de opciones.",
+      });
     } else {
-      navigate(`/denuncia/servicio/${id_servicio}/detalles?opcion=${selectedOption}`);
-
+      navigate(
+        `/denuncia/servicio/${id_servicio}/detalles?opcion=${selectedOption}`
+      );
     }
   };
 

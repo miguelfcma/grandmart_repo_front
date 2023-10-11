@@ -78,21 +78,43 @@ export function FormInformacionServicioCliente({
       );
     }
 
-    // Aquí también puedes enviar los datos de domicilio si es necesario
-    // ...
+ 
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === "numeroExterior" && !/^\d+$/.test(value)) {
-      return; // Si no es un número, no actualizamos el estado
-    }
+    if (name === "numeroExterior") {
+      // Eliminar caracteres no numéricos y limitar a una cierta longitud (por ejemplo, 5 dígitos)
+      const numeroExterior = value.replace(/\D/g, "").slice(0, 5);
 
-    setServicioData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+      // Actualiza el estado según el campo
+      setServicioData({
+        ...servicioData,
+        [name]: numeroExterior,
+      });
+    }
+    // Procesar el campo de teléfono
+    if (name === "telefono1") {
+      // Eliminar caracteres no numéricos y limitar a 10 dígitos
+      const telefono1 = value.replace(/\D/g, "").slice(0, 10);
+      setServicioData((prevFormulario) => ({
+        ...prevFormulario,
+        [name]: telefono1,
+      }));
+    } else if (name === "telefono2") {
+      // Eliminar caracteres no numéricos y limitar a 10 dígitos
+      const telefono2 = value.replace(/\D/g, "").slice(0, 10);
+      setServicioData((prevFormulario) => ({
+        ...prevFormulario,
+        [name]: telefono2,
+      }));
+    } else {
+      setServicioData((prevFormulario) => ({
+        ...prevFormulario,
+        [name]: value,
+      }));
+    }
 
     // Reiniciar el mensaje de error del campo de correo electrónico
     if (name === "email") {
@@ -170,6 +192,7 @@ export function FormInformacionServicioCliente({
             pattern="[0-9]*"
             title="Ingresa solo números"
             maxLength={10}
+            minLength={10}
           />
         </FormGroup>
         <FormGroup>
@@ -182,6 +205,7 @@ export function FormInformacionServicioCliente({
             pattern="[0-9]*"
             title="Ingresa solo números"
             maxLength={10}
+            minLength={10}
           />
         </FormGroup>
         <FormGroup>
@@ -257,7 +281,6 @@ export function FormInformacionServicioCliente({
                 name="numeroExterior"
                 checked={servicioData.numeroExterior === "SN"}
                 onChange={handleNumeroExteriorChange}
-                
               />
 
               <FormControl
@@ -270,7 +293,7 @@ export function FormInformacionServicioCliente({
                 }
                 onChange={handleChange}
                 disabled={servicioData.numeroExterior === "SN"} // Establece el estado del campo según el valor del checkbox
-                required 
+                required
               />
             </FormGroup>
           </Col>

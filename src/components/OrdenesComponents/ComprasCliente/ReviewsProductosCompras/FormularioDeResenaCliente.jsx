@@ -7,7 +7,7 @@ export function FormularioDeResenaCliente({ id_producto, onReviewSubmit }) {
   const [titulo, setTitulo] = useState("");
   const [comentario, setComentario] = useState("");
   const [calificacion, setCalificacion] = useState(0);
-  const [mensajeDeError, setMensajeDeError] = useState("");
+  const [starsSelected, setStarsSelected] = useState(false);
 
   const { createReview } = useProductos();
 
@@ -26,14 +26,6 @@ export function FormularioDeResenaCliente({ id_producto, onReviewSubmit }) {
   const manejarEnvioDelFormulario = async (event) => {
     event.preventDefault();
 
-    // Aquí podrías agregar tu lógica para enviar la reseña al servidor
-    // usando el `fetch` API o alguna otra biblioteca de solicitud HTTP
-
-    if (titulo === "" || comentario === "" || calificacion === 0) {
-      setMensajeDeError("Todos los campos son requeridos");
-      return;
-    }
-
     const resena = {
       id_producto,
       id_usuario: usuario.id,
@@ -46,7 +38,7 @@ export function FormularioDeResenaCliente({ id_producto, onReviewSubmit }) {
     setTitulo("");
     setComentario("");
     setCalificacion(0);
-    setMensajeDeError("");
+
     setStars([...Array(5)].map(() => ({ selected: false, animated: false })));
     onReviewSubmit();
   };
@@ -62,18 +54,20 @@ export function FormularioDeResenaCliente({ id_producto, onReviewSubmit }) {
     }));
     setStars(newStars);
     setCalificacion(index + 1);
+    setStarsSelected(true);
   };
 
   return (
     <Form onSubmit={manejarEnvioDelFormulario}>
       <h2>Escribe una reseña</h2>
-      {mensajeDeError && <p style={{ color: "red" }}>{mensajeDeError}</p>}
+
       <Form.Group controlId="titulo">
         <Form.Label>Título:</Form.Label>
         <Form.Control
           type="text"
           value={titulo}
           onChange={manejarCambioDeTitulo}
+          required
         />
       </Form.Group>
       <Form.Group controlId="comentario">
@@ -82,6 +76,7 @@ export function FormularioDeResenaCliente({ id_producto, onReviewSubmit }) {
           as="textarea"
           rows={3}
           value={comentario}
+          required
           onChange={manejarCambioDeComentario}
         />
       </Form.Group>
@@ -103,7 +98,7 @@ export function FormularioDeResenaCliente({ id_producto, onReviewSubmit }) {
         </div>
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" disabled={!starsSelected}>
         Enviar
       </Button>
     </Form>

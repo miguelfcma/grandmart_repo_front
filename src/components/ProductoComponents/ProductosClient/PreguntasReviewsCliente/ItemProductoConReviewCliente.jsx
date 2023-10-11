@@ -84,7 +84,7 @@ export function ItemProductoConReviewCliente({ producto, onDeleteReview }) {
                         <div style={{ fontWeight: "bold" }}>Realizada: </div>
                         &nbsp;&nbsp;
                         <div>
-                          {new Date(denuncia.createdAt).toLocaleDateString(
+                          {new Date(review.createdAt).toLocaleDateString(
                             "es-ES",
                             {
                               year: "numeric",
@@ -97,7 +97,7 @@ export function ItemProductoConReviewCliente({ producto, onDeleteReview }) {
                           )}
                         </div>
                       </ListGroup.Item>
-                      <div className="contBotones">
+                      {/*<div className="contBotones">
                         <Button
                           variant="danger"
                           className="btnEliminar"
@@ -105,7 +105,7 @@ export function ItemProductoConReviewCliente({ producto, onDeleteReview }) {
                         >
                           Eliminar
                         </Button>
-                      </div>
+                      </div>*/}
                     </div>
                   );
                 })}

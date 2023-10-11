@@ -147,7 +147,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
       }
       return preguntas;
     }, []);
-
+  console.log(preguntasSinResponderServicios);
   const preguntasRespondidasServicios =
     serviciosPreguntas &&
     Object.values(serviciosPreguntas).reduce((preguntas, servicio) => {

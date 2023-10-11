@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 import Swal from "sweetalert2";
-import { Form, FormGroup, FormControl, FormCheck, Button, Row, Col } from "react-bootstrap";
-
+import {
+  Form,
+  FormGroup,
+  FormControl,
+  FormCheck,
+  Button,
+  Row,
+  Col,
+} from "react-bootstrap";
 
 export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
   const {
@@ -58,12 +65,12 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     // Validar el formato del correo electrónico
     if (!validateEmail()) {
       return;
     }
-  
+
     try {
       const datosServicio = {
         telefono1: servicioData.telefono1,
@@ -77,7 +84,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
         numeroInterior: servicioData.numeroInterior,
         descripcion: servicioData.descripcion,
       };
-  
+
       // Mostrar el diálogo de confirmación
       const confirmResult = await Swal.fire({
         title: "¿Estás seguro?",
@@ -87,11 +94,14 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
         confirmButtonText: "Sí, actualizar",
         cancelButtonText: "Cancelar",
       });
-  
+
       // Si se confirma la actualización
       if (confirmResult.isConfirmed) {
-        const status = await actualizarDatosContactoServicioCliente(servicio.id, datosServicio);
-  
+        const status = await actualizarDatosContactoServicioCliente(
+          servicio.id,
+          datosServicio
+        );
+
         if (status === 200) {
           Swal.fire(
             "Éxito",
@@ -99,7 +109,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             "success"
           );
         }
-  
+
         onSubmit(); // Llamar a la función de manejo para indicar que se han registrado los datos
       }
     } catch (error) {
@@ -198,6 +208,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             pattern="[0-9]*"
             title="Ingresa solo números"
             maxLength={10}
+            minLength={10}
           />
         </FormGroup>
         <FormGroup>
@@ -210,12 +221,11 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             pattern="[0-9]*"
             title="Ingresa solo números"
             maxLength={10}
+            minLength={10}
           />
         </FormGroup>
         <FormGroup>
-          <Form.Label>
-            Email{!servicioData.email && " (opcional)"}:
-          </Form.Label>
+          <Form.Label>Email{!servicioData.email && " (opcional)"}:</Form.Label>
           <FormControl
             type="text"
             name="email"

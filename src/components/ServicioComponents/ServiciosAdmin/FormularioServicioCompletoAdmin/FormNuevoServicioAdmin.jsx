@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { useServicios } from "../../ServiciosContext/ServicioProvider";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Col } from "react-bootstrap";
-import Swal from 'sweetalert2';
-export function FormNuevoServicioAdmin({handleServicioRegistrado}) {
+import Swal from "sweetalert2";
+export function FormNuevoServicioAdmin({ handleServicioRegistrado }) {
   const navigate = useNavigate();
-  
+
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { createServicio } = useServicios();
   const [servicio, setServicio] = useState({
@@ -21,9 +21,9 @@ export function FormNuevoServicioAdmin({handleServicioRegistrado}) {
   useEffect(() => {
     loadCategorias();
   }, []);
-
   const handleChange = (event) => {
     const { name, value } = event.target;
+
     setServicio((prevServicio) => ({
       ...prevServicio,
       [name]: value,
@@ -32,7 +32,7 @@ export function FormNuevoServicioAdmin({handleServicioRegistrado}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (
       servicio.titulo === "" ||
       servicio.precio === "" ||
@@ -41,39 +41,39 @@ export function FormNuevoServicioAdmin({handleServicioRegistrado}) {
       console.log("Por favor complete los campos obligatorios");
       return;
     }
-  
+
     try {
       const response = await createServicio(servicio);
       const status = response ? response.status : null;
-  
+
       if (status === 201) {
         Swal.fire({
-          icon: 'success',
-          title: 'Éxito',
-          text: 'El servicio se creó con éxito',
+          icon: "success",
+          title: "Éxito",
+          text: "El servicio se creó con éxito",
         });
         const idServicio = response.data.servicio.id;
         handleServicioRegistrado(idServicio);
       } else if (status === 400) {
         Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'El servicio ya está registrado en su cuenta',
+          icon: "error",
+          title: "Error",
+          text: "El servicio ya está registrado en su cuenta",
         });
       } else if (status === 500) {
         Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Hubo un error en el servidor',
+          icon: "error",
+          title: "Error",
+          text: "Hubo un error en el servidor",
         });
       }
     } catch (error) {
       console.error(error);
       // Mostrar una alerta de error genérica
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Hubo un error al crear el servicio',
+        icon: "error",
+        title: "Error",
+        text: "Hubo un error al crear el servicio",
       });
     }
   };
@@ -98,13 +98,22 @@ export function FormNuevoServicioAdmin({handleServicioRegistrado}) {
           required
         />
       </Form.Group>
+      {/* El patrón en esta línea es una expresión regular que valida que el
+      input sea un número con hasta dos decimales. ^ indica el inicio de la
+      línea. \d+ permite uno o más dígitos. (\.\d{(1, 2)})? es un grupo
+      opcional que permite un punto seguido de uno o dos dígitos. El ? hace que
+      todo el grupo sea opcional. $ indica el final de la línea.
+      Por lo
+      tanto, este patrón aceptará números como "123", "123.4", y "123.45", pero
+  no "123.456".*/}
       <Form.Group>
         <Form.Label>Precio del servicio:</Form.Label>
         <Form.Control
-          type="number"
+          type="text"
           name="precio"
-          pattern="^\d+(\.\d{1,2})?$"
-          title="Introduzca un número válido con hasta 2 decimales"
+          pattern="^\d+(\.\d+)?$"
+          title="Ingrese un número no negativo con hasta dos decimales"
+          min="0"
           value={servicio.precio}
           onChange={handleChange}
           required
@@ -119,7 +128,6 @@ export function FormNuevoServicioAdmin({handleServicioRegistrado}) {
           onChange={handleChange}
         />
       </Form.Group>
-
       <Form.Group>
         <Form.Label>Categoría del servicio:</Form.Label>
         <Form.Control
