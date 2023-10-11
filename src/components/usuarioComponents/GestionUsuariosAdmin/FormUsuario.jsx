@@ -67,15 +67,41 @@ export function FormUsuario({ onSubmit, initialUsuario = null }) {
     return true;
   };
 
-  const validateTelefono = () => {
-    const telefonoPattern = /^\d{10}$/;
+  const [formulario, setFormulario] = useState({
+    nombre,
+    apellidoPaterno,
+    apellidoMaterno,
+    fechaNacimiento,
+    telefono,
+    sexo,
+  });
+  
+  const [telefonoError, setTelefonoError] = useState(""); // Nuevo estado para el error del teléfono
 
-    if (!telefonoPattern.test(telefono)) {
-      setError("El formato del teléfono es incorrecto. Debe tener 10 dígitos.");
-      return false;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Validación de longitud del teléfono
+    if (name === "telefono") {
+      // Bloquear letras y limitar a 10 dígitos
+      const telefonoValue = value.replace(/\D/g, "").slice(0, 10);
+      setFormulario((prevFormulario) => ({
+        ...prevFormulario,
+        [name]: telefonoValue,
+      }));
+
+      // Validar la longitud y mostrar el mensaje de error
+      if (telefonoValue.length !== 10) {
+        setTelefonoError("  (Debe ser a 10 dígitos)");
+      } else {
+        setTelefonoError(""); // No hay error
+      }
+    } else {
+      setFormulario((prevFormulario) => ({
+        ...prevFormulario,
+        [name]: value,
+      }));
     }
-
-    return true;
   };
 
   const validatePassword = () => {
@@ -89,21 +115,20 @@ export function FormUsuario({ onSubmit, initialUsuario = null }) {
       return false;
     }
 
- 
-
     return true;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (
-      validateFechaNacimiento() &&
-      validateEmail() &&
-      validateTelefono() 
-      
-    ) {
+
+    if (!validateTelefono(formulario.telefono)) {
+      console.log("Debe tener 10 dígitos!");
+      return;
+    }
+
+    if (validateFechaNacimiento() && validateEmail()) {
       if (initialUsuario == null) {
-        validatePassword()
+        validatePassword();
       }
       const formData = {
         nombre: nombre,
@@ -308,14 +333,17 @@ export function FormUsuario({ onSubmit, initialUsuario = null }) {
         <Col sm="10">
           <Form.Control
             type="tel"
-            value={telefono}
-            onChange={(event) => setTelefono(event.target.value)}
-            required
-            inputMode="numeric"
+            name="telefono"
+            value={formulario.telefono}
+            onChange={handleChange}
             pattern="[0-9]*"
             title="Ingresa solo números"
-            maxLength={10}
+            required
           />
+          {/* Mostrar el mensaje de error debajo del campo de entrada */}
+          {telefonoError && (
+            <span style={{ color: "red" }}>{telefonoError}</span>
+          )}
         </Col>
       </Form.Group>
 
