@@ -29,11 +29,10 @@ export function ListaOrdenesAdmin() {
     fetchData();
   }, []);
 
-
   const generarReporte = () => {
     // Array de atributos que se desea incluir en el reporte
     const atributosExcluir = ["updatedAt"];
-  
+
     if (ordenesFiltradasReporte.length === 0) {
       // Mostrar una alerta SweetAlert indicando que no hay resultados
       Swal.fire({
@@ -45,21 +44,32 @@ export function ListaOrdenesAdmin() {
       ordenesReporteExcel(ordenesFiltradasReporte, atributosExcluir);
     }
   };
-  
 
   function renderMain() {
-    // Filtrar las órdenes en base a los criterios de filtro ingresados por el usuario
+    // Filtrar las órdenes de filtro ingresados por el usuario
+    const fechaInicio = new Date(filtroFechaInicio);
+    const fechaFin = new Date(filtroFechaFin);
+
+    if (filtroFechaInicio !== "" && filtroFechaFin !== "" && fechaInicio > fechaFin) {
+      // Mostrar una alerta SweetAlert indicando que las fechas no tienen sentido
+      Swal.fire({
+        icon: 'error',
+        title: 'ERROR!',
+        text: 'La fecha de inicio del filtro no puede ser mayor que la fecha de fin.',
+      });
+      return <h3>No se encontraron resultados</h3>;
+    }
+
     const ordenesFiltradas = ordenesAll.filter(
       (orden) =>
         orden.id_usuario.toString().includes(filtroUsuario) &&
         orden.id.toString().includes(filtroOrden) &&
         orden.estado_orden.includes(filtroEstadoOrden) &&
-        (filtroFechaInicio === "" ||
-          new Date(orden.createdAt) >= new Date(filtroFechaInicio)) &&
-        (filtroFechaFin === "" ||
-          new Date(orden.createdAt) <= new Date(filtroFechaFin))
+        (filtroFechaInicio === "" || new Date(orden.createdAt) >= fechaInicio) &&
+        (filtroFechaFin === "" || new Date(orden.createdAt) <= fechaFin)
     );
-    if (ordenesFiltradasReporte.length != ordenesFiltradas.length) {
+
+    if (ordenesFiltradasReporte.length !== ordenesFiltradas.length) {
       setOrdenesFiltradasReporte(ordenesFiltradas);
     }
 
@@ -89,12 +99,12 @@ export function ListaOrdenesAdmin() {
       />
       {/* Renderizado del botón para generar el reporte */}
       <Button onClick={generarReporte} className="btn-generar-reporte">
-      <box-icon
-              style={{ marginRight: "5px" }}
-              color="white"
-              name="file"
-            ></box-icon>
-            Generar reporte (.xlsx)
+        <box-icon
+          style={{ marginRight: "5px" }}
+          color="white"
+          name="file"
+        ></box-icon>
+        Generar reporte (.xlsx)
       </Button>
       <div className="table-container">
         <div className="list-ordenes">
@@ -105,7 +115,6 @@ export function ListaOrdenesAdmin() {
                 <th>Estado de Orden</th>
                 <th>ID de Usuario</th>
                 <th>Fecha de Creación</th>
-
                 <th>Total</th>
                 <th></th>
               </tr>
