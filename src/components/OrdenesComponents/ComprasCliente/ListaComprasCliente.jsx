@@ -21,13 +21,16 @@ export function ListaComprasCliente() {
   }, []);
 
   function renderMain() {
-    if (ordenesUser.length === 0) {
+    // Ordenar las compras de la última a la primera con el método reverse
+    const comprasOrdenadas = [...ordenesUser].reverse();
+
+    if (comprasOrdenadas.length === 0) {
       return <h1>No hay compras registradas</h1>;
     } else {
       return (
         <Container>
           <Row>
-            {ordenesUser.map((orden) => (
+            {comprasOrdenadas.map((orden) => (
               <Col key={orden.id} sm={12}>
                 <Card>
                   <ItemCompraCliente key={orden.id} orden={orden} />
