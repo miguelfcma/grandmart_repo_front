@@ -42,8 +42,16 @@ export const ordenesReporteExcel = (datos, atributosExcluir) => {
     }
   });
 
-  // Renombrar la columna "estado_orden" a "Estado Orden"
+  
   datosSinAtributos.forEach((dato) => {
+    
+    // Renombrar columna para cambiar "createdAt" a "fechaCreacion"
+    if (dato.hasOwnProperty("createdAt")) {
+      dato["fechaCreacion"] = dato["createdAt"];
+      delete dato["createdAt"];
+    }
+
+    // Renombrar la columna "estado_orden" a "Estado Orden"
     if (dato.hasOwnProperty("estado_orden")) {
       dato["Estado Orden"] = dato["estado_orden"];
       delete dato["estado_orden"];
