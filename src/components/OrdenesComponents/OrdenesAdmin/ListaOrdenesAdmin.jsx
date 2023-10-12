@@ -5,6 +5,8 @@ import { FiltroOrdenesAdmin } from "./FiltroOrdenesAdmin";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./ListaOrdenesAdmin.css";
 import { ordenesReporteExcel } from "../../GeneracionDeReportes/ordenesReporteExcel";
+import Swal from "sweetalert2";
+
 export function ListaOrdenesAdmin() {
   // Utilizar el hook useOrdenes para acceder al contexto y las funciones relacionadas con las órdenes
   const { obtenerTodasLasOrdenesConDetalles, ordenesAll } = useOrdenes();
@@ -27,12 +29,23 @@ export function ListaOrdenesAdmin() {
     fetchData();
   }, []);
 
+
   const generarReporte = () => {
     // Array de atributos que se desea incluir en el reporte
     const atributosExcluir = ["updatedAt"];
-
-    ordenesReporteExcel(ordenesFiltradasReporte, atributosExcluir);
+  
+    if (ordenesFiltradasReporte.length === 0) {
+      // Mostrar una alerta SweetAlert indicando que no hay resultados
+      Swal.fire({
+        icon: 'error',
+        title: 'ERROR!',
+        text: 'No existen resultados para generar el reporte.',
+      });
+    } else {
+      ordenesReporteExcel(ordenesFiltradasReporte, atributosExcluir);
+    }
   };
+  
 
   function renderMain() {
     // Filtrar las órdenes en base a los criterios de filtro ingresados por el usuario

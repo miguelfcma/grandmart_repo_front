@@ -43,30 +43,6 @@ export function CardOpcionesPerfilAdmin() {
           </div>
           </Link>
         </ListGroup.Item>
-        
-        {/* <ListGroup.Item>
-          <Link to="/dashAdmin/perfil/tarjeta" style={{width: '100%', textDecoration: 'none'}} className="separateIcon">
-            <div className="d-flex align-items-center justify-content-between">
-             <box-icon name='credit-card'></box-icon>
-             <div className="ms-2 me-auto"  style={{ color: 'black' }}>
-              <div className="fw-bold">Tarjeta</div>
-              Tarjeta guardada en tu cuenta.
-              </div>
-            </div>
-          </Link>
-        </ListGroup.Item>
-
-        <ListGroup.Item>
-          <Link to="/dashAdmin/perfil/domicilio" style={{width: '100%', textDecoration: 'none'}} className="separateIcon">
-            <div className="d-flex align-items-center justify-content-between">
-              <box-icon name='map'></box-icon>
-              <div className="ms-2 me-auto"  style={{ color: 'black' }}>
-                <div className="fw-bold">Domicilio</div>
-                Domicilio de envío guardada en tu cuenta.
-              </div>
-            </div>
-          </Link>
-        </ListGroup.Item> */}
       </ListGroup>
     </>
   );
