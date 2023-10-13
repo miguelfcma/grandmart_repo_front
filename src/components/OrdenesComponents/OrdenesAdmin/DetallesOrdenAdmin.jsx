@@ -78,7 +78,11 @@ export function DetallesOrdenAdmin({ id_orden }) {
   const handleCambiarEstadoOrden = async () => {
     try {
       if (!opcionSeleccionadaOrden) {
-        Swal.fire("Advertencia", "Debes seleccionar un estado nuevo para la orden", "warning");
+        Swal.fire(
+          "Advertencia",
+          "Debes seleccionar un estado nuevo para la orden",
+          "warning"
+        );
         return;
       }
       const confirmResult = await Swal.fire({
@@ -137,7 +141,11 @@ export function DetallesOrdenAdmin({ id_orden }) {
   const handleCambiarEstadoEnvio = async () => {
     try {
       if (!opcionSeleccionadaEnvio) {
-        Swal.fire("Advertencia", "Debes seleccionar un estado nuevo para el envío", "warning");
+        Swal.fire(
+          "Advertencia",
+          "Debes seleccionar un estado nuevo para el envío",
+          "warning"
+        );
         return;
       }
       const confirmResult = await Swal.fire({
@@ -245,10 +253,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
                 </option>
               ))}
             </Form.Select>
-            <button
-              onClick={handleCambiarEstadoOrden}
-             
-            >
+            <button onClick={handleCambiarEstadoOrden}>
               Cambiar Estado de Orden
             </button>
           </div>
@@ -285,17 +290,19 @@ export function DetallesOrdenAdmin({ id_orden }) {
               ))}
             </tbody>
           </Table>
-          <div>
-            <h1 className="infoEnvio-titulo">Detalles del pago:</h1>
-            <Row className="orden-row">
-              <Col md={4}>
-                <p>ID pago stripe: {pago.id_pago_stripe}</p>
-                <p>Monto pagado: $ {pago.monto/100} MXN</p>
-                <p>Estado pago: {pago.estado}</p>
-              </Col>
-            </Row>
-          </div>
 
+          {pago && (
+            <div>
+              <h1 className="infoEnvio-titulo">Detalles del pago:</h1>
+              <Row className="orden-row">
+                <Col md={4}>
+                  <p>ID pago stripe: {pago.id_pago_stripe}</p>
+                  <p>Monto pagado: $ {pago.monto / 100} MXN</p>
+                  <p>Estado pago: {pago.estado}</p>
+                </Col>
+              </Row>
+            </div>
+          )}
           {infoEnvio && (
             <div>
               <h1 className="infoEnvio-titulo">Envío:</h1>
@@ -307,7 +314,8 @@ export function DetallesOrdenAdmin({ id_orden }) {
                 <div>
                   <Form.Select
                     value={opcionSeleccionadaEnvio}
-                    onChange={handleCambioOpcionEnvio}required
+                    onChange={handleCambioOpcionEnvio}
+                    required
                   >
                     <option value="">Seleccione un estado</option>
                     {opcionesEnvio.map((option) => (
@@ -316,22 +324,19 @@ export function DetallesOrdenAdmin({ id_orden }) {
                       </option>
                     ))}
                   </Form.Select>
-                  <button
-                    onClick={handleCambiarEstadoEnvio}
-         
-                  >
+                  <button onClick={handleCambiarEstadoEnvio}>
                     Cambiar Estado de Envío
                   </button>
                 </div>
               </Row>
             </div>
           )}
-          <h1 className="detalles-orden-titulo">Detalles del envío:</h1>
+          <h1 className="detalles-orden-titulo">Dirección del envío:</h1>
           {direccionEnvio && (
             <div>
               <Row className="orden-row">
                 <Col md={4}>
-                  <p>ID: {direccionEnvio.id}</p>
+              
                   <p>Calle: {direccionEnvio.calle}</p>
                   <p>Calle 1: {direccionEnvio.calle1}</p>
                   <p>Calle 2: {direccionEnvio.calle2}</p>
