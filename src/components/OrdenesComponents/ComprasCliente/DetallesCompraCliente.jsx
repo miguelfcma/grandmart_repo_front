@@ -12,6 +12,8 @@ import {
 import { useProductos } from "../../ProductoComponents/ProductosContext/ProductoProvider";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import "../../OrdenesComponents/ComprasCliente/DetallesComprasCliente.css";
+
 export function DetallesCompraCliente({ id_orden }) {
   const {
     obtenerDetalleOrden,
@@ -145,7 +147,7 @@ export function DetallesCompraCliente({ id_orden }) {
           <Row xs={1} md={2} className="g-4">
             {orden.detallesOrden.map((detalle, index) => (
               <Col key={index}>
-                <Card>
+                <Card className="producto-card">
                   <Card.Header>{detalle.producto.nombre}</Card.Header>
                   <ListGroup variant="flush">
                     <ListGroup.Item>
@@ -184,19 +186,19 @@ export function DetallesCompraCliente({ id_orden }) {
             ))}
           </Row>
           <div>
+            <br></br><br></br>
             <h1 className="infoEnvio-titulo">Envío:</h1>
             <Row className="orden-row">
               <Col md={4}>
                 <p>ID envío: {infoEnvio.id}</p>
                 <p>Estado envío: {infoEnvio.estado}</p>
               </Col>
-              
             </Row>
           </div>
 
           {direccionEnvio && (
-            <Card>
-              <h1 className="detalles-orden-titulo">Detalles del envío:</h1>
+            <Card className="card-det-envio">
+              <h1 className="detalles-orden-envio">Dirección del envío:</h1>
               <Row className="orden-row">
                 <Col md={4}>
                   <Card.Text>ID: {direccionEnvio.id}</Card.Text>
@@ -224,6 +226,7 @@ export function DetallesCompraCliente({ id_orden }) {
           )}
         </div>
       )}
+      <br></br>
       <Button variant="danger" onClick={handleCancelarOrdenDeCompra}>
         Cancelar orden de compra
       </Button>

@@ -56,8 +56,8 @@ export function PaginaDeCompra() {
           <Button variant="primary" className="btn-continuar-comprando">
             Continuar comprando
           </Button>
+          <br></br><br></br>
         </Link>
-       
       </div>
     </div>
   );
