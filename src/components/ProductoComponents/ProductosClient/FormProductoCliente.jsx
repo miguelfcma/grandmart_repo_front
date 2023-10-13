@@ -38,8 +38,10 @@ export function FormProductoCliente() {
   const validateForm = () => {
     const errors = {};
 
-    // Validación del formato del precio
-    if (!/^\d+(\.\d{1,2})?$/.test(producto.precio)) {
+     // Validación del formato del precio
+     if (formValues.precio.trim() === "") {
+      errors.precio = "El precio es obligatorio";
+    } else if (!/^\d+(\.\d{1,2})?$/.test(formValues.precio)) {
       errors.precio =
         "El formato del precio es incorrecto. Ejemplo: 10 o 10.99";
     }

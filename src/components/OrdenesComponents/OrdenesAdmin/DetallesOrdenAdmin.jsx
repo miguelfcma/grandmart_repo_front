@@ -12,6 +12,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
     cambiarEstadoEnvio,
     obtenerDireccionEnvioOrden,
     eliminarOrden,
+    obtenerInformacionPago,
   } = useOrdenes();
   const [orden, setOrden] = useState({
     id: null,
@@ -22,7 +23,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
     fechaEntrega: null,
     detallesOrden: [],
   });
-
+  const [pago, setPago] = useState(null);
   const [direccionEnvio, setDireccionEnvio] = useState(null);
   const [infoEnvio, setInfoEnvio] = useState("");
   const cargarDetalleOrden = async () => {
@@ -53,9 +54,20 @@ export function DetallesOrdenAdmin({ id_orden }) {
       console.error(error);
     }
   };
+
+  const cargarInformacionPago = async () => {
+    try {
+      const infoPago = await obtenerInformacionPago(id_orden);
+
+      setPago(infoPago.pago);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     cargarDetalleOrden();
     cargarDireccionEnvioOrden();
+    cargarInformacionPago();
   }, []);
 
   const [opcionSeleccionadaOrden, setOpcionSeleccionadaOrden] = useState("");
@@ -65,6 +77,10 @@ export function DetallesOrdenAdmin({ id_orden }) {
   };
   const handleCambiarEstadoOrden = async () => {
     try {
+      if (!opcionSeleccionadaOrden) {
+        Swal.fire("Advertencia", "Debes seleccionar un estado nuevo para la orden", "warning");
+        return;
+      }
       const confirmResult = await Swal.fire({
         icon: "question",
         title: "Confirmar actualización",
@@ -120,6 +136,10 @@ export function DetallesOrdenAdmin({ id_orden }) {
   };
   const handleCambiarEstadoEnvio = async () => {
     try {
+      if (!opcionSeleccionadaEnvio) {
+        Swal.fire("Advertencia", "Debes seleccionar un estado nuevo para el envío", "warning");
+        return;
+      }
       const confirmResult = await Swal.fire({
         icon: "question",
         title: "Confirmar actualización",
@@ -165,42 +185,45 @@ export function DetallesOrdenAdmin({ id_orden }) {
   const handleEliminarOrden = async () => {
     try {
       const confirmation = await Swal.fire({
-        title: 'Confirmar eliminación',
-        text: '¿Estás seguro de que deseas eliminar esta orden?',
-        icon: 'warning',
+        title: "Confirmar eliminación",
+        text: "¿Estás seguro de que deseas eliminar esta orden?",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar',
-    
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
       });
-  
+
       if (confirmation.isConfirmed) {
         const status = await eliminarOrden(orden.id);
-  
+
         if (status === 200) {
-          Swal.fire('Éxito', 'La orden ha sido eliminada correctamente', 'success');
-          navigate('/dashAdmin/ordenes');
+          Swal.fire(
+            "Éxito",
+            "La orden ha sido eliminada correctamente",
+            "success"
+          );
+          navigate("/dashAdmin/ordenes");
         } else if (status === 404) {
-          Swal.fire('Error', 'La orden no existe', 'error');
+          Swal.fire("Error", "La orden no existe", "error");
         } else if (status === 500) {
-          Swal.fire('Error', 'Error en el servidor', 'error');
+          Swal.fire("Error", "Error en el servidor", "error");
         } else {
-          Swal.fire('Error', 'Ha ocurrido un error inesperado', 'error');
+          Swal.fire("Error", "Ha ocurrido un error inesperado", "error");
         }
       }
     } catch (error) {
-      console.error('Error al eliminar orden', error);
+      console.error("Error al eliminar orden", error);
     }
   };
 
   return (
     <Container className="detalles-orden-admin">
       <div>
-        <h1 className="orden-titulo">Orden:</h1>
+        <h1 className="infoEnvio-titulo">Orden:</h1>
         <Row className="orden-row">
           <Col md={4}>
             <p>ID: {orden.id}</p>
-            <p>Total: {orden.total}</p>
+            <p>Total: $ {orden.total} MXN</p>
             <p>Estado: {orden.estado_orden}</p>
             <p>ID Usuario: {orden.id_usuario}</p>
           </Col>
@@ -224,7 +247,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
             </Form.Select>
             <button
               onClick={handleCambiarEstadoOrden}
-              disabled={!opcionSeleccionadaOrden}
+             
             >
               Cambiar Estado de Orden
             </button>
@@ -253,14 +276,26 @@ export function DetallesOrdenAdmin({ id_orden }) {
                   <td>{detalle.producto.id}</td>
                   <td>{detalle.producto.nombre}</td>
                   <td>{detalle.cantidad}</td>
-                  <td>{detalle.precio_unitario}</td>
+                  <td>$ {detalle.precio_unitario} MXN</td>
                   <td>
-                    {(detalle.precio_unitario * detalle.cantidad).toFixed(2)}
+                    $ {(detalle.precio_unitario * detalle.cantidad).toFixed(2)}{" "}
+                    MXN
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
+          <div>
+            <h1 className="infoEnvio-titulo">Detalles del pago:</h1>
+            <Row className="orden-row">
+              <Col md={4}>
+                <p>ID pago stripe: {pago.id_pago_stripe}</p>
+                <p>Monto pagado: $ {pago.monto/100} MXN</p>
+                <p>Estado pago: {pago.estado}</p>
+              </Col>
+            </Row>
+          </div>
+
           {infoEnvio && (
             <div>
               <h1 className="infoEnvio-titulo">Envío:</h1>
@@ -272,7 +307,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
                 <div>
                   <Form.Select
                     value={opcionSeleccionadaEnvio}
-                    onChange={handleCambioOpcionEnvio}
+                    onChange={handleCambioOpcionEnvio}required
                   >
                     <option value="">Seleccione un estado</option>
                     {opcionesEnvio.map((option) => (
@@ -283,7 +318,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
                   </Form.Select>
                   <button
                     onClick={handleCambiarEstadoEnvio}
-                    disabled={!opcionSeleccionadaEnvio}
+         
                   >
                     Cambiar Estado de Envío
                   </button>

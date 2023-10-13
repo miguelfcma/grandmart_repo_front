@@ -79,7 +79,7 @@ export function Carrito() {
                 >
                   <div className="cart-item-info">
                     <h3>{item.producto.nombre}</h3>
-                    <p>Precio: ${item.producto.precio} MXN</p>
+                    <p>Precio: $ {item.producto.precio} MXN</p>
                   </div>
                 </Link>
                 <div className="cart-item-controls">
@@ -109,7 +109,7 @@ export function Carrito() {
                 </div>
               </div>
             ))}
-            <p>Total: ${getTotal()} MXN</p>
+            <p>Total: $ {getTotal()} MXN</p>
             <div className="cart-actions">
               <Button
                 variant="danger"

@@ -107,7 +107,7 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
       <Container className="contenedor-descripcion-compra">
         <h5 className="descripcion-compra">{detallesCarrito.descripcion}</h5>
         <h6 className="detalle-total-pago">
-          Total: ${detallesCarrito.total} MXN
+          Total: $ {detallesCarrito.total} MXN
         </h6>
       </Container>
       <div className="form-group">

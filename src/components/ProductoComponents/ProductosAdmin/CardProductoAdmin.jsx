@@ -108,7 +108,7 @@ export function CardProductoAdmin({ producto }) {
           src={urlImagen}
           alt={producto.nombre}
         />
-        <div>Precio: ${producto.precio} MXN</div>
+        <div>Precio: $ {producto.precio} MXN</div>
       </Link>
 
       <button className="btn-admin-producto" onClick={handleOpenModal}>

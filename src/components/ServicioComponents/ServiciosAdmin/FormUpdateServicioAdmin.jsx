@@ -1,5 +1,5 @@
-import { Form, Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Form, Button, Alert } from "react-bootstrap";
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 import Swal from "sweetalert2";
@@ -32,6 +32,8 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
     id_categoria: servicio.id_categoria,
   });
 
+  const [validationErrors, setValidationErrors] = useState({});
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
@@ -39,43 +41,48 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const { isConfirmed } = await Swal.fire({
-        title: "Confirmar actualización",
-        text: "¿Estás seguro de que deseas actualizar el servicio?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: "Sí, actualizar",
-        cancelButtonText: "Cancelar",
-      });
+    const errors = validateForm();
+    if (Object.keys(errors).length === 0) {
+      try {
+        const { isConfirmed } = await Swal.fire({
+          title: "Confirmar actualización",
+          text: "¿Estás seguro de que deseas actualizar el servicio?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Sí, actualizar",
+          cancelButtonText: "Cancelar",
+        });
 
-      if (isConfirmed) {
-        const status = await updateServicio(servicio.id, formValues);
+        if (isConfirmed) {
+          const status = await updateServicio(servicio.id, formValues);
 
-        if (status === 200) {
-          Swal.fire({
-            icon: "success",
-            title: "Éxito",
-            text: "El servicio se ha actualizado correctamente",
-          });
-        } else if (status === 404) {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "No se encontró el servicio",
-          });
-        } else if (status === 500) {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Ocurrió un error en el servidor. Por favor, intenta nuevamente más tarde.",
-          });
+          if (status === 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Éxito",
+              text: "El servicio se ha actualizado correctamente",
+            });
+          } else if (status === 404) {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "No se encontró el servicio",
+            });
+          } else if (status === 500) {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Hubo un error en el servidor",
+            });
+          }
+
+          onSubmit();
         }
-
-        onSubmit();
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
+    } else {
+      setValidationErrors(errors);
     }
   };
 
@@ -95,6 +102,26 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
     }
   };
 
+  const validateForm = () => {
+    const errors = {};
+
+    // Validación del título
+    if (formValues.titulo.trim() === "") {
+      errors.titulo = "El título es obligatorio";
+    }
+
+     // Validación del formato del precio
+     if (formValues.precio.trim() === "") {
+      errors.precio = "El precio es obligatorio";
+    } else if (!/^\d+(\.\d{1,2})?$/.test(formValues.precio)) {
+      errors.precio =
+        "El formato del precio es incorrecto. Ejemplo: 10 o 10.99";
+    }
+
+    setValidationErrors(errors);
+    return errors;
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="titulo">
@@ -104,8 +131,12 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
           name="titulo"
           value={formValues.titulo}
           onChange={handleInputChange}
-          required
+     
+          isInvalid={validationErrors.titulo}
         />
+        {validationErrors.titulo && (
+          <Alert variant="danger">{validationErrors.titulo}</Alert>
+        )}
       </Form.Group>
 
       <Form.Group controlId="descripcion">
@@ -123,13 +154,17 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
         <Form.Control
           type="text"
           name="precio"
-          pattern="^\d+(\.\d+)?$"
+          pattern="^\d+(\.\d{1,2})?$"
           title="Ingrese un número no negativo con hasta dos decimales"
           min="0"
           value={formValues.precio}
           onChange={handleInputChange}
-          required
+
+          isInvalid={validationErrors.precio}
         />
+        {validationErrors.precio && (
+          <Alert variant="danger">{validationErrors.precio}</Alert>
+        )}
       </Form.Group>
 
       <Form.Group controlId="id_categoria">

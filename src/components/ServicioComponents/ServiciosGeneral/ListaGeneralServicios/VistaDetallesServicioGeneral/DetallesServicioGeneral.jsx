@@ -151,7 +151,7 @@ export function DetallesServicioGeneral({ id }) {
                   <div className="infoProductoTitulo">{servicio.titulo}</div>
                 </Card.Title>
                 <Card.Title>
-                  <div className="infoProductoPrecio">${servicio.precio} MXN</div>
+                  <div className="infoProductoPrecio">$ {servicio.precio} MXN</div>
                 </Card.Title>
                 <div className="infoProductoDescripcion">
                   {servicio.descripcion}

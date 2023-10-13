@@ -110,7 +110,7 @@ export function CardProductoGeneral({ producto, favoritos }) {
         />
         <div className="item-productogeneral-nombre">{producto.nombre}</div>
         <br></br>
-        <div>${producto.precio} MXN</div>
+        <div>$ {producto.precio} MXN</div>
       </Link>
 
       <button

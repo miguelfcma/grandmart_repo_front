@@ -40,7 +40,7 @@ export function ItemCompraCliente({ orden }) {
         <Card.Text className="fecha-pedido">
           Fecha de pedido:{new Date(createdAt).toLocaleDateString()}
         </Card.Text>
-        <Card.Text className="total-orden">{total}</Card.Text>
+        <Card.Text className="total-orden">$ {total} MXN</Card.Text>
         <Card.Text className="botones-orden">
           <button className="btn-ver-detalles" onClick={verDetalles}>
             Ver detalles de la compra <FaEye className="icono-ojo" />

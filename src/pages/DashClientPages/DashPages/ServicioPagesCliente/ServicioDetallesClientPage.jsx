@@ -82,6 +82,7 @@ export function ServicioDetallesClientPage() {
               <div>ID: {servicio.id}</div>
               <div>Título: {servicio.titulo}</div>
               <div>Descripción: {servicio.descripcion}</div>
+              <div>Precio: $ {servicio.precio} MXN</div>
               <div>
                 Categoría:{" "}
                 {

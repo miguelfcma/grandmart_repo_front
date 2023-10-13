@@ -160,11 +160,10 @@ export function DetallesCompraCliente({ id_orden }) {
                       Cantidad: {detalle.cantidad}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      Precio Unitario: {detalle.precio_unitario}
+                      Precio Unitario: $ {detalle.precio_unitario} MXN
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      Subtotal:{" "}
-                      {(detalle.precio_unitario * detalle.cantidad).toFixed(2)}
+                      Subtotal: $ {(detalle.precio_unitario * detalle.cantidad).toFixed(2)} MXN
                     </ListGroup.Item>
                   </ListGroup>
                   <Card.Footer>
@@ -186,8 +185,9 @@ export function DetallesCompraCliente({ id_orden }) {
             ))}
           </Row>
           <div>
-            <br></br><br></br>
-            <h1 className="infoEnvio-titulo">Envío:</h1>
+            <br></br>
+            <br></br>
+            <h2 className="infoEnvio-titulo">Envío:</h2>
             <Row className="orden-row">
               <Col md={4}>
                 <p>ID envío: {infoEnvio.id}</p>

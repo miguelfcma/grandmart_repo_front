@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+
+import { Form, FormGroup, FormControl, Button, Alert } from "react-bootstrap";
+
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
@@ -57,10 +59,10 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
           confirmButtonText: "Sí, actualizar",
           cancelButtonText: "Cancelar",
         });
-  
+
         if (isConfirmed) {
           const status = await updateProducto(producto.id, formValues);
-  
+
           if (status === 200) {
             Swal.fire({
               icon: "success",
@@ -80,7 +82,7 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
               text: "Hubo un error en el servidor",
             });
           }
-  
+
           onSubmit();
         }
       } catch (error) {
@@ -88,7 +90,6 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
       }
     }
   };
-  
 
   const handleIdParentChange = (event) => {
     const { value } = event.target;
@@ -115,13 +116,16 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
     }
 
     // Validación del formato del precio
-    if (!/^\d+(\.\d{1,2})?$/.test(formValues.precio)) {
+    if (formValues.precio.toString().trim() === "") {
+      errors.precio = "El precio es obligatorio";
+    } else if (!/^\d+(\.\d{1,2})?$/.test(formValues.precio)) {
       errors.precio =
         "El formato del precio es incorrecto. Ejemplo: 10 o 10.99";
     }
-
     // Validación del stock
-    if (isNaN(formValues.stock) || formValues.stock < 0) {
+    if (formValues.stock.toString().trim() === "") {
+      errors.stock = "El stock es obligatorio";
+    } else if (isNaN(formValues.stock) || formValues.stock < 0) {
       errors.stock = "El stock debe ser un número positivo";
     }
 
@@ -154,10 +158,13 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
       <Form.Group controlId="precio">
         <Form.Label>Precio:</Form.Label>
         <Form.Control
-          type="number"
+          type="text"
           name="precio"
-          value={formValues.precio}
+          pattern="^\d+(\.\d+)?$"
+          title="Ingrese un número no negativo con hasta dos decimales"
+          min="0"
           onChange={handleInputChange}
+          value={formValues.precio}
           isInvalid={validationErrors.precio}
         />
         {validationErrors.precio && (
@@ -167,13 +174,15 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
 
       <Form.Group controlId="stock">
         <Form.Label>Stock:</Form.Label>
-        <Form.Control
-          type="number"
+        <FormControl
+          type="text"
           name="stock"
           value={formValues.stock}
+          title="Ingrese un número entero mayor a cero"
           onChange={handleInputChange}
-          isInvalid={validationErrors.stock}
+          pattern="[0-9]*"
         />
+
         {validationErrors.stock && (
           <Alert variant="danger">{validationErrors.stock}</Alert>
         )}

@@ -117,7 +117,7 @@ export function CardServicioAdmin({ servicio }) {
           src={urlImagen}
           alt={servicio.nombre}
         />
-        <div>Precio: ${servicio.precio} MXN</div>
+        <div>Precio: $ {servicio.precio} MXN</div>
       </Link>
 
       <button className="card-servicio" onClick={handleOpenModal}>

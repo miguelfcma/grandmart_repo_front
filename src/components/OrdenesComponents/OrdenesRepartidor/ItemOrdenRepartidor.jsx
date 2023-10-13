@@ -33,7 +33,7 @@ export function ItemOrdenRepartidor({ orden }) {
       <td>{new Date(createdAt).toLocaleDateString()}</td>
 
       {/* <td>{new Date(updatedAt).toLocaleDateString()}</td> */}
-      <td>{total}</td>
+      <td>$ {total} MXN</td>
       <td>
         {/* Agregar el botón con el icono de ojo y la función de manejo de eventos */}
         <button className="btn-ver-detalles" onClick={verDetalles}>

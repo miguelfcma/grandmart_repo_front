@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 import Swal from "sweetalert2";
-import { Form, FormGroup, FormControl, FormCheck, Button, Row, Col } from "react-bootstrap";
-
+import {
+  Form,
+  FormGroup,
+  FormControl,
+  FormCheck,
+  Button,
+  Row,
+  Col,
+  Alert,
+} from "react-bootstrap";
 
 export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
   const {
     obtenerDatosContactoServicio,
-    actualizarDatosContactoServicioAdmin,
+    actualizarDatosContactoServicioCliente,
   } = useServicios();
   const [emailError, setEmailError] = useState("");
   const [datosContacto, setDatosContacto] = useState(null);
@@ -56,14 +64,18 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }
   }, [datosContacto]);
 
+  const [validationErrors, setValidationErrors] = useState({});
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     // Validar el formato del correo electrónico
-    if (!validateEmail()) {
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
       return;
     }
-  
+
     try {
       const datosServicio = {
         telefono1: servicioData.telefono1,
@@ -77,7 +89,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
         numeroInterior: servicioData.numeroInterior,
         descripcion: servicioData.descripcion,
       };
-  
+
       // Mostrar el diálogo de confirmación
       const confirmResult = await Swal.fire({
         title: "¿Estás seguro?",
@@ -87,20 +99,28 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
         confirmButtonText: "Sí, actualizar",
         cancelButtonText: "Cancelar",
       });
-  
+
       // Si se confirma la actualización
       if (confirmResult.isConfirmed) {
-        const status = await actualizarDatosContactoServicioAdmin(servicio.id, datosServicio);
-  
+        const status = await actualizarDatosContactoServicioCliente(
+          servicio.id,
+          datosServicio
+        );
+
         if (status === 200) {
           Swal.fire(
             "Éxito",
             "Los datos de contacto se han guardado correctamente",
             "success"
           );
+          onSubmit(); // Llamar a la función de manejo para indicar que se han registrado los datos
+        } else {
+          Swal.fire(
+            "Error",
+            "Ha ocurrido un error al enviar los datos de contacto",
+            "error"
+          );
         }
-  
-        onSubmit(); // Llamar a la función de manejo para indicar que se han registrado los datos
       }
     } catch (error) {
       console.error(error);
@@ -182,6 +202,42 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     return true;
   };
 
+  const validateForm = () => {
+    const errors = {};
+
+    // Validación de teléfono 1
+    if (servicioData.telefono1.trim() === "") {
+      errors.telefono1 = "El teléfono 1 es obligatorio";
+    }
+
+    // Validación de estado
+    if (servicioData.estado === "") {
+      errors.estado = "Selecciona un estado";
+    }
+
+    // Validación de municipio/alcaldía
+    if (servicioData.municipioAlcaldia.trim() === "") {
+      errors.municipioAlcaldia = "El municipio/alcaldía es obligatorio";
+    }
+
+    // Validación de colonia
+    if (servicioData.colonia.trim() === "") {
+      errors.colonia = "La colonia es obligatoria";
+    }
+
+    // Validación de calle
+    if (servicioData.calle.trim() === "") {
+      errors.calle = "La calle es obligatoria";
+    }
+
+    // Validación de número exterior
+    if (servicioData.numeroExterior.trim() === "" && servicioData.numeroExterior !== "SN") {
+      errors.numeroExterior = "El número exterior es obligatorio";
+    }
+
+    return errors;
+  };
+
   return (
     <div>
       <h2>Información del servicio</h2>
@@ -194,12 +250,16 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="telefono1"
             value={servicioData.telefono1}
             onChange={handleChange}
-            required
+          
             pattern="[0-9]*"
             title="Ingresa solo números"
             maxLength={10}
             minLength={10}
+            isInvalid={validationErrors.telefono1}
           />
+          {validationErrors.telefono1 && (
+            <Alert variant="danger">{validationErrors.telefono1}</Alert>
+          )}
         </FormGroup>
         <FormGroup>
           <Form.Label>Teléfono 2 (opcional):</Form.Label>
@@ -215,9 +275,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
           />
         </FormGroup>
         <FormGroup>
-          <Form.Label>
-            Email{!servicioData.email && " (opcional)"}:
-          </Form.Label>
+          <Form.Label>Email{!servicioData.email && " (opcional)"}:</Form.Label>
           <FormControl
             type="text"
             name="email"
@@ -225,9 +283,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             onChange={handleChange}
             isInvalid={!!emailError}
           />
-          <Form.Control.Feedback type="invalid">
-            {emailError}
-          </Form.Control.Feedback>
+          {emailError && <Alert variant="danger">{emailError}</Alert>}
         </FormGroup>
 
         <h3>Dirección</h3>
@@ -238,7 +294,8 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="estado"
             value={servicioData.estado}
             onChange={handleChange}
-            required
+
+            isInvalid={validationErrors.estado}
           >
             <option value="">Seleccionar estado...</option>
             {estados.map((estado) => (
@@ -247,6 +304,9 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
               </option>
             ))}
           </FormControl>
+          {validationErrors.estado && (
+            <Alert variant="danger">{validationErrors.estado}</Alert>
+          )}
         </FormGroup>
         <FormGroup>
           <Form.Label>Municipio/Alcaldía:</Form.Label>
@@ -255,8 +315,12 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="municipioAlcaldia"
             value={servicioData.municipioAlcaldia}
             onChange={handleChange}
-            required
+            
+            isInvalid={validationErrors.municipioAlcaldia}
           />
+          {validationErrors.municipioAlcaldia && (
+            <Alert variant="danger">{validationErrors.municipioAlcaldia}</Alert>
+          )}
         </FormGroup>
         <FormGroup>
           <Form.Label>Colonia:</Form.Label>
@@ -265,8 +329,12 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="colonia"
             value={servicioData.colonia}
             onChange={handleChange}
-            required
+       
+            isInvalid={validationErrors.colonia}
           />
+          {validationErrors.colonia && (
+            <Alert variant="danger">{validationErrors.colonia}</Alert>
+          )}
         </FormGroup>
         <FormGroup>
           <Form.Label>Calle:</Form.Label>
@@ -275,8 +343,12 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="calle"
             value={servicioData.calle}
             onChange={handleChange}
-            required
+         
+            isInvalid={validationErrors.calle}
           />
+          {validationErrors.calle && (
+            <Alert variant="danger">{validationErrors.calle}</Alert>
+          )}
         </FormGroup>
         <Row>
           <Col xs={12} md={6}>
@@ -290,19 +362,20 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
                 checked={servicioData.numeroExterior === "SN"}
                 onChange={handleNumeroExteriorChange}
               />
-
-              <FormControl
-                type="text"
-                name="numeroExterior"
-                value={
-                  servicioData.numeroExterior !== "SN"
-                    ? servicioData.numeroExterior
-                    : "SN"
-                }
-                onChange={handleChange}
-                disabled={servicioData.numeroExterior === "SN"}
-                required
-              />
+              {servicioData.numeroExterior !== "SN" ? (
+                <FormControl
+                  type="text"
+                  name="numeroExterior"
+                  value={servicioData.numeroExterior}
+                  onChange={handleChange}
+                  disabled={servicioData.numeroExterior === "SN"}
+   
+                  isInvalid={validationErrors.numeroExterior}
+                />
+              ) : null}
+              {validationErrors.numeroExterior && (
+                <Alert variant="danger">{validationErrors.numeroExterior}</Alert>
+              )}
             </FormGroup>
           </Col>
         </Row>

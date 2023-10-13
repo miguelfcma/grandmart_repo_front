@@ -13,6 +13,7 @@ import {
   cambiarEstadoEnvioRequest,
   cancelarOrdenRequest,
   eliminarOrdenRequest,
+  obtenerInformacionPagoRequest
 } from "../../../API/OrdenesApiRest/ordenes.api";
 
 export const useOrdenes = () => {
@@ -160,13 +161,27 @@ export const OrdenContextProvider = ({ children }) => {
 
       if (response.status === 200) {
         console.log(response.data);
-        
       }
       return response.status;
     } catch (error) {
       console.error(error);
     }
   };
+
+  const obtenerInformacionPago = async (id_orden) => {
+    try {
+      const response = await obtenerInformacionPagoRequest(id_orden);
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error("Error al obtener información de pago");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <OrdenContext.Provider
       value={{
@@ -188,6 +203,7 @@ export const OrdenContextProvider = ({ children }) => {
         eliminarOrden,
 
         cerrarSesionOrdenes,
+        obtenerInformacionPago,
       }}
     >
       {children}

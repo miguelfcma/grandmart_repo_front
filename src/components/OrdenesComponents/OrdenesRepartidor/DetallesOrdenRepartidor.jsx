@@ -119,7 +119,7 @@ export function DetallesOrdenRepartidor({ id_orden }) {
         <Row className="orden-row">
           <Col md={4}>
             <p>ID: {orden.id}</p>
-            <p>Total: {orden.total}</p>
+            <p>Total: $ {orden.total} MXN</p>
             <p>Estado: {orden.estado_orden}</p>
             <p>ID Usuario: {orden.id_usuario}</p>
           </Col>
@@ -153,9 +153,9 @@ export function DetallesOrdenRepartidor({ id_orden }) {
                   <td>{detalle.producto.id}</td>
                   <td>{detalle.producto.nombre}</td>
                   <td>{detalle.cantidad}</td>
-                  <td>{detalle.precio_unitario}</td>
+                  <td>$ {detalle.precio_unitario} MXN</td>
                   <td>
-                    {(detalle.precio_unitario * detalle.cantidad).toFixed(2)}
+                   $ {(detalle.precio_unitario * detalle.cantidad).toFixed(2)} MXN
                   </td>
                 </tr>
               ))}
