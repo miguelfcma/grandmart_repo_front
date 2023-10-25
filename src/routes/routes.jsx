@@ -69,7 +69,7 @@ import { ResumenComprasPage } from "../pages/HomePages/CarritoPage/ResumenCompra
 import { DatosPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/DatosPerfilPageAdmin";
 import { DomicilioPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/DomicilioPerfilPageAdmin";
 import { SeguridadPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/SeguridadPerfilPageAdmin";
-import { TarjetaPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/TarjetaPerfilPageAdmin";
+
 //Paginas de perfil de cliente
 import { DatosPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/DatosPerfilPageCliente";
 import { SeguridadPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/SeguridadPerfilPageCliente";
@@ -272,11 +272,7 @@ export function MyRoutes() {
             path="/dashAdmin/perfil/seguridad"
             element={<SeguridadPerfilPageAdmin />}
           />
-          <Route
-            exact
-            path="/dashAdmin/perfil/tarjeta"
-            element={<TarjetaPerfilPageAdmin />}
-          />
+         
           <Route
             exact
             path="/dashAdmin/perfil/domicilio"
