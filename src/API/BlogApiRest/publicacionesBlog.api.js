@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
 
+// Función para crear una nueva publicación
 export const createPublicacionRequest = async (data) => {
   try {
     const response = await axios.post(
@@ -21,6 +22,7 @@ export const createPublicacionRequest = async (data) => {
   }
 };
 
+// Función para eliminar una publicación por ID de usuario y ID de publicación en el blog
 export const deletePublicacionPorIdUsuarioRequest = async (
   id_usuario,
   id_publicacionBlog
@@ -41,6 +43,7 @@ export const deletePublicacionPorIdUsuarioRequest = async (
   }
 };
 
+// Función para actualizar una publicación por ID de usuario
 export const updatePublicacionPorIdUsuarioRequest = async (idUsuario, data) => {
   try {
     const response = await axios.put(
@@ -54,10 +57,12 @@ export const updatePublicacionPorIdUsuarioRequest = async (idUsuario, data) => {
       status: error.response.status,
       message: error.response.data.message,
     });
+
     return error.response;
   }
 };
 
+// Función para obtener todas las publicaciones
 export const getPublicacionesRequest = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}blog-publicaciones`);
@@ -68,10 +73,12 @@ export const getPublicacionesRequest = async () => {
       status: error.response.status,
       message: error.response.data.message,
     });
+
     return error.response;
   }
 };
 
+// Función para obtener las publicaciones por ID de usuario
 export const getPublicacionesPorIdUsuarioRequest = async (idUsuario) => {
   try {
     const response = await axios.get(
@@ -84,6 +91,7 @@ export const getPublicacionesPorIdUsuarioRequest = async (idUsuario) => {
       status: error.response.status,
       message: error.response.data.message,
     });
+
     return error.response;
   }
 };

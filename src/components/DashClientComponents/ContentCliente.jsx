@@ -1,3 +1,5 @@
+//Este archivo se utiliza para mostrar el panel de bienvenida en el dashboard de un cliente
+
 import React, { useState, useEffect } from "react";
 import "../../pages/DashClientPages/DashClient.css";
 import Card from "react-bootstrap/Card";
@@ -8,6 +10,7 @@ import { BsInfoCircle } from "react-icons/bs";
 import { getInformacionDash } from "../../API/UsuariosApiRest/usuarios.api";
 
 export function ContentCliente() {
+  // Obtener los datos del usuario desde el almacenamiento local para mostrar el nombre de usuario
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [showModal, setShowModal] = useState(false);
 
@@ -92,11 +95,12 @@ export function ContentCliente() {
           </div>
         </Card.Body>
       </Card>
-
       <Modal show={showModal} onHide={closeModal} centered>
+        {/*Se hace clic en el boton de informacion del dashboard para ver la descripcion de lo que se puede hacer desde este apartado*/}
         <Modal.Header closeButton>
           <Modal.Title>Información del Dashboard</Modal.Title>
         </Modal.Header>
+        {/*Utilizando un modal para mostrar la descripcion de la explicacion del dashboard*/}
         <Modal.Body>
           Desde este apartado, usted podrá gestionar de manera integral los
           distintos aspectos que conforman su perfil.

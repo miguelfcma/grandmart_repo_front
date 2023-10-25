@@ -1,8 +1,12 @@
+//Este archivo es el que da formato a los reportes que se vacian en hojas de Excel, para que en las hojas de Excel tengan un formato mas entendible
+
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
-import moment from "moment"; /*Formatear fechas y horas */
+import moment from "moment"; // Librería para formatear fechas y horas
 
+// Función para generar un informe en formato Excel a partir de datos de denuncias de servicios
 export const denunciasServiciosReporteExcel = (datos, atributosExcluir) => {
+  // Obtener la fecha y hora actual
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
@@ -11,6 +15,7 @@ export const denunciasServiciosReporteExcel = (datos, atributosExcluir) => {
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
 
+  // Formatear la fecha y hora actual para incluir en el nombre del archivo
   const dateFormatted = `${year}-${month.toString().padStart(2, "0")}-${day
     .toString()
     .padStart(2, "0")}`;
@@ -28,7 +33,7 @@ export const denunciasServiciosReporteExcel = (datos, atributosExcluir) => {
   // Convertir los datos a un arreglo
   const arregloDatos = Object.values(datos);
 
-  // Excluir los atributos del arreglo de objetos
+  // Excluir los atributos especificados del arreglo de objetos
   const datosSinAtributos = arregloDatos.map((dato) => {
     const datoSinAtributos = { ...dato };
     atributosExcluir.forEach((atributo) => {
@@ -37,7 +42,7 @@ export const denunciasServiciosReporteExcel = (datos, atributosExcluir) => {
     return datoSinAtributos;
   });
 
-  // Transformar los valores de atributos que sean fechas
+  // Transformar los valores de atributos que sean fechas al formato deseado
   const formatoFecha = "DD/MM/YYYY - HH:MM:SS"; // Formato de fecha deseado
   datosSinAtributos.forEach((dato) => {
     for (const atributo in dato) {
@@ -49,7 +54,7 @@ export const denunciasServiciosReporteExcel = (datos, atributosExcluir) => {
     }
   });
 
-  // Obtener el gráfico comparativo de denuncias por vendedor o tipo de publicación
+  // Obtener estadísticas: gráfico comparativo de denuncias por vendedor o tipo de servicio
   const vendedoresDenuncias = {};
   const serviciosDenuncias = {};
 

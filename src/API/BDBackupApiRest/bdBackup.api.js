@@ -1,7 +1,8 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("token"); // Obtener el token de localStorage
 
+// Función para solicitar un backup de la base de datos
 export const getBackupRequest = async (credentials) => {
   try {
     const response = await axios.post(API_BASE_URL + "backup-bd", credentials, {
@@ -19,9 +20,10 @@ export const getBackupRequest = async (credentials) => {
     return error.response;
   }
 };
+
+// Función para restaurar un backup desde un archivo
 export const postRestoreRequest = async (filename, credentials) => {
   try {
-    console.log(credentials);
     const response = await axios.post(
       API_BASE_URL + `restore-bd/${filename}`,
       credentials,
@@ -41,6 +43,7 @@ export const postRestoreRequest = async (filename, credentials) => {
   }
 };
 
+// Función para obtener la lista de backups disponibles
 export const getListaDeBackupsRequest = async () => {
   try {
     const response = await axios.get(API_BASE_URL + "restore-bd", {
@@ -58,6 +61,7 @@ export const getListaDeBackupsRequest = async () => {
   }
 };
 
+// Función para eliminar un backup específico
 export const deleteBackupRequest = async (filename, credentials) => {
   try {
     const response = await axios.post(
@@ -78,10 +82,10 @@ export const deleteBackupRequest = async (filename, credentials) => {
     return error.response;
   }
 };
-// función para descargar un archivo
+
+// Función para descargar un archivo de backup
 export const downloadFile = async (filename, credentials) => {
   try {
-    console.log(filename);
     const response = await axios.post(
       API_BASE_URL + `restore-bd/download/${filename}`,
       credentials,
@@ -93,10 +97,10 @@ export const downloadFile = async (filename, credentials) => {
       }
     );
 
-    const url = window.URL.createObjectURL(new Blob([response.data])); // creamos una URL para descargar el archivo
+    const url = window.URL.createObjectURL(new Blob([response.data])); // Creamos una URL para descargar el archivo
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", filename); // establecemos el nombre del archivo a descargar
+    link.setAttribute("download", filename); // Establecemos el nombre del archivo a descargar
     document.body.appendChild(link);
     link.click();
     link.remove();

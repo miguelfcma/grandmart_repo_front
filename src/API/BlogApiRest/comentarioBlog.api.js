@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
 
+// Función para crear un comentario en un blog
 export const createComentarioRequest = async (data) => {
   try {
     const response = await axios.post(`${API_BASE_URL}blog-comentarios`, data);
@@ -18,6 +19,7 @@ export const createComentarioRequest = async (data) => {
   }
 };
 
+// Función para obtener comentarios por ID de publicación en el blog
 export const getComentariosPorIdPublicacionRequest = async (
   id_publicacionBlog
 ) => {
@@ -39,6 +41,7 @@ export const getComentariosPorIdPublicacionRequest = async (
   }
 };
 
+// Función para eliminar un comentario por ID de usuario y comentario
 export const deleteComentarioPorIdUsuarioRequest = async (idUsuario, id) => {
   try {
     const response = await axios.delete(
@@ -58,6 +61,7 @@ export const deleteComentarioPorIdUsuarioRequest = async (idUsuario, id) => {
   }
 };
 
+// Función para actualizar un comentario por ID de usuario
 export const updateComentarioPorIdUsuarioRequest = async (idUsuario, data) => {
   try {
     const response = await axios.put(

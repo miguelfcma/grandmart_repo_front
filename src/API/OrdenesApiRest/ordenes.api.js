@@ -75,7 +75,7 @@ export const obtenerDetalleOrdenRequest = async (id_orden) => {
   }
 };
 
-// Función p
+// Función para obtener la direccion de envio 
 export const obtenerDireccionEnvioOrdenRequest = async (id_orden) => {
   try {
     const response = await axios.get(`${API_BASE_URL}envio/${id_orden}`);
@@ -129,7 +129,7 @@ export const verificacionDireccionEnvioRequest = async (id_usuario) => {
     return error.response;
   }
 };
-////actulizacion de estados
+////actualizacion de estados
 // Función para actualizar el estado de una orden
 export const cambiarEstadoOrdenRequest = async (id_orden, data) => {
   try {

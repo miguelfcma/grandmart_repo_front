@@ -1,8 +1,12 @@
+//Este archivo es el que da formato a los reportes que se vacian en hojas de Excel, para que en las hojas de Excel tengan un formato mas entendible
+
 import * as XLSX from "xlsx";
 import FileSaver from "file-saver";
 import moment from "moment";
 
+// Función para generar un informe en formato Excel a partir de datos de órdenes de compras
 export const ordenesReporteExcel = (datos, atributosExcluir) => {
+  // Obtener la fecha y hora actual
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
@@ -11,6 +15,7 @@ export const ordenesReporteExcel = (datos, atributosExcluir) => {
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
 
+  // Formatear la fecha y hora actual para incluir en el nombre del archivo
   const dateFormatted = `${year}-${month.toString().padStart(2, "0")}-${day
     .toString()
     .padStart(2, "0")}`; // Formato: AAAA-MM-DD
@@ -42,9 +47,8 @@ export const ordenesReporteExcel = (datos, atributosExcluir) => {
     }
   });
 
-  
+  // Realizar transformaciones adicionales en los datos
   datosSinAtributos.forEach((dato) => {
-    
     // Renombrar columna para cambiar "createdAt" a "fechaCreacion"
     if (dato.hasOwnProperty("createdAt")) {
       dato["fechaCreacion"] = dato["createdAt"];
@@ -90,6 +94,7 @@ export const ordenesReporteExcel = (datos, atributosExcluir) => {
   FileSaver.saveAs(blob, filename);
 };
 
+// Función para obtener un resumen de usuarios
 const obtenerResumenUsuarios = (datos) => {
   const usuariosResumen = {};
   datos.forEach((dato) => {
@@ -109,6 +114,8 @@ const obtenerResumenUsuarios = (datos) => {
 
   return Object.values(usuariosResumen);
 };
+
+// Función para obtener un resumen de estados de órdenes con monto total
 const obtenerResumenEstadosMonto = (datos) => {
   const resumen = {};
   datos.forEach((dato) => {

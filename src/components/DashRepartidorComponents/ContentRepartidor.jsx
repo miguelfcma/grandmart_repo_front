@@ -1,8 +1,10 @@
+//Este archivo se utiliza para mostrar el panel de bienvenida en el dashboard de un repartidor
+
 import "../../pages/DashRepartidorPages/DashRepartidor.css";
 import Card from "react-bootstrap/Card";
 
 export function ContentRepartidor() {
-  /*Para mostrar el nombre de usuario */
+  // Obtener los datos del usuario desde el almacenamiento local para mostrar el nombre de usuario
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   return (
@@ -25,6 +27,7 @@ export function ContentRepartidor() {
               usuario.apellidoMaterno}
           </Card.Subtitle>
           <br></br>
+          {/*Muestra una explicacion al usuario repartidor de lo que se puede hacer desde este apartado*/}
           <Card.Text style={{ fontSize: "24px" }}>
             Desde esta plataforma de administración, podrás realizar las
             siguientes acciones como repartidor:

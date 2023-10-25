@@ -1,8 +1,10 @@
+//Este archivo se utiliza para mostrar el panel de bienvenida en el dashboard de un administrador
+
 import "../../pages/DashAdminPages/DashAdmin.css";
 import Card from "react-bootstrap/Card";
 
 export function ContentAdmin() {
-  /*Para mostrar el nombre de usuario */
+  // Obtener los datos del usuario desde el almacenamiento local para mostrar el nombre de usuario
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   return (
@@ -20,6 +22,7 @@ export function ContentAdmin() {
               usuario.apellidoMaterno}
             </Card.Subtitle>
             <br></br>
+            {/*Se utiliza una card para mostrar una descripcion de lo que se puede realizar dentro de este dashboard*/}
             <Card.Text style={{fontSize: "24px"}}>
             Desde esta plataforma de administración, usted podrá gestionar de
             manera integral los distintos aspectos que conforman el sistema.

@@ -1,3 +1,5 @@
+//Este archivo es el que da formato a los reportes que se vacian en hojas de Excel, para que en las hojas de Excel tengan un formato mas entendible
+
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 import moment from "moment"; /*Formatear fechas y horas */

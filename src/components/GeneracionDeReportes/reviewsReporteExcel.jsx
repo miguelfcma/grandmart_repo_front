@@ -1,8 +1,12 @@
+//Este archivo es el que da formato a los reportes que se vacian en hojas de Excel, para que en las hojas de Excel tengan un formato mas entendible
+
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 import moment from "moment"; /*Formatear fechas y horas */
 
+// Función para generar un informe en formato Excel a partir de datos de reviews de productos
 export const reviewsReporteExcel = (datos, atributosExcluir) => {
+  // Obtener la fecha y hora actual
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
@@ -11,6 +15,7 @@ export const reviewsReporteExcel = (datos, atributosExcluir) => {
   const minutes = now.getMinutes();
   const seconds = now.getSeconds();
 
+  // Formatear la fecha y hora actual para incluir en el nombre del archivo
   const dateFormatted = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
   const timeFormatted = `${hours.toString().padStart(2, "0")}-${minutes.toString().padStart(2, "0")}-${seconds.toString().padStart(2, "0")}`;
   const filename = `reporteDeReviewsProductos_${dateFormatted}_${timeFormatted}.xlsx`;
