@@ -8,16 +8,25 @@ import { OrdenContextProvider } from "./components/OrdenesComponents/OrdenesCont
 
 import "./globalStyles.css";
 import { BackupContextProvider } from "./components/BackupComponents/BackupContext/BackupProvider";
+
 function App() {
   return (
+    /* Proveedor de contexto para la copia de seguridad */
     <BackupContextProvider>
+      {/* Proveedor de contexto para las órdenes */}
       <OrdenContextProvider>
+        {/* Proveedor de contexto para los servicios */}
         <ServicioContextProvider>
+          {/* Proveedor de contexto para los blogs */}
           <BlogContextProvider>
+            {/* Proveedor de contexto para los usuarios */}
             <UsuarioContextProvider>
+              {/* Proveedor de contexto para los productos */}
               <ProductoContextProvider>
+                {/* Proveedor de contexto para las categorías */}
                 <CategoriaContextProvider>
                   <div>
+                    {/* Componente de rutas personalizado */}
                     <MyRoutes />
                   </div>
                 </CategoriaContextProvider>

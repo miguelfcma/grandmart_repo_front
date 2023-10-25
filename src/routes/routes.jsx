@@ -69,13 +69,13 @@ import { ResumenComprasPage } from "../pages/HomePages/CarritoPage/ResumenCompra
 import { DatosPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/DatosPerfilPageAdmin";
 import { DomicilioPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/DomicilioPerfilPageAdmin";
 import { SeguridadPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/SeguridadPerfilPageAdmin";
-import { TarjetaPerfilPageAdmin } from "../pages/DashAdminPages/DashPages/PerfilPagesAdmin/TarjetaPerfilPageAdmin";
+
 //Paginas de perfil de cliente
 import { DatosPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/DatosPerfilPageCliente";
 import { SeguridadPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/SeguridadPerfilPageCliente";
 import { DomicilioPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/DomicilioPerfilPageCliente";
 
-import { TarjetaPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/TarjetaPerfilPageCliente";
+
 /////////////PAGINAS DE REPARTIDOR///////////
 import { DashRepartidor } from "../pages/DashRepartidorPages/DashRepartidor";
 import { OrdenesDeCompraPageRepartidor } from "../pages/DashRepartidorPages/DashPages/OrdenesDeCompraPageRepartidor";
@@ -272,11 +272,7 @@ export function MyRoutes() {
             path="/dashAdmin/perfil/seguridad"
             element={<SeguridadPerfilPageAdmin />}
           />
-          <Route
-            exact
-            path="/dashAdmin/perfil/tarjeta"
-            element={<TarjetaPerfilPageAdmin />}
-          />
+         
           <Route
             exact
             path="/dashAdmin/perfil/domicilio"
@@ -380,11 +376,7 @@ export function MyRoutes() {
             path="/dashClient/perfil/datos"
             element={<DatosPerfilPageCliente />}
           />
-          <Route
-            exact
-            path="/dashClient/perfil/tarjeta"
-            element={<TarjetaPerfilPageCliente />}
-          />
+       
           <Route
             exact
             path="/dashClient/perfil/seguridad"
