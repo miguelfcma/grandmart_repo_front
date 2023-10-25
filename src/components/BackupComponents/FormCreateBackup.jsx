@@ -1,17 +1,25 @@
+//Este archivo es para el formulario de creacion de una copia de seguridad 
+
 import React, { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
-import Swal from "sweetalert2";
+import Swal from "sweetalert2"; //Esta dependencia es para mostrar mensajes emergentes
 import { useBackup } from "./BackupContext/BackupProvider";
 
 export function FormCreateBackup() {
+  //El objeto de usuario extrae el email
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+  //Inicia un estado local de password para almacenar la contraseña introducida en el formulario
   const [password, setPassword] = useState("");
+  //Obtiene la funcion backup del contexto
   const { getBackup } = useBackup();
-  const [passwordError, setPasswordError] = useState(false); // Estado para el error de contraseña
+  //Inicia un estado para manejar el error de contraseña
+  const [passwordError, setPasswordError] = useState(false);
 
+  //La funcion handleSubmit maneja la presentacion del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
     const email = usuario.email;
+    //Un objeto credentials que contiene la contraseña y el email
     const credentials = {
       password,
       email,
@@ -24,13 +32,16 @@ export function FormCreateBackup() {
     }
 
     try {
+      //Si la contraseña no esta vacia, llama a getBackup con las credenciales
       const response = await getBackup(credentials);
      
+      //Si la respuesta tiene un estado 200, muestra  la notificacion de exito y crea el backup
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
           title: "Backup creado",
         });
+        //Si la respuesta tiene un estado 400, muestra  la notificacion de error, indicando que la contraseña es incorrecta
       } else if (response.status === 400) {
         Swal.fire({
           icon: "error",
@@ -45,10 +56,13 @@ export function FormCreateBackup() {
     }
   };
 
+  //Estado showForm para mostrar/ocultar el formulario, se establece inicialmente en false
   const [showForm, setShowForm] = useState(false);
 
+  //Renderizado del componente
   return (
     <>
+    {/*Boton para mostrar u ocultar el formulario*/}
       <Button variant="primary" onClick={() => setShowForm(!showForm)}>
         {showForm ? "Ocultar formulario" : "Crear backup"}
       </Button>
@@ -58,6 +72,7 @@ export function FormCreateBackup() {
             <h4>Creación de Backup</h4>
           </Card.Header>
           <Card.Body>
+            {/*El formulario permite introducir la contraseña al usuario*/}
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="password">
                 <Form.Label>Contraseña:</Form.Label>
@@ -69,12 +84,14 @@ export function FormCreateBackup() {
                     setPasswordError(false); // Restablece el error al cambiar la contraseña
                   }}
                 />
+                {/*Error visual si el campo de contraseña se encuentra vacio*/}
                 {passwordError && (
                   <div className="text-danger">
                     El campo de contraseña no puede estar vacío.
                   </div>
                 )}
               </Form.Group>
+              {/*El boton para crear el backup*/}
               <Button variant="primary" type="submit">
                 Crear backup
               </Button>

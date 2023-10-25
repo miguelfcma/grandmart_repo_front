@@ -1,3 +1,5 @@
+//Este componente se utiliza para mostrar la lista de copias de seguridad de base de datos y proporciona la funcionalidad para seleccionar, restaurar, eliminar y descargar las copias de seguridad
+
 import { useBackup } from "./BackupContext/BackupProvider";
 import { ItemBackup } from "./ItemBackup";
 import React, { useState, useEffect } from "react";
@@ -6,12 +8,15 @@ import Swal from "sweetalert2";
 
 export function ListaBackups() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+  //Estado para almacenar contraseña
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(false); // Estado para el error de contraseña
-
+  //Estado para controlar la visibilidad de mensajes de error
+  const [passwordError, setPasswordError] = useState(false);
+  //Estos estados se utilizan para realizar un seguimiento de la copia de seguridad
   const [selectedBackup, setSelectedBackup] = useState("");
   const [selectedDeleteBackup, setSelectedDeleteBackup] = useState("");
   const [selectedDownloadBackup, setSelectedDownloadBackup] = useState("");
+  //Se utiliza el hook useBackup para acceder a las funciones y datos del contexto BackupContext
   const {
     getListaDeBackups,
     postRestore,
@@ -20,6 +25,7 @@ export function ListaBackups() {
     downloadBackup,
   } = useBackup();
 
+  //se utiliza el efecto useEffect para llamar la funcion getListaDeBackups
   useEffect(() => {
     const fetchBackupList = async () => {
       await getListaDeBackups();
@@ -27,12 +33,13 @@ export function ListaBackups() {
     fetchBackupList();
   }, []);
 
+  //Se utiliza para seleccionar una copia de seguridad y actualizar los estados relacionados
   const handleSelect = (backup) => {
     setSelectedBackup(backup);
     setSelectedDeleteBackup("");
     setSelectedDownloadBackup("");
   };
-
+  //Se utiliza para manejar la restauracion de una copia de seguridad
   const handleRestore = async (event) => {
     event.preventDefault();
 
@@ -91,7 +98,7 @@ export function ListaBackups() {
       });
     }
   };
-
+  //Se utilia¿za para eliminar una copia de seguridad
   const handleDelete = async (event) => {
     event.preventDefault();
 
@@ -201,6 +208,7 @@ export function ListaBackups() {
     setSelectedBackup("");
   };
 
+  //Renderizado del componente
   return (
     <div>
       <h2>Lista de copias de seguridad:</h2>
@@ -217,7 +225,9 @@ export function ListaBackups() {
         base de datos.
       </p>
 
+      {/*Se renderiza una lista de copias de seguridad dentro de un componente ListGroup*/}
       <ListGroup>
+        {/*Utiliza un mapeo de la lista de copias de seguridad backupList, para renderizar cada copia como un elemento ItemBackup*/}
         {backupList.map((backup, index) => (
           <ItemBackup
             key={index}
@@ -227,8 +237,10 @@ export function ListaBackups() {
             handleDownload={handleSelectDownload}
           />
         ))}
+        {/*Tambien pasa las funciones como props a cada elemento ItemBackup*/}
       </ListGroup>
 
+      {/*Un modal o ventana flotante para mostrar el backup seleccionado y para introducir la contraseña*/}
       <Modal show={!!selectedBackup} onHide={() => setSelectedBackup("")}>
         <Modal.Header closeButton>
           <Modal.Title>

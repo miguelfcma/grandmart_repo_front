@@ -1,3 +1,5 @@
+//Este archivo es para la parte de interfaz de pagar el carrito
+
 import { useProductos } from "../ProductoComponents/ProductosContext/ProductoProvider";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +8,7 @@ import "./CarritoPay.css";
 import { useOrdenes } from "../OrdenesComponents/OrdenesContext/OrdenProvider";
 
 export function CarritoPay() {
+  //Se utiliza el contexto useProductos para acceder a las funciones que se observan de la linea 12 a la 19
   const {
     carrito,
     obtenerCarritoDeCompras,
@@ -15,13 +18,18 @@ export function CarritoPay() {
     getImgPortadaProducto,
     limpiarCarrito,
   } = useProductos();
+  //Se utiliza el contexto useOrdenes para obtener la direccion de envio del usuario quien quiere proceder a pagar el carrito
   const { verificacionDireccionEnvio } = useOrdenes();
 
+  //Se recupera la informacion del usuario, para verificar si ha iniciado sesion y obetener su id para realizar sus operaciones
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   // Estado local para almacenar las URLs de las imágenes de portada
   const [imgUrls, setImgUrls] = useState({});
+
+  //Hook useNavigate para redirigir al usuario a diferentes rutas, segun el estado y acciones del carrito
   const navigate = useNavigate();
+
   // Verificar si el usuario ha iniciado sesión antes de obtener el carrito de compras
   useEffect(() => {
     const fetchData = async (userId) => {
@@ -46,17 +54,19 @@ export function CarritoPay() {
         [idProducto]: url,
       }));
     }
-
     carrito.detalles.forEach((item) => {
       if (!imgUrls[item.producto.id]) {
         obtenerUrlImagenAsync(item.producto.id);
       }
     });
+      //Las imagenes se almacenan en una estado local "imgUrls" para mostrar las imagenes con los productos en la tabla carrito
   }, [carrito, imgUrls, getImgPortadaProducto]);
 
+  //Cantidad total a pagar del carrito, se calcula sumando todos los subtotales de cada producto
   function getTotal() {
     return carrito.totalCantidad;
   }
+  //Funciones de acciones para el carrito
   const eliminarItemCarrito = async (item) => {
     await eliminarProductoDelCarrito(item.id_producto, {
       id_usuario: usuario.id,
@@ -115,7 +125,7 @@ export function CarritoPay() {
                       className="card-producto-img2"
                       src={imgUrls[item.producto.id] || ""}
                     />{" "}
-                    {/* Usamos el estado local para obtener la imagen de portada */}
+                    {/* Se usa el estado local para obtener la imagen de portada */}
                   </Link>
                 </td>
                 <td className="prices">$ {item.producto.precio}</td>

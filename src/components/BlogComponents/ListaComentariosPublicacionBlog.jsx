@@ -1,19 +1,27 @@
+//Este archivo se utiliza para mostrar una lista de comentarios en una publicacion del blog y permite a los usuarios agregar comentarios
+
 import { useState, useEffect } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
 import { FormComentarioPublicacionBlog } from "./FormComentarioPublicacionBlog";
 import "./ListaComentariosPublicacionBlog.css";
 import Swal from "sweetalert2";
 import { RiDeleteBin6Line } from "react-icons/ri";
+
 export function ListaComentariosPublicacionBlog({ id_publicacionBlog }) {
+  //Usuario se obtiene del usuario almacenado, para verificar si un usuario ha iniciado sesion
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { getComentariosPorIdPublicacion, deleteComentarioPorIdUsuario } =
     usePublicacionesBlog();
+  //Se utiliza el hook useState, un arreglo que contendra los comentarios asociados a la publicacion
   const [comentarios, setComentarios] = useState([]);
+  //Un booleano que indica si los comentarios se estan cargando
   const [isLoading, setIsLoading] = useState(true);
 
+  //Se utiliza el hook useEffect para cargar los comentarios cuando el componente se monta y cuando id_publicacionBlog cambia, esto pasa en el metodo fetchComentarios
   useEffect(() => {
     async function fetchComentarios() {
       try {
+        //Los comentarios se obtienen y se almacenan en el estado comentarios
         const comentarios = await getComentariosPorIdPublicacion(
           id_publicacionBlog
         );
@@ -27,7 +35,7 @@ export function ListaComentariosPublicacionBlog({ id_publicacionBlog }) {
 
     fetchComentarios();
   }, [id_publicacionBlog]);
-
+  //Funcion para poder eliminar los comentarios
   const eliminarComentario = async (comentarioId) => {
     const { value: confirmDelete } = await Swal.fire({
       title: "¿Estás seguro?",
@@ -76,6 +84,7 @@ export function ListaComentariosPublicacionBlog({ id_publicacionBlog }) {
     }
   };
 
+  //Renderizado del componente
   return (
     <div>
       {isLoading ? (

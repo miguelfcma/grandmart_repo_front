@@ -1,3 +1,5 @@
+//Este archivo se utiliza para permitir a los usuarios agregar comentarios a una publicacion en el blog
+
 import { useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
 import {
@@ -8,8 +10,8 @@ import {
   FormControl,
 } from "react-bootstrap";
 import "./FormComentarioPublicacionBlog.css";
-
 import Swal from "sweetalert2";
+
 export function FormComentarioPublicacionBlog({
   id_publicacionBlog,
   actualizarComentarios,
@@ -18,19 +20,19 @@ export function FormComentarioPublicacionBlog({
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   const [comentario, setComentario] = useState({
-    comentario: "",
-    id_publicacionBlog: id_publicacionBlog,
-    id_usuario: usuario.id,
+    comentario: "", //contiene el contenido del comentario
+    id_publicacionBlog: id_publicacionBlog, //almacena el ID de la publicacion en la que se publicara el comentario
+    id_usuario: usuario.id, //guarda el id del usuario que esta realizando el comentario
   });
-
+  //Se utiliza para manejar los cambios en el campo de comentario, se va mostrando el comentario visualmente
   const handleComentarioChange = (event) => {
     setComentario({ ...comentario, comentario: event.target.value });
   };
-
+  //Se ejecuta cuando el usuario hace clic en el boton de "Publicar"
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault();//Se recarga la pagina
     try {
-      await createComentario(comentario);
+      await createComentario(comentario);//Para crear el comentario en la base de datos
       setComentario({
         comentario: "",
         id_publicacionBlog: id_publicacionBlog,
@@ -54,6 +56,7 @@ export function FormComentarioPublicacionBlog({
     }
   };
 
+  //Renderizado del componente
   return (
     <Form className="form-comentario" onSubmit={handleSubmit}>
       <FormGroup>

@@ -1,3 +1,5 @@
+//Este archivo se utiliza para permitir a los usuarios crear nuevas publicaciones en un blog
+
 import { useState } from "react";
 import { usePublicacionesBlog } from "./BlogContext/BlogProvider";
 import { Form, Button, Alert, Modal } from "react-bootstrap";
@@ -8,6 +10,7 @@ import { uploadImagesBlog } from "../../firebase/blogStorage";
 
 export function FormNuevaPublicacionBlog() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+  //Se inicia utilizando el hook useState que contiene las siguientes propiedades de titulo, descripcion, id_usuario
   const [publicacion, setPublicacion] = useState({
     titulo: "",
     descripcion: "",
@@ -21,6 +24,7 @@ export function FormNuevaPublicacionBlog() {
   const [showModal, setShowModal] = useState(false);
   const [contadorCaracteres, setContadorCaracteres] = useState(0);
 
+  //En el metodo onDrop se validan las imagenes cargadas en funcion de su tipo y tamaño
   const onDrop = async (acceptedFiles) => {
     const nuevasImagenes = [];
     const maxSize = 10 * 1024 * 1024; // 10 MB
@@ -61,35 +65,39 @@ export function FormNuevaPublicacionBlog() {
     maxFiles: 1,
   });
 
+  //permite eliminar imagenes del estado, cuando se hace clic en el boton "Eliminar"
   const handleEliminarImagen = (index) => {
     const nuevasImagenes = [...imagenes];
     nuevasImagenes.splice(index, 1);
     setImagenes(nuevasImagenes);
   };
-
+  //Maneja los cambios en los campos del formulario
   const handleChange = (event) => {
     const { name, value } = event.target;
     setPublicacion((prevPublicacion) => ({
       ...prevPublicacion,
       [name]: value,
     }));
+    //Controla el numero de caracteres que se han ingresado
     if (name === "descripcion") {
       setContadorCaracteres(value.length);
     }
   };
-
+  //Se ejecuta cuando el usuario envia el formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     setError(null);
+    //Se valida que se agregue al menos una imagen
     try {
       if (imagenes.length === 0) {
         throw new Error("Debe agregar al menos una imagen");
       } else if (imagenes.length > 1) {
         throw new Error("Solo puedes agregar una imagen de portada");
       }
+      //Se utiliza la funcion, para cargar las imagenes
       const urls = await uploadImagesBlog(imagenes);
-
+      //devuelve las URL de las imagenes
       const response = await createPublicacion(publicacion, urls);
 
       if (response.status === 201 && response.data && response.data.id) {
@@ -140,6 +148,7 @@ export function FormNuevaPublicacionBlog() {
 
   const [showForm, setShowForm] = useState(false);
 
+  //Renderizado del componente
   return (
     <div className="centered-container">
       <Button

@@ -1,3 +1,5 @@
+// Este archivo representa un componente que muestra una lista de categorias y permite interactuar con ellas
+
 import { useCategorias } from "./CategoriasContext/CategoriaProvider";
 import { useEffect, useState } from "react";
 import { Modal } from "../ModalComponents/Modal";
@@ -7,14 +9,19 @@ import "./ListCategorias.css";
 import Swal from "sweetalert2";
 
 export function ListCategorias() {
+  // Se obtienen las funciones y datos relacionados con las categorias desde el contexto
   const { loadCategorias, categorias, deleteCategoria } = useCategorias();
+  
+  // Estados locales para gestionar el modal de edicion/creacion, formulario y filtros
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
-
+  
+  // Estado para rastrear la categoría seleccionada
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
   const [filtroNombre, setFiltroNombre] = useState("");
   const [filtroId, setFiltroId] = useState("");
 
+  // Carga las categorias al montar el componente
   useEffect(() => {
     async function fetchData() {
       await loadCategorias();
@@ -22,27 +29,32 @@ export function ListCategorias() {
     fetchData();
   }, []);
 
+  // Abre el modal de edicion/creacion de categorías
   function handleOpenModal(categoria) {
     setIsModalOpen(true);
     setCategoriaSeleccionada(categoria);
   }
 
+  // Cierra el modal de edicion/creacion
   function handleCloseModal() {
     setIsModalOpen(false);
     setFormularioEnviado(false);
     setCategoriaSeleccionada(null);
   }
 
+  // Se ejecuta cuando se envia un formulario
   function handleSubmit() {
     setFormularioEnviado(true);
   }
 
+  // Cierra el modal despues de que se haya enviado un formulario
   useEffect(() => {
     if (formularioEnviado) {
       handleCloseModal();
     }
   }, [formularioEnviado]);
 
+  // Elimina una categoria
   const handleEliminarCategoria = async (categoria) => {
     try {
       const confirmResult = await Swal.fire({

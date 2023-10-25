@@ -1,10 +1,15 @@
+// Este archivo representa un formulario para crear o actualizar categorias
+
 import { useState } from "react";
 import { useCategorias } from "./CategoriasContext/CategoriaProvider";
-import { Form, Button,Alert } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 export const FormCategoria = ({ categoria = null, onSubmit }) => {
+  // Se obtienen las funciones y datos relacionados con las categorias desde el contexto
   const { categorias, createCategoria, updateCategoria } = useCategorias();
+  
+  // Estado local para rastrear la categoría en edicion o creacion, asi como errores en el nombre
   const [categoriaEditada, setCategoriaEditada] = useState(
     categoria || {
       nombre: "",
@@ -13,8 +18,10 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
   );
   const [nombreError, setNombreError] = useState("");
 
+  // Determina si se esta editando una categoria existente
   const editando = categoriaEditada.id != null;
 
+  // Maneja la presentación del formulario y valida la entrada del usuario
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (categoriaEditada.nombre.trim() === "") {
@@ -39,6 +46,8 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
     }
     onSubmit();
   };
+
+  // Muestra un cuadro de diálogo de confirmacion
   const showConfirmation = async (title, text) => {
     const result = await Swal.fire({
       title,
@@ -50,6 +59,8 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
     });
     return result.isConfirmed;
   };
+
+  // Maneja las respuestas de actualizacion
   const handleUpdateResponse = (status) => {
     switch (status) {
       case 200:
@@ -85,6 +96,7 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
     }
   };
 
+  // Maneja las respuestas de creacion
   const handleCreateResponse = (status) => {
     switch (status) {
       case 201:
@@ -113,6 +125,7 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
     }
   };
 
+  // Maneja el cambio en el campo "Nombre"
   const handleNombreChange = (e) => {
     const nombre = e.target.value;
     setCategoriaEditada({
@@ -122,6 +135,7 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
     setNombreError(nombre.trim() === "" ? "El nombre es obligatorio" : "");
   };
 
+  // Maneja el cambio en el campo "Categoria Padre"
   const handleIdParentChange = (e) => {
     const id_parent = e.target.value.trim() ? e.target.value : null;
     setCategoriaEditada({
@@ -130,6 +144,7 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
     });
   };
 
+  // Crea opciones de selección para el campo "Categoria Padre"
   const buildOptions = (categorias, indent = 0) => {
     const categoriasFiltradas = categorias.filter(categoria => categoria.id_parent === null);
     
@@ -143,9 +158,9 @@ export const FormCategoria = ({ categoria = null, onSubmit }) => {
     });
   };
   
-
   return (
     <Form onSubmit={handleSubmit}>
+      {/* Muestra el campo "ID" solo cuando se esta editando */}
       {editando && (
         <Form.Group controlId="formId">
           <Form.Label>ID:</Form.Label>
