@@ -4,17 +4,32 @@ import { FormEditarPerfil } from "./FormEditarPerfil";
 
 import { Card } from "react-bootstrap";
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
+/**
+ * Componente "DatosPerfil" muestra la información de la cuenta de usuario
+ * y permite la edición de esta información a través de un modal. Los usuarios
+ * pueden ver su ID, nombre, apellidos, email, sexo, fecha de nacimiento y teléfono.
+ * Además, pueden editar esta información haciendo clic en el botón "Editar información".
+ * Los cambios realizados en el modal de edición se reflejarán en la vista principal
+ * de la información del perfil una vez confirmados.
+ */
 
 export function DatosPerfil() {
+  // Estado para controlar la visibilidad del modal de edición de perfil
   const [modalVisible, setModalVisible] = useState(false);
+
+  // Acceso a la función para obtener la información del perfil
   const { obtenerInfoPerfil } = useUsuarios();
+
+  // Obtiene los datos del usuario actual del almacenamiento local
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  // Estado para almacenar la información del perfil
   const [perfil, setPerfil] = useState(null);
 
+  // Función para cargar la información del perfil del usuario
   const cargarPerfil = async () => {
     try {
       const perfilData = await obtenerInfoPerfil(usuario.id);
-      console.log(perfilData);
       setPerfil(perfilData);
     } catch (error) {
       console.error(error);
@@ -22,18 +37,22 @@ export function DatosPerfil() {
     }
   };
 
+  // Efecto que se ejecuta al cargar el componente para obtener la información del perfil
   useEffect(() => {
     cargarPerfil();
   }, []);
 
+  // Maneja el clic en el botón "Editar información" para mostrar el modal de edición
   const handleEditarPerfilClick = () => {
     setModalVisible(true);
   };
 
+  // Maneja el cierre del modal
   const handleCloseModal = () => {
     setModalVisible(false);
   };
 
+  // Maneja la confirmación de la edición del perfil
   const handleSubmit = () => {
     handleCloseModal();
     cargarPerfil();
@@ -76,7 +95,9 @@ export function DatosPerfil() {
             <div>
               <label>Teléfono:</label>
               <p>{perfil.telefono}</p>
-              <button onClick={handleEditarPerfilClick}>Editar información</button>
+              <button onClick={handleEditarPerfilClick}>
+                Editar información
+              </button>
             </div>
           </Card.Body>
         </Card>

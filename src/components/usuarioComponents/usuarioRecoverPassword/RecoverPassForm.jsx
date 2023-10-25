@@ -4,41 +4,49 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export function RecoverPassForm() {
+  // Define un estado local para el campo de correo electrónico
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
+  // Maneja el envío del formulario para recuperación de contraseña
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(email);
+
     try {
-      
+      // Realiza una solicitud para recuperar la contraseña utilizando el correo electrónico
       const response = await recoveryPassRequest({ email });
+
+      // Verifica el estado de la respuesta
       if (response.status === 200) {
+        // Muestra una notificación de éxito si la contraseña se envía correctamente
         Swal.fire({
           icon: "success",
           title: "¡Contraseña enviada!",
           text: "Te hemos enviado tu contraseña por correo electrónico!",
         }).then(() => {
+          // Redirige al usuario a la página de inicio de sesión
           navigate("/login");
         });
       } else if (response.status === 404) {
+        // Muestra una notificación de error si el correo electrónico no se encuentra
         Swal.fire({
           icon: "error",
           title: "Correo electrónico no encontrado",
-          text:
-            "El correo electrónico introducido no corresponde a ningún usuario registrado.",
+          text: "El correo electrónico introducido no corresponde a ningún usuario registrado.",
         });
       }
     } catch (error) {
+      // Captura y maneja errores en la recuperación de contraseña
       console.log(error);
       Swal.fire({
         icon: "error",
         title: "Error al recuperar la contraseña",
-        text:
-          "Hubo un error al recuperar la contraseña. Por favor, inténtalo de nuevo más tarde.",
+        text: "Hubo un error al recuperar la contraseña. Por favor, inténtalo de nuevo más tarde.",
       });
     }
   };
+
+  // Devuelve el formulario de recuperación de contraseña
 
   return (
     <div>
@@ -59,7 +67,9 @@ export function RecoverPassForm() {
           <br></br>
           <div className="form-group">
             <label htmlFor="email">
-              Por favor, ingresa tu dirección de correo electrónico asociada a tu cuenta para solicitar la recuperación de contraseña. Te enviaremos un correo electrónico con una nueva contraseña.
+              Por favor, ingresa tu dirección de correo electrónico asociada a
+              tu cuenta para solicitar la recuperación de contraseña. Te
+              enviaremos un correo electrónico con una nueva contraseña.
             </label>
             <br></br>
             <br></br>

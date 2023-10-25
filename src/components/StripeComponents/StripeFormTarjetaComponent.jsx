@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 import "./StripeFormTarjetaComponent.css";
 
 import { AnimacionCargaComponent } from "../Animaciones/AnimacionCargaComponent";
-
+// Componente que representa el formulario de pago con tarjeta.
 const CheckoutForm = ({ detallesCarrito, carrito }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -27,9 +27,11 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [loading, setLoading] = useState(false);
 
+  // Maneja la creación y procesamiento del pago.
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Verifica si el usuario tiene una dirección de envío registrada.
     const status = await verificacionDireccionEnvio(usuario.id);
 
     if (status === 400) {
@@ -46,6 +48,7 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
       navigate("/carrito-compras");
     } else {
       try {
+        // Crea el método de pago y procesa la orden.
         const { error, paymentMethod } = await stripe.createPaymentMethod({
           type: "card",
           card: elements.getElement(CardElement),
@@ -131,6 +134,7 @@ const CheckoutForm = ({ detallesCarrito, carrito }) => {
   );
 };
 
+// Componente que envuelve el formulario de pago con tarjeta y carga el contexto de Stripe.
 export function StripeFormTarjetaComponent({ detallesCarrito, carrito }) {
   return (
     <Elements stripe={stripePromise}>

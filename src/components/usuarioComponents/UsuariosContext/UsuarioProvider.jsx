@@ -22,13 +22,20 @@ import {
   updateDomicilioUsuarioByUserIdRequest,
 } from "../../../API/UsuariosApiRest/domicilioUsuario.api";
 
+// Importa el contexto de usuario desde el archivo "UsuarioContext"
 import { UsuarioContext } from "./UsuarioContext";
 
+// Define una función "useUsuarios" para consumir el contexto de usuario
 export const useUsuarios = () => {
+  // Utiliza "useContext" para obtener el valor actual del contexto de usuario
   const context = useContext(UsuarioContext);
+
+  // Verifica si el contexto es indefinido (no se ha proporcionado correctamente)
   if (context === undefined) {
     throw new Error("useUsuarios must be used within a UsuarioContextProvider");
   }
+
+  // Devuelve el valor del contexto de usuario para que otros componentes puedan utilizarlo
   return context;
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../API/config.api";
 import Swal from "sweetalert2";
@@ -7,6 +7,7 @@ import { useOrdenes } from "../OrdenesComponents/OrdenesContext/OrdenProvider";
 import { useServicios } from "../ServicioComponents/ServiciosContext/ServicioProvider";
 import { useUsuarios } from "../usuarioComponents/UsuariosContext/UsuarioProvider";
 
+// Este componente verifica la validez del token de sesión del usuario.
 export const VerificarToken = () => {
   const navigate = useNavigate();
   const { cerrarSesionProductos } = useProductos();

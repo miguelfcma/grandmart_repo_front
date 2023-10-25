@@ -2,7 +2,7 @@ import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./UsuarioPerfil.css"
+
 
 export function CardOpcionesPerfilAdmin() {
   /*Para mostrar el nombre de usuario */

@@ -10,10 +10,12 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 
+// Componente para el formulario de registro de usuarios.
 export function SignupFormUsuario() {
   const { createUsuario } = useUsuarios();
   const navigate = useNavigate();
 
+  // Estados para los campos del formulario.
   const [nombre, setNombre] = useState("");
   const [apellidoPaterno, setApellidoPaterno] = useState("");
   const [apellidoMaterno, setApellidoMaterno] = useState("");
@@ -28,9 +30,11 @@ export function SignupFormUsuario() {
   const [showPasswordConfirmar, setShowPasswordConfirmar] = useState(false);
   const [error, setError] = useState("");
 
+  // Maneja el envío del formulario.
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Validación de campos del formulario.
     if (
       !validateFechaNacimiento() ||
       !validateEmail() ||
@@ -40,6 +44,7 @@ export function SignupFormUsuario() {
       return;
     }
 
+    // Datos del formulario a enviar.
     const formData = {
       nombre: nombre,
       apellidoPaterno: apellidoPaterno,
@@ -88,6 +93,7 @@ export function SignupFormUsuario() {
     }
   };
 
+  // Valida la fecha de nacimiento.
   const validateFechaNacimiento = () => {
     const today = new Date();
     const selectedDate = new Date(fechaNacimiento);
@@ -113,17 +119,21 @@ export function SignupFormUsuario() {
     return true;
   };
 
+  // Valida el formato del número de teléfono.
   const validateTelefono = () => {
     const telefonoPattern = /^[0-9]{10}$/; // Expresión regular para verificar que el teléfono tenga 10 dígitos
-  
+
     if (!telefonoPattern.test(telefono)) {
-      setError("El formato del teléfono es incorrecto. Debe contener 10 dígitos numéricos.");
+      setError(
+        "El formato del teléfono es incorrecto. Debe contener 10 dígitos numéricos."
+      );
       return false;
     }
-  
+
     return true;
   };
-  
+
+  // Valida el formato del correo electrónico.
   const validateEmail = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -138,25 +148,31 @@ export function SignupFormUsuario() {
   useEffect(() => {
     // Se obtiene el elemento de entrada de teléfono por su ID
     const inputTelefono = document.getElementById("telefono");
-  
+
     // Se define una función para manejar las pulsaciones de teclas en el campo de entrada de teléfono
     const handleTelefonoKeyDown = (event) => {
       // Obtener el código de la tecla presionada
       const keyCode = event.keyCode || event.which;
-  
+
       // Verificar si la tecla presionada no es un número ni una tecla de navegación
-      if (!((keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105) || [8, 37, 39, 35, 36].includes(keyCode))) {
+      if (
+        !(
+          (keyCode >= 48 && keyCode <= 57) ||
+          (keyCode >= 96 && keyCode <= 105) ||
+          [8, 37, 39, 35, 36].includes(keyCode)
+        )
+      ) {
         // Evitar que se ingrese el carácter no deseado
         event.preventDefault();
       }
     };
-  
+
     // Se verifica si se encontró el elemento de entrada de teléfono
     if (inputTelefono) {
       // Se agrega un oyente de eventos para el evento keydown que llamará a la función "handleTelefonoKeyDown"
       inputTelefono.addEventListener("keydown", handleTelefonoKeyDown);
     }
-  
+
     // Se devuelve una función de limpieza para eliminar el oyente de eventos
     return () => {
       // Se verifica si el elemento de entrada de teléfono aún existe
@@ -166,9 +182,8 @@ export function SignupFormUsuario() {
       }
     };
   }, []); // El array vacío asegura que este efecto se ejecute solo una vez, al montar el componente
-  
-  
-  
+
+  // Valida la contraseña.
   const validatePassword = () => {
     if (password.length < 7) {
       setError("La contraseña debe tener al menos 7 caracteres.");

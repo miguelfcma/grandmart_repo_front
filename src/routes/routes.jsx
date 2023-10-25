@@ -75,7 +75,7 @@ import { DatosPerfilPageCliente } from "../pages/DashClientPages/DashPages/Perfi
 import { SeguridadPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/SeguridadPerfilPageCliente";
 import { DomicilioPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/DomicilioPerfilPageCliente";
 
-import { TarjetaPerfilPageCliente } from "../pages/DashClientPages/DashPages/PerfilPagesCliente/TarjetaPerfilPageCliente";
+
 /////////////PAGINAS DE REPARTIDOR///////////
 import { DashRepartidor } from "../pages/DashRepartidorPages/DashRepartidor";
 import { OrdenesDeCompraPageRepartidor } from "../pages/DashRepartidorPages/DashPages/OrdenesDeCompraPageRepartidor";
@@ -380,11 +380,7 @@ export function MyRoutes() {
             path="/dashClient/perfil/datos"
             element={<DatosPerfilPageCliente />}
           />
-          <Route
-            exact
-            path="/dashClient/perfil/tarjeta"
-            element={<TarjetaPerfilPageCliente />}
-          />
+       
           <Route
             exact
             path="/dashClient/perfil/seguridad"
