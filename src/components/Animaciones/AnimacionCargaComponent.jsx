@@ -1,5 +1,5 @@
 import { Spinner } from 'react-bootstrap';
-import "./AnimacionCargaComponent.css"
+
 
 export function AnimacionCargaComponent() {
   return (
