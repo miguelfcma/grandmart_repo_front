@@ -1,12 +1,16 @@
+// Este archivo es para la interfaz de información de contacto, cuando se completa una compra y se requiere de información adicional sobre el envío del pedido
+
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FaWhatsapp } from "react-icons/fa";
 import "./InfoContacto.css";
 
 export function InfoContacto() {
+  // Número de teléfono para WhatsApp y mensaje predeterminado
   const phoneNumber = "+527353424868";
   const text = `¡Hola! Estoy interesado en obtener más información sobre GrandMart marketplace.`;
 
+  // Función para generar un enlace de WhatsApp
   function generateWhatsAppLink(phoneNumber, text) {
     const encodedPhoneNumber = encodeURIComponent(phoneNumber);
     const encodedText = encodeURIComponent(text);
@@ -14,6 +18,7 @@ export function InfoContacto() {
     return whatsappLink;
   }
 
+  // Genera el enlace de WhatsApp
   const whatsappLink = generateWhatsAppLink(phoneNumber, text);
 
   return (

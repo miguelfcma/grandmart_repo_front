@@ -1,3 +1,5 @@
+// Este archivo es para la interfaz de barra de navegación, adjunta todos los componentes que lo conforman
+
 import { useState } from "react";
 import React from "react";
 import { Favoritos } from "../FavoritosComponents/Favoritos";
@@ -17,6 +19,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link, useNavigate } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 import Swal from "sweetalert2";
+
 export function Navbar1({ onSearch }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const navigate = useNavigate();
@@ -25,6 +28,7 @@ export function Navbar1({ onSearch }) {
   const { cerrarSesionServicios } = useServicios();
   const { cerrarSesionUsuarios } = useUsuarios();
 
+  // Manejar el cierre de sesión
   const handleLogout = () => {
     Swal.fire({
       title: "¿Estás seguro?",
@@ -55,17 +59,15 @@ export function Navbar1({ onSearch }) {
       }
     });
   };
+
+  // Definición de categorías
   const categorias = [
     { id: 25, nombre: "Tecnología", link: "/productos/categoria/25" },
     { id: 26, nombre: "Entretenimiento", link: "/productos/categoria/26" },
     { id: 27, nombre: "Consultoría", link: "/productos/categoria/27" },
     { id: 28, nombre: "Salud", link: "/productos/categoria/28" },
     { id: 29, nombre: "Movilidad", link: "/productos/categoria/29" },
-    {
-      id: 30,
-      nombre: "Enseñanza Aprendizaje",
-      link: "/productos/categoria/30",
-    },
+    { id: 30, nombre: "Enseñanza Aprendizaje", link: "/productos/categoria/30" },
     { id: 31, nombre: "Mascotas", link: "/productos/categoria/31" },
     { id: 32, nombre: "Vivienda", link: "/productos/categoria/32" },
     { id: 33, nombre: "Emprendimientos", link: "/productos/categoria/33" },
@@ -77,6 +79,7 @@ export function Navbar1({ onSearch }) {
 
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Manejar la búsqueda
   const handleSearch = () => {
     onSearch(searchTerm);
   };
@@ -139,8 +142,7 @@ export function Navbar1({ onSearch }) {
               </NavDropdown.Item>
             </NavDropdown>
 
-            {/*<Nav.Link as={Link} to={usuario ? "/blog" : "/login"}>*/}
-            <Nav.Link as={Link} to={"/blog"}>
+            <Nav.Link as={Link} to="/blog">
               Blog
             </Nav.Link>
             <Nav.Link as={Link} to="/contacto">
