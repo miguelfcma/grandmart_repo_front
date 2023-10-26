@@ -6,7 +6,7 @@ import { BlogContextProvider } from "./components/BlogComponents/BlogContext/Blo
 import { ServicioContextProvider } from "./components/ServicioComponents/ServiciosContext/ServicioProvider";
 import { OrdenContextProvider } from "./components/OrdenesComponents/OrdenesContext/OrdenProvider";
 
-import "./globalStyles.css";
+
 import { BackupContextProvider } from "./components/BackupComponents/BackupContext/BackupProvider";
 
 function App() {

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
 
+// Función para crear una pregunta de producto
 export const crearPreguntaProductoRequest = async (data) => {
   try {
-
     const response = await axios.post(
       `${API_BASE_URL}producto-preguntas`,
       data
@@ -22,6 +22,7 @@ export const crearPreguntaProductoRequest = async (data) => {
   }
 };
 
+// Función para crear una respuesta a una pregunta de producto
 export const crearRespuestaProductoRequest = async (id_pregunta, data) => {
   try {
     const response = await axios.post(
@@ -42,6 +43,7 @@ export const crearRespuestaProductoRequest = async (id_pregunta, data) => {
   }
 };
 
+// Función para obtener preguntas por ID de producto
 export const getPreguntasByIdProductoRequest = async (id_producto) => {
   try {
     const response = await axios.get(
@@ -61,6 +63,7 @@ export const getPreguntasByIdProductoRequest = async (id_producto) => {
   }
 };
 
+// Función para eliminar una pregunta de producto por ID de pregunta
 export const eliminarPreguntaProductoRequest = async (idPregunta) => {
   try {
     const response = await axios.delete(
@@ -80,6 +83,7 @@ export const eliminarPreguntaProductoRequest = async (idPregunta) => {
   }
 };
 
+// Función para actualizar una pregunta de producto por ID de pregunta
 export const actualizarPreguntaProductoRequest = async (idPregunta, data) => {
   try {
     const response = await axios.put(
@@ -100,7 +104,7 @@ export const actualizarPreguntaProductoRequest = async (idPregunta, data) => {
   }
 };
 
-
+// Función para obtener productos con preguntas por ID de usuario
 export const getProductosConPreguntasByUsuarioIdRequest = async (id_usuario) => {
   try {
     const response = await axios.get(
@@ -119,4 +123,3 @@ export const getProductosConPreguntasByUsuarioIdRequest = async (id_usuario) => 
     return error.response;
   }
 };
-

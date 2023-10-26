@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
-//const API_BASE_URL = "http://localhost:4000/productos";
 
+// Función para obtener todos los productos
 export const getProductosRequest = async () => {
   try {
     const response = await axios.get(API_BASE_URL+"productos");
@@ -16,6 +16,7 @@ export const getProductosRequest = async () => {
   }
 };
 
+// Función para crear un nuevo producto
 export const createProductoRequest = async (producto) => {
   console.log(producto)
   try {
@@ -31,6 +32,7 @@ export const createProductoRequest = async (producto) => {
   }
 };
 
+// Función para actualizar un producto por su ID
 export const updateProductoRequest = async (id, producto) => {
   try {
     const response = await axios.put(`${API_BASE_URL+"productos"}/${id}`, producto);
@@ -45,6 +47,7 @@ export const updateProductoRequest = async (id, producto) => {
   }
 };
 
+// Función para eliminar un producto por su ID
 export const deleteProductoRequest = async (id) => {
   try {
     const response = await axios.delete(`${API_BASE_URL+"productos"}/${id}`);
@@ -60,7 +63,7 @@ export const deleteProductoRequest = async (id) => {
 };
 
 
-
+// Función para obtener productos por el ID de usuario
 export const getProductosByUsuarioIdRequest = async (id_usuario) => {
   try {
     const response = await axios.get(`${API_BASE_URL}productos/user/${id_usuario}`);
@@ -75,6 +78,7 @@ export const getProductosByUsuarioIdRequest = async (id_usuario) => {
   }
 };
 
+// Función para obtener un producto por su ID
 export const getProductoByIdRequest = async (id_producto) => {
   try {
     const response = await axios.get(`${API_BASE_URL}productos/${id_producto}`);

@@ -20,10 +20,16 @@ export const obtenerFavoritosRequest = async (id_usuario) => {
 };
 
 // Función para agregar un producto a los favoritos de un usuario
-export const agregarProductoAFavoritosRequest = async (id_usuario, id_producto) => {
-  console.log("hola2",id_usuario,id_producto)
+export const agregarProductoAFavoritosRequest = async (
+  id_usuario,
+  id_producto
+) => {
+  console.log("hola2", id_usuario, id_producto);
   try {
-    const response = await axios.post(`${API_BASE_URL}favoritos/${id_usuario}`, { data: { id_producto: id_producto } });
+    const response = await axios.post(
+      `${API_BASE_URL}favoritos/${id_usuario}`,
+      { data: { id_producto: id_producto } }
+    );
     console.log({
       status: response.status,
       message: response.data.message,
@@ -39,9 +45,15 @@ export const agregarProductoAFavoritosRequest = async (id_usuario, id_producto) 
 };
 
 // Función para eliminar un producto de los favoritos de un usuario
-export const eliminarProductoFavoritoRequest = async (id_usuario, id_producto) => {
+export const eliminarProductoFavoritoRequest = async (
+  id_usuario,
+  id_producto
+) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}favoritos-eliminar/${id_usuario}`, { data: { id_producto: id_producto } });
+    const response = await axios.post(
+      `${API_BASE_URL}favoritos-eliminar/${id_usuario}`,
+      { data: { id_producto: id_producto } }
+    );
     console.log({
       status: response.status,
       message: response.data.message,

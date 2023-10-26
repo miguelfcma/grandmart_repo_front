@@ -1,13 +1,8 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config.api";
 
-// Función para agregar producto al carrito
+// Función para agregar un producto al carrito de compras
 export const agregarProductoAlCarritoRequest = async (data) => {
-  /**{
-  "id_usuario": 77,
-  "id_producto": 91
-}
- */
   try {
     const response = await axios.post(`${API_BASE_URL}carrito`, data);
     console.log({
@@ -48,7 +43,7 @@ export const actualizarCantidadProductoEnCarritoRequest = async (
   }
 };
 
-// Función para obtener el carrito de compras
+// Función para obtener el contenido del carrito de compras
 export const obtenerCarritoDeComprasRequest = async (id_usuario) => {
   try {
     const response = await axios.get(`${API_BASE_URL}carrito/${id_usuario}`);
@@ -66,23 +61,13 @@ export const obtenerCarritoDeComprasRequest = async (id_usuario) => {
   }
 };
 
-// Función para eliminar un producto del carrito
+// Función para eliminar un producto del carrito de compras
 export const eliminarProductoDelCarritoRequest = async (id_producto, data) => {
-  /**
-   * 
-   * {
-  "id_usuario": 77
-}
-   * 
-   */
-  console.log(data);
   try {
     const response = await axios.post(
       `${API_BASE_URL}carrito/eliminar-producto/${id_producto}`,
-
       data
     );
-
     console.log({
       status: response.status,
       message: response.data.message,
@@ -94,13 +79,8 @@ export const eliminarProductoDelCarritoRequest = async (id_producto, data) => {
   }
 };
 
-// Función para vaciar el carrito de compras
+// Función para vaciar completamente el carrito de compras
 export const vaciarCarritoRequest = async (id_usuario) => {
-  /**
- {
-  "id_usuario":"77"
-}
-   */
   try {
     const response = await axios.delete(
       `${API_BASE_URL}carrito/vaciar/${id_usuario}`
