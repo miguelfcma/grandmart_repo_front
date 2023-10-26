@@ -2,12 +2,13 @@ import { useServicios } from "../../../ServiciosContext/ServicioProvider";
 import { useEffect, useState } from "react";
 import { PreguntasServicioComponenteCompletoGeneral } from "../../PreguntasServicioGeneral/PreguntasServicioComponenteCompletoGeneral";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./DetallesServicioGeneral.css";
 
+// Componente para mostrar los detalles de un servicio.
 export function DetallesServicioGeneral({ id }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const navigate = useNavigate();
+
   const {
     serviciosAll,
     getImgPortadaServicio,
@@ -21,22 +22,28 @@ export function DetallesServicioGeneral({ id }) {
   const [imagenes, setImagenes] = useState(null);
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
   const [datosContacto, setDatosContacto] = useState(null);
+
+  // Función asincrónica para obtener datos de contacto del servicio.
   const fetchDatosContacto = async () => {
     try {
       const data = await obtenerDatosContactoServicio(id);
-
       setDatosContacto(data);
     } catch (error) {
       console.error(error);
     }
   };
+
   useEffect(() => {
+    // Cargar la lista de servicios.
     loadServicios();
+    // Obtener datos de contacto del servicio.
     fetchDatosContacto();
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0); //Para que se muestre el producto desde arriba de la página
+    window.scrollTo(0, 0); // Para mostrar el producto desde arriba de la página
+
+    // Busca el servicio con el ID correspondiente.
     const servicioEncontrado = serviciosAll.find(
       (prod) => prod.id === parseInt(id)
     );
@@ -44,41 +51,24 @@ export function DetallesServicioGeneral({ id }) {
     if (servicioEncontrado) {
       setServicio(servicioEncontrado);
 
-      async function cargarImagen() {
+      // Carga la imagen de portada y todas las imágenes del servicio.
+      async function cargarImagenes() {
         const urlImagen = await getImgPortadaServicio(parseInt(id));
         const imagenesArray = await getAllImagesServicio(parseInt(id));
         setImagenes(imagenesArray);
         setImagenPortada(urlImagen);
       }
 
-      cargarImagen();
+      cargarImagenes();
     }
   }, [serviciosAll, id, getImgPortadaServicio, getAllImagesServicio]);
 
+  // Maneja el evento cuando el ratón pasa sobre una imagen.
   const handleImagenHover = (url) => {
     setImagenSeleccionada(url);
   };
 
-  const [zoomStyle, setZoomStyle] = useState({ visibility: "hidden" });
-
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } =
-      e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - left;
-    const y = e.clientY - top;
-    const zoomX = ((x / width) * 100).toFixed(2);
-    const zoomY = ((y / height) * 100).toFixed(2);
-    setZoomStyle({
-      visibility: "visible",
-      transform: `translate(-${zoomX}%, -${zoomY}%) scale(3)`,
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setZoomStyle({ visibility: "hidden" });
-  };
-
-  const [imagenZoom, setImagenZoom] = useState(null);
+  // Estado para gestion
 
   return (
     <>
@@ -151,7 +141,9 @@ export function DetallesServicioGeneral({ id }) {
                   <div className="infoProductoTitulo">{servicio.titulo}</div>
                 </Card.Title>
                 <Card.Title>
-                  <div className="infoProductoPrecio">$ {servicio.precio} MXN</div>
+                  <div className="infoProductoPrecio">
+                    $ {servicio.precio} MXN
+                  </div>
                 </Card.Title>
                 <div className="infoProductoDescripcion">
                   {servicio.descripcion}

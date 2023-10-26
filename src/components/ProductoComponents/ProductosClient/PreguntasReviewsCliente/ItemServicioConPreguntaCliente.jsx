@@ -3,12 +3,17 @@ import { Card, ListGroup, Form, Button, Collapse } from "react-bootstrap";
 import { useServicios } from "../../../ServicioComponents/ServiciosContext/ServicioProvider";
 import { Link } from "react-router-dom";
 
-export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServicio }) {
+// Componente que muestra un servicio con sus preguntas para un cliente
+export function ItemServicioConPreguntaCliente({
+  servicio,
+  onDeletePreguntaServicio,
+}) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { crearRespuestaServicio } = useServicios();
   const [respuestas, setRespuestas] = useState([]);
   const [preguntasVisible, setPreguntasVisible] = useState(false);
 
+  // Función para cambiar una respuesta
   const handleRespuestaChange = (preguntaId, respuesta) => {
     setRespuestas((prevRespuestas) => {
       const respuestasActualizadas = [...prevRespuestas];
@@ -24,6 +29,7 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
     });
   };
 
+  // Función para enviar una respuesta
   const handleSubmitRespuesta = async (id_pregunta, respuesta) => {
     try {
       await crearRespuestaServicio(usuario.id, id_pregunta, { respuesta });
@@ -35,6 +41,7 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
     }
   };
 
+  // Función para eliminar una pregunta
   const handleEliminarPregunta = (preguntaId) => {
     try {
       onDeletePreguntaServicio(preguntaId);
@@ -43,18 +50,20 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
     }
   };
 
+  // Función para alternar la visibilidad de las preguntas
   const handleTogglePreguntasVisible = () => {
     setPreguntasVisible(!preguntasVisible);
   };
 
+  // Filtrar preguntas sin respuesta
   const preguntasSinRespuestaServicios = servicio.preguntas.filter(
     (pregunta) => pregunta.respuesta === null
   );
-  
+
+  // Filtrar preguntas respondidas
   const preguntasRespondidasServicios = servicio.preguntas.filter(
     (pregunta) => pregunta.respuesta !== null
   );
-  
 
   return (
     <div>
@@ -62,14 +71,14 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
         {preguntasSinRespuestaServicios.length > 0 ? (
           <Card key={servicio.id}>
             <Card.Header>
-            <Link
-              to={`/dashClient/servicios/detalles/${servicio.servicio.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <h2>
-                ID: {servicio.servicio.id} - {servicio.servicio.titulo}
-              </h2>
-            </Link>
+              <Link
+                to={`/dashClient/servicios/detalles/${servicio.servicio.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <h2>
+                  ID: {servicio.servicio.id} - {servicio.servicio.titulo}
+                </h2>
+              </Link>
             </Card.Header>
             <Card.Body>
               <Button
@@ -158,17 +167,6 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
                         </div>
                       </Form.Group>
 
-                      {/* Eliminar siempre visible 
-                      <div className="contBotones">
-                        <Button
-                          variant="danger"
-                          className="btnEliminar"
-                          onClick={() => handleEliminarPregunta(pregunta.id)}
-                          style={{ marginLeft: "1rem" }}
-                        >
-                          Eliminar pregunta
-                        </Button>
-                      </div>*/}
                     </ListGroup.Item>
                   ))}
                 </ListGroup>
@@ -178,14 +176,14 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
         ) : (
           <Card key={servicio.id}>
             <Card.Header>
-            <Link
-              to={`/dashClient/servicios/detalles/${servicio.servicio.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <h2>
-                ID: {servicio.servicio.id} - {servicio.servicio.titulo}
-              </h2>
-            </Link>
+              <Link
+                to={`/dashClient/servicios/detalles/${servicio.servicio.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <h2>
+                  ID: {servicio.servicio.id} - {servicio.servicio.titulo}
+                </h2>
+              </Link>
             </Card.Header>
             <Card.Body>
               <Button
@@ -218,17 +216,6 @@ export function ItemServicioConPreguntaCliente({ servicio, onDeletePreguntaServi
                         </div>
                       </Form.Group>
 
-                      {/* Eliminar siempre visible 
-                      <div className="contBotones">
-                        <Button
-                          variant="danger"
-                          className="btnEliminar"
-                          onClick={() => handleEliminarPregunta(pregunta.id)}
-                          style={{ marginLeft: "1rem" }}
-                        >
-                          Eliminar pregunta
-                        </Button>
-                      </div>*/}
                     </ListGroup.Item>
                   ))}
                 </ListGroup>

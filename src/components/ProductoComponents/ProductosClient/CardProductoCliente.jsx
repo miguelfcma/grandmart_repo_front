@@ -7,6 +7,7 @@ import { deleteImagesProducto } from "../../../firebase/productoStorage";
 import { FormUpdateProductoCliente } from "./FormUpdateProductoCliente";
 import { Modal } from "../../ModalComponents/Modal";
 
+// Componente para mostrar un producto al cliente en forma de tarjeta
 export function CardProductoCliente({ producto }) {
   const { deleteProductoCliente, getImgPortadaProducto, getAllImagesProduct } =
     useProductos();
@@ -113,6 +114,8 @@ export function CardProductoCliente({ producto }) {
       <button className="btn-cliente-producto" onClick={handleOpenModal}>
         Editar producto
       </button>
+
+      {/* Componente Modal que muestra el formulario de actualización */}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <FormUpdateProductoCliente
           onSubmit={handleSubmit}
@@ -120,6 +123,7 @@ export function CardProductoCliente({ producto }) {
         />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
+
       <button className="btn-cliente-producto" onClick={handleEliminarProducto}>
         Eliminar producto
       </button>

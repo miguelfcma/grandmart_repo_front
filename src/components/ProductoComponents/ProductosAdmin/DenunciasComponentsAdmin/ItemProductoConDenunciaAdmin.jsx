@@ -5,14 +5,18 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 
+// Componente para mostrar un elemento de producto con denuncia en la interfaz de administrador
 export function ItemProductoConDenunciaAdmin({ producto, onDeleteDenuncia }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [denunciasVisible, setDenunciasVisible] = useState(false);
   const { actualizarDenunciaRevisada } = useProductos();
+
+  // Maneja el colapso de las denuncias
   const handleToggleDenunciasVisible = () => {
     setDenunciasVisible(!denunciasVisible);
   };
 
+  // Marca una denuncia como revisada
   const handleRevisarDenuncia = async (denunciaId) => {
     try {
       await actualizarDenunciaRevisada(denunciaId);
@@ -31,6 +35,7 @@ export function ItemProductoConDenunciaAdmin({ producto, onDeleteDenuncia }) {
     }
   };
 
+  // Elimina una denuncia
   const handleEliminarDenuncia = async (denunciaId) => {
     Swal.fire({
       title: "¿Estás seguro?",

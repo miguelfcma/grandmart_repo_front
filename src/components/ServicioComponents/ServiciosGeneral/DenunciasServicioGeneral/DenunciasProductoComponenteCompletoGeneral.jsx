@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap";
+import React from "react";
+import { Card } from "react-bootstrap";
 import "./DenunciasProductoComponenteCompletoGeneral.css";
-import { linkADenunciaGenPro } from "./linkADenunciaGenPro";
 
+// Componente que muestra las denuncias para un producto.
 export function DenunciasProductoComponenteCompletoGeneral({ id_producto }) {
-  
-  const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const usuarioExiste = usuario && usuario.id;
-
 
   return (
     <div>
@@ -17,13 +14,11 @@ export function DenunciasProductoComponenteCompletoGeneral({ id_producto }) {
           <h2 className="titulo-denuncias">Denuncias</h2>
         </Card.Header>
         {usuarioExiste ? (
-          <>
-            <linkADenunciaGenPro
-              id_producto={id_producto}
-            />
-          </>
+          // Muestra el componente "linkADenunciaGenPro" si el usuario está autenticado.
+          <linkADenunciaGenPro id_producto={id_producto} />
         ) : (
-          <p>Debe iniciar sesión realizar una pregunta</p>
+          // Muestra un mensaje si el usuario no está autenticado.
+          <p>Debe iniciar sesión para realizar una denuncia.</p>
         )}
       </Card>
     </div>

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 
+// Componente para que el cliente pueda agregar imágenes a un producto
 export function FormImgProductoCliente(idProducto) {
   const id_producto = idProducto.idProducto;
 
@@ -17,9 +18,11 @@ export function FormImgProductoCliente(idProducto) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Maneja la subida de imágenes al sistema
   const onDrop = async (acceptedFiles) => {
     const nuevasImagenes = [];
     const maxSize = 10 * 1024 * 1024; // 10 MB
+
     try {
       await Promise.all(
         acceptedFiles.map((file) => {
@@ -51,18 +54,21 @@ export function FormImgProductoCliente(idProducto) {
     }
   };
 
+  // Configuración del área de arrastrar y soltar (Dropzone)
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop,
     maxFiles: 7,
   });
 
+  // Maneja la eliminación de una imagen
   const handleEliminarImagen = (index) => {
     const nuevasImagenes = [...imagenes];
     nuevasImagenes.splice(index, 1);
     setImagenes(nuevasImagenes);
   };
 
+  // Maneja la presentación del formulario y realiza la validación antes de enviar los datos
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);

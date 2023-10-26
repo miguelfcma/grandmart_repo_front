@@ -158,7 +158,7 @@ export function ItemProductoConPreguntaAdmin({ producto, onDeletePregunta }) {
                         </div>
                       </Form.Group>
 
-                      {/* Eliminar siempre visible */}
+                  
                       <div className="contBotones">
                         <Button
                           variant="danger"
@@ -218,7 +218,6 @@ export function ItemProductoConPreguntaAdmin({ producto, onDeletePregunta }) {
                         </div>
                       </Form.Group>
 
-                      {/* Eliminar siempre visible */}
                       <div className="contBotones">
                         <Button
                           variant="danger"

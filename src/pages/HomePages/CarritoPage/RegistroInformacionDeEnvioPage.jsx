@@ -1,16 +1,20 @@
+// Importación de los módulos necesarios desde rutas específicas
 import { Navbar1 } from "../../../components/HomePageComponents/NavBar";
 import { FormRegistroEnvio } from "../../../components/OrdenesComponents/OrdenesGeneral/FormRegistroEnvio";
-import "./RegistroInformacionDeEnvioPage.css";
-
+import "./RegistroInformacionDeEnvioPage.css"; // Importación del archivo CSS
 import { Link } from "react-router-dom";
+
+// Definición del componente RegistroInformacionDeEnvioPage
 export function RegistroInformacionDeEnvioPage() {
   return (
     <div
       className="registroInformacionDeEnvioPage"
       style={{ paddingTop: "80px" }}
     >
+      {/* Barra de navegación */}
       <nav className="navbar">
         <div className="navbar-container">
+          {/* Enlace al inicio de la página con el logotipo */}
           <Link to="/">
             <img
               alt="e-commerce"
@@ -19,6 +23,8 @@ export function RegistroInformacionDeEnvioPage() {
           </Link>
         </div>
       </nav>
+
+      {/* Renderiza el formulario de registro de información de envío */}
       <FormRegistroEnvio />
     </div>
   );

@@ -4,27 +4,34 @@ import { useCategorias } from "../../CategoriaComponents/CategoriasContext/Categ
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 import Swal from "sweetalert2";
 
+// Componente de formulario para actualizar información de servicio administrativo
 export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
+  // Obtenemos la función para actualizar un servicio
   const { updateServicio } = useServicios();
+
+  // Obtenemos las categorías y la función para cargarlas
   const { categorias, loadCategorias } = useCategorias();
+
+  // Estado local para almacenar la categoría actual
   const [categoriaActual, setCategoriaActual] = useState("");
 
+  // Efecto para cargar las categorías
   useEffect(() => {
     const fetchCategorias = async () => {
       await loadCategorias();
     };
-
     fetchCategorias();
   }, []);
 
+  // Efecto para establecer la categoría actual del servicio
   useEffect(() => {
-    const categoriaEncontrada = categorias.find(
+    const categoriaEncontrada = categorías.find(
       (categoria) => categoria.id === servicio.id_categoria
     );
-
     setCategoriaActual({ ...categoriaEncontrada });
   }, [servicio.id_categoria, categorias]);
 
+  // Estado local para el formulario
   const [formValues, setFormValues] = useState({
     titulo: servicio.titulo,
     descripcion: servicio.descripcion,
@@ -32,18 +39,24 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
     id_categoria: servicio.id_categoria,
   });
 
+  // Estado local para mensajes de error
   const [validationErrors, setValidationErrors] = useState({});
 
+  // Maneja cambios en los campos del formulario
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
+  // Maneja la presentación del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Valida el formulario
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
       try {
+        // Muestra una confirmación antes de la actualización
         const { isConfirmed } = await Swal.fire({
           title: "Confirmar actualización",
           text: "¿Estás seguro de que deseas actualizar el servicio?",
@@ -53,29 +66,32 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
           cancelButtonText: "Cancelar",
         });
 
+        // Si se confirma la actualización, realiza la solicitud
         if (isConfirmed) {
           const status = await updateServicio(servicio.id, formValues);
 
           if (status === 200) {
+            // Muestra un mensaje de éxito
             Swal.fire({
               icon: "success",
               title: "Éxito",
               text: "El servicio se ha actualizado correctamente",
             });
           } else if (status === 404) {
+            // Muestra un mensaje de error si no se encuentra el servicio
             Swal.fire({
               icon: "error",
               title: "Error",
               text: "No se encontró el servicio",
             });
           } else if (status === 500) {
+            // Muestra un mensaje de error si hay un error en el servidor
             Swal.fire({
               icon: "error",
               title: "Error",
               text: "Hubo un error en el servidor",
             });
           }
-
           onSubmit();
         }
       } catch (error) {
@@ -86,6 +102,7 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
     }
   };
 
+  // Maneja cambios en la categoría del servicio
   const handleIdParentChange = (event) => {
     const { value } = event.target;
     if (value === "") {
@@ -102,6 +119,7 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
     }
   };
 
+  // Función para validar el formulario
   const validateForm = () => {
     const errors = {};
 
@@ -110,8 +128,8 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
       errors.titulo = "El título es obligatorio";
     }
 
-     // Validación del formato del precio
-     if (formValues.precio.trim() === "") {
+    // Validación del formato del precio
+    if (formValues.precio.trim() === "") {
       errors.precio = "El precio es obligatorio";
     } else if (!/^\d+(\.\d{1,2})?$/.test(formValues.precio)) {
       errors.precio =
@@ -131,7 +149,6 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
           name="titulo"
           value={formValues.titulo}
           onChange={handleInputChange}
-     
           isInvalid={validationErrors.titulo}
         />
         {validationErrors.titulo && (
@@ -159,7 +176,6 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
           min="0"
           value={formValues.precio}
           onChange={handleInputChange}
-
           isInvalid={validationErrors.precio}
         />
         {validationErrors.precio && (

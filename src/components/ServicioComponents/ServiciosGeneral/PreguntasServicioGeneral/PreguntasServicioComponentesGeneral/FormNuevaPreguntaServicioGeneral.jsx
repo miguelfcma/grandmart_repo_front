@@ -1,9 +1,11 @@
-import { crearPreguntaServicioRequest } from "../../../../../API/ServiciosApiRest/preguntasServicio.api";
+
 import { useServicios } from "../../../ServiciosContext/ServicioProvider";
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./FormNuevaPreguntaProductoGeneral.css";
 import Swal from 'sweetalert2';
+
+// Componente que permite a los usuarios enviar una nueva pregunta relacionada con un servicio.
 export function FormNuevaPreguntaServicioGeneral({
   id_servicio,
   actualizarPreguntas,

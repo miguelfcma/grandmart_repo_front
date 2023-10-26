@@ -4,11 +4,13 @@ import { useCategorias } from "../../CategoriaComponents/CategoriasContext/Categ
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 import Swal from "sweetalert2";
 
+// Componente para editar un servicio cliente
 export function FormUpdateServicioCliente({ onSubmit, servicio }) {
   const { updateServicioCliente } = useServicios();
   const { categorias, loadCategorias } = useCategorias();
   const [categoriaActual, setCategoriaActual] = useState("");
 
+  // Cargar las categorías disponibles al montar el componente
   useEffect(() => {
     const fetchCategorias = async () => {
       await loadCategorias();
@@ -17,6 +19,7 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
     fetchCategorias();
   }, []);
 
+  // Actualizar la categoría actual cuando cambia el servicio seleccionado
   useEffect(() => {
     const categoriaEncontrada = categorias.find(
       (categoria) => categoria.id === servicio.id_categoria
@@ -34,16 +37,20 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
 
   const [validationErrors, setValidationErrors] = useState({});
 
+  // Manejar cambios en los campos del formulario
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
+  // Manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validateForm();
+
     if (Object.keys(errors).length === 0) {
       try {
+        // Mostrar una confirmación antes de actualizar el servicio
         const { isConfirmed } = await Swal.fire({
           icon: "question",
           title: "Confirmar actualización",
@@ -57,6 +64,7 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
         if (isConfirmed) {
           const status = await updateServicioCliente(servicio.id, formValues);
 
+          // Manejar diferentes respuestas del servidor
           if (status === 200) {
             Swal.fire({
               icon: "success",
@@ -87,8 +95,10 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
     }
   };
 
+  // Manejar cambios en la selección de categoría
   const handleIdParentChange = (event) => {
     const { value } = event.target;
+
     if (value === "") {
       // No se seleccionó ninguna categoría nueva, se mantiene la categoría actual
       setFormValues((prevFormValues) => ({
@@ -103,6 +113,7 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
     }
   };
 
+  // Validar el formulario
   const validateForm = () => {
     const errors = {};
 
@@ -111,12 +122,12 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
       errors.titulo = "El título es obligatorio";
     }
 
-    // Validación del formato del precio
-    if (formValues.titulo.trim() === "") {
-      errors.titulo = "El precio es obligatorio";
+    // Validación del precio
+    if (formValues.precio.trim() === "") {
+      errors.precio = "El precio es obligatorio";
     } else if (!/^\d+(\.\d{1,2})?$/.test(formValues.precio)) {
       errors.precio =
-        "El formato del precio es incorrectoo. Ejemplo: 10 o 10.99";
+        "El formato del precio es incorrecto. Ejemplo: 10 o 10.99";
     }
 
     // Agrega aquí otras validaciones según tus necesidades
@@ -125,8 +136,10 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
     return errors;
   };
 
+  // Renderizar el formulario de actualización de servicio
   return (
     <Form onSubmit={handleSubmit}>
+      {/* Campo de título */}
       <Form.Group controlId="titulo">
         <Form.Label>Título:</Form.Label>
         <Form.Control
@@ -141,6 +154,7 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
         )}
       </Form.Group>
 
+      {/* Campo de descripción */}
       <Form.Group controlId="descripcion">
         <Form.Label>Descripción (opcional):</Form.Label>
         <Form.Control
@@ -151,6 +165,7 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
         />
       </Form.Group>
 
+      {/* Campo de precio */}
       <Form.Group controlId="precio">
         <Form.Label>Precio:</Form.Label>
         <Form.Control
@@ -168,6 +183,7 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
         )}
       </Form.Group>
 
+      {/* Campo de selección de categoría */}
       <Form.Group controlId="id_categoria">
         <Form.Label>Categoría del servicio:</Form.Label>
         <Form.Text>

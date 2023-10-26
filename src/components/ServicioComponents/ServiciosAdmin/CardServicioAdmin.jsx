@@ -1,23 +1,25 @@
-import { Button, Card } from "react-bootstrap";
 import "./CardServicioAdmin.css";
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FormUpdateInfoContactoDomicilio } from "./FormUpdateInfoContactoDomicilio";
 import { deleteImagesServicio } from "../../../firebase/servicioStorage";
 import { FormUpdateServicioAdmin } from "./FormUpdateServicioAdmin";
 import { Modal } from "../../ModalComponents/Modal";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+
+// Componente que muestra una tarjeta de servicio para administradores
 export function CardServicioAdmin({ servicio }) {
-  const { deleteServicio, getImgPortadaServicio, getAllImagesServicio } = useServicios();
+  const { deleteServicio, getImgPortadaServicio, getAllImagesServicio } =
+    useServicios();
 
   const [urlImagen, setUrlImagen] = useState("");
 
+  // Función asincrónica para obtener la URL de la imagen del servicio
   async function obtenerUrlImagenAsync(idServicio) {
     const url = await getImgPortadaServicio(idServicio);
     setUrlImagen(url);
   }
-
   useEffect(() => {
     obtenerUrlImagenAsync(servicio.id);
   }, [servicio.id]);
@@ -25,53 +27,50 @@ export function CardServicioAdmin({ servicio }) {
   const handleEliminarServicio = async () => {
     try {
       const confirmResult = await Swal.fire({
-        icon: 'warning',
-        title: 'Eliminar servicio',
+        icon: "warning",
+        title: "Eliminar servicio",
         text: `¿Estás seguro de eliminar el servicio "${servicio.titulo}"?`,
         showCancelButton: true,
-        confirmButtonText: 'Eliminar',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#dc3545', // Color rojo para el botón de confirmación
+        confirmButtonText: "Eliminar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#dc3545", // Color rojo para el botón de confirmación
       });
-  
+
       if (confirmResult.isConfirmed) {
         const imagenesServicio = await getAllImagesServicio(servicio.id);
         const urls = imagenesServicio.map((imagen) => imagen.url);
         const status = await deleteServicio(servicio.id);
-  
+
         if (status === 200) {
           Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'El servicio se eliminó correctamente',
+            icon: "success",
+            title: "Éxito",
+            text: "El servicio se eliminó correctamente",
           });
         } else if (status === 404) {
           Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'El servicio no se encontró o no existe',
+            icon: "error",
+            title: "Error",
+            text: "El servicio no se encontró o no existe",
           });
         } else if (status === 500) {
           Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Hubo un error en el servidor',
+            icon: "error",
+            title: "Error",
+            text: "Hubo un error en el servidor",
           });
         }
-  
+
         await deleteImagesServicio(urls);
       }
     } catch (error) {
       console.error(error);
     }
   };
-  
 
-  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenContacto, setIsModalOpenContacto] = useState(false);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
-
 
   function handleOpenModal() {
     setIsModalOpen(true);
@@ -95,7 +94,6 @@ export function CardServicioAdmin({ servicio }) {
     setFormularioEnviado(true);
     setIsModalOpenContacto(true);
   }
-
 
   useEffect(() => {
     if (formularioEnviado) {
@@ -124,10 +122,7 @@ export function CardServicioAdmin({ servicio }) {
         Editar servicio
       </button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <FormUpdateServicioAdmin
-          onSubmit={handleSubmit}
-          servicio={servicio}
-        />
+        <FormUpdateServicioAdmin onSubmit={handleSubmit} servicio={servicio} />
         <button onClick={handleCloseModal}>Cerrar ventana</button>
       </Modal>
 

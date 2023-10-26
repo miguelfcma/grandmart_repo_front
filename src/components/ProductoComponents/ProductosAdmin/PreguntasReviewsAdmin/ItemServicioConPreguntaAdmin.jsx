@@ -3,12 +3,17 @@ import { Card, ListGroup, Form, Button, Collapse } from "react-bootstrap";
 import { useServicios } from "../../../ServicioComponents/ServiciosContext/ServicioProvider";
 import { Link } from "react-router-dom";
 
-export function ItemServicioConPreguntaAdmin({ servicio, onDeletePreguntaServicio }) {
+// Componente que muestra preguntas en el panel de administración de servicios
+export function ItemServicioConPreguntaAdmin({
+  servicio,
+  onDeletePreguntaServicio,
+}) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { crearRespuestaServicio } = useServicios();
   const [respuestas, setRespuestas] = useState([]);
   const [preguntasVisible, setPreguntasVisible] = useState(false);
 
+  // Maneja cambios en las respuestas de las preguntas
   const handleRespuestaChange = (preguntaId, respuesta) => {
     setRespuestas((prevRespuestas) => {
       const respuestasActualizadas = [...prevRespuestas];
@@ -24,6 +29,7 @@ export function ItemServicioConPreguntaAdmin({ servicio, onDeletePreguntaServici
     });
   };
 
+  // Maneja el envío de una respuesta a una pregunta
   const handleSubmitRespuesta = async (id_pregunta, respuesta) => {
     try {
       await crearRespuestaServicio(usuario.id, id_pregunta, { respuesta });
@@ -35,6 +41,7 @@ export function ItemServicioConPreguntaAdmin({ servicio, onDeletePreguntaServici
     }
   };
 
+  // Elimina una pregunta de servicio
   const handleEliminarPregunta = (preguntaId) => {
     try {
       onDeletePreguntaServicio(preguntaId);
@@ -43,18 +50,20 @@ export function ItemServicioConPreguntaAdmin({ servicio, onDeletePreguntaServici
     }
   };
 
+  // Maneja el cambio de visibilidad de las preguntas
   const handleTogglePreguntasVisible = () => {
     setPreguntasVisible(!preguntasVisible);
   };
 
+  // Filtra las preguntas sin respuesta
   const preguntasSinRespuestaServicios = servicio.preguntas.filter(
     (pregunta) => pregunta.respuesta === null
   );
-  
+
+  // Filtra las preguntas respondidas
   const preguntasRespondidasServicios = servicio.preguntas.filter(
     (pregunta) => pregunta.respuesta !== null
   );
-  
 
   return (
     <div>
@@ -62,14 +71,14 @@ export function ItemServicioConPreguntaAdmin({ servicio, onDeletePreguntaServici
         {preguntasSinRespuestaServicios.length > 0 ? (
           <Card key={servicio.id}>
             <Card.Header>
-            <Link
-              to={`/dashAdmin/servicios/detalles/${servicio.servicio.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <h2>
-                ID: {servicio.servicio.id} - {servicio.servicio.titulo}
-              </h2>
-            </Link>
+              <Link
+                to={`/dashAdmin/servicios/detalles/${servicio.servicio.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <h2>
+                  ID: {servicio.servicio.id} - {servicio.servicio.titulo}
+                </h2>
+              </Link>
             </Card.Header>
             <Card.Body>
               <Button
@@ -158,7 +167,7 @@ export function ItemServicioConPreguntaAdmin({ servicio, onDeletePreguntaServici
                         </div>
                       </Form.Group>
 
-                      {/* Eliminar siempre visible */}
+                   
                       <div className="contBotones">
                         <Button
                           variant="danger"
@@ -178,14 +187,14 @@ export function ItemServicioConPreguntaAdmin({ servicio, onDeletePreguntaServici
         ) : (
           <Card key={servicio.id}>
             <Card.Header>
-            <Link
-              to={`/dashAdmin/servicios/detalles/${servicio.servicio.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <h2>
-                ID: {servicio.servicio.id} - {servicio.servicio.titulo}
-              </h2>
-            </Link>
+              <Link
+                to={`/dashAdmin/servicios/detalles/${servicio.servicio.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <h2>
+                  ID: {servicio.servicio.id} - {servicio.servicio.titulo}
+                </h2>
+              </Link>
             </Card.Header>
             <Card.Body>
               <Button
@@ -218,7 +227,7 @@ export function ItemServicioConPreguntaAdmin({ servicio, onDeletePreguntaServici
                         </div>
                       </Form.Group>
 
-                      {/* Eliminar siempre visible */}
+                 
                       <div className="contBotones">
                         <Button
                           variant="danger"

@@ -4,17 +4,22 @@ import { Link } from "react-router-dom";
 
 import Swal from "sweetalert2";
 import { useServicios } from "../../../ServicioComponents/ServiciosContext/ServicioProvider";
+
+// Componente que muestra una denuncia de un servicio en el panel de administración
 export function ItemServicioConDenunciaAdmin({
-  servicio,
-  onDeleteDenunciaServicio,
+  servicio, // Información del servicio con denuncias
+  onDeleteDenunciaServicio, // Función para eliminar denuncias de servicio
 }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [denunciasVisible, setDenunciasVisible] = useState(false);
   const { actualizarDenunciaRevisadaServicio } = useServicios();
+
+  // Maneja el cambio de visibilidad de las denuncias del servicio
   const handleToggleDenunciasVisible = () => {
     setDenunciasVisible(!denunciasVisible);
   };
 
+  // Marca una denuncia de servicio como revisada
   const handleRevisarDenuncia = async (denunciaId) => {
     try {
       await actualizarDenunciaRevisadaServicio(denunciaId);
@@ -33,6 +38,7 @@ export function ItemServicioConDenunciaAdmin({
     }
   };
 
+  // Elimina una denuncia de servicio después de confirmación
   const handleEliminarDenuncia = async (denunciaId) => {
     Swal.fire({
       title: "¿Estás seguro?",

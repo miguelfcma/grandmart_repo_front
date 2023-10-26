@@ -1,4 +1,5 @@
-import { useContext, useState, useEffect } from "react";
+// Importaciones de módulos y APIs
+import { useContext, useState } from "react";
 
 import {
   getServiciosRequest,
@@ -37,7 +38,7 @@ import {
 } from "../../../API/ServiciosApiRest/denunciasServicio.api";
 
 import { ServicioContext } from "./ServicioContext";
-
+// Hook personalizado para acceder al contexto de Servicios
 export const useServicios = () => {
   const context = useContext(ServicioContext);
   if (context === undefined) {
@@ -47,18 +48,22 @@ export const useServicios = () => {
   }
   return context;
 };
-
+// Proveedor de contexto para la gestión de servicios
 export const ServicioContextProvider = ({ children }) => {
   const [serviciosAll, setServiciosAll] = useState([]);
   const [serviciosUsuario, setServiciosUsuario] = useState([]);
   const [serviciosPreguntas, setServiciosPreguntas] = useState([]);
   const [serviciosDenuncias, setServiciosDenuncias] = useState([]);
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+ 
+ // Función para cerrar la sesión de servicios
   const cerrarSesionServicios = () => {
     setServiciosUsuario([]);
     setServiciosPreguntas([]);
     setServiciosDenuncias([]);
   };
+
+  // Carga de todos los servicios
   async function loadServicios() {
     try {
       const response = await getServiciosRequest();
@@ -71,6 +76,7 @@ export const ServicioContextProvider = ({ children }) => {
     }
   }
 
+  // Crear un nuevo servicio
   const createServicio = async (servicio) => {
     try {
       const response = await createServicioRequest(servicio);
@@ -80,6 +86,7 @@ export const ServicioContextProvider = ({ children }) => {
     }
   };
 
+  // Actualizar un servicio
   const updateServicio = async (id, servicio) => {
     try {
       const response = await updateServicioRequest(id, servicio);
@@ -92,6 +99,8 @@ export const ServicioContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  // Crear datos de contacto para un servicio
   const createDatosContactoServicio = async (datosContacto) => {
     try {
       const response = await createDatosContactoServicioRequest(datosContacto);
@@ -100,6 +109,8 @@ export const ServicioContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+
+  // Obtener datos de contacto de un servicio
   const obtenerDatosContactoServicio = async (id) => {
     try {
       const response = await obtenerDatosContactoServicioRequest(id);

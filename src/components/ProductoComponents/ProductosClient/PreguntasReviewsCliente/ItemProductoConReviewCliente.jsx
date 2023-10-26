@@ -3,15 +3,17 @@ import { Card, ListGroup, Form, Button, Collapse } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 
+// Componente que muestra un producto con sus revisiones para un cliente
 export function ItemProductoConReviewCliente({ producto, onDeleteReview }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [reviewsVisible, setReviewsVisible] = useState(false);
 
-  console.log(producto);
+  // Función para alternar la visibilidad de las revisiones
   const handleToggleReviewsVisible = () => {
     setReviewsVisible(!reviewsVisible);
   };
 
+  // Función para eliminar una revisión
   const handleEliminarReview = (reviewId) => {
     try {
       onDeleteReview(reviewId);
@@ -97,15 +99,6 @@ export function ItemProductoConReviewCliente({ producto, onDeleteReview }) {
                           )}
                         </div>
                       </ListGroup.Item>
-                      {/*<div className="contBotones">
-                        <Button
-                          variant="danger"
-                          className="btnEliminar"
-                          onClick={() => handleEliminarReview(review.id)}
-                        >
-                          Eliminar
-                        </Button>
-                      </div>*/}
                     </div>
                   );
                 })}

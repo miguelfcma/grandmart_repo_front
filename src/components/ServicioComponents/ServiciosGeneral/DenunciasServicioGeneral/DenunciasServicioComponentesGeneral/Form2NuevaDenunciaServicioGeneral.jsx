@@ -1,4 +1,3 @@
-import { crearDenunciaServicioRequest } from "../../../../../API/ServiciosApiRest/denunciasServicio.api";
 import { useServicios } from "../../../ServiciosContext/ServicioProvider";
 import { Form, Button, Card } from "react-bootstrap";
 import "./Form2.css";
@@ -6,9 +5,12 @@ import { useState } from "react";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { FooterHome } from "../../../../HomePageComponents/FooterHome";
 import InputGroup from "react-bootstrap/InputGroup";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+
+// Componente que permite a los usuarios completar una denuncia sobre un servicio.
 export function Form2NuevaDenunciaServicioGeneral() {
-  window.scrollTo(0, 0); //Para que se muestre el servicio desde arriba de la página
+  // Para que la página se muestre desde arriba.
+  window.scrollTo(0, 0);
 
   const navigate = useNavigate();
   const { crearDenunciaServicio } = useServicios();
@@ -17,6 +19,8 @@ export function Form2NuevaDenunciaServicioGeneral() {
   const opcion = new URLSearchParams(location.search).get("opcion");
 
   const { id_servicio } = useParams();
+
+  // Estado para almacenar los datos del formulario de denuncia.
   const [formData, setFormData] = useState({
     motivo: opcion,
     descripcion: "",
@@ -25,16 +29,15 @@ export function Form2NuevaDenunciaServicioGeneral() {
     id_usuario: usuario.id,
   });
 
+  // Función que se ejecuta cuando se envía el formulario de denuncia.
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (formData.descripcion.trim() === "") {
-      setError("La descripcion no puede estar vacía.");
-      return;
-    }
     try {
-      
+      // Intenta crear la denuncia llamando a la función crearDenunciaServicio.
       const status = await crearDenunciaServicio(formData);
+
+      // Limpia el formulario después de la denuncia exitosa.
       setFormData({
         motivo: opcion,
         descripcion: "",
@@ -42,14 +45,14 @@ export function Form2NuevaDenunciaServicioGeneral() {
         id_usuario: usuario.id,
       });
 
-      // Mostrar el mensaje de éxito con SweetAlert2
+      // Mostrar un mensaje de éxito con SweetAlert2.
       Swal.fire({
         title: "Éxito",
         text: "La denuncia fue creada exitosamente.",
         icon: "success",
         confirmButtonText: "Aceptar",
       }).then(() => {
-        // Redirigir después de que el usuario haya aceptado el mensaje
+        // Redirigir después de que el usuario haya aceptado el mensaje.
         navigate(`/servicios/detalles/${id_servicio}`);
       });
     } catch (error) {

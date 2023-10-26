@@ -4,18 +4,31 @@ import { ListaPreguntasServicioGeneral } from "./PreguntasServicioComponentesGen
 import { Card, Button } from "react-bootstrap";
 import "./PreguntasProductoComponenteCompletoGeneral.css";
 
+// Componente principal que muestra preguntas de servicio para un servicio específico.
 export function PreguntasServicioComponenteCompletoGeneral({ id_servicio }) {
+  // Estado para controlar la actualización de las preguntas.
   const [actualizarPreguntas, setActualizarPreguntas] = useState(false);
+
+  // Estado para controlar la visibilidad del formulario de nueva pregunta.
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
+  // Obtiene la información del usuario desde el almacenamiento local.
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  // Comprueba si un usuario está autenticado.
   const usuarioExiste = usuario && usuario.id;
 
+  // Función para establecer actualizarPreguntas en true.
   const actualizarTrue = () => {
     setActualizarPreguntas(true);
   };
+
+  // Función para establecer actualizarPreguntas en false.
   const actualizarFalse = () => {
     setActualizarPreguntas(false);
   };
+
+  // Función para alternar la visibilidad del formulario de nueva pregunta.
   const toggleFormulario = () => {
     setMostrarFormulario(!mostrarFormulario);
   };
@@ -60,7 +73,6 @@ export function PreguntasServicioComponenteCompletoGeneral({ id_servicio }) {
             actualizarFalse={actualizarFalse}
             actualizarPreguntas={actualizarPreguntas}
           />
-          
         </Card.Body>
       </Card>
     </div>

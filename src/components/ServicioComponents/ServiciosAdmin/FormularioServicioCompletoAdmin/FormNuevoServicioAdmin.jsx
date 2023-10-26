@@ -4,11 +4,17 @@ import { useServicios } from "../../ServiciosContext/ServicioProvider";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
+
+// Componente para crear un nuevo servicio por parte de los administradores
 export function FormNuevoServicioAdmin({ handleServicioRegistrado }) {
   const navigate = useNavigate();
 
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  // Obtiene la función `createServicio` del contexto de servicios
   const { createServicio } = useServicios();
+
+  // Estado para almacenar la información del servicio
   const [servicio, setServicio] = useState({
     titulo: "",
     descripcion: "",
@@ -17,10 +23,13 @@ export function FormNuevoServicioAdmin({ handleServicioRegistrado }) {
     id_usuario: usuario.id,
   });
 
+  // Obtiene las categorías y carga las categorías al montar el componente
   const { categorias, loadCategorias } = useCategorias();
   useEffect(() => {
     loadCategorias();
   }, []);
+
+  // Función para manejar cambios en los campos del formulario
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -30,6 +39,7 @@ export function FormNuevoServicioAdmin({ handleServicioRegistrado }) {
     }));
   };
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -47,6 +57,7 @@ export function FormNuevoServicioAdmin({ handleServicioRegistrado }) {
       const status = response ? response.status : null;
 
       if (status === 201) {
+        // Mostrar una notificación de éxito si el servicio se crea con éxito
         Swal.fire({
           icon: "success",
           title: "Éxito",
@@ -55,12 +66,14 @@ export function FormNuevoServicioAdmin({ handleServicioRegistrado }) {
         const idServicio = response.data.servicio.id;
         handleServicioRegistrado(idServicio);
       } else if (status === 400) {
+        // Mostrar una notificación de error si el servicio ya existe en la cuenta
         Swal.fire({
           icon: "error",
           title: "Error",
           text: "El servicio ya está registrado en su cuenta",
         });
       } else if (status === 500) {
+        // Mostrar una notificación de error si hay un error en el servidor
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -78,6 +91,7 @@ export function FormNuevoServicioAdmin({ handleServicioRegistrado }) {
     }
   };
 
+  // Función para manejar el cambio en la opción de categoría
   const handleIdParentChange = (event) => {
     const { value } = event.target;
     setServicio((prevServicio) => ({

@@ -35,50 +35,11 @@ export function FormProductoCliente() {
       [name]: value,
     }));
   };
-  const validateForm = () => {
-    const errors = {};
-
-     // Validación del formato del precio
-     if (formValues.precio.trim() === "") {
-      errors.precio = "El precio es obligatorio";
-    } else if (!/^\d+(\.\d{1,2})?$/.test(formValues.precio)) {
-      errors.precio =
-        "El formato del precio es incorrecto. Ejemplo: 10 o 10.99";
-    }
-
-    // Validación del stock
-    if (isNaN(producto.stock) || producto.stock < 0) {
-      errors.stock = "El stock debe ser un número positivo";
-    }
-
-    setValidationErrors(errors);
-
-    return Object.keys(errors).length === 0;
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(producto);
 
-    if (
-      producto.nombre === "" ||
-      producto.precio === "" ||
-      producto.stock === "" ||
-      producto.id_categoria === "" ||
-      producto.estado === ""
-    ) {
-      Swal.fire({
-        icon: "warning",
-        title: "Campos obligatorios",
-        text: "Por favor complete todos los campos obligatorios",
-      });
-      return;
-    }
-
-    // Validación adicional del formulario
-    if (!validateForm()) {
-      return;
-    }
     try {
       const response = await createProducto(producto);
       if (response.status === 201) {
@@ -135,8 +96,11 @@ export function FormProductoCliente() {
       <FormGroup>
         <Form.Label>Precio del producto:</Form.Label>
         <FormControl
-          type="number"
+          type="text"
           name="precio"
+          pattern="^\d+(\.\d+)?$"
+          title="Ingrese un número no negativo con hasta dos decimales"
+          min="0"
           value={producto.precio}
           onChange={handleChange}
           required
@@ -145,11 +109,13 @@ export function FormProductoCliente() {
       <FormGroup>
         <Form.Label>Stock del producto:</Form.Label>
         <FormControl
-          type="number"
+          type="text"
           name="stock"
           value={producto.stock}
+          title="Ingrese un número entero mayor a cero"
           onChange={handleChange}
           required
+          pattern="[0-9]*"
         />
       </FormGroup>
       <FormGroup>

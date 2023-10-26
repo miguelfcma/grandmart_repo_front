@@ -20,6 +20,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
   const [emailError, setEmailError] = useState("");
   const [datosContacto, setDatosContacto] = useState(null);
 
+  // Función para obtener los datos de contacto del servicio
   const fetchDatosContacto = async () => {
     try {
       const data = await obtenerDatosContactoServicio(servicio.id);
@@ -29,6 +30,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }
   };
 
+  // Cargar los datos de contacto cuando el componente se monta
   useEffect(() => {
     fetchDatosContacto();
   }, []);
@@ -46,6 +48,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     descripcion: "",
   });
 
+  // Poblar los campos con los datos de contacto obtenidos
   useEffect(() => {
     if (datosContacto) {
       setServicioData((prevState) => ({
@@ -66,6 +69,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
 
   const [validationErrors, setValidationErrors] = useState({});
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -108,6 +112,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
         );
 
         if (status === 200) {
+          // Mostrar una notificación de éxito
           Swal.fire(
             "Éxito",
             "Los datos de contacto se han guardado correctamente",
@@ -115,6 +120,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
           );
           onSubmit(); // Llamar a la función de manejo para indicar que se han registrado los datos
         } else {
+          // Mostrar una notificación de error en caso de fallo
           Swal.fire(
             "Error",
             "Ha ocurrido un error al enviar los datos de contacto",
@@ -124,6 +130,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
       }
     } catch (error) {
       console.error(error);
+      // Mostrar una notificación de error genérica
       Swal.fire(
         "Error",
         "Ha ocurrido un error al enviar los datos de contacto",
@@ -132,6 +139,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }
   };
 
+  // Función para manejar cambios en los campos del formulario
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -146,6 +154,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }
   };
 
+  // Función para manejar cambios en el campo "Número Exterior"
   const handleNumeroExteriorChange = (e) => {
     const { checked } = e.target;
     const numeroExterior = checked ? "SN" : "";
@@ -156,6 +165,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }));
   };
 
+  // Lista de estados
   const estados = [
     "Aguascalientes",
     "Baja California",
@@ -231,7 +241,10 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }
 
     // Validación de número exterior
-    if (servicioData.numeroExterior.trim() === "" && servicioData.numeroExterior !== "SN") {
+    if (
+      servicioData.numeroExterior.trim() === "" &&
+      servicioData.numeroExterior !== "SN"
+    ) {
       errors.numeroExterior = "El número exterior es obligatorio";
     }
 
@@ -250,7 +263,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="telefono1"
             value={servicioData.telefono1}
             onChange={handleChange}
-          
             pattern="[0-9]*"
             title="Ingresa solo números"
             maxLength={10}
@@ -294,7 +306,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="estado"
             value={servicioData.estado}
             onChange={handleChange}
-
             isInvalid={validationErrors.estado}
           >
             <option value="">Seleccionar estado...</option>
@@ -315,7 +326,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="municipioAlcaldia"
             value={servicioData.municipioAlcaldia}
             onChange={handleChange}
-            
             isInvalid={validationErrors.municipioAlcaldia}
           />
           {validationErrors.municipioAlcaldia && (
@@ -329,7 +339,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="colonia"
             value={servicioData.colonia}
             onChange={handleChange}
-       
             isInvalid={validationErrors.colonia}
           />
           {validationErrors.colonia && (
@@ -343,7 +352,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="calle"
             value={servicioData.calle}
             onChange={handleChange}
-         
             isInvalid={validationErrors.calle}
           />
           {validationErrors.calle && (
@@ -369,12 +377,13 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
                   value={servicioData.numeroExterior}
                   onChange={handleChange}
                   disabled={servicioData.numeroExterior === "SN"}
-   
                   isInvalid={validationErrors.numeroExterior}
                 />
               ) : null}
               {validationErrors.numeroExterior && (
-                <Alert variant="danger">{validationErrors.numeroExterior}</Alert>
+                <Alert variant="danger">
+                  {validationErrors.numeroExterior}
+                </Alert>
               )}
             </FormGroup>
           </Col>

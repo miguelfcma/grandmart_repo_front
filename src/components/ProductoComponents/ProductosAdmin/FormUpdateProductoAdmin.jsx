@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from "react";
-
-import { Form, FormGroup, FormControl, Button, Alert } from "react-bootstrap";
-
+import { Form, FormControl, Button, Alert } from "react-bootstrap";
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useProductos } from "../ProductosContext/ProductoProvider";
-
 import Swal from "sweetalert2";
 
+// Componente de formulario de actualización de producto para el administrador
 export function FormUpdateProductoAdmin({ onSubmit, producto }) {
-  const { updateProducto } = useProductos();
-  const { categorias, loadCategorias } = useCategorias();
+  const { updateProducto } = useProductos(); // Utiliza el contexto de productos para actualizar productos
+  const { categorias, loadCategorias } = useCategorias(); // Utiliza el contexto de categorías para cargar categorías disponibles
   const [categoriaActual, setCategoriaActual] = useState("");
 
+  // Efecto para cargar las categorías al montar el componente
   useEffect(() => {
     const fetchCategorias = async () => {
       await loadCategorias();
     };
-
     fetchCategorias();
   }, []);
 
+  // Efecto para establecer la categoría actual del producto
   useEffect(() => {
     const categoriaEncontrada = categorias.find(
       (categoria) => categoria.id === producto.id_categoria
     );
-
     setCategoriaActual({ ...categoriaEncontrada });
   }, [producto.id_categoria, categorias]);
 
@@ -42,15 +40,18 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
 
   const [validationErrors, setValidationErrors] = useState({});
 
+  // Maneja los cambios en los campos del formulario
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
+  // Maneja el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
       try {
+        // Muestra una alerta de confirmación al usuario
         const { isConfirmed } = await Swal.fire({
           icon: "question",
           title: "Confirmar actualización",
@@ -61,8 +62,10 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
         });
 
         if (isConfirmed) {
+          // Actualiza el producto utilizando el contexto de productos
           const status = await updateProducto(producto.id, formValues);
 
+          // Muestra una alerta según el resultado de la actualización
           if (status === 200) {
             Swal.fire({
               icon: "success",
@@ -83,7 +86,7 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
             });
           }
 
-          onSubmit();
+          onSubmit(); // Llama a la función proporcionada en los props cuando se completa la actualización
         }
       } catch (error) {
         console.error(error);
@@ -91,6 +94,7 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
     }
   };
 
+  // Maneja los cambios en la selección de categoría
   const handleIdParentChange = (event) => {
     const { value } = event.target;
     if (value === "") {
@@ -107,6 +111,7 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
     }
   };
 
+  // Realiza la validación de formularios
   const validateForm = () => {
     const errors = {};
 
@@ -122,6 +127,7 @@ export function FormUpdateProductoAdmin({ onSubmit, producto }) {
       errors.precio =
         "El formato del precio es incorrecto. Ejemplo: 10 o 10.99";
     }
+
     // Validación del stock
     if (formValues.stock.toString().trim() === "") {
       errors.stock = "El stock es obligatorio";

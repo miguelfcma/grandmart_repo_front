@@ -1,12 +1,16 @@
+// Importación de los módulos necesarios desde rutas específicas
 import { Link } from "react-router-dom";
 import { PaginaDeCompra } from "../../../components/OrdenesComponents/OrdenesGeneral/PaginaDeCompra";
-import"./ResumenComprasPage.css"
-export  function ResumenComprasPage() {
+import "./ResumenComprasPage.css"; // Importación del archivo CSS
+
+// Definición del componente ResumenComprasPage
+export function ResumenComprasPage() {
   return (
     <div className="resumenComprasPage" style={{ paddingTop: "80px" }}>
-      
+      {/* Barra de navegación */}
       <nav className="navbar">
         <div className="navbar-container">
+          {/* Enlace al inicio de la página con el logotipo */}
           <Link to="/">
             <img
               alt="e-commerce"
@@ -15,7 +19,9 @@ export  function ResumenComprasPage() {
           </Link>
         </div>
       </nav>
-    <PaginaDeCompra/>
+
+      {/* Renderiza la página de compra, que probablemente contiene el resumen de las compras realizadas */}
+      <PaginaDeCompra />
     </div>
-  )
+  );
 }

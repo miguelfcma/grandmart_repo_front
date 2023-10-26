@@ -3,15 +3,17 @@ import { Card, ListGroup, Form, Button, Collapse } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useProductos } from "../../ProductosContext/ProductoProvider";
 
+// Componente que muestra las reseñas de un producto en el panel de administración
 export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const [reviewsVisible, setReviewsVisible] = useState(false);
 
-  console.log(producto);
+  // Maneja el cambio de visibilidad de las reseñas del producto
   const handleToggleReviewsVisible = () => {
     setReviewsVisible(!reviewsVisible);
   };
 
+  // Elimina una reseña del producto
   const handleEliminarReview = (reviewId) => {
     try {
       onDeleteReview(reviewId);
@@ -19,7 +21,7 @@ export function ItemProductoConReviewAdmin({ producto, onDeleteReview }) {
       console.error(error);
     }
   };
-
+  
   return (
     <div>
       <React.Fragment>

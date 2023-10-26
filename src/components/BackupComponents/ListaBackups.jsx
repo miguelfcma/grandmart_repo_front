@@ -119,7 +119,7 @@ export function ListaBackups() {
 
     try {
       const response = await deleteBackup(selectedDeleteBackup, credentials);
-      console.log("BRAYAN ES PUTO", response);
+     
       if (response.status === 200) {
         setSelectedBackup("");
         setSelectedDeleteBackup("");

@@ -11,10 +11,12 @@ import {
   FormControl,
 } from "react-bootstrap";
 
+// Componente para ingresar información de contacto y domicilio de un servicio del cliente
 export function FormInformacionServicioCliente({
   handleInfoServicioRegistrados,
   idServicio,
 }) {
+  // Estado para almacenar los datos del servicio
   const [servicioData, setServicioData] = useState({
     telefono1: "",
     telefono2: "",
@@ -31,6 +33,7 @@ export function FormInformacionServicioCliente({
   const { createDatosContactoServicio } = useServicios();
   const [emailError, setEmailError] = useState("");
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -77,8 +80,6 @@ export function FormInformacionServicioCliente({
         "error"
       );
     }
-
- 
   };
 
   const handleChange = (event) => {

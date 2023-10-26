@@ -6,35 +6,53 @@ import Swal from "sweetalert2";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 
+// Componente para que los administradores carguen imágenes para un servicio
 export function FormImgServicioAdmin({ idServicio }) {
   const id_servicio = idServicio;
 
+  // Obtiene las funciones necesarias desde el contexto de servicios
   const { createImagenesServicioEnbd } = useServicios();
 
+  // Obtiene la función de navegación de React Router
   const navigate = useNavigate();
+
+  // Estado para almacenar las imágenes seleccionadas por el usuario
   const [imagenes, setImagenes] = useState([]);
+
+  // Estado para manejar errores durante la carga de imágenes
   const [error, setError] = useState(null);
+
+  // Estado para controlar la carga y mostrar un indicador de carga
   const [loading, setLoading] = useState(false);
 
+  // Función que se ejecuta cuando el usuario selecciona o arrastra imágenes
   const onDrop = async (acceptedFiles) => {
+    // Lista para almacenar las nuevas imágenes
     const nuevasImagenes = [];
-    const maxSize = 10 * 1024 * 1024; // 10 MB
+
+    // Tamaño máximo de imagen permitido (10 MB)
+    const maxSize = 10 * 1024 * 1024;
+
     try {
       await Promise.all(
         acceptedFiles.map((file) => {
           return new Promise((resolve, reject) => {
             if (!file.type.startsWith("image/")) {
+              // Rechazar archivos que no sean imágenes
               reject(new Error(`El archivo "${file.name}" no es una imagen`));
             } else if (file.size > maxSize) {
+              // Rechazar archivos que superen el tamaño máximo
               reject(
                 new Error(
                   `El archivo "${file.name}" excede el tamaño máximo permitido de 10 MB`
                 )
               );
             } else {
+              // Leer el archivo como un objeto de datos URL
               const reader = new FileReader();
               reader.readAsDataURL(file);
               reader.onload = () => {
+                // Agregar la imagen a la lista de nuevas imágenes
                 nuevasImagenes.push(file);
                 resolve();
               };
@@ -43,13 +61,17 @@ export function FormImgServicioAdmin({ idServicio }) {
           });
         })
       );
+
+      // Actualizar el estado de las imágenes
       setImagenes((prevImagenes) => [...prevImagenes, ...nuevasImagenes]);
       setError(null);
     } catch (error) {
+      // Capturar y mostrar errores en caso de problemas
       setError(error.message);
     }
   };
 
+  // Configuración para el área de arrastrar y soltar (Dropzone) para cargar imágenes
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop,

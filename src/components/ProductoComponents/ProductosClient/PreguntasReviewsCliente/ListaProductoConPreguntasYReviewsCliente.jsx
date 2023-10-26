@@ -17,6 +17,7 @@ import {
   Button,
 } from "react-bootstrap";
 
+// Componente que muestra una lista de productos con preguntas y reviews para un cliente
 export function ListaProductoConPreguntasYReviewsCliente() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const {
@@ -36,6 +37,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
 
   const [mostrarTitulo, setMostrarTitulo] = useState(false); // Agregamos el estado para controlar la visibilidad del título
 
+  // Función para eliminar una pregunta
   const onDeletePregunta = async (preguntaId) => {
     try {
       const confirmResult = await Swal.fire({
@@ -56,6 +58,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     }
   };
 
+  // Función para cargar productos con reviews por parte del usuario
   const cargarProductosConReviewsByUsuario = async () => {
     try {
       await getProductosConReviewsByUsuarioId(usuario.id);
@@ -65,6 +68,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     }
   };
 
+  // Función para cargar productos con preguntas por parte del usuario
   const cargarProductosConPreguntasByUsuarioId = async () => {
     try {
       await getProductosConPreguntasByUsuarioId(usuario.id);
@@ -80,6 +84,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     cargarServiciosConPreguntasByUsuarioId();
   }, []);
 
+  // Filtrar preguntas sin respuesta de productos
   const preguntasSinResponder =
     productosPreguntas &&
     Object.values(productosPreguntas).reduce((preguntas, producto) => {
@@ -92,6 +97,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
       return preguntas;
     }, []);
 
+  // Filtrar preguntas respondidas de productos
   const preguntasRespondidas =
     productosPreguntas &&
     Object.values(productosPreguntas).reduce((preguntas, producto) => {
@@ -104,6 +110,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
       return preguntas;
     }, []);
 
+  // Función para eliminar una review
   const onDeleteReview = async (reviewId) => {
     try {
       const confirmResult = await Swal.fire({
@@ -127,6 +134,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
   const [mostrarContenido, setMostrarContenido] = useState(false);
   const [mostrarReviewsProductos, setMostrarReviewsProductos] = useState(false);
 
+  // Función para cargar servicios con preguntas por parte del usuario
   const cargarServiciosConPreguntasByUsuarioId = async () => {
     try {
       await getServiciosConPreguntasByUsuarioId(usuario.id);
@@ -136,6 +144,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     }
   };
 
+  // Filtrar preguntas sin respuesta de servicios
   const preguntasSinResponderServicios =
     serviciosPreguntas &&
     Object.values(serviciosPreguntas).reduce((preguntas, servicio) => {
@@ -147,7 +156,8 @@ export function ListaProductoConPreguntasYReviewsCliente() {
       }
       return preguntas;
     }, []);
-  console.log(preguntasSinResponderServicios);
+
+  // Filtrar preguntas respondidas de servicios
   const preguntasRespondidasServicios =
     serviciosPreguntas &&
     Object.values(serviciosPreguntas).reduce((preguntas, servicio) => {
@@ -163,6 +173,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
       return preguntas;
     }, []);
 
+  // Función para eliminar una pregunta de servicio
   const onDeletePreguntaServicio = async (preguntaId) => {
     try {
       const confirmResult = await Swal.fire({
@@ -185,29 +196,29 @@ export function ListaProductoConPreguntasYReviewsCliente() {
 
   const mostrarPreguntasProductosNoRespondidas = () => {
     setMostrarContenido("lista1");
-    setMostrarTitulo(1);
+    setMostrarTitulo(true);
   };
 
   const mostrarPreguntasProductosRespondidas = () => {
     setMostrarContenido("lista2");
-    setMostrarTitulo(1);
+    setMostrarTitulo(true);
   };
 
   const mostrarPreguntasServiciosNoRespondidas = () => {
     setMostrarContenido("lista3");
-    setMostrarTitulo(1);
+    setMostrarTitulo(true);
   };
 
   const mostrarPreguntasServiciosRespondidas = () => {
     setMostrarContenido("lista4");
-    setMostrarTitulo(1);
+    setMostrarTitulo(true);
   };
 
   const mostrarOpinionesProductosPropios = () => {
     setMostrarContenido("lista5");
     setMostrarReviewsProductos(true);
     cargarProductosConReviewsByUsuario();
-    setMostrarTitulo(1);
+    setMostrarTitulo(true);
   };
 
   const [calificacionFiltro, setCalificacionFiltro] = useState("");
@@ -257,6 +268,7 @@ export function ListaProductoConPreguntasYReviewsCliente() {
     };
   });
 
+  // Función para generar el reporte de reviews
   const generarReporteReviews = () => {
     console.log(productosFiltrados);
 
@@ -274,10 +286,10 @@ export function ListaProductoConPreguntasYReviewsCliente() {
           } = review;
 
           return {
-            "ID  de review": id,
+            "ID de review": id,
             Título: titulo,
             Comentario: comentario,
-            Calificacion: calificacion,
+            Calificación: calificacion,
             "ID Producto": id_producto,
             "ID Usuario": id_usuario,
           };
@@ -285,8 +297,8 @@ export function ListaProductoConPreguntasYReviewsCliente() {
       })
       .flat();
 
-    // Ordenar los datos por el ID de reviews de menor a mayor
-    formattedData.sort((a, b) => a["ID  de review"] - b["ID  de review"]);
+    // Ordenar los datos por el ID de review de menor a mayor
+    formattedData.sort((a, b) => a["ID de review"] - b["ID de review"]);
 
     const atributosExcluir = ["updatedAt"];
     reviewsReporteExcel(formattedData, atributosExcluir);

@@ -1,4 +1,3 @@
-import { useServicios } from "../../../ServiciosContext/ServicioProvider";
 import { Form, Button, Card, Accordion } from "react-bootstrap";
 import "./FormNuevaDenunciaProductoGeneral.css";
 import { useState } from "react";
@@ -6,26 +5,32 @@ import { Link, useNavigate } from "react-router-dom";
 import { FooterHome } from "../../../../HomePageComponents/FooterHome";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+
+// Componente que permite a los usuarios realizar denuncias sobre un servicio.
 export function FormNuevaDenunciaServicioGeneral() {
   const navigate = useNavigate();
 
-  window.scrollTo(0, 0); //Para que se muestre desde arriba la página
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  // Para que la página se muestre desde arriba
+  window.scrollTo(0, 0);
 
+
+  // Obtiene el parámetro de ID de servicio desde la URL.
   const { id_servicio } = useParams();
-  console.log(id_servicio);
+
+  // Estado para almacenar la opción seleccionada por el usuario.
   const [selectedOption, setSelectedOption] = useState("");
 
+  // Función que se ejecuta cuando se envía el formulario de denuncia.
   const handleSubmit = (event) => {
-    console.log(selectedOption);
     event.preventDefault();
-    if (selectedOption == "") {
+    if (selectedOption === "") {
       Swal.fire({
         icon: "warning",
         title: "Selecciona una opción",
         text: "Debes seleccionar una opción de la lista de opciones.",
       });
     } else {
+      // Redirige al usuario a la página de detalles de la denuncia.
       navigate(
         `/denuncia/servicio/${id_servicio}/detalles?opcion=${selectedOption}`
       );

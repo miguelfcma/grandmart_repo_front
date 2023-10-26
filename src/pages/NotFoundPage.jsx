@@ -1,3 +1,4 @@
+// Estilos para los elementos en la página NotFoundPage
 const styles = {
   container: {
     display: "flex",
@@ -25,6 +26,8 @@ const styles = {
   },
 };
 
+// Componente NotFoundPage que muestra un mensaje de error 404
+// Esta página se muestra cuando un usuario intenta acceder a una página que no existe dentro del dominio del servidor.
 export function NotFoundPage() {
   return (
     <div style={styles.container}>

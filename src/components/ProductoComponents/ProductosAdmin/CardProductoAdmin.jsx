@@ -7,27 +7,31 @@ import { deleteImagesProducto } from "../../../firebase/productoStorage";
 import { FormUpdateProductoAdmin } from "./FormUpdateProductoAdmin";
 import { Modal } from "../../ModalComponents/Modal";
 
+// Componente para mostrar la tarjeta de un producto en la interfaz de administrador
 export function CardProductoAdmin({ producto }) {
   const { deleteProducto, getImgPortadaProducto, getAllImagesProduct } =
     useProductos();
 
   const [urlImagen, setUrlImagen] = useState("");
 
+  // Función asincrónica para obtener la URL de la imagen de portada del producto
   async function obtenerUrlImagenAsync(idProducto) {
     const url = await getImgPortadaProducto(idProducto);
     setUrlImagen(url);
   }
 
+  // Cuando el componente se monta, obtenemos la URL de la imagen
   useEffect(() => {
     obtenerUrlImagenAsync(producto.id);
   }, [producto.id]);
 
+  // Maneja la eliminación de un producto
   const handleEliminarProducto = async () => {
     try {
       const imagenesProducto = await getAllImagesProduct(producto.id);
       const urls = imagenesProducto.map((imagen) => imagen.url);
 
-      // Mostrar SweetAlert2 de confirmación
+      // Mostrar SweetAlert2 de confirmación para eliminar el producto
       const confirmResult = await Swal.fire({
         icon: "warning",
         title: "Eliminar producto",
@@ -66,29 +70,36 @@ export function CardProductoAdmin({ producto }) {
     }
   };
 
+  // Estado para controlar la apertura del modal
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Estado para rastrear si el formulario ha sido enviado
   const [formularioEnviado, setFormularioEnviado] = useState(false);
 
+  // Abre el modal
   function handleOpenModal() {
     setIsModalOpen(true);
   }
 
+  // Cierra el modal
   function handleCloseModal() {
     setIsModalOpen(false);
     setFormularioEnviado(false); // Reiniciar el estado del formulario enviado
   }
 
+  // Maneja el envío del formulario
   function handleSubmit() {
     // Lógica para enviar el formulario
     setFormularioEnviado(true);
   }
 
+  // Efecto para cerrar el modal cuando el formulario se envía con éxito
   useEffect(() => {
     if (formularioEnviado) {
       handleCloseModal(); // Cerrar la ventana modal si el formulario se ha enviado correctamente
     }
   }, [formularioEnviado]);
-  
+
   return (
     <div className="card-producto">
       {producto.stock === 0 && (

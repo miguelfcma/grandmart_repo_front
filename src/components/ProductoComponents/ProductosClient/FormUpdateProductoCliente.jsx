@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Form, FormGroup, FormControl, Button, Alert } from "react-bootstrap";
+import { Form, FormControl, Button, Alert } from "react-bootstrap";
 import { useCategorias } from "../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
 import Swal from "sweetalert2";
 
+// Componente para actualizar un producto por parte del cliente
 export function FormUpdateProductoCliente({ onSubmit, producto }) {
   const { updateProductoCliente } = useProductos();
   const { categorias, loadCategorias } = useCategorias();
   const [categoriaActual, setCategoriaActual] = useState("");
 
+  // Carga las categorías al montar el componente
   useEffect(() => {
     const fetchCategorias = async () => {
       await loadCategorias();
@@ -18,6 +20,7 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
     fetchCategorias();
   }, []);
 
+  // Actualiza la categoría actual cuando cambia el producto o las categorías
   useEffect(() => {
     const categoriaEncontrada = categorias.find(
       (categoria) => categoria.id === producto.id_categoria
@@ -26,6 +29,7 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
     setCategoriaActual({ ...categoriaEncontrada });
   }, [producto.id_categoria, categorias]);
 
+  // Estado para almacenar los valores del formulario
   const [formValues, setFormValues] = useState({
     nombre: producto.nombre,
     precio: producto.precio,
@@ -38,13 +42,16 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
     id_categoria: producto.id_categoria,
   });
 
+  // Estado para almacenar errores de validación
   const [validationErrors, setValidationErrors] = useState({});
 
+  // Maneja el cambio en los campos del formulario
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
+  // Maneja la presentación del formulario y realiza la validación antes de enviar los datos
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
@@ -89,6 +96,7 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
     }
   };
 
+  // Maneja el cambio en el campo de categoría
   const handleIdParentChange = (event) => {
     const { value } = event.target;
     if (value === "") {
@@ -105,6 +113,7 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
     }
   };
 
+  // Realiza la validación de los campos del formulario
   const validateForm = () => {
     const errors = {};
 
@@ -120,6 +129,7 @@ export function FormUpdateProductoCliente({ onSubmit, producto }) {
       errors.precio =
         "El formato del precio es incorrecto. Ejemplo: 10 o 10.99";
     }
+
     // Validación del stock
     if (formValues.stock.toString().trim() === "") {
       errors.stock = "El stock es obligatorio";

@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 import { useNavigate } from "react-router-dom";
 import { Form, FormGroup, FormControl, Button, Alert } from "react-bootstrap";
-
 import Swal from "sweetalert2";
+
+// Componente de formulario para crear productos administrativos
 export function FormProductoAdmin() {
-  const navigate = useNavigate();
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { createProducto } = useProductos();
+  const navigate = useNavigate(); // Proporciona la función de navegación
+  const usuario = JSON.parse(localStorage.getItem("usuario")); // Obtiene información del usuario actual desde el almacenamiento local
+  const { createProducto } = useProductos(); // Utiliza el contexto de productos para crear un producto
   const [producto, setProducto] = useState({
     nombre: "",
     precio: "",
@@ -19,15 +20,16 @@ export function FormProductoAdmin() {
     color: "",
     estado: "",
     id_categoria: "",
-    id_usuario: usuario.id,
+    id_usuario: usuario.id, // Asigna el ID del usuario actual al producto
   });
   const [validationErrors, setValidationErrors] = useState({});
 
-  const { categorias, loadCategorias } = useCategorias();
+  const { categorias, loadCategorias } = useCategorias(); // Utiliza el contexto de categorías para cargar categorías disponibles
   useEffect(() => {
-    loadCategorias();
+    loadCategorias(); // Carga las categorías al montar el componente
   }, []);
 
+  // Maneja los cambios en los campos del formulario
   const handleChange = (event) => {
     const { name, value } = event.target;
     setProducto((prevProducto) => ({
@@ -36,12 +38,13 @@ export function FormProductoAdmin() {
     }));
   };
 
+  // Maneja el envío del formulario para crear un producto
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(producto);
 
     try {
-      const response = await createProducto(producto);
+      const response = await createProducto(producto); // Intenta crear el producto utilizando el contexto de productos
       if (response.status === 201) {
         Swal.fire({
           icon: "success",
@@ -49,7 +52,7 @@ export function FormProductoAdmin() {
           text: "El producto se creó correctamente",
         });
         const idProducto = response.data.producto.id;
-        navigate(`/dashAdmin/productos/registro-producto/${idProducto}`);
+        navigate(`/dashAdmin/productos/registro-producto/${idProducto}`); // Navega a la página de registro del nuevo producto
       } else if (response.status === 400) {
         Swal.fire({
           icon: "error",
@@ -73,6 +76,7 @@ export function FormProductoAdmin() {
     }
   };
 
+  // Maneja los cambios en la selección de categoría
   const handleIdParentChange = (event) => {
     const { value } = event.target;
     setProducto((prevProducto) => ({

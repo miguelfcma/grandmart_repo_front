@@ -1,12 +1,10 @@
 import { useCategorias } from "../../../CategoriaComponents/CategoriasContext/CategoriaProvider";
 import { useState, useEffect } from "react";
 import { useServicios } from "../../ServiciosContext/ServicioProvider";
-import { useNavigate } from "react-router-dom";
-import { Form, Button, Col } from "react-bootstrap";
+
+import { Form, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 export function FormNuevoServicioCliente({ handleServicioRegistrado }) {
-  const navigate = useNavigate();
-
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { createServicio } = useServicios();
   const [servicio, setServicio] = useState({

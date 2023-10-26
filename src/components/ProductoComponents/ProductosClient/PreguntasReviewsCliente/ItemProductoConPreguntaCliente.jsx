@@ -4,12 +4,14 @@ import { useProductos } from "../../ProductosContext/ProductoProvider";
 import { Link } from "react-router-dom";
 import "./ItemProductoPreguntaCliente.css";
 
+// Componente que muestra un producto con preguntas y respuestas para un cliente
 export function ItemProductoConPreguntaCliente({ producto, onDeletePregunta }) {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { crearRespuestaProducto } = useProductos();
   const [respuestas, setRespuestas] = useState([]);
   const [preguntasVisible, setPreguntasVisible] = useState(false);
 
+  // Maneja el cambio en la respuesta de una pregunta
   const handleRespuestaChange = (preguntaId, respuesta) => {
     setRespuestas((prevRespuestas) => {
       const respuestasActualizadas = [...prevRespuestas];
@@ -25,6 +27,7 @@ export function ItemProductoConPreguntaCliente({ producto, onDeletePregunta }) {
     });
   };
 
+  // Maneja el envío de una respuesta
   const handleSubmitRespuesta = async (id_pregunta, respuesta) => {
     try {
       await crearRespuestaProducto(usuario.id, id_pregunta, { respuesta });
@@ -36,6 +39,7 @@ export function ItemProductoConPreguntaCliente({ producto, onDeletePregunta }) {
     }
   };
 
+  // Maneja la eliminación de una pregunta
   const handleEliminarPregunta = (preguntaId) => {
     try {
       onDeletePregunta(preguntaId);
@@ -44,17 +48,20 @@ export function ItemProductoConPreguntaCliente({ producto, onDeletePregunta }) {
     }
   };
 
+  // Maneja la visibilidad de las preguntas
   const handleTogglePreguntasVisible = () => {
     setPreguntasVisible(!preguntasVisible);
   };
 
+  // Filtra las preguntas sin respuesta
   const preguntasSinRespuesta = producto.preguntas.filter(
     (pregunta) => pregunta.respuesta === null
   );
 
+  // Filtra las preguntas respondidas
   const preguntasRespondidas = producto.preguntas.filter(
     (pregunta) => pregunta.respuesta !== null
-  )
+  );
 
   return (
     <div>
@@ -62,14 +69,14 @@ export function ItemProductoConPreguntaCliente({ producto, onDeletePregunta }) {
         {preguntasSinRespuesta.length > 0 ? (
           <Card key={producto.id}>
             <Card.Header>
-            <Link
-              to={`/dashClient/productos/detalles/${producto.producto.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <h2>
-                ID: {producto.producto.id} - {producto.producto.nombre}
-              </h2>
-            </Link>
+              <Link
+                to={`/dashClient/productos/detalles/${producto.producto.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <h2>
+                  ID: {producto.producto.id} - {producto.producto.nombre}
+                </h2>
+              </Link>
             </Card.Header>
             <Card.Body>
               <Button
@@ -158,7 +165,6 @@ export function ItemProductoConPreguntaCliente({ producto, onDeletePregunta }) {
                         </div>
                       </Form.Group>
 
-                      {/* Eliminar siempre visible */}
                       <div className="contBotones">
                         <Button
                           variant="danger"
@@ -178,14 +184,14 @@ export function ItemProductoConPreguntaCliente({ producto, onDeletePregunta }) {
         ) : (
           <Card key={producto.id}>
             <Card.Header>
-            <Link
-              to={`/dashClient/productos/detalles/${producto.producto.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <h2>
-                ID: {producto.producto.id} - {producto.producto.nombre}
-              </h2>
-            </Link>
+              <Link
+                to={`/dashClient/productos/detalles/${producto.producto.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <h2>
+                  ID: {producto.producto.id} - {producto.producto.nombre}
+                </h2>
+              </Link>
             </Card.Header>
             <Card.Body>
               <Button
@@ -217,18 +223,6 @@ export function ItemProductoConPreguntaCliente({ producto, onDeletePregunta }) {
                           {pregunta.respuesta}
                         </div>
                       </Form.Group>
-
-                      {/* Eliminar siempre visible 
-                      <div className="contBotones">
-                        <Button
-                          variant="danger"
-                          className="btnEliminar"
-                          onClick={() => handleEliminarPregunta(pregunta.id)}
-                          style={{ marginLeft: "1rem" }}
-                        >
-                          Eliminar pregunta
-                        </Button>
-                      </div>*/}
                     </ListGroup.Item>
                   ))}
                 </ListGroup>

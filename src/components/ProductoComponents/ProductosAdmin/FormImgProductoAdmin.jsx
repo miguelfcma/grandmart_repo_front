@@ -1,25 +1,26 @@
 import { useRef, useState } from "react";
 import { uploadImagesProducto } from "../../../firebase/productoStorage";
 import { useProductos } from "../ProductosContext/ProductoProvider";
-
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 
+// Componente de formulario para subir imágenes de un producto administrativo
 export function FormImgProductoAdmin(idProducto) {
   const id_producto = idProducto.idProducto;
 
-  const { createImagenesProductoEnbd } = useProductos();
-
+  const { createImagenesProductoEnbd } = useProductos(); // Utiliza el contexto de productos para crear imágenes de producto
   const navigate = useNavigate();
   const [imagenes, setImagenes] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Maneja la caída de archivos en la zona de drop
   const onDrop = async (acceptedFiles) => {
     const nuevasImagenes = [];
     const maxSize = 10 * 1024 * 1024; // 10 MB
+
     try {
       await Promise.all(
         acceptedFiles.map((file) => {
@@ -51,18 +52,21 @@ export function FormImgProductoAdmin(idProducto) {
     }
   };
 
+  // Configuración de la zona de drop para archivos de imágenes
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop,
     maxFiles: 7,
   });
 
+  // Maneja la eliminación de una imagen
   const handleEliminarImagen = (index) => {
     const nuevasImagenes = [...imagenes];
     nuevasImagenes.splice(index, 1);
     setImagenes(nuevasImagenes);
   };
 
+  // Maneja el envío del formulario para subir imágenes
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -74,6 +78,7 @@ export function FormImgProductoAdmin(idProducto) {
       } else if (imagenes.length > 7) {
         throw new Error("Solo se pueden agregar 7 imágenes");
       }
+
       Swal.fire({
         title: "Cargando...",
         allowOutsideClick: false,
@@ -81,9 +86,10 @@ export function FormImgProductoAdmin(idProducto) {
           Swal.showLoading();
         },
       });
-      const urls = await uploadImagesProducto(imagenes);
 
-      const status = await createImagenesProductoEnbd(id_producto, urls);
+      const urls = await uploadImagesProducto(imagenes); // Sube las imágenes y obtiene las URL
+      const status = await createImagenesProductoEnbd(id_producto, urls); // Crea las imágenes en la base de datos
+
       if (status === 201) {
         Swal.fire({
           icon: "success",

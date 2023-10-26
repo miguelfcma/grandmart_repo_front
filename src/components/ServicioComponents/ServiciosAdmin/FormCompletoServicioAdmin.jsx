@@ -9,11 +9,13 @@ export default function FormCompletoServicioAdmin() {
   const [infoServicioRegistrados, setInfoServicioRegistrados] = useState(false);
   const [idServicio, setIdServicio] = useState(null);
 
+  // Función para manejar el evento de servicio registrado
   const handleServicioRegistrado = (idServicio) => {
     setIdServicio(idServicio);
     setDatosServicioRegistrados(true);
   };
 
+  // Función para manejar el evento de información del servicio registrada
   const handleInfoServicioRegistrados = () => {
     setInfoServicioRegistrados(true);
   };
@@ -21,12 +23,20 @@ export default function FormCompletoServicioAdmin() {
   return (
     <div>
       {!datosServicioRegistrados ? (
-        <FormNuevoServicioAdmin handleServicioRegistrado={handleServicioRegistrado} />
+        // Muestra el formulario de nuevo servicio si los datos del servicio no están registrados
+        <FormNuevoServicioAdmin
+          handleServicioRegistrado={handleServicioRegistrado}
+        />
       ) : (
         <>
           {!infoServicioRegistrados ? (
-            <FormInformacionServicioAdmin handleInfoServicioRegistrados={handleInfoServicioRegistrados} idServicio={idServicio} />
+            // Muestra el formulario de información del servicio si los datos del servicio están registrados
+            <FormInformacionServicioAdmin
+              handleInfoServicioRegistrados={handleInfoServicioRegistrados}
+              idServicio={idServicio}
+            />
           ) : (
+            // Muestra el formulario de imágenes del servicio si la información del servicio está registrada
             <FormImgServicioAdmin idServicio={idServicio} />
           )}
         </>

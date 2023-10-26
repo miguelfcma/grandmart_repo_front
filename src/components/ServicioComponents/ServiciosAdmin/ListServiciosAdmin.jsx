@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import { CardServicioAdmin } from "./CardServicioAdmin";
 import { useServicios } from "../ServiciosContext/ServicioProvider";
 
+// Componente para mostrar la lista de servicios administrativos
 export function ListServiciosAdmin() {
   const { serviciosAll, loadServicios } = useServicios();
   const [filtro, setFiltro] = useState("");
 
+  // Cargar los servicios al cargar el componente
   useEffect(() => {
     loadServicios();
   }, []);
 
+  // Filtrar la lista de servicios según el valor de filtro
   function filtrarServicios() {
     if (filtro === "") {
       return serviciosAll;
@@ -30,6 +33,7 @@ export function ListServiciosAdmin() {
     }
   }
 
+  // Renderizar la lista de servicios
   function renderMain() {
     const serviciosFiltrados = filtrarServicios();
 

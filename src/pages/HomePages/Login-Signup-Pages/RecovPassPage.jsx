@@ -1,9 +1,12 @@
-import { RecoverPassForm } from "../../../components/usuarioComponents/usuarioRecoverPassword/RecoverPassForm"
+// Importación del módulo necesario desde una ruta específica
+import { RecoverPassForm } from "../../../components/usuarioComponents/usuarioRecoverPassword/RecoverPassForm";
 
-export  function RecovPassPage() {
+// Definición del componente RecovPassPage
+export function RecovPassPage() {
   return (
     <div>
-      <RecoverPassForm/>
+      {/* Renderiza el formulario de recuperación de contraseña de usuario */}
+      <RecoverPassForm />
     </div>
-  )
+  );
 }

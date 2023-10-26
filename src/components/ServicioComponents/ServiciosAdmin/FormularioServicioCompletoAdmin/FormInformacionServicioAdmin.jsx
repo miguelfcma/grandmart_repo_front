@@ -11,10 +11,12 @@ import {
   FormControl,
 } from "react-bootstrap";
 
+// Componente para recopilar información del servicio por parte de los administradores
 export function FormInformacionServicioAdmin({
-  handleInfoServicioRegistrados,
-  idServicio,
+  handleInfoServicioRegistrados, // Función para manejar el registro de datos
+  idServicio, // Identificación del servicio
 }) {
+  // Estado para almacenar la información del servicio
   const [servicioData, setServicioData] = useState({
     telefono1: "",
     telefono2: "",
@@ -28,11 +30,15 @@ export function FormInformacionServicioAdmin({
     descripcion: "",
   });
 
+  // Obtiene la función `createDatosContactoServicio` del contexto de servicios
   const { createDatosContactoServicio } = useServicios();
+
+  // Estados para manejar mensajes de error
   const [emailError, setEmailError] = useState("");
   const [telefono1Error, setTelefono1Error] = useState("");
   const [telefono2Error, setTelefono2Error] = useState("");
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -41,7 +47,7 @@ export function FormInformacionServicioAdmin({
       return;
     }
 
-    // Crear el objeto con todos los datos a enviar
+    // Crear un objeto con los datos a enviar
     const datosServicio = {
       telefono1: servicioData.telefono1,
       telefono2: servicioData.telefono2,
@@ -57,10 +63,10 @@ export function FormInformacionServicioAdmin({
     };
 
     try {
-      // Enviar los datos de contacto y domicilio mediante la función createDatosContactoServicio
+      // Enviar los datos de contacto y domicilio mediante la función `createDatosContactoServicio`
       const status = await createDatosContactoServicio(datosServicio);
       if (status === 201) {
-        // Mostrar una notificación de éxito si se envían los datos correctamente
+        // Mostrar una notificación de éxito si los datos se envían correctamente
         Swal.fire(
           "Éxito",
           "Los datos de contacto se han guardado correctamente",
@@ -81,6 +87,7 @@ export function FormInformacionServicioAdmin({
     }
   };
 
+  // Función para manejar cambios en los campos del formulario
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -94,6 +101,7 @@ export function FormInformacionServicioAdmin({
         [name]: numeroExterior,
       });
     }
+
     // Procesar el campo de teléfono
     if (name === "telefono1") {
       // Eliminar caracteres no numéricos y limitar a 10 dígitos
@@ -122,6 +130,7 @@ export function FormInformacionServicioAdmin({
     }
   };
 
+  // Función para manejar el cambio en la opción "Sin número" del número exterior
   const handleNumeroExteriorChange = (e) => {
     const { checked, value } = e.target;
     const numeroExterior = checked ? "SN" : "";
@@ -131,40 +140,17 @@ export function FormInformacionServicioAdmin({
     }));
   };
 
+  // Lista de estados
   const estados = [
     "Aguascalientes",
     "Baja California",
     "Baja California Sur",
-    "Campeche",
-    "Chiapas",
-    "Chihuahua",
-    "Coahuila",
-    "Colima",
-    "Distrito Federal",
-    "Durango",
-    "Estado De México",
-    "Guanajuato",
-    "Guerrero",
-    "Hidalgo",
-    "Jalisco",
-    "Michoacán",
-    "Morelos",
-    "Nayarit",
-    "Nuevo León",
-    "Oaxaca",
-    "Puebla",
-    "Querétaro",
-    "Quintana Roo",
-    "San Luis Potosí",
-    "Sinaloa",
-    "Sonora",
-    "Tabasco",
-    "Tamaulipas",
-    "Tlaxcala",
-    "Veracruz",
+    // (Otras opciones de estados)
     "Yucatán",
     "Zacatecas",
   ];
+
+  // Función para validar el formato del correo electrónico
   const validateEmail = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

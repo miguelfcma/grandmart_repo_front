@@ -1,12 +1,16 @@
+// Importación de los módulos necesarios desde rutas específicas
 import { useParams, Link } from "react-router-dom";
 import { Navbar, Container, Row, Col, Button } from "react-bootstrap";
 import { ComprasFinal } from "../../../components/OrdenesComponents/OrdenesGeneral/ComprasFinal";
 
+// Definición del componente ComprasFinalPage
 export function ComprasFinalPage() {
-  const { id } = useParams(); // Obtén el ID de la compra de los parámetros de la URL
+  // Obtén el ID de la compra de los parámetros de la URL
+  const { id } = useParams();
 
   return (
     <div style={{ paddingTop: "80px" }}>
+      {/* Barra de navegación */}
       <Navbar>
         <Container>
           <Navbar.Brand as={Link} to="/">
@@ -17,21 +21,29 @@ export function ComprasFinalPage() {
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            
+            {/* Aquí puedes agregar elementos de navegación si es necesario */}
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      
+
       <Container>
-      <Button as={Link} to="/"  style={{ marginRight: "80px",marginTop: "20px" }} variant="outline-primary">
-            Ir a Página Principal
-            </Button>
-            <Button
-              as={Link}
-              to="/dashClient/compras"
-              style={{ marginTop: "20px" }}
-              variant="outline-primary"
-            >Ver Compras</Button>
+        {/* Botones de navegación */}
+        <Button
+          as={Link}
+          to="/"
+          style={{ marginRight: "80px", marginTop: "20px" }}
+          variant="outline-primary"
+        >
+          Ir a Página Principal
+        </Button>
+        <Button
+          as={Link}
+          to="/dashClient/compras"
+          style={{ marginTop: "20px" }}
+          variant="outline-primary"
+        >
+          Ver Compras
+        </Button>
         <Row style={{ marginTop: "20px" }}>
           <Col>
             <h1>
@@ -43,6 +55,7 @@ export function ComprasFinalPage() {
               Da clic en este botón para enviar un mensaje de WhatsApp para
               conocer más detalles del envío:
             </p>
+            {/* Renderiza el componente ComprasFinal y pasa 'id' como propiedad */}
             <ComprasFinal id_orden={id} />
           </Col>
         </Row>

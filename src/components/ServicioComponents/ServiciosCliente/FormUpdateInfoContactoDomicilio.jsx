@@ -12,6 +12,7 @@ import {
   Alert,
 } from "react-bootstrap";
 
+// Componente para actualizar información de contacto y domicilio de un servicio
 export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
   const {
     obtenerDatosContactoServicio,
@@ -20,6 +21,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
   const [emailError, setEmailError] = useState("");
   const [datosContacto, setDatosContacto] = useState(null);
 
+  // Función para cargar los datos de contacto
   const fetchDatosContacto = async () => {
     try {
       const data = await obtenerDatosContactoServicio(servicio.id);
@@ -29,6 +31,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }
   };
 
+  // Cargar datos de contacto al montar el componente
   useEffect(() => {
     fetchDatosContacto();
   }, []);
@@ -46,6 +49,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     descripcion: "",
   });
 
+  // Llenar el formulario con datos de contacto si están disponibles
   useEffect(() => {
     if (datosContacto) {
       setServicioData((prevState) => ({
@@ -66,6 +70,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
 
   const [validationErrors, setValidationErrors] = useState({});
 
+  // Manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -132,6 +137,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }
   };
 
+  // Manejar cambios en los campos del formulario
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -146,6 +152,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }
   };
 
+  // Manejar el cambio en el campo "Número Exterior"
   const handleNumeroExteriorChange = (e) => {
     const { checked } = e.target;
     const numeroExterior = checked ? "SN" : "";
@@ -191,6 +198,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     "Zacatecas",
   ];
 
+  // Validar el formato del correo electrónico
   const validateEmail = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -202,6 +210,7 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     return true;
   };
 
+  // Validar el formulario
   const validateForm = () => {
     const errors = {};
 
@@ -231,7 +240,10 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
     }
 
     // Validación de número exterior
-    if (servicioData.numeroExterior.trim() === "" && servicioData.numeroExterior !== "SN") {
+    if (
+      servicioData.numeroExterior.trim() === "" &&
+      servicioData.numeroExterior !== "SN"
+    ) {
       errors.numeroExterior = "El número exterior es obligatorio";
     }
 
@@ -250,7 +262,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="telefono1"
             value={servicioData.telefono1}
             onChange={handleChange}
-          
             pattern="[0-9]*"
             title="Ingresa solo números"
             maxLength={10}
@@ -294,7 +305,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="estado"
             value={servicioData.estado}
             onChange={handleChange}
-
             isInvalid={validationErrors.estado}
           >
             <option value="">Seleccionar estado...</option>
@@ -315,7 +325,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="municipioAlcaldia"
             value={servicioData.municipioAlcaldia}
             onChange={handleChange}
-            
             isInvalid={validationErrors.municipioAlcaldia}
           />
           {validationErrors.municipioAlcaldia && (
@@ -329,7 +338,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="colonia"
             value={servicioData.colonia}
             onChange={handleChange}
-       
             isInvalid={validationErrors.colonia}
           />
           {validationErrors.colonia && (
@@ -343,7 +351,6 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
             name="calle"
             value={servicioData.calle}
             onChange={handleChange}
-         
             isInvalid={validationErrors.calle}
           />
           {validationErrors.calle && (
@@ -369,12 +376,13 @@ export function FormUpdateInfoContactoDomicilio({ onSubmit, servicio }) {
                   value={servicioData.numeroExterior}
                   onChange={handleChange}
                   disabled={servicioData.numeroExterior === "SN"}
-   
                   isInvalid={validationErrors.numeroExterior}
                 />
               ) : null}
               {validationErrors.numeroExterior && (
-                <Alert variant="danger">{validationErrors.numeroExterior}</Alert>
+                <Alert variant="danger">
+                  {validationErrors.numeroExterior}
+                </Alert>
               )}
             </FormGroup>
           </Col>

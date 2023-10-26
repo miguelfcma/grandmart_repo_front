@@ -1,17 +1,23 @@
+// Importación de módulos y componentes necesarios
 import { useEffect, useState } from "react";
 import { CardProductoAdmin } from "./CardProductoAdmin";
 import "./ListProductosAdmin.css";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
+// Definición del componente ListProductosAdmin
 export function ListProductosAdmin() {
+  // Uso del contexto de productos para obtener productos y la función para cargar productos
   const { productosAll, loadProductos } = useProductos();
 
+  // Estado para el filtro de búsqueda
   const [filtro, setFiltro] = useState("");
 
+  // Carga de productos al montar el componente
   useEffect(() => {
     loadProductos();
   }, []);
 
+  // Función para filtrar los productos basados en el filtro de búsqueda
   function filtrarProductos() {
     if (filtro === "") {
       return productosAll;
@@ -44,6 +50,7 @@ export function ListProductosAdmin() {
     }
   }
 
+  // Función para renderizar la lista de productos
   function renderMain() {
     const productosFiltrados = filtrarProductos();
 
@@ -56,6 +63,7 @@ export function ListProductosAdmin() {
     }
   }
 
+  // Renderización de la lista de productos con un filtro de búsqueda
   return (
     <>
       <h2 className="titulo">Lista de productos:</h2>

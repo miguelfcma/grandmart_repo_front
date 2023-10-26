@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react";
 import { CardProductoCliente } from "./CardProductoCliente";
 import { useProductos } from "../ProductosContext/ProductoProvider";
 
+// Componente para mostrar una lista de productos al cliente
 export function ListProductosCliente() {
+  // Obtenemos el usuario desde el almacenamiento local
   const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+  // Utilizamos el contexto de productos para obtener datos y funciones relacionadas con los productos
   const { productosUsuario, loadProductosUsuario } = useProductos();
+
+  // Estado para el filtro de productos
   const [filtro, setFiltro] = useState("");
 
   useEffect(() => {
+    // Cargamos los productos del usuario al montar el componente
     async function fetchData() {
       try {
         await loadProductosUsuario(usuario.id);
@@ -18,6 +25,7 @@ export function ListProductosCliente() {
     fetchData();
   }, []);
 
+  // Función para filtrar los productos en función del criterio de búsqueda
   function filtrarProductos() {
     if (filtro === "") {
       return productosUsuario;
@@ -30,17 +38,30 @@ export function ListProductosCliente() {
           producto.descripcion.toLowerCase().includes(filtroLowerCase) ||
           producto.marca.toLowerCase().includes(filtroLowerCase) ||
           producto.modelo.toLowerCase().includes(filtroLowerCase) ||
-          `${producto.id} ${producto.nombre}`.toLowerCase().includes(filtroLowerCase) ||
-          `${producto.id} - ${producto.nombre}`.toLowerCase().includes(filtroLowerCase) ||
-          `${producto.id}-${producto.nombre} `.toLowerCase().includes(filtroLowerCase) ||
-          `${producto.nombre} ${producto.marca}`.toLowerCase().includes(filtroLowerCase) ||
-          `${producto.nombre} ${producto.modelo}`.toLowerCase().includes(filtroLowerCase) ||
-          `${producto.marca} ${producto.modelo}`.toLowerCase().includes(filtroLowerCase)
+          `${producto.id} ${producto.nombre}`
+            .toLowerCase()
+            .includes(filtroLowerCase) ||
+          `${producto.id} - ${producto.nombre}`
+            .toLowerCase()
+            .includes(filtroLowerCase) ||
+          `${producto.id}-${producto.nombre} `
+            .toLowerCase()
+            .includes(filtroLowerCase) ||
+          `${producto.nombre} ${producto.marca}`
+            .toLowerCase()
+            .includes(filtroLowerCase) ||
+          `${producto.nombre} ${producto.modelo}`
+            .toLowerCase()
+            .includes(filtroLowerCase) ||
+          `${producto.marca} ${producto.modelo}`
+            .toLowerCase()
+            .includes(filtroLowerCase)
         );
       });
     }
   }
 
+  // Función para renderizar la lista de productos
   function renderMain() {
     const productosFiltrados = filtrarProductos();
 
