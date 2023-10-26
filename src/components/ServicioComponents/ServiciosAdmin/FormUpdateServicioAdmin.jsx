@@ -25,7 +25,7 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
 
   // Efecto para establecer la categoría actual del servicio
   useEffect(() => {
-    const categoriaEncontrada = categorías.find(
+    const categoriaEncontrada = categorias.find(
       (categoria) => categoria.id === servicio.id_categoria
     );
     setCategoriaActual({ ...categoriaEncontrada });
@@ -35,7 +35,7 @@ export function FormUpdateServicioAdmin({ onSubmit, servicio }) {
   const [formValues, setFormValues] = useState({
     titulo: servicio.titulo,
     descripcion: servicio.descripcion,
-    precio: servicio.precio,
+    precio: servicio.precio.toString(),
     id_categoria: servicio.id_categoria,
   });
 

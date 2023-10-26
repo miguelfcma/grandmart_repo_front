@@ -31,7 +31,7 @@ export function FormUpdateServicioCliente({ onSubmit, servicio }) {
   const [formValues, setFormValues] = useState({
     titulo: servicio.titulo,
     descripcion: servicio.descripcion,
-    precio: servicio.precio,
+    precio: servicio.precio.toString(),
     id_categoria: servicio.id_categoria,
   });
 
