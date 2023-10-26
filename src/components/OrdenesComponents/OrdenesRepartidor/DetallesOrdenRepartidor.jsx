@@ -4,6 +4,7 @@ import { Container, Row, Col, Table, Button, Form } from "react-bootstrap";
 import "./DetallesOrdenRepartidor.css";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+
 export function DetallesOrdenRepartidor({ id_orden }) {
   const {
     obtenerDetalleOrden,
@@ -11,6 +12,7 @@ export function DetallesOrdenRepartidor({ id_orden }) {
     obtenerDireccionEnvioOrden,
   } = useOrdenes();
 
+  // Estados para almacenar información de la orden y envío
   const [orden, setOrden] = useState({
     id: null,
     total: null,
@@ -20,9 +22,12 @@ export function DetallesOrdenRepartidor({ id_orden }) {
     fechaEntrega: null,
     detallesOrden: [],
   });
-  const navigate = useNavigate();
   const [direccionEnvio, setDireccionEnvio] = useState(null);
   const [infoEnvio, setInfoEnvio] = useState("");
+
+  const navigate = useNavigate();
+
+  // Cargar detalles de la orden
   const cargarDetalleOrden = async () => {
     try {
       const data = await obtenerDetalleOrden(id_orden);
@@ -41,6 +46,7 @@ export function DetallesOrdenRepartidor({ id_orden }) {
     }
   };
 
+  // Cargar detalles de la dirección de envío
   const cargarDireccionEnvioOrden = async () => {
     try {
       const data2 = await obtenerDireccionEnvioOrden(id_orden);
@@ -51,11 +57,14 @@ export function DetallesOrdenRepartidor({ id_orden }) {
       console.error(error);
     }
   };
+
+  // Efecto para cargar los detalles de la orden y dirección de envío
   useEffect(() => {
     cargarDetalleOrden();
     cargarDireccionEnvioOrden();
   }, []);
 
+  // Estados y función para cambiar el estado del envío
   const [opcionSeleccionadaEnvio, setOpcionSeleccionadaEnvio] = useState("");
   const opcionesEnvio = [
     "Pendiente",
@@ -65,11 +74,16 @@ export function DetallesOrdenRepartidor({ id_orden }) {
     "Devuelto",
     "Cancelado",
   ];
+
+  // Manejar el cambio de opción de estado del envío
   const handleCambioOpcionEnvio = (e) => {
     setOpcionSeleccionadaEnvio(e.target.value);
   };
+
+  // Cambiar el estado del envío
   const handleCambiarEstadoEnvio = async () => {
     try {
+      // Diálogo de confirmación
       const confirmResult = await Swal.fire({
         icon: "question",
         title: "Confirmar actualización",
@@ -83,6 +97,7 @@ export function DetallesOrdenRepartidor({ id_orden }) {
         const status = await cambiarEstadoEnvio(infoEnvio.id, {
           nuevoEstado: opcionSeleccionadaEnvio,
         });
+
         if (status === 200) {
           Swal.fire("Éxito", "Estado del envío actualizado", "success");
           cargarDireccionEnvioOrden();
@@ -112,6 +127,7 @@ export function DetallesOrdenRepartidor({ id_orden }) {
       console.error("Error al cambiar el estado del envío:", error);
     }
   };
+
   return (
     <Container className="detalles-orden-Repartidor">
       <div>
@@ -155,7 +171,7 @@ export function DetallesOrdenRepartidor({ id_orden }) {
                   <td>{detalle.cantidad}</td>
                   <td>$ {detalle.precio_unitario} MXN</td>
                   <td>
-                   $ {(detalle.precio_unitario * detalle.cantidad).toFixed(2)} MXN
+                    $ {(detalle.precio_unitario * detalle.cantidad).toFixed(2)} MXN
                   </td>
                 </tr>
               ))}

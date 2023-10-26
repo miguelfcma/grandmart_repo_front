@@ -4,12 +4,15 @@ import { ItemVentaCliente } from "./ItemVentasCliente";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FiltroVentas } from "./FiltroVentas";
 import { VentasReporteExcel } from "../../GeneracionDeReportes/VentasReporteExcel";
+
 export function ListaVentasCliente() {
+  // Obtener el usuario actual desde el almacenamiento local
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   const { obtenerVentasPorUsuarioId, ventasUser } = useOrdenes();
   const [ventasFiltradas, setVentasFiltradas] = useState([]);
   const [filtros, setFiltros] = useState({});
 
+  // Obtener las ventas del usuario
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,14 +24,17 @@ export function ListaVentasCliente() {
     fetchData();
   }, []);
 
+  // Manejador para aplicar filtros
   const handleFiltrarVentas = (filtros) => {
     setFiltros(filtros);
   };
 
+  // Manejador para limpiar los filtros
   const handleLimpiarFiltros = () => {
     setFiltros({});
   };
 
+  // Filtrar las ventas según los filtros seleccionados
   useEffect(() => {
     const ventasFiltradas = ventasUser.filter((venta) => {
       let cumplenFiltros = true;
@@ -55,19 +61,20 @@ export function ListaVentasCliente() {
     setVentasFiltradas(ventasFiltradas);
   }, [filtros, ventasUser]);
 
+  // Determinar qué ventas mostrar
   const ventasAMostrar = filtros ? ventasFiltradas : ventasUser;
 
+  // Atributos para excluir del reporte Excel
   const atributosExcluir = [];
+  
+  // Estructurar los datos de ventas para el reporte Excel
   const ventasEstructuradas = ventasAMostrar.flatMap((venta) => {
     const orden = venta.orden;
 
     return venta.productos.map((producto) => ({
       idOrden: orden.id.toString(),
-
       estadoOrden: orden.estado_orden,
-
       fechaVenta: orden.createdAt,
-
       totalVenta: venta.totalVenta.toString(),
       idProducto: producto.producto.id.toString(),
       nombreProducto: producto.producto.nombre,
@@ -77,11 +84,10 @@ export function ListaVentasCliente() {
     }));
   });
 
-  
-
   return (
     <Container>
       <h1>Historial de Ventas</h1>
+      {/* Componente de filtros */}
       <FiltroVentas
         handleFiltrarVentas={handleFiltrarVentas}
         handleLimpiarFiltros={handleLimpiarFiltros}
@@ -91,6 +97,7 @@ export function ListaVentasCliente() {
         <h1>No hay ventas registradas aún</h1>
       ) : (
         <Row>
+          {/* Botón para generar el reporte Excel */}
           <Button
             variant="primary"
             onClick={() =>
@@ -106,6 +113,7 @@ export function ListaVentasCliente() {
           </Button>
           {ventasAMostrar.map((venta) => (
             <Col key={venta.id} sm={12}>
+              {/* Componente para mostrar detalles de la venta */}
               <ItemVentaCliente venta={venta} />
             </Col>
           ))}

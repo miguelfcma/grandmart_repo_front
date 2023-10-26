@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
-import { Container, Row, Col, Button, Card, ListGroup,Image } from "react-bootstrap";
+import { Container, Row, Col, Button, Card, ListGroup, Image } from "react-bootstrap";
 import { useProductos } from "../../ProductoComponents/ProductosContext/ProductoProvider";
 import { useNavigate } from "react-router-dom";
 
+// Definición del componente "DetallesCompraAdmin"
 export function DetallesCompraAdmin({ id_orden }) {
-  const { obtenerDetalleOrden, obtenerDireccionEnvioOrden, cancelarOrdenDeCompra} = useOrdenes();
+  // Obtiene funciones del contexto de órdenes
+  const { obtenerDetalleOrden, obtenerDireccionEnvioOrden, cancelarOrdenDeCompra } = useOrdenes();
 
+  // Obtiene la función de navegación de React Router
   const navigate = useNavigate();
+
+  // Obtiene la función para obtener la imagen de portada del producto del contexto de productos
   const { getImgPortadaProducto } = useProductos();
+
+  // Estados locales para almacenar la información de la orden, la dirección de envío y las URLs de imágenes
   const [orden, setOrden] = useState({
     id: null,
     total: null,
@@ -18,16 +25,18 @@ export function DetallesCompraAdmin({ id_orden }) {
     fechaEntrega: null,
     detallesOrden: [],
   });
-
   const [direccionEnvio, setDireccionEnvio] = useState(null);
   const [urlImagenes, setUrlImagenes] = useState([]);
 
+  // Efecto de useEffect que se ejecuta al cargar el componente
   useEffect(() => {
+    // Función para obtener datos de la orden, detalles de la orden y dirección de envío
     const fetchData = async () => {
       try {
         const data = await obtenerDetalleOrden(id_orden);
         const data2 = await obtenerDireccionEnvioOrden(id_orden);
 
+        // Almacena la información de la orden y detalles de la orden en el estado
         setOrden({
           id: data.orden.id,
           total: data.orden.total,
@@ -37,11 +46,13 @@ export function DetallesCompraAdmin({ id_orden }) {
           fechaEntrega: data.orden.fechaEntrega,
           detallesOrden: data.detallesOrden,
         });
+        
+        // Almacena la dirección de envío en el estado
         setDireccionEnvio(data2.direccion_envio);
 
+        // Obtiene las URLs de las imágenes de los productos
         const promisesImagenes = data.detallesOrden.map(async (detalle) => {
           const url = await getImgPortadaProducto(detalle.producto.id);
-          console.log(url)
           return url;
         });
         const urlsImagenes = await Promise.all(promisesImagenes);
@@ -53,24 +64,26 @@ export function DetallesCompraAdmin({ id_orden }) {
     fetchData();
   }, []);
 
+  // Función para ver los detalles de un producto
   const handleVerDetalles = (productoId) => {
     navigate(`/productos/detalles/${productoId}`);
   };
 
+  // Función para opinar sobre un producto
   const handleOpinar = (productoId) => {
     navigate(`/dashClient/compras/opinar/${productoId}`);
   };
 
-
+  // Función para cancelar la orden de compra
   const handleCancelarOrdenDeCompra = async () => {
     try {
       await cancelarOrdenDeCompra(orden.id);
-
     } catch (error) {
       console.error("Error al eliminar orden", error);
     }
   };
 
+  // Renderiza el componente
   return (
     <Container className="detalles-orden-admin">
       {orden.detallesOrden.length > 0 && (

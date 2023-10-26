@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 export function FiltroVentas({ handleFiltrarVentas, handleLimpiarFiltros }) {
-  const [filtroEstado, setFiltroEstado] = useState("");
-  const [filtroTotalMin, setFiltroTotalMin] = useState("");
-  const [filtroTotalMax, setFiltroTotalMax] = useState("");
-  const [filtroID, setFiltroID] = useState("");
+  // Definición de estados locales para el formulario
+  const [filtroEstado, setFiltroEstado] = useState(""); // Estado de la venta
+  const [filtroTotalMin, setFiltroTotalMin] = useState(""); // Total mínimo
+  const [filtroTotalMax, setFiltroTotalMax] = useState(""); // Total máximo
+  const [filtroID, setFiltroID] = useState(""); // ID de venta
 
+  // Manejadores de eventos para actualizar los estados locales
   const handleEstadoChange = (e) => {
     setFiltroEstado(e.target.value);
   };
@@ -23,6 +25,7 @@ export function FiltroVentas({ handleFiltrarVentas, handleLimpiarFiltros }) {
     setFiltroID(e.target.value);
   };
 
+  // Manejador de evento para enviar el formulario de filtrado
   const handleSubmit = (e) => {
     e.preventDefault();
     const filtros = {
@@ -34,6 +37,7 @@ export function FiltroVentas({ handleFiltrarVentas, handleLimpiarFiltros }) {
     handleFiltrarVentas(filtros);
   };
 
+  // Manejador de evento para restablecer todos los filtros
   const handleLimpiarClick = () => {
     setFiltroEstado("");
     setFiltroTotalMin("");

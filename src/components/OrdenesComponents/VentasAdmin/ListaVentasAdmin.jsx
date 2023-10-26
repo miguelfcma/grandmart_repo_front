@@ -4,12 +4,21 @@ import { ItemVentaAdmin } from "./ItemVentaAdmin";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FiltroVentas } from "./FiltroVentas";
 import { VentasReporteExcel } from "../../GeneracionDeReportes/VentasReporteExcel";
+
 export function ListaVentasAdmin() {
+  // Obtenemos el usuario actual del almacenamiento local
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const { obtenerVentasPorUsuarioId, ventasUser } = useOrdenes();
+
+  // Importamos funciones y estado desde el contexto de órdenes
+  const { obtenerVentasPorUsuarioId, ventasUser } = useOrdenes;
+
+  // Estado para almacenar las ventas filtradas
   const [ventasFiltradas, setVentasFiltradas] = useState([]);
+
+  // Estado para gestionar los filtros aplicados
   const [filtros, setFiltros] = useState({});
 
+  // Efecto para obtener las ventas del usuario
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,18 +30,22 @@ export function ListaVentasAdmin() {
     fetchData();
   }, []);
 
+  // Función para manejar la acción de filtrar ventas
   const handleFiltrarVentas = (filtros) => {
     setFiltros(filtros);
   };
 
+  // Función para limpiar los filtros
   const handleLimpiarFiltros = () => {
     setFiltros({});
   };
 
+  // Efecto para filtrar las ventas en base a los filtros
   useEffect(() => {
     const ventasFiltradas = ventasUser.filter((venta) => {
       let cumplenFiltros = true;
 
+      // Aplicamos los filtros
       if (filtros.estado && venta.orden.estado_orden !== filtros.estado) {
         cumplenFiltros = false;
       }
@@ -55,19 +68,20 @@ export function ListaVentasAdmin() {
     setVentasFiltradas(ventasFiltradas);
   }, [filtros, ventasUser]);
 
+  // Determinar qué ventas mostrar (filtradas o no)
   const ventasAMostrar = filtros ? ventasFiltradas : ventasUser;
 
+  // Definir atributos a excluir del reporte Excel
   const atributosExcluir = [];
+
+  // Estructurar datos para el reporte Excel
   const ventasEstructuradas = ventasAMostrar.flatMap((venta) => {
     const orden = venta.orden;
 
     return venta.productos.map((producto) => ({
       idOrden: orden.id.toString(),
-
       estadoOrden: orden.estado_orden,
-
       fechaVenta: orden.createdAt,
-
       totalVenta: venta.totalVenta.toString(),
       idProducto: producto.producto.id.toString(),
       nombreProducto: producto.producto.nombre,
@@ -77,11 +91,14 @@ export function ListaVentasAdmin() {
     }));
   });
 
+  // Imprimir ventas estructuradas en la consola
   console.log(ventasEstructuradas);
 
   return (
     <Container>
       <h1>Historial de Ventas</h1>
+      
+      {/* Componente para filtrar ventas */}
       <FiltroVentas
         handleFiltrarVentas={handleFiltrarVentas}
         handleLimpiarFiltros={handleLimpiarFiltros}
@@ -91,6 +108,7 @@ export function ListaVentasAdmin() {
         <h1>No hay ventas registradas aún</h1>
       ) : (
         <Row>
+          {/* Botón para generar un reporte Excel de ventas */}
           <Button
             variant="primary"
             onClick={() =>
@@ -104,6 +122,8 @@ export function ListaVentasAdmin() {
             ></box-icon>
             Generar reporte (.xlsx)
           </Button>
+
+          {/* Mapeo y renderización de las ventas */}
           {ventasAMostrar.map((venta) => (
             <Col key={venta.id} sm={12}>
               <ItemVentaAdmin venta={venta} />

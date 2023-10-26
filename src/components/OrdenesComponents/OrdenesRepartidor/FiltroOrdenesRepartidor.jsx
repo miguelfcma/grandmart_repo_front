@@ -12,6 +12,7 @@ export function FiltroOrdenesRepartidor({
   setFiltroFechaFin,
   filtroOrden,
   setFiltroOrden,
+  handleLimpiarFiltros, // Esta función se llama al limpiar los filtros
 }) {
   const opcionesEstadoOrden = [
     "Pendiente",

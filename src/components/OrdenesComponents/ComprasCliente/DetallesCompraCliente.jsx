@@ -1,3 +1,4 @@
+// Importación de módulos y componentes de React
 import React, { useEffect, useState } from "react";
 import { useOrdenes } from "../OrdenesContext/OrdenProvider";
 import {
@@ -14,15 +15,18 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "../../OrdenesComponents/ComprasCliente/DetallesComprasCliente.css";
 
+// Definición del componente "DetallesCompraCliente"
 export function DetallesCompraCliente({ id_orden }) {
+  // Obtención de funciones y datos relacionados con las órdenes y productos
   const {
     obtenerDetalleOrden,
     obtenerDireccionEnvioOrden,
     cancelarOrdenDeCompra,
   } = useOrdenes();
-
   const navigate = useNavigate();
   const { getImgPortadaProducto } = useProductos();
+
+  // Estado local para almacenar información de la orden
   const [orden, setOrden] = useState({
     id: null,
     total: null,
@@ -32,16 +36,28 @@ export function DetallesCompraCliente({ id_orden }) {
     fechaEntrega: null,
     detallesOrden: [],
   });
+
+  // Estado local para el nuevo estado de la orden (cancelación)
   const [nuevoEstado, setNuevoEstado] = useState("");
+
+  // Estado local para la dirección de envío
   const [direccionEnvio, setDireccionEnvio] = useState(null);
+
+  // Estado local para las URL de las imágenes de los productos
   const [urlImagenes, setUrlImagenes] = useState([]);
+
+  // Estado local para la información de envío
   const [infoEnvio, setInfoEnvio] = useState("");
+
+  // Efecto de useEffect que se ejecuta al cargar el componente
   useEffect(() => {
+    // Función asincrónica para obtener información de la orden
     const fetchData = async () => {
       try {
         const data = await obtenerDetalleOrden(id_orden);
         const data2 = await obtenerDireccionEnvioOrden(id_orden);
 
+        // Actualiza el estado con los datos de la orden
         setOrden({
           id: data.orden.id,
           total: data.orden.total,
@@ -51,10 +67,13 @@ export function DetallesCompraCliente({ id_orden }) {
           fechaEntrega: data.orden.fechaEntrega,
           detallesOrden: data.detallesOrden,
         });
+
+        // Actualiza la información de envío y dirección de envío
         setInfoEnvio(data2.envio);
         setDireccionEnvio(data2.direccion_envio);
         setNuevoEstado(data.orden.estado_orden);
 
+        // Obtiene las URL de las imágenes de los productos
         const promisesImagenes = data.detallesOrden.map(async (detalle) => {
           const url = await getImgPortadaProducto(detalle.producto.id);
           console.log(url);
@@ -69,16 +88,20 @@ export function DetallesCompraCliente({ id_orden }) {
     fetchData();
   }, []);
 
+  // Función para ver detalles de un producto
   const handleVerDetalles = (productoId) => {
     navigate(`/productos/detalles/${productoId}`);
   };
 
+  // Función para ir a la página de opinión sobre un producto
   const handleOpinar = (productoId) => {
     navigate(`/dashClient/compras/detalles/${id_orden}/opinar/${productoId}`);
   };
 
+  // Función para cancelar una orden de compra
   const handleCancelarOrdenDeCompra = async () => {
     try {
+      // Muestra una ventana emergente de confirmación
       const confirmResult = await Swal.fire({
         icon: "question",
         title: "Confirmar cancelación",
@@ -89,6 +112,7 @@ export function DetallesCompraCliente({ id_orden }) {
       });
 
       if (confirmResult.isConfirmed) {
+        // Realiza la cancelación de la orden y maneja posibles respuestas
         const status = await cancelarOrdenDeCompra(orden.id);
         if (status === 200) {
           Swal.fire({
@@ -139,6 +163,7 @@ export function DetallesCompraCliente({ id_orden }) {
     }
   };
 
+  // Renderiza la información de la orden y los productos
   return (
     <Container className="detalles-orden-Repartidor">
       {orden.detallesOrden.length > 0 && (

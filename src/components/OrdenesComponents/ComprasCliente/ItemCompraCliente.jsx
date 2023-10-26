@@ -1,21 +1,28 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import "./ItemCompraCliente.css";
 import { Card, Button } from "react-bootstrap";
 import { FaWhatsapp } from "react-icons/fa";
 
 export function ItemCompraCliente({ orden }) {
+  // Extraer propiedades del objeto 'orden'
   const { id, total, estado_orden, id_usuario, createdAt, updatedAt } = orden;
+
+  // Obtener la función 'navigate' de React Router
   const navigate = useNavigate();
 
+  // Función para ver más detalles de la orden
   const verDetalles = () => {
     console.log("Ver más detalles del pedido: ", orden);
     navigate(`/dashClient/compras/detalles/${id}`);
   };
+
+  // Número de teléfono para WhatsApp y mensaje de texto
   const phoneNumber = "+527353424868";
   const text = `¡Hola! Me gustaría obtener más información sobre el estado de mi orden de compra con el ID: ${id}`;
 
+  // Función para generar un enlace de WhatsApp con el número y el mensaje
   function generateWhatsAppLink(phoneNumber, text) {
     const encodedPhoneNumber = encodeURIComponent(phoneNumber);
     const encodedText = encodeURIComponent(text);
@@ -23,6 +30,7 @@ export function ItemCompraCliente({ orden }) {
     return whatsappLink;
   }
 
+  // Generar el enlace de WhatsApp
   const whatsappLink = generateWhatsAppLink(phoneNumber, text);
 
   return (
@@ -38,7 +46,7 @@ export function ItemCompraCliente({ orden }) {
           {estado_orden}
         </Card.Text>
         <Card.Text className="fecha-pedido">
-          Fecha de pedido:{new Date(createdAt).toLocaleDateString()}
+          Fecha de pedido: {new Date(createdAt).toLocaleDateString()}
         </Card.Text>
         <Card.Text className="total-orden">$ {total} MXN</Card.Text>
         <Card.Text className="botones-orden">

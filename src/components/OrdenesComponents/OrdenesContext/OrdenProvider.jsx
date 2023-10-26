@@ -1,6 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 
+// Importa el contexto de órdenes definido en "OrdenContext.js"
 import { OrdenContext } from "./OrdenContext";
+// Importa las funciones para interactuar con una API de órdenes
 import {
   crearOrdenRequest,
   obtenerTodasLasOrdenesConDetallesRequest,
@@ -16,9 +18,11 @@ import {
   obtenerInformacionPagoRequest
 } from "../../../API/OrdenesApiRest/ordenes.api";
 
+// Definición de un gancho personalizado para acceder al contexto de órdenes
 export const useOrdenes = () => {
   const context = useContext(OrdenContext);
   if (context === undefined) {
+    // Si el contexto es nulo, se lanza un error
     throw new Error(
       "useOrdenes debe ser utilizado dentro de un OrdenContextProvider"
     );
@@ -26,15 +30,21 @@ export const useOrdenes = () => {
   return context;
 };
 
+// Definición del proveedor del contexto de órdenes
 export const OrdenContextProvider = ({ children }) => {
+  // Estados para almacenar órdenes y ventas
   const [ordenesAll, setOrdenesAll] = useState([]);
   const [ordenesUser, setOrdenesUser] = useState([]);
   const [ventasUser, setVentasUser] = useState([]);
+
+  // Función para borrar los datos de órdenes al cerrar sesión
   const cerrarSesionOrdenes = () => {
     setOrdenesAll([]);
     setOrdenesUser([]);
     setVentasUser([]);
   };
+
+  // Función para crear una nueva orden
   const crearOrden = async (data) => {
     try {
       const response = await crearOrdenRequest(data);
@@ -44,6 +54,7 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
 
+  // Función para obtener las ventas de un usuario por su ID
   const obtenerVentasPorUsuarioId = async (id_usuario) => {
     try {
       const response = await obtenerVentasPorUsuarioRequest(id_usuario);
@@ -58,6 +69,7 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
 
+  // Función para obtener las compras de un usuario por su ID
   const obtenerComprasPorIdUsuario = async (id_usuario) => {
     try {
       const response = await obtenerComprasPorIdUsuarioRequest(id_usuario);
@@ -73,6 +85,7 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
 
+   // Función para obtener todas las ordenes
   const obtenerTodasLasOrdenesConDetalles = async () => {
     try {
       const response = await obtenerTodasLasOrdenesConDetallesRequest();
@@ -182,6 +195,7 @@ export const OrdenContextProvider = ({ children }) => {
     }
   };
 
+  // El contexto proporciona las funciones y estados a los componentes hijos
   return (
     <OrdenContext.Provider
       value={{

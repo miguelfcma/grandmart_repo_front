@@ -1,7 +1,16 @@
 import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
-export function FiltroComprasCliente({ filtroUsuario, setFiltroUsuario, filtroEstadoOrden, setFiltroEstadoOrden, filtroFechaInicio, setFiltroFechaInicio, filtroFechaFin, setFiltroFechaFin, filtroOrden, setFiltroOrden }) {
+export function FiltroComprasCliente({
+  filtroUsuario,            // Propiedad para el filtro por ID de usuario
+  setFiltroUsuario,         // Función para actualizar el filtro de ID de usuario
+  filtroEstadoOrden,        // Propiedad para el filtro por estado de orden
+  setFiltroEstadoOrden,     // Función para actualizar el filtro de estado de orden
+  filtroFechaInicio,        // Propiedad para el filtro por fecha de inicio
+  setFiltroFechaInicio,     // Función para actualizar el filtro de fecha de inicio
+  filtroFechaFin,           // Propiedad para el filtro por fecha de fin
+  setFiltroFechaFin         // Función para actualizar el filtro de fecha de fin
+}) {
   return (
     <Container>
       <Row>

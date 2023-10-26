@@ -3,17 +3,21 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Table, Image, Button } from "react-bootstrap";
 import "./DetalleDeProductos.css";
+
 export function DetalleDeProductos({ enviarDetallesCarrito }) {
-  const { carrito, obtenerCarritoDeCompras, getImgPortadaProducto } =
-    useProductos();
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const [imgUrls, setImgUrls] = useState({});
-  const navigate = useNavigate();
-  // Verificar si el usuario ha iniciado sesión antes de obtener el carrito de compras
+  const { carrito, obtenerCarritoDeCompras, getImgPortadaProducto } = useProductos();  // Utiliza el contexto de Productos para obtener datos relacionados con el carrito
+
+  const usuario = JSON.parse(localStorage.getItem("usuario"));  // Obtiene información del usuario desde el almacenamiento local
+
+  const [imgUrls, setImgUrls] = useState({});  // Estado para almacenar URLs de imágenes de productos
+
+  const navigate = useNavigate();  // Permite la navegación en la aplicación
+
+  // Verifica si el usuario ha iniciado sesión antes de obtener el carrito de compras
   useEffect(() => {
     const fetchData = async (userId) => {
       try {
-        await obtenerCarritoDeCompras(userId);
+        await obtenerCarritoDeCompras(userId);  // Carga los detalles del carrito de compras del usuario
       } catch (error) {
         console.error(error);
       }
@@ -23,6 +27,8 @@ export function DetalleDeProductos({ enviarDetallesCarrito }) {
       fetchData(usuario.id);
     }
   }, []);
+
+  // Obtiene las URLs de las imágenes de los productos y calcula el total del carrito
   useEffect(() => {
     async function obtenerUrlImagenAsync(idProducto) {
       const url = await getImgPortadaProducto(idProducto);
@@ -47,8 +53,9 @@ export function DetalleDeProductos({ enviarDetallesCarrito }) {
       descripcion: descripcionProductos,
       total: totalCarrito,
     };
-    enviarDetallesCarrito(detallesCarrito);
+    enviarDetallesCarrito(detallesCarrito);  // Envía los detalles del carrito al componente padre
   }, [carrito, imgUrls, getImgPortadaProducto]);
+
   return (
     <Container className="contenedor-productos-detalles">
       <h1
@@ -86,7 +93,7 @@ export function DetalleDeProductos({ enviarDetallesCarrito }) {
                     className="card-producto-img2"
                     src={imgUrls[item.producto.id] || ""}
                   />{" "}
-                  {/* Usamos el estado local para obtener la imagen de portada */}
+                  {/* Usa el estado local para obtener la imagen de portada */}
                 </Link>
               </td>
               <td className="prices">$ {item.producto.precio} MXN</td>

@@ -5,7 +5,9 @@ import "./DetallesOrdenAdmin.css";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 export function DetallesOrdenAdmin({ id_orden }) {
+  // Obtener la función 'navigate' de React Router
   const navigate = useNavigate();
+  // Obtener funciones y datos relacionados a las órdenes
   const {
     obtenerDetalleOrden,
     cambiarEstadoOrden,
@@ -14,6 +16,8 @@ export function DetallesOrdenAdmin({ id_orden }) {
     eliminarOrden,
     obtenerInformacionPago,
   } = useOrdenes();
+
+  // Estado local para almacenar los detalles de la orden
   const [orden, setOrden] = useState({
     id: null,
     total: null,
@@ -23,9 +27,14 @@ export function DetallesOrdenAdmin({ id_orden }) {
     fechaEntrega: null,
     detallesOrden: [],
   });
+  // Estado local para almacenar la información de pago
   const [pago, setPago] = useState(null);
+  // Estado local para almacenar la dirección de envío
   const [direccionEnvio, setDireccionEnvio] = useState(null);
+  // Estado local para almacenar la información del envío
   const [infoEnvio, setInfoEnvio] = useState("");
+
+  // Función para cargar los detalles de la orden
   const cargarDetalleOrden = async () => {
     try {
       const data = await obtenerDetalleOrden(id_orden);
@@ -43,7 +52,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
       console.error(error);
     }
   };
-
+  // Función para cargar la dirección de envío de la orden
   const cargarDireccionEnvioOrden = async () => {
     try {
       const data2 = await obtenerDireccionEnvioOrden(id_orden);
@@ -65,16 +74,24 @@ export function DetallesOrdenAdmin({ id_orden }) {
     }
   };
   useEffect(() => {
+    // Cargar los detalles de la orden, la dirección de envío y la información de pago cuando se monta el componente
     cargarDetalleOrden();
     cargarDireccionEnvioOrden();
     cargarInformacionPago();
   }, []);
 
+  // Estado local para almacenar la opción seleccionada para el estado de la orden
   const [opcionSeleccionadaOrden, setOpcionSeleccionadaOrden] = useState("");
+
+  // Opciones disponibles para el estado de la orden
   const opcionesOrden = ["Pendiente", "En proceso", "Cancelada", "Completada"];
+
+  // Manejar cambios en la opción seleccionada para el estado de la orden
   const handleCambioOpcionOrden = (e) => {
     setOpcionSeleccionadaOrden(e.target.value);
   };
+
+   // Función para cambiar el estado de la orden
   const handleCambiarEstadoOrden = async () => {
     try {
       if (!opcionSeleccionadaOrden) {
@@ -126,7 +143,10 @@ export function DetallesOrdenAdmin({ id_orden }) {
     }
   };
 
+  // Estado local para almacenar la opción seleccionada para el estado del envío
   const [opcionSeleccionadaEnvio, setOpcionSeleccionadaEnvio] = useState("");
+
+  // Opciones disponibles para el estado del envío
   const opcionesEnvio = [
     "Pendiente",
     "En tránsito",
@@ -135,9 +155,13 @@ export function DetallesOrdenAdmin({ id_orden }) {
     "Devuelto",
     "Cancelado",
   ];
+
+  // Manejar cambios en la opción seleccionada para el estado del envío
   const handleCambioOpcionEnvio = (e) => {
     setOpcionSeleccionadaEnvio(e.target.value);
   };
+
+  // Función para cambiar el estado del envío
   const handleCambiarEstadoEnvio = async () => {
     try {
       if (!opcionSeleccionadaEnvio) {
@@ -190,6 +214,8 @@ export function DetallesOrdenAdmin({ id_orden }) {
       console.error("Error al cambiar el estado del envío:", error);
     }
   };
+
+  // Función para eliminar la orden
   const handleEliminarOrden = async () => {
     try {
       const confirmation = await Swal.fire({
@@ -226,6 +252,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
 
   return (
     <Container className="detalles-orden-admin">
+      {/* Sección para mostrar detalles de la orden */}
       <div>
         <h1 className="infoEnvio-titulo">Orden:</h1>
         <Row className="orden-row">
@@ -260,9 +287,11 @@ export function DetallesOrdenAdmin({ id_orden }) {
         </Row>
       </div>
 
+      {/* Sección para mostrar detalles de la orden, detalles de pago y dirección de envío */}
       {orden.detallesOrden.length > 0 && (
         <div>
           <h1 className="detalles-orden-titulo">Detalles de la Orden:</h1>
+          {/* Tabla para mostrar detalles de la orden */}
           <Table striped bordered responsive className="detalles-orden-table">
             <thead>
               <tr>
@@ -291,6 +320,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
             </tbody>
           </Table>
 
+          {/* Sección para mostrar detalles del pago */}
           {pago && (
             <div>
               <h1 className="infoEnvio-titulo">Detalles del pago:</h1>
@@ -303,6 +333,8 @@ export function DetallesOrdenAdmin({ id_orden }) {
               </Row>
             </div>
           )}
+
+          {/* Sección para mostrar detalles de envío */}
           {infoEnvio && (
             <div>
               <h1 className="infoEnvio-titulo">Envío:</h1>
@@ -331,6 +363,7 @@ export function DetallesOrdenAdmin({ id_orden }) {
               </Row>
             </div>
           )}
+          {/* Sección para mostrar detalles de la dirección de envío */}
           <h1 className="detalles-orden-titulo">Dirección del envío:</h1>
           {direccionEnvio && (
             <div>
