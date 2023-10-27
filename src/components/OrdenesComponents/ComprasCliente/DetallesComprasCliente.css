@@ -12,7 +12,8 @@
   
   .orden-row {
     margin-bottom: 30px;
-    margin-left: 10px;
+    margin-left: 10px !important;
+    font-size: 23px;
   }
   
   .detalles-orden-titulo {
@@ -32,7 +33,7 @@
     
   .producto-card {
     width: 400px; /* Tamaño ancho fijo para las tarjetas */
-    height: 600px;
+    height: 600px !important;
   }
 
   /*Contenido dentro de las tarjetas */
