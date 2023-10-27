@@ -29,7 +29,7 @@ export const deletePublicacionPorIdUsuarioRequest = async (
 ) => {
   try {
     const response = await axios.post(
-      `${API_BASE_URL}blog-publicaciones/elminar/${id_usuario}`,
+      `${API_BASE_URL}blog-publicaciones//${id_usuario}`,
       { id: id_publicacionBlog }
     );
 

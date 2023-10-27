@@ -94,7 +94,47 @@ export function ListaProductoConDenunciasAdmin() {
 
   // Función para generar un reporte de denuncias de productos en formato Excel
   const generarReporte = () => {
-    // ... (código para generar el reporte)
+    const formattedData = Object.values(denunciasPorProducto)
+      .map((productoDenuncia) => {
+        const { producto, denuncias } = productoDenuncia;
+        return denuncias.map((denuncia) => {
+          const {
+            id,
+            motivo,
+            descripcion,
+            revisar,
+            createdAt,
+            updatedAt,
+            usuario,
+            usuarioProducto,
+          } = denuncia;
+
+          const nombreDenunciante = `${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`;
+          const nombrePropietario = `${usuarioProducto.nombre} ${usuarioProducto.apellidoPaterno} ${usuarioProducto.apellidoMaterno}`;
+
+          return {
+            "ID  de denuncia": id,
+            Motivo: motivo,
+            Descripción: descripcion,
+            "ID denunciante": usuario.id,
+            "Nombre denunciante": nombreDenunciante,
+            "ID Producto": producto.id,
+            "Nombre Producto": producto.nombre,
+            "ID propietario": producto.id_usuario,
+            "Nombre propietario": nombrePropietario,
+            Revisada: revisar ? "SI" : "NO",
+            "Fecha creación": createdAt,
+            "Fecha actualización": updatedAt,
+          };
+        });
+      })
+      .flat();
+
+    // Ordenar los datos por el ID de denuncias de menor a mayor
+    formattedData.sort((a, b) => a["ID  de denuncia"] - b["ID  de denuncia"]);
+
+    const atributosExcluir = ["updatedAt"];
+    denunciasReporteExcel(formattedData, atributosExcluir);
   };
 
   // Obtiene todas las denuncias de servicios y las organiza por servicio
@@ -139,7 +179,49 @@ export function ListaProductoConDenunciasAdmin() {
 
   // Función para generar un reporte de denuncias de servicios en formato Excel
   const generarReporteServicios = () => {
-    // ... (código para generar el reporte de servicios)
+    console.log(denunciasPorServicio);
+
+    const formattedData = Object.values(denunciasPorServicio)
+      .map((servicioDenuncia) => {
+        const { servicio, denuncias } = servicioDenuncia;
+        return denuncias.map((denuncia) => {
+          const {
+            id,
+            motivo,
+            descripcion,
+            revisar,
+            createdAt,
+            updatedAt,
+            usuario,
+            usuarioServicio,
+          } = denuncia;
+
+          const nombreDenunciante = `${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}`;
+          const nombrePropietario = `${usuarioServicio.nombre} ${usuarioServicio.apellidoPaterno} ${usuarioServicio.apellidoMaterno}`;
+
+          return {
+            "ID  de denuncia": id,
+            Motivo: motivo,
+            Descripción: descripcion,
+            "ID denunciante": usuario.id,
+            "Nombre denunciante": nombreDenunciante,
+            "ID Servicio": servicio.id,
+            "Título Servicio": servicio.titulo,
+            "ID propietario": servicio.id_usuario,
+            "Nombre propietario": nombrePropietario,
+            Revisada: revisar ? "SI" : "NO",
+            "Fecha creación": createdAt,
+            "Fecha actualización": updatedAt,
+          };
+        });
+      })
+      .flat();
+
+    // Ordenar los datos por el ID de denuncias de menor a mayor
+    formattedData.sort((a, b) => a["ID  de denuncia"] - b["ID  de denuncia"]);
+
+    const atributosExcluir = ["updatedAt"];
+    denunciasServiciosReporteExcel(formattedData, atributosExcluir);
   };
 
   // Función para eliminar una denuncia de servicio

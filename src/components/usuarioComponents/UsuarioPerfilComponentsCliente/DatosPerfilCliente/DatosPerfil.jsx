@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "../../../ModalComponents/Modal";
 import { FormEditarPerfil } from "./FormEditarPerfil";
 import Swal from "sweetalert2";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { useUsuarios } from "../../UsuariosContext/UsuarioProvider";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -111,7 +111,7 @@ export function DatosPerfil() {
       <h2>Información de la cuenta</h2>
       {perfil && (
         <Card style={{ width: "auto" }}>
-         <Card.Body>
+          <Card.Body>
             <div>
               <label>ID:</label>
               <p>{perfil.id}</p>
@@ -141,14 +141,15 @@ export function DatosPerfil() {
               <p>{perfil.fechaNacimiento}</p>
             </div>
             <div>
-              <label>Teléfono:</label>
-              <p>{perfil.telefono}</p>
-              <button onClick={handleEditarPerfilClick}>
+              <Button variant="primary" onClick={handleEditarPerfilClick}>
                 Editar información
-              </button>
+              </Button>
             </div>
+            <br />
             <div>
-              <button onClick={handleEliminarCuenta}>Eliminar cuenta</button>
+              <Button variant="danger" onClick={handleEliminarCuenta}>
+                Eliminar cuenta
+              </Button>
             </div>
           </Card.Body>
         </Card>

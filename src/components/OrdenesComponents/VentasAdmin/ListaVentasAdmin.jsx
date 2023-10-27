@@ -10,7 +10,7 @@ export function ListaVentasAdmin() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
   // Importamos funciones y estado desde el contexto de órdenes
-  const { obtenerVentasPorUsuarioId, ventasUser } = useOrdenes;
+  const { obtenerVentasPorUsuarioId, ventasUser } = useOrdenes();
 
   // Estado para almacenar las ventas filtradas
   const [ventasFiltradas, setVentasFiltradas] = useState([]);
