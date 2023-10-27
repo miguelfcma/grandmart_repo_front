@@ -75,7 +75,7 @@
     .login-form-links {
       margin-top: 20px;
       color: #555555;
-      font-size: 14px;
+      font-size: 14px !important;
       display: flex;
       align-items: center;
     }
@@ -83,7 +83,8 @@
     .login-links a {
       color: #1c6bc3;
       transition: color 0.3s ease;
-      margin-right: 10px;
+      margin-right: 40px !important;
+      font-size: 19px !important;
       text-decoration: none;
     }
     
@@ -104,6 +105,7 @@
       border-radius: 5px;
       font-size: 16px;
       cursor: pointer;
+      margin-top: -5px !important;
       }    
       
       .back-button:hover {
